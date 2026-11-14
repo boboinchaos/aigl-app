@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#07090D">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AIGL">
+<meta name="robots" content="noindex, nofollow">
+<title>AIGL Command Center</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icons/favicon-32.png">
+<style>html,body{margin:0;height:100%;background:#07090D;overflow:hidden}iframe{border:0;width:100%;height:100%;display:block}</style>
+</head>
+<body>
+<iframe id="app" allow="microphone; clipboard-write" title="AIGL Command Center"></iframe>
+<script>
+// app.aigl.dev: AIGL's own address for the Command Center (Apps Script web app inside).
+// Passes ?setup= (one-time link) and ?d= (device sign-in) through, and remembers ?d= so
+// the home-screen icon and plain app.aigl.dev keep working.
+(function () {
+  var EXEC = 'https://script.google.com/macros/s/AKfycbzrQC1lxsNo2-ktcnXp-H_SyL2aGbGtlSzI_FcmXdioRfkDYoo-en59SqmC0seaiuGnEg/exec';
+  var q = new URLSearchParams(location.search), out = new URLSearchParams();
+  var setup = q.get('setup') || '', d = q.get('d') || '';
+  var KEY = 'aigl_cc_device';
+  try {
+    if (/^[a-f0-9]{48,96}$/.test(d)) localStorage.setItem(KEY, d);
+    else d = localStorage.getItem(KEY) || '';
+  } catch (e) {}
+  if (/^[a-f0-9]{32}$/.test(setup)) out.set('setup', setup);
+  else if (d) out.set('d', d);
+  var s = out.toString();
+  document.getElementById('app').src = EXEC + (s ? '?' + s : '');
+  // keep secrets out of the visible address bar / history
+  if (location.search) history.replaceState(null, '', location.pathname);
+})();
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function(){});
+</script>
+</body>
+</html>

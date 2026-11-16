@@ -62,8 +62,8 @@ body::before{content:"";position:fixed;inset:-40%;z-index:0;background:
   <div class="card">
     <div class="logo"><span class="mark">AI</span><b>AI GO <span>LONG</span></b></div>
     <div class="name">Jason Bourbeau</div>
-    <div class="role">Founder &middot; AI Go Long (AIGL)</div>
-    <div class="tag">We integrate and educate on AI tools, safety, and automated systems for your workflow.</div>
+    <div class="role">AI Technology Officer</div>
+    <div class="tag" style="font-size:16px;letter-spacing:2px;color:var(--green);font-weight:700;text-transform:uppercase">Go Long</div>
 
     <div class="actions">
       <button class="btn save wide" id="save"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:19px;height:19px"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Save to my contacts</button>
@@ -94,7 +94,7 @@ document.getElementById('sheetx').addEventListener('click',function(){sheet.clas
 sheet.addEventListener('click',function(e){if(e.target===sheet)sheet.classList.remove('on');});
 document.getElementById('save').addEventListener('click',function(){
   var v=["BEGIN:VCARD","VERSION:3.0","N:Bourbeau;Jason;;;","FN:Jason Bourbeau",
-    "ORG:AI Go Long (AIGL)","TITLE:Founder",
+    "ORG:AI Go Long (AIGL)","TITLE:AI Technology Officer",
     "TEL;TYPE=CELL:+1-205-203-8377",
     "EMAIL;TYPE=WORK:jason@aigl.dev",
     "URL:https://aigl.dev",

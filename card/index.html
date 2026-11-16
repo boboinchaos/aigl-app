@@ -3,15 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#07090D">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Jason · AIGL">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" href="../icons/favicon-32.png">
+<link rel="manifest" href="card.webmanifest">
 <title>Jason Bourbeau · AI Go Long</title>
 <style>
 :root{--bg:#07090D;--card:#10151d;--line:#222c38;--ink:#eef2f7;--soft:#9fb0c2;--green:#2EE08A;--green2:#15c773;--accent:#4C8DFF}
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;background:radial-gradient(1200px 600px at 50% -10%,#13203a,#07090D 60%);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;-webkit-text-size-adjust:100%}
-.wrap{max-width:440px;margin:0 auto;padding:26px 18px 40px;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
-.card{background:linear-gradient(180deg,#121823,#0d1219);border:1px solid var(--line);border-radius:24px;padding:30px 24px;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+body::before{content:"";position:fixed;inset:-40%;z-index:0;background:
+  radial-gradient(520px 520px at 18% 12%,rgba(46,224,138,.16),transparent 60%),
+  radial-gradient(560px 560px at 82% 88%,rgba(76,141,255,.14),transparent 62%);
+  filter:blur(8px);animation:drift 16s ease-in-out infinite alternate}
+@keyframes drift{from{transform:translate3d(-3%,-2%,0) scale(1)}to{transform:translate3d(3%,2%,0) scale(1.08)}}
+.wrap{position:relative;z-index:1;max-width:440px;margin:0 auto;padding:26px 18px 40px;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.card{position:relative;background:linear-gradient(180deg,#141b27,#0c1118);border:1px solid rgba(120,160,200,.16);border-radius:24px;padding:30px 24px;
+  box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 0 1px rgba(46,224,138,.05),inset 0 1px 0 rgba(255,255,255,.04);overflow:hidden}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--green),var(--accent),transparent);opacity:.9}
+.card::after{content:"";position:absolute;inset:0;border-radius:24px;padding:1px;background:linear-gradient(160deg,rgba(46,224,138,.5),transparent 35%,transparent 70%,rgba(76,141,255,.35));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;opacity:.6}
 .logo{display:flex;align-items:center;gap:11px;justify-content:center;margin-bottom:22px}
-.mark{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,var(--green),var(--green2));display:grid;place-items:center;color:#04110a;font-weight:900;font-size:19px}
+.mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--green),var(--green2));display:grid;place-items:center;color:#04110a;font-weight:900;font-size:19px;box-shadow:0 0 30px rgba(46,224,138,.55),inset 0 1px 1px rgba(255,255,255,.4)}
 .logo b{font-size:17px;letter-spacing:3px;color:#cfe6d9}
 .logo b span{color:var(--green)}
 .name{text-align:center;font-size:30px;font-weight:800;margin:4px 0 2px}
@@ -69,7 +84,7 @@ html,body{margin:0;min-height:100%;background:radial-gradient(1200px 600px at 50
   <div class="sheet-card">
     <h3>How do you want to connect?</h3>
     <a class="opt now" href="tel:+12052038377"><b>📞 Talk now</b><span>Our AI assistant answers 24/7 and takes your info.</span></a>
-    <a class="opt time" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2NimZshA7XqXAeU11KVxC4PWL5CeZWcUv72uRMIWqhXS8qWj9ME8QiVft8FQxKUEoGkWzL0NM8"><b>📅 Pick a time</b><span>Schedule a call with Jason.</span></a>
+    <a class="opt time" href="../book/"><b>📅 Pick a time</b><span>See my open slots and book in seconds.</span></a>
     <button class="sheet-x" id="sheetx">Cancel</button>
   </div>
 </div>

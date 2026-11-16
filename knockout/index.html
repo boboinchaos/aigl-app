@@ -13,7 +13,7 @@ html,body{margin:0;background:#dfe6ec}
 .frame{max-width:430px;margin:0 auto;background:#fff;min-height:100vh}
 .frame img{width:100%;display:block;margin-top:29px}
 /* widget */
-#aigl-launch{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:500;display:flex;align-items:center;gap:9px;background:#E23A34;color:#fff;border:0;border-radius:99px;padding:11px 18px 11px 12px;font:800 15px system-ui;cursor:pointer;box-shadow:0 10px 26px rgba(226,58,52,.5)}
+#aigl-launch{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:500;display:flex;align-items:center;gap:9px;white-space:nowrap;background:#E23A34;color:#fff;border:0;border-radius:99px;padding:12px 20px 12px 14px;font:800 15px system-ui;cursor:pointer;box-shadow:0 10px 26px rgba(226,58,52,.5)}
 #aigl-launch .g{width:28px;height:28px;background:#fff;border-radius:50% 50% 50% 9px;position:relative}
 #aigl-launch .g:before{content:"";position:absolute;width:9px;height:11px;background:#fff;border-radius:6px;left:-4px;top:9px}
 #aigl-chat{position:fixed;right:14px;bottom:14px;width:360px;max-width:calc(100vw - 20px);height:544px;max-height:calc(100vh - 44px);background:#fff;border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,.35);display:none;flex-direction:column;overflow:hidden;z-index:500;font-family:system-ui,sans-serif}
@@ -39,7 +39,7 @@ html,body{margin:0;background:#dfe6ec}
 <div class="demobar">DEMO &mdash; Knockout's real site with an <b>AI Go Long</b> chat assistant added. Tap the red button.</div>
 <div class="frame"><img src="site.jpg" alt="Knockout Inspections website"></div>
 
-<button id="aigl-launch"><span class="g"></span>Got a quick question? Chat 24/7</button>
+<button id="aigl-launch"><span class="g"></span>Chat with us 24/7</button>
 <div id="aigl-chat">
   <div class="aat"><span class="g"></span><div><h4>KO Assistant</h4><small>&#9679; Online now &middot; answers 24/7</small></div><button class="aax" id="aigl-x">&times;</button></div>
   <div class="aab" id="aab"></div><div class="aaq" id="aaq"></div>
@@ -84,8 +84,8 @@ function fin(tail){say("Perfect — you're all set! ✅",function(){say("I've se
   <button id="aigl-hang">End call</button>
 </div>
 <style>
-#aigl-voice{position:fixed;left:50%;transform:translateX(-50%);bottom:70px;z-index:500;display:flex;align-items:center;gap:9px;
-  background:#0E2233;color:#fff;border:0;border-radius:99px;padding:11px 18px;font:800 15px system-ui;cursor:pointer;box-shadow:0 10px 26px rgba(14,34,51,.5)}
+#aigl-voice{position:fixed;left:50%;transform:translateX(-50%);bottom:72px;z-index:500;display:flex;align-items:center;gap:9px;white-space:nowrap;
+  background:#0E2233;color:#fff;border:0;border-radius:99px;padding:12px 20px;font:800 15px system-ui;cursor:pointer;box-shadow:0 10px 26px rgba(14,34,51,.5)}
 #aigl-voice .mic{font-size:17px}
 #aigl-call{position:fixed;inset:0;z-index:700;background:rgba(6,14,22,.93);display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:#fff;font-family:system-ui,sans-serif;text-align:center;padding:24px}
 #aigl-call.on{display:flex}

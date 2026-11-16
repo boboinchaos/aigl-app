@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Knockout Inspections — AIGL Chat Demo</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#dfe6ec}
+.demobar{position:fixed;top:0;left:0;right:0;z-index:600;background:#111;color:#fff;font:600 12.5px system-ui,sans-serif;text-align:center;padding:6px 12px}
+.demobar b{color:#F4B63F}
+.frame{max-width:430px;margin:0 auto;background:#fff;min-height:100vh}
+.frame img{width:100%;display:block;margin-top:29px}
+/* widget */
+#aigl-launch{position:fixed;left:50%;transform:translateX(-50%);top:40px;z-index:500;display:flex;align-items:center;gap:9px;background:#E23A34;color:#fff;border:0;border-radius:99px;padding:11px 18px 11px 12px;font:800 15px system-ui;cursor:pointer;box-shadow:0 10px 26px rgba(226,58,52,.5)}
+#aigl-launch .g{width:28px;height:28px;background:#fff;border-radius:50% 50% 50% 9px;position:relative}
+#aigl-launch .g:before{content:"";position:absolute;width:9px;height:11px;background:#fff;border-radius:6px;left:-4px;top:9px}
+#aigl-chat{position:fixed;right:14px;bottom:14px;width:360px;max-width:calc(100vw - 20px);height:544px;max-height:calc(100vh - 44px);background:#fff;border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,.35);display:none;flex-direction:column;overflow:hidden;z-index:500;font-family:system-ui,sans-serif}
+#aigl-chat.on{display:flex}
+.aat{background:#0E2233;color:#fff;padding:13px 15px;display:flex;align-items:center;gap:10px}
+.aat .g{width:30px;height:30px;background:#E23A34;border-radius:50% 50% 50% 10px;position:relative}
+.aat .g:before{content:"";position:absolute;width:10px;height:12px;background:#E23A34;border-radius:6px;left:-4px;top:9px}
+.aat h4{margin:0;font:700 15px system-ui}.aat small{color:#8fd0ff;font-size:11.5px}
+.aax{margin-left:auto;background:0;border:0;color:#fff;font-size:21px;cursor:pointer}
+.aab{flex:1;overflow-y:auto;padding:14px;background:#f3f7fb;display:flex;flex-direction:column;gap:9px}
+.aam{max-width:85%;padding:9px 12px;border-radius:13px;font-size:14px;line-height:1.4;white-space:pre-wrap}
+.aamb{background:#fff;border:1px solid #e3eaf1;align-self:flex-start;border-bottom-left-radius:3px}
+.aamm{background:#0E2233;color:#fff;align-self:flex-end;border-bottom-right-radius:3px}
+.aaq{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 9px;background:#f3f7fb}
+.aaq button{background:#fff;border:1px solid #E23A34;color:#c22d28;font:700 12.5px system-ui;padding:6px 11px;border-radius:99px;cursor:pointer}
+.aaf{display:flex;gap:7px;padding:10px;border-top:1px solid #e3eaf1;background:#fff}
+.aaf input{flex:1;border:1px solid #e3eaf1;border-radius:9px;padding:10px;font-size:14px;outline:0}
+.aaf button{background:#E23A34;border:0;color:#fff;font-weight:800;border-radius:9px;padding:0 14px;cursor:pointer}
+.aafoot{text-align:center;font-size:10.5px;color:#64748b;padding:6px;background:#fff}
+</style>
+</head>
+<body>
+<div class="demobar">DEMO &mdash; Knockout's real site with an <b>AI Go Long</b> chat assistant added. Tap the red button.</div>
+<div class="frame"><img src="site.jpg" alt="Knockout Inspections website"></div>
+
+<button id="aigl-launch"><span class="g"></span>Got a quick question? Chat 24/7</button>
+<div id="aigl-chat">
+  <div class="aat"><span class="g"></span><div><h4>KO Assistant</h4><small>&#9679; Online now &middot; answers 24/7</small></div><button class="aax" id="aigl-x">&times;</button></div>
+  <div class="aab" id="aab"></div><div class="aaq" id="aaq"></div>
+  <form class="aaf" id="aaf"><input id="aain" placeholder="Type your question&hellip;" autocomplete="off"><button type="submit">Send</button></form>
+  <div class="aafoot">Powered by <b style="color:#c22d28">AI Go Long</b> &middot; demo</div>
+</div>
+<script>
+(function(){
+var L=document.getElementById('aigl-launch'),C=document.getElementById('aigl-chat'),body=document.getElementById('aab'),qd=document.getElementById('aaq');
+var started=false,bk=null,lead={};
+function add(t,w){var d=document.createElement('div');d.className='aam '+(w||'aamb');d.textContent=t;body.appendChild(d);body.scrollTop=body.scrollHeight;}
+function say(t,cb){var p=document.createElement('div');p.className='aam aamb';p.textContent='…';body.appendChild(p);body.scrollTop=body.scrollHeight;setTimeout(function(){p.remove();add(t,'aamb');if(cb)cb();},650+Math.min(700,t.length*8));}
+function q(a){qd.innerHTML='';(a||[]).forEach(function(x){var b=document.createElement('button');b.textContent=x;b.onclick=function(){h(x);};qd.appendChild(b);});}
+function open(){C.classList.add('on');L.style.display='none';if(!started){started=true;say("Hey there! 👋 You've reached Knockout Inspections. I can answer questions and book your inspection any time, day or night. What do you need?",function(){q(['Schedule an inspection','How much is it?','What is FORTIFIED?']);});}setTimeout(function(){document.getElementById('aain').focus();},200);}
+L.onclick=open;document.getElementById('aigl-x').onclick=function(){C.classList.remove('on');L.style.display='flex';};
+document.getElementById('aaf').addEventListener('submit',function(e){e.preventDefault();var v=document.getElementById('aain').value.trim();if(!v)return;document.getElementById('aain').value='';h(v);});
+function h(text){add(text,'aamm');q([]);if(bk)return bstep(text);var t=text.toLowerCase();
+ if(/sched|book|appoint|inspection/.test(t))return start();
+ if(/price|cost|how much|\$|fee/.test(t))return say("Depends on the home's size, age and services. I can get you a firm quote fast — want me to grab a few details and have Nathan confirm your exact price?",function(){q(['Yes, get me a quote','What is FORTIFIED?']);});
+ if(/fortif/.test(t))return say("FORTIFIED is the IBHS program that rates how well a home handles severe weather, and many insurers give a discount for it. We do new evaluations and renewals. Want to book yours?",function(){q(['Book FORTIFIED eval','How much?']);});
+ if(/area|where|serve|mobile|daphne|fairhope|cover|tuscaloosa/.test(t))return say("We're licensed across Alabama, Florida, Louisiana, Mississippi and Kentucky, and FORTIFIED in all states. What city are you in? I'll confirm and get you scheduled.",function(){q(['Schedule an inspection']);});
+ if(/report|how long|turnaround|when/.test(t))return say("Most inspections are next-day, and your full report is emailed the same day, usually within hours. Want me to find you a time?",function(){q(['Schedule an inspection']);});
+ if(/human|nathan|call|person|talk/.test(t))return say("Of course — I can have Nathan call you. What's your name and best number?",function(){bk={s:1,m:'cb'};});
+ if(/hour|night|weekend|sunday|24/.test(t))return say("That's the best part — I'm here 24/7, nights and weekends included. Want to lock in a time now?",function(){q(['Schedule an inspection']);});
+ return say("Great question — let me get that to Nathan so you get an exact answer. Can I grab your name and number? I can also book your inspection right now.",function(){q(['Schedule an inspection','Have Nathan call me']);});}
+function start(){bk={s:1,m:'book'};say("Perfect, let's get you scheduled. What's the property address or city?");}
+function bstep(x){var b=bk;if(b.m==='cb'){if(b.s===1){lead.n=x;b.s=2;return say("Thanks "+x.split(' ')[0]+"! Best number for Nathan to reach you?");}if(b.s===2){return fin("Nathan will call you shortly.");}}
+ if(b.s===1){lead.a=x;b.s=2;return say("Got it. Standard home inspection, FORTIFIED, or not sure yet?");}
+ if(b.s===2){lead.t=x;b.s=3;return say("Great. What day works best? Most buyers get next-day.");}
+ if(b.s===3){lead.d=x;b.s=4;return say("And your name?");}
+ if(b.s===4){lead.n=x;b.s=5;return say("Thanks "+x.split(' ')[0]+"! Last thing — best phone number to confirm?");}
+ if(b.s===5){return fin();}}
+function fin(tail){say("Perfect — you're all set! ✅",function(){say("I've sent your request straight to Nathan and the Knockout team. You'll get a text to confirm your time, and your report comes by email same-day. "+(tail||""),function(){q(['How much will it be?','No thanks!']);bk=null;});});}
+})();
+</script>
+</body>
+</html>

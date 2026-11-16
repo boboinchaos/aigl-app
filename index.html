@@ -13,10 +13,48 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="icon" href="icons/favicon-32.png">
-<style>html,body{margin:0;height:100%;background:#07090D;overflow:hidden}iframe{border:0;width:100%;height:100%;display:block}</style>
+<style>
+html,body{margin:0;height:100%;background:#07090D;overflow:hidden;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#EEF1F6}
+iframe{border:0;width:100%;height:100%;display:block}
+/* Neo voice (runs here, at the top of the page, so the phone lets it use the mic and speaker) */
+#nv-hello{position:fixed;inset:0;z-index:70;background:rgba(7,9,13,.93);display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
+#nv-hello.on{display:flex}
+#nv-hello h1{font:700 26px "Space Grotesk",Inter,system-ui,sans-serif;margin:0 0 6px}
+#nv-hello p{color:#9AA3B2;margin:0 0 26px;max-width:320px;line-height:1.45;font-size:15px}
+.nv-big{width:180px;height:180px;border-radius:50%;border:0;cursor:pointer;background:radial-gradient(circle at 35% 30%,#7CF5B8,#3BE38F 55%,#1E9F63);color:#04110A;display:grid;place-items:center;box-shadow:0 0 0 12px rgba(59,227,143,.12),0 0 0 26px rgba(59,227,143,.06);font:800 19px Inter,system-ui,sans-serif}
+.nv-big svg{width:54px;height:54px;display:block;margin:0 auto 6px}
+#nv-skip{margin-top:26px;color:#9AA3B2;background:none;border:0;font:600 15px Inter,system-ui,sans-serif;cursor:pointer;padding:10px}
+#nv-fab{position:fixed;right:16px;bottom:calc(84px + env(safe-area-inset-bottom, 0px));z-index:55;width:60px;height:60px;border-radius:50%;border:0;cursor:pointer;background:linear-gradient(135deg,#A98BFF,#4C8DFF);color:#fff;display:none;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.45);transition:box-shadow .1s,background .2s}
+#nv-fab.on{display:grid}
+#nv-fab svg{width:26px;height:26px}
+#nv-fab.live{background:#FF5A5F}
+#nv-fab.busy{opacity:.7}
+#nv-strip{position:fixed;left:10px;right:10px;top:calc(60px + env(safe-area-inset-top, 0px));z-index:56;max-width:620px;margin:0 auto;background:#10141C;border:1px solid #232A36;border-radius:16px;padding:10px 12px;display:none;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+#nv-strip.on{display:block}
+.nv-top{display:flex;align-items:center;gap:10px}
+#nv-dot{width:10px;height:10px;border-radius:50%;background:#3BE38F;flex:none}
+#nv-dot.talk{background:#A98BFF}#nv-dot.work{background:#FFB547}
+#nv-state{flex:1;font:700 13.5px Inter,system-ui,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#nv-end{border:0;background:#FF5A5F;color:#fff;font:700 13px Inter,system-ui,sans-serif;border-radius:999px;padding:7px 14px;cursor:pointer}
+#nv-lines{margin-top:6px;font-size:14px;line-height:1.4;max-height:96px;overflow-y:auto}
+#nv-lines div{margin-top:3px}
+#nv-lines .u{color:#9AA3B2}#nv-lines .u b{color:#EEF1F6}
+#nv-lines .a b{color:#A98BFF}
+#nv-lines .p{opacity:.6}
+</style>
 </head>
 <body>
-<iframe id="app" allow="microphone; clipboard-write" title="AIGL Command Center"></iframe>
+<iframe id="app" allow="microphone; autoplay; clipboard-write" title="AIGL Command Center"></iframe>
+
+<div id="nv-hello" role="dialog" aria-label="Talk to Neo">
+  <h1 id="nv-hi">Hey Jason</h1>
+  <p>Tap once and just talk. Neo listens, answers out loud and moves the app for you. Tap again to end.</p>
+  <button class="nv-big" id="nv-go" aria-label="Talk to Neo"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg>Talk to Neo</div></button>
+  <button id="nv-skip">Not now</button>
+</div>
+<button id="nv-fab" aria-label="Talk to Neo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg></button>
+<div id="nv-strip" aria-live="polite"><div class="nv-top"><span id="nv-dot"></span><span id="nv-state">Connecting…</span><button id="nv-end">End</button></div><div id="nv-lines"></div></div>
+
 <script>
 // app.aigl.dev: AIGL's own address for the Command Center (Apps Script web app inside).
 // Passes ?setup= (one-time link) and ?d= (device sign-in) through, and remembers ?d= so
@@ -38,6 +76,150 @@
   if (location.search) history.replaceState(null, '', location.pathname);
 })();
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function(){});
+</script>
+
+<script>
+/*
+  NEO VOICE at the top of the page.
+  Phones block the microphone inside Google's Apps Script sandbox frame, so the Vapi call lives here.
+  The Command Center (inside the frame, NeoVoicePanel.html) talks to this page with postMessage:
+    frame -> here: hello, config {publicKey, assistantId, model}, state {screen}, tool-result {id, result, quiet}, wrote
+    here -> frame: launcher (ack), tool {id, name, args}, call {live}
+  Only messages from Google's Apps Script sandbox frame that sits inside OUR iframe are accepted.
+  No secrets here: the Vapi PUBLIC key comes from the app at run time (public keys are meant for browsers).
+*/
+(function () {
+  var SDK = 'https://esm.sh/@vapi-ai/web@2.3.10';
+  var SANDBOX = /^https:\/\/n-[a-z0-9-]+-script\.googleusercontent\.com$/;
+  var V = { cfg: null, src: null, origin: '', Vapi: null, vapi: null, live: false, starting: false, screen: 'Today', pending: {}, seq: 0, partial: {} };
+  var app = document.getElementById('app');
+  function el(id) { return document.getElementById(id); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function state(t, kind) { el('nv-state').textContent = t; el('nv-dot').className = kind || ''; }
+  function greeting() { var h = new Date().getHours(); return 'Hey Jason, ' + (h < 12 ? 'good morning' : h < 17 ? 'good afternoon' : 'good evening') + '. Where do you want to start?'; }
+  function line(role, text, fin) {
+    var box = el('nv-lines'), d = V.partial[role];
+    if (!d) { d = document.createElement('div'); d.className = role === 'user' ? 'u' : 'a'; box.appendChild(d); }
+    d.innerHTML = '<b>' + (role === 'user' ? 'You' : 'Neo') + ':</b> ' + esc(text);
+    d.classList.toggle('p', fin === false);
+    if (fin === false) V.partial[role] = d; else delete V.partial[role];
+    while (box.children.length > 6) box.removeChild(box.firstChild);
+    box.scrollTop = box.scrollHeight;
+  }
+  function toFrame(msg) { if (V.src && V.origin) { msg.aigl = 'nv'; V.src.postMessage(msg, V.origin); } }
+
+  /* ---- bridge: only our own Command Center frame ---- */
+  window.addEventListener('message', function (e) {
+    var m = e.data;
+    if (!m || m.aigl !== 'nv' || !SANDBOX.test(e.origin)) return;
+    // The app's code runs 1-3 frames below our iframe (Google's sandbox frames). Walk up to make sure it's ours.
+    var ok = false;
+    try { for (var w = e.source, i = 0; w && i < 4 && !ok; i++) { if (w === app.contentWindow) ok = true; else if (w === w.parent) break; else w = w.parent; } } catch (x) { ok = false; }
+    if (!ok) return;
+    V.src = e.source; V.origin = e.origin;
+    if (m.type === 'hello') { toFrame({ type: 'launcher' }); return; }
+    if (m.type === 'config' && m.cfg) {
+      var first = !V.cfg; V.cfg = m.cfg; el('nv-fab').classList.add('on');
+      if (first) { loadSdk().catch(function () {}); showHello(); }
+      return;
+    }
+    if (m.type === 'state') { V.screen = String(m.screen || V.screen).slice(0, 40); return; }
+    if (m.type === 'tool-result' && V.pending[m.id]) { var p = V.pending[m.id]; delete V.pending[m.id]; clearTimeout(p.t); p.res(m); return; }
+    if (m.type === 'start') { start(); return; }
+  });
+  function showHello() {
+    try { if (sessionStorage.getItem('nv_hello')) return; sessionStorage.setItem('nv_hello', '1'); } catch (x) {}
+    el('nv-hi').textContent = greeting().replace(/\. Where.*$/, '');
+    el('nv-hello').classList.add('on');
+  }
+
+  /* ---- Vapi ---- */
+  function loadSdk() {
+    if (V.Vapi) return Promise.resolve(V.Vapi);
+    return import(SDK).then(function (m) { V.Vapi = m.default && m.default.default ? m.default.default : (m.default || m.Vapi); return V.Vapi; });
+  }
+  function fail(e) {
+    var msg = String((e && e.error && e.error.message) || (e && (e.message || e.errorMsg || e.error)) || e || 'Voice problem');
+    if (/\[object/.test(msg)) msg = 'Voice could not connect';
+    V.live = V.starting = false; el('nv-fab').classList.remove('live', 'busy');
+    el('nv-strip').classList.add('on'); state(msg.slice(0, 90));
+    line('assistant', 'Voice did not start: ' + msg.slice(0, 160) + '. You can still record a note on the Neo tab.', true);
+  }
+  function ended() {
+    V.live = V.starting = false;
+    var f = el('nv-fab'); f.classList.remove('live', 'busy'); f.style.boxShadow = '';
+    state('Call ended');
+    toFrame({ type: 'call', live: false });
+    setTimeout(function () { if (!V.live) el('nv-strip').classList.remove('on'); }, 2500);
+  }
+  function wire(v) {
+    v.on('call-start', function () { V.live = true; V.starting = false; el('nv-fab').classList.add('live'); el('nv-fab').classList.remove('busy'); state('Listening… just talk'); toFrame({ type: 'call', live: true }); });
+    v.on('call-end', ended);
+    v.on('speech-start', function () { state('Neo is talking…', 'talk'); });
+    v.on('speech-end', function () { if (V.live) state('Listening…'); });
+    v.on('volume-level', function (n) { el('nv-fab').style.boxShadow = '0 0 0 ' + Math.round(Math.min(1, n) * 18) + 'px rgba(169,139,255,.35)'; });
+    v.on('message', function (m) {
+      if (!m) return;
+      if (m.type === 'transcript') line(m.role === 'user' ? 'user' : 'assistant', m.transcript, m.transcriptType === 'final');
+      else if (m.type === 'tool-calls') tools(m.toolCallList || m.toolCalls || []);
+    });
+    v.on('error', fail);
+  }
+  function start() {
+    el('nv-hello').classList.remove('on');
+    if (V.live || V.starting) return;
+    V.starting = true;
+    el('nv-fab').classList.add('busy'); el('nv-strip').classList.add('on'); el('nv-lines').innerHTML = ''; state('Connecting…', 'work');
+    // Ask for the mic right inside the tap, so the phone shows its prompt and unlocks audio.
+    var mic = (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) ? navigator.mediaDevices.getUserMedia({ audio: true }) : Promise.reject(new Error('This browser has no microphone access'));
+    try { var AC = window.AudioContext || window.webkitAudioContext; if (AC) { var ac = new AC(); ac.resume && ac.resume(); setTimeout(function () { try { ac.close(); } catch (x) {} }, 1500); } } catch (x) {}
+    mic.then(function (stream) {
+      stream.getTracks().forEach(function (t) { t.stop(); });
+      if (!V.cfg) throw new Error('The app is still loading. Try again in a second.');
+      if (!V.cfg.publicKey || !V.cfg.assistantId) throw new Error('Voice is not set up yet (VAPI_PUBLIC_KEY / NEO_ASSISTANT_ID)');
+      return loadSdk();
+    }).then(function (Vapi) {
+      if (!V.vapi) { V.vapi = new Vapi(V.cfg.publicKey); wire(V.vapi); }
+      var t = new Date();
+      return V.vapi.start(V.cfg.assistantId, {
+        firstMessage: greeting(), firstMessageMode: 'assistant-speaks-first',
+        model: V.cfg.model,
+        clientMessages: ['transcript', 'tool-calls', 'speech-update', 'status-update'],
+        variableValues: { greeting: greeting(), today: t.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' }),
+          now: t.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }), screen: V.screen }
+      });
+    }).catch(function (e) {
+      if (e && (e.name === 'NotAllowedError' || e.name === 'SecurityError')) e = new Error('Microphone blocked. Allow the mic for app.aigl.dev in your browser settings.');
+      fail(e);
+    });
+  }
+  function stop() { if (V.vapi && (V.live || V.starting)) { try { V.vapi.stop(); } catch (x) {} } ended(); }
+
+  /* Tool calls: Vapi hands them to this page; the app in the frame runs them and posts the result back. */
+  function say(name, result, speak) {
+    if (!V.vapi || !V.live) return;
+    var txt = 'TOOL RESULT ' + name + ': ' + JSON.stringify(result);
+    try { V.vapi.send({ type: 'add-message', message: { role: 'system', content: txt.slice(0, 12000) }, triggerResponseEnabled: speak !== false }); } catch (x) {}
+  }
+  function args(tc) { var a = (tc.function && tc.function.arguments) || tc.arguments || {}; if (typeof a === 'string') { try { a = JSON.parse(a || '{}'); } catch (x) { a = {}; } } return a || {}; }
+  function tools(list) {
+    list.forEach(function (tc) {
+      var name = (tc.function && tc.function.name) || tc.name;
+      if (!name || name === 'endCall') return;
+      var id = 't' + (++V.seq);
+      state('Working on it…', 'work');
+      new Promise(function (res) {
+        V.pending[id] = { res: res, t: setTimeout(function () { delete V.pending[id]; res({ result: { ok: false, say: 'The app took too long on that one. Want me to leave Neo a note instead?' } }); }, 45000) };
+        toFrame({ type: 'tool', id: id, name: name, args: args(tc) });
+      }).then(function (m) { say(name, m.result, !m.quiet); if (V.live) state('Listening…'); });
+    });
+  }
+
+  el('nv-fab').onclick = function () { if (V.live || V.starting) stop(); else start(); };
+  el('nv-go').onclick = start;
+  el('nv-end').onclick = stop;
+  el('nv-skip').onclick = function () { el('nv-hello').classList.remove('on'); };
+})();
 </script>
 </body>
 </html>

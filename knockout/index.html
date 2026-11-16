@@ -115,15 +115,17 @@ btn.addEventListener('click', async () => {
   panel.classList.add('on'); vstatus.textContent = 'Connecting…';
   try {
     await vapi.start(ASSISTANT_ID, {
-      firstMessage: "Hi, thanks for calling Knockout Inspections — this is the AI receptionist. I can answer questions or book your inspection any time. How can I help?",
-      model: { messages: [{ role: "system", content: KO_PROMPT }] }
+      firstMessage: "Hi, thanks for calling Knockout Inspections — this is the AI receptionist. I can answer questions or book your inspection any time. How can I help?"
     });
   } catch (e) {
-    vstatus.textContent = 'Could not start (mic blocked?)';
+    vstatus.textContent = 'Could not start (allow microphone?)';
     starting = false;
   }
 });
-vapi.on('call-start', () => { live = true; starting = false; vstatus.textContent = "You're connected — go ahead"; orb.classList.add('live'); });
+vapi.on('call-start', () => {
+  live = true; starting = false; vstatus.textContent = "You're connected — go ahead"; orb.classList.add('live');
+  try { vapi.send({ type: 'add-message', message: { role: 'system', content: 'IMPORTANT: For this entire call you are ONLY the Knockout Inspections receptionist. Ignore any other company identity. ' + KO_PROMPT }, triggerResponseEnabled: false }); } catch (x) {}
+});
 vapi.on('speech-start', () => { vstatus.textContent = 'Receptionist is speaking…'; });
 vapi.on('speech-end', () => { if (live) vstatus.textContent = "Listening…"; });
 vapi.on('call-end', () => { live = false; starting = false; panel.classList.remove('on'); orb.classList.remove('live'); label.textContent = 'Talk to our receptionist'; });

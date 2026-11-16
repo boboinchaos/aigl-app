@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#07090D">
-<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="../icons/card-apple-touch.png">
 <title>Book a call with Jason — AI Go Long</title>
 <style>
 :root{--bg:#07090D;--card:#121a26;--line:#243040;--ink:#eef2f7;--soft:#9fb0c2;--green:#2EE08A;--green2:#15c773;--accent:#4C8DFF}
@@ -21,6 +21,9 @@ h1{font-size:25px;margin:18px 0 3px;font-weight:800}
 .t{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:12px;padding:13px 6px;text-align:center;font-weight:700;font-size:15px;cursor:pointer;color:var(--ink);transition:transform .08s,background .15s}
 .t:active{transform:scale(.96)}
 .t.sel{background:linear-gradient(135deg,var(--green),var(--green2));color:#04110a;border-color:transparent;box-shadow:0 8px 22px rgba(46,224,138,.3)}
+.loading{color:var(--soft);font-size:15px;padding:24px 2px;text-align:center}
+.spin{display:inline-block;width:18px;height:18px;border:2px solid var(--line);border-top-color:var(--green);border-radius:50%;animation:sp .7s linear infinite;vertical-align:-4px;margin-right:9px}
+@keyframes sp{to{transform:rotate(360deg)}}
 .form{margin-top:24px;background:linear-gradient(180deg,#141d2a,#0f1620);border:1px solid var(--line);border-radius:18px;padding:20px;display:none}
 .form.on{display:block;animation:rise .25s ease}
 @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
@@ -29,6 +32,7 @@ h1{font-size:25px;margin:18px 0 3px;font-weight:800}
 .form input,.form textarea{width:100%;background:#0d141d;border:1px solid var(--line);border-radius:11px;padding:13px;color:var(--ink);font-size:16px;outline:0}
 .form input:focus,.form textarea:focus{border-color:var(--green)}
 .go{width:100%;margin-top:18px;background:linear-gradient(135deg,var(--green),var(--green2));color:#04110a;border:0;border-radius:13px;padding:16px;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 10px 26px rgba(46,224,138,.3)}
+.go[disabled]{opacity:.6}
 .err{color:#ff8b86;font-size:13.5px;margin-top:9px;min-height:1em}
 .msg{text-align:center;padding:40px 10px;display:none}
 .msg.on{display:block}
@@ -40,7 +44,7 @@ h1{font-size:25px;margin:18px 0 3px;font-weight:800}
 <div class="hd"><span class="mark">AI</span><b>AI GO <span>LONG</span></b></div>
 <h1>Book a call with Jason</h1>
 <p class="sub">Grab a time that works — it's a quick 30 minutes, no pressure.</p>
-<div id="list"></div>
+<div id="list"><div class="loading"><span class="spin"></span>Loading my open times…</div></div>
 <div class="form" id="form">
   <div class="pick" id="pick"></div>
   <label>Your name</label><input id="name" autocomplete="name">
@@ -51,20 +55,30 @@ h1{font-size:25px;margin:18px 0 3px;font-weight:800}
   <button class="go" id="go">Confirm my call</button>
 </div>
 <div class="msg" id="done"><div class="big">✅</div><h2>You're booked!</h2>
-  <p class="sub" id="dwhen"></p><p class="sub">Add it to your calendar on the next screen — Jason's invited and will see it. See you then!</p></div>
+  <p class="sub" id="dwhen"></p><p class="sub">I just put it on my calendar and sent a calendar invite to your email. See you then!</p></div>
 <div class="foot">Prefer to talk now? <a href="tel:+12052038377">Call (205) 203-8377</a></div>
 </div>
 <script>
-var SLOTS=[{"day": "Tuesday, Nov 17", "times": [{"label": "12:00 PM", "s": "20261117T180000Z", "e": "20261117T183000Z"}, {"label": "12:30 PM", "s": "20261117T183000Z", "e": "20261117T190000Z"}, {"label": "1:00 PM", "s": "20261117T190000Z", "e": "20261117T193000Z"}, {"label": "1:30 PM", "s": "20261117T193000Z", "e": "20261117T200000Z"}, {"label": "2:00 PM", "s": "20261117T200000Z", "e": "20261117T203000Z"}, {"label": "2:30 PM", "s": "20261117T203000Z", "e": "20261117T210000Z"}, {"label": "3:00 PM", "s": "20261117T210000Z", "e": "20261117T213000Z"}, {"label": "3:30 PM", "s": "20261117T213000Z", "e": "20261117T220000Z"}]}, {"day": "Wednesday, Nov 18", "times": [{"label": "12:00 PM", "s": "20261118T180000Z", "e": "20261118T183000Z"}, {"label": "12:30 PM", "s": "20261118T183000Z", "e": "20261118T190000Z"}, {"label": "1:00 PM", "s": "20261118T190000Z", "e": "20261118T193000Z"}, {"label": "1:30 PM", "s": "20261118T193000Z", "e": "20261118T200000Z"}, {"label": "2:00 PM", "s": "20261118T200000Z", "e": "20261118T203000Z"}, {"label": "2:30 PM", "s": "20261118T203000Z", "e": "20261118T210000Z"}, {"label": "3:00 PM", "s": "20261118T210000Z", "e": "20261118T213000Z"}, {"label": "3:30 PM", "s": "20261118T213000Z", "e": "20261118T220000Z"}]}, {"day": "Thursday, Nov 19", "times": [{"label": "12:00 PM", "s": "20261119T180000Z", "e": "20261119T183000Z"}, {"label": "12:30 PM", "s": "20261119T183000Z", "e": "20261119T190000Z"}, {"label": "1:00 PM", "s": "20261119T190000Z", "e": "20261119T193000Z"}, {"label": "1:30 PM", "s": "20261119T193000Z", "e": "20261119T200000Z"}, {"label": "2:00 PM", "s": "20261119T200000Z", "e": "20261119T203000Z"}, {"label": "2:30 PM", "s": "20261119T203000Z", "e": "20261119T210000Z"}, {"label": "3:00 PM", "s": "20261119T210000Z", "e": "20261119T213000Z"}, {"label": "3:30 PM", "s": "20261119T213000Z", "e": "20261119T220000Z"}]}, {"day": "Friday, Nov 20", "times": [{"label": "12:00 PM", "s": "20261120T180000Z", "e": "20261120T183000Z"}, {"label": "12:30 PM", "s": "20261120T183000Z", "e": "20261120T190000Z"}, {"label": "1:00 PM", "s": "20261120T190000Z", "e": "20261120T193000Z"}, {"label": "1:30 PM", "s": "20261120T193000Z", "e": "20261120T200000Z"}, {"label": "2:00 PM", "s": "20261120T200000Z", "e": "20261120T203000Z"}, {"label": "2:30 PM", "s": "20261120T203000Z", "e": "20261120T210000Z"}, {"label": "3:00 PM", "s": "20261120T210000Z", "e": "20261120T213000Z"}, {"label": "3:30 PM", "s": "20261120T213000Z", "e": "20261120T220000Z"}]}, {"day": "Monday, Nov 23", "times": [{"label": "12:00 PM", "s": "20261123T180000Z", "e": "20261123T183000Z"}, {"label": "12:30 PM", "s": "20261123T183000Z", "e": "20261123T190000Z"}, {"label": "1:00 PM", "s": "20261123T190000Z", "e": "20261123T193000Z"}, {"label": "1:30 PM", "s": "20261123T193000Z", "e": "20261123T200000Z"}, {"label": "2:00 PM", "s": "20261123T200000Z", "e": "20261123T203000Z"}, {"label": "2:30 PM", "s": "20261123T203000Z", "e": "20261123T210000Z"}, {"label": "3:00 PM", "s": "20261123T210000Z", "e": "20261123T213000Z"}, {"label": "3:30 PM", "s": "20261123T213000Z", "e": "20261123T220000Z"}]}, {"day": "Tuesday, Nov 24", "times": [{"label": "12:00 PM", "s": "20261124T180000Z", "e": "20261124T183000Z"}, {"label": "12:30 PM", "s": "20261124T183000Z", "e": "20261124T190000Z"}, {"label": "1:00 PM", "s": "20261124T190000Z", "e": "20261124T193000Z"}, {"label": "1:30 PM", "s": "20261124T193000Z", "e": "20261124T200000Z"}, {"label": "2:00 PM", "s": "20261124T200000Z", "e": "20261124T203000Z"}, {"label": "2:30 PM", "s": "20261124T203000Z", "e": "20261124T210000Z"}, {"label": "3:00 PM", "s": "20261124T210000Z", "e": "20261124T213000Z"}, {"label": "3:30 PM", "s": "20261124T213000Z", "e": "20261124T220000Z"}]}, {"day": "Wednesday, Nov 25", "times": [{"label": "12:00 PM", "s": "20261125T180000Z", "e": "20261125T183000Z"}, {"label": "12:30 PM", "s": "20261125T183000Z", "e": "20261125T190000Z"}, {"label": "1:00 PM", "s": "20261125T190000Z", "e": "20261125T193000Z"}, {"label": "1:30 PM", "s": "20261125T193000Z", "e": "20261125T200000Z"}, {"label": "2:00 PM", "s": "20261125T200000Z", "e": "20261125T203000Z"}, {"label": "2:30 PM", "s": "20261125T203000Z", "e": "20261125T210000Z"}, {"label": "3:00 PM", "s": "20261125T210000Z", "e": "20261125T213000Z"}, {"label": "3:30 PM", "s": "20261125T213000Z", "e": "20261125T220000Z"}]}, {"day": "Thursday, Nov 26", "times": [{"label": "12:00 PM", "s": "20261126T180000Z", "e": "20261126T183000Z"}, {"label": "12:30 PM", "s": "20261126T183000Z", "e": "20261126T190000Z"}, {"label": "1:00 PM", "s": "20261126T190000Z", "e": "20261126T193000Z"}, {"label": "1:30 PM", "s": "20261126T193000Z", "e": "20261126T200000Z"}, {"label": "2:00 PM", "s": "20261126T200000Z", "e": "20261126T203000Z"}, {"label": "2:30 PM", "s": "20261126T203000Z", "e": "20261126T210000Z"}, {"label": "3:00 PM", "s": "20261126T210000Z", "e": "20261126T213000Z"}, {"label": "3:30 PM", "s": "20261126T213000Z", "e": "20261126T220000Z"}]}, {"day": "Friday, Nov 27", "times": [{"label": "12:00 PM", "s": "20261127T180000Z", "e": "20261127T183000Z"}, {"label": "12:30 PM", "s": "20261127T183000Z", "e": "20261127T190000Z"}, {"label": "1:00 PM", "s": "20261127T190000Z", "e": "20261127T193000Z"}, {"label": "1:30 PM", "s": "20261127T193000Z", "e": "20261127T200000Z"}, {"label": "2:00 PM", "s": "20261127T200000Z", "e": "20261127T203000Z"}, {"label": "2:30 PM", "s": "20261127T203000Z", "e": "20261127T210000Z"}, {"label": "3:00 PM", "s": "20261127T210000Z", "e": "20261127T213000Z"}, {"label": "3:30 PM", "s": "20261127T213000Z", "e": "20261127T220000Z"}]}, {"day": "Monday, Nov 30", "times": [{"label": "12:00 PM", "s": "20261130T180000Z", "e": "20261130T183000Z"}, {"label": "12:30 PM", "s": "20261130T183000Z", "e": "20261130T190000Z"}, {"label": "1:00 PM", "s": "20261130T190000Z", "e": "20261130T193000Z"}, {"label": "1:30 PM", "s": "20261130T193000Z", "e": "20261130T200000Z"}, {"label": "2:00 PM", "s": "20261130T200000Z", "e": "20261130T203000Z"}, {"label": "2:30 PM", "s": "20261130T203000Z", "e": "20261130T210000Z"}, {"label": "3:00 PM", "s": "20261130T210000Z", "e": "20261130T213000Z"}, {"label": "3:30 PM", "s": "20261130T213000Z", "e": "20261130T220000Z"}]}, {"day": "Tuesday, Dec 1", "times": [{"label": "12:00 PM", "s": "20261201T180000Z", "e": "20261201T183000Z"}, {"label": "12:30 PM", "s": "20261201T183000Z", "e": "20261201T190000Z"}, {"label": "1:00 PM", "s": "20261201T190000Z", "e": "20261201T193000Z"}, {"label": "1:30 PM", "s": "20261201T193000Z", "e": "20261201T200000Z"}, {"label": "2:00 PM", "s": "20261201T200000Z", "e": "20261201T203000Z"}, {"label": "2:30 PM", "s": "20261201T203000Z", "e": "20261201T210000Z"}, {"label": "3:00 PM", "s": "20261201T210000Z", "e": "20261201T213000Z"}, {"label": "3:30 PM", "s": "20261201T213000Z", "e": "20261201T220000Z"}]}, {"day": "Wednesday, Dec 2", "times": [{"label": "12:00 PM", "s": "20261202T180000Z", "e": "20261202T183000Z"}, {"label": "12:30 PM", "s": "20261202T183000Z", "e": "20261202T190000Z"}, {"label": "1:00 PM", "s": "20261202T190000Z", "e": "20261202T193000Z"}, {"label": "1:30 PM", "s": "20261202T193000Z", "e": "20261202T200000Z"}, {"label": "2:00 PM", "s": "20261202T200000Z", "e": "20261202T203000Z"}, {"label": "2:30 PM", "s": "20261202T203000Z", "e": "20261202T210000Z"}, {"label": "3:00 PM", "s": "20261202T210000Z", "e": "20261202T213000Z"}, {"label": "3:30 PM", "s": "20261202T213000Z", "e": "20261202T220000Z"}]}], chosen=null;
-var L=document.getElementById('list'),h='';
-SLOTS.forEach(function(d,di){h+='<div class="day">'+d.day+'</div><div class="times">';
- d.times.forEach(function(t,ti){h+='<button class="t" data-d="'+di+'" data-t="'+ti+'">'+t.label+'</button>';});h+='</div>';});
-L.innerHTML=h;
-[].forEach.call(L.querySelectorAll('.t'),function(b){b.onclick=function(){
- [].forEach.call(L.querySelectorAll('.t'),function(x){x.classList.remove('sel');});b.classList.add('sel');
- chosen=SLOTS[b.dataset.d].times[b.dataset.t];chosen.day=SLOTS[b.dataset.d].day;
- document.getElementById('pick').textContent=chosen.day+' at '+chosen.label;
- var f=document.getElementById('form');f.classList.add('on');f.scrollIntoView({behavior:'smooth'});};});
+var API="https://script.google.com/macros/s/AKfycbzebV9ufGveInAyrXHvgw-yVdazLa8_XPIbFXKbiaJhaRfBPO7-OXtcty7D9MikK_h6cw/exec";
+var chosen=null, L=document.getElementById('list');
+function toISO(z){return z.replace(/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z$/,'$1-$2-$3T$4:$5:$6Z');}
+// JSONP load of live availability
+window.__slots=function(res){
+ if(!res||!res.ok||!res.days||!res.days.length){
+   L.innerHTML='<div class="loading">No open times in the next couple weeks. Call (205) 203-8377 and we\'ll find one.</div>';return;}
+ var h='';
+ res.days.forEach(function(d,di){h+='<div class="day">'+d.day+'</div><div class="times">';
+  d.times.forEach(function(t,ti){h+='<button class="t" data-d="'+di+'" data-t="'+ti+'">'+t.label+'</button>';});h+='</div>';});
+ L.innerHTML=h;
+ [].forEach.call(L.querySelectorAll('.t'),function(b){b.onclick=function(){
+  [].forEach.call(L.querySelectorAll('.t'),function(x){x.classList.remove('sel');});b.classList.add('sel');
+  chosen=res.days[b.dataset.d].times[b.dataset.t];chosen.day=res.days[b.dataset.d].day;
+  document.getElementById('pick').textContent=chosen.day+' at '+chosen.label;
+  var f=document.getElementById('form');f.classList.add('on');f.scrollIntoView({behavior:'smooth'});};});
+};
+(function(){var s=document.createElement('script');s.src=API+'?callback=__slots&_='+Date.now();
+ s.onerror=function(){L.innerHTML='<div class="loading">Couldn\'t load times. Call (205) 203-8377.</div>';};
+ document.body.appendChild(s);})();
 document.getElementById('go').onclick=function(){
  var err=document.getElementById('err');err.textContent='';
  var name=document.getElementById('name').value.trim(),email=document.getElementById('email').value.trim(),
@@ -72,13 +86,12 @@ document.getElementById('go').onclick=function(){
  if(!chosen){err.textContent='Pick a time first.';return;}
  if(!name){err.textContent='Add your name.';return;}
  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){err.textContent='Check your email address.';return;}
- var det='Booked via the AIGL card.%0AName: '+encodeURIComponent(name)+(phone?'%0APhone: '+encodeURIComponent(phone):'')+(notes?'%0ANotes: '+encodeURIComponent(notes):'');
- var url='https://calendar.google.com/calendar/render?action=TEMPLATE'
-   +'&text='+encodeURIComponent('AI Strategy Call with Jason — AI Go Long')
-   +'&dates='+chosen.s+'/'+chosen.e+'&details='+det+'&add=jason@aigl.dev,'+encodeURIComponent(email);
- document.getElementById('form').style.display='none';document.getElementById('list').style.display='none';
- document.getElementById('dwhen').textContent=chosen.day+' at '+chosen.label;
- document.getElementById('done').classList.add('on');
- window.open(url,'_blank');
+ var btn=document.getElementById('go');btn.disabled=true;btn.textContent='Booking…';
+ var payload={start:toISO(chosen.s),end:toISO(chosen.e),name:name,email:email,phone:phone,notes:notes};
+ fetch(API,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)}).then(function(){
+   document.getElementById('form').style.display='none';document.getElementById('list').style.display='none';
+   document.getElementById('dwhen').textContent=chosen.day+' at '+chosen.label;
+   document.getElementById('done').classList.add('on');
+ }).catch(function(){btn.disabled=false;btn.textContent='Confirm my call';err.textContent='Something went wrong — try again or call (205) 203-8377.';});
 };
 </script></body></html>

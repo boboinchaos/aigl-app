@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jason Bourbeau · AI Go Long</title>
+<style>
+:root{--bg:#07090D;--card:#10151d;--line:#222c38;--ink:#eef2f7;--soft:#9fb0c2;--green:#2EE08A;--green2:#15c773;--accent:#4C8DFF}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:radial-gradient(1200px 600px at 50% -10%,#13203a,#07090D 60%);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;-webkit-text-size-adjust:100%}
+.wrap{max-width:440px;margin:0 auto;padding:26px 18px 40px;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.card{background:linear-gradient(180deg,#121823,#0d1219);border:1px solid var(--line);border-radius:24px;padding:30px 24px;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+.logo{display:flex;align-items:center;gap:11px;justify-content:center;margin-bottom:22px}
+.mark{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,var(--green),var(--green2));display:grid;place-items:center;color:#04110a;font-weight:900;font-size:19px}
+.logo b{font-size:17px;letter-spacing:3px;color:#cfe6d9}
+.logo b span{color:var(--green)}
+.name{text-align:center;font-size:30px;font-weight:800;margin:4px 0 2px}
+.role{text-align:center;color:var(--soft);font-size:15.5px;margin-bottom:4px}
+.tag{text-align:center;color:#c9d6e4;font-size:14px;line-height:1.5;margin:14px auto 22px;max-width:320px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 10px;border-radius:13px;text-decoration:none;font-weight:700;font-size:15px;border:1px solid var(--line);background:#161d28;color:var(--ink)}
+.btn svg{width:19px;height:19px;flex:0 0 19px}
+.btn.call{background:linear-gradient(135deg,var(--green),var(--green2));color:#04110a;border:0}
+.btn.book{background:linear-gradient(135deg,#5b8cff,#3f6fe0);color:#fff;border:0}
+.btn.wide{grid-column:1 / -1}
+.save{grid-column:1 / -1;background:#fff;color:#0b1017;border:0;font-size:16px;padding:16px;cursor:pointer}
+.qr{margin:24px auto 4px;width:168px;height:168px;background:#fff;border-radius:16px;display:grid;place-items:center;overflow:hidden}
+.qr img{width:150px;height:150px}
+.qrlabel{text-align:center;color:var(--soft);font-size:12.5px;margin-top:8px;letter-spacing:.3px}
+.foot{text-align:center;color:#6f8198;font-size:12px;margin-top:22px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="logo"><span class="mark">AI</span><b>AI GO <span>LONG</span></b></div>
+    <div class="name">Jason Bourbeau</div>
+    <div class="role">Founder &middot; AI Go Long (AIGL)</div>
+    <div class="tag">We integrate and educate on AI tools, safety, and automated systems for your workflow.</div>
+
+    <div class="actions">
+      <a class="btn call" href="tel:+12052038377"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>Call</a>
+      <a class="btn" href="sms:+12052038377"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text</a>
+      <a class="btn wide" href="https://aigl.dev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>aigl.dev</a>
+      <a class="btn wide book" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2NimZshA7XqXAeU11KVxC4PWL5CeZWcUv72uRMIWqhXS8qWj9ME8QiVft8FQxKUEoGkWzL0NM8"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Book a call</a>
+    </div>
+
+    <div class="qr"><img src="qr.png" alt="QR code to this card"></div>
+    <div class="qrlabel">Scan to save me to your contacts</div>
+    <div class="foot" style="line-height:1.9">
+      <a href="tel:+12052038377" style="color:var(--green);text-decoration:none;font-weight:700">(205) 203-8377</a><br>
+      <a href="mailto:jason@aigl.dev" style="color:#cfe6d9;text-decoration:none">jason@aigl.dev</a> &middot; Birmingham, AL
+    </div>
+  </div>
+</div>
+<script>
+document.getElementById('save').addEventListener('click',function(){
+  var v=["BEGIN:VCARD","VERSION:3.0","N:Bourbeau;Jason;;;","FN:Jason Bourbeau",
+    "ORG:AI Go Long (AIGL)","TITLE:Founder",
+    "TEL;TYPE=CELL:+1-205-203-8377",
+    "EMAIL;TYPE=WORK:jason@aigl.dev",
+    "URL:https://aigl.dev",
+    "ADR;TYPE=WORK:;;;Birmingham;AL;;USA",
+    "NOTE:AI that answers your phone and website 24/7, books the job, and sends you the lead.",
+    "END:VCARD"].join("\r\n");
+  var b=new Blob([v],{type:"text/vcard"});
+  var a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="Jason-Bourbeau-AIGL.vcf";
+  document.body.appendChild(a);a.click();a.remove();
+});
+</script>
+</body>
+</html>

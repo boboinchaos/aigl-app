@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free AI Safety Audit (5-Minute Version) | AI Go Long</title>
+<meta name="description" content="The Free AI Safety Audit, 5-minute version, for small business owners. Answer 20 quick questions and get your AI Safety Score and top fixes by email.">
+<meta name="theme-color" content="#0D1117">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0D1117;--bg2:#161C24;--bg3:#1C242E;--ink:#F2F5F0;--soft:#B4C1B9;--line:#2B3440;
+  --green:#2EE08A;--green-d:#1E9F63;--green-l:#7CF5B8;--yellow:#FFB547;--red:#FF5C5C;--on-green:#04110A;
+  --r:18px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Arial,sans-serif;font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.disp{font-family:"Space Grotesk",Inter,Arial,sans-serif;line-height:1.08;margin:0}
+a{color:var(--green)}
+.wrap{max-width:640px;margin:0 auto;padding:20px 18px 48px;min-height:100vh;display:flex;flex-direction:column}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 0 18px}
+.logo{font-family:"Space Grotesk",Arial,sans-serif;font-weight:700;font-size:18px;letter-spacing:.5px;color:var(--ink);text-decoration:none}
+.logo b{color:var(--green)}
+.pill{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);border:1px solid var(--line);border-radius:99px;padding:5px 10px}
+.demo-flag{font-size:12px;color:var(--on-green);background:var(--yellow);border-radius:99px;padding:4px 10px;font-weight:600}
+.screen{display:none;flex:1;flex-direction:column;animation:in .28s ease both}
+.screen.on{display:flex}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.screen{animation:none}.bar i{transition:none!important}}
+
+/* Hero */
+.eyebrow{font-family:"Space Grotesk",Arial,sans-serif;font-weight:700;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin:6px 0 10px}
+h1{font-size:clamp(34px,9vw,52px);font-weight:700}
+h1 .hl{color:var(--green)}
+.lede{color:var(--soft);font-size:18px;margin:14px 0 22px}
+.avatar{position:relative;aspect-ratio:16/9;border-radius:var(--r);background:
+  radial-gradient(120% 90% at 20% 10%,rgba(46,224,138,.22),transparent 60%),var(--bg2);
+  border:2px dashed var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.avatar video{width:100%;height:100%;object-fit:cover;display:block}
+.avatar .ph{text-align:center;color:var(--soft);padding:16px}
+.avatar .ph .play{width:64px;height:64px;border-radius:50%;background:var(--green);display:inline-flex;align-items:center;justify-content:center;margin-bottom:10px}
+.avatar .ph .play svg{margin-left:4px}
+.avatar .ph strong{display:block;color:var(--ink);font-family:"Space Grotesk",Arial,sans-serif;font-size:18px}
+.ai-tag{position:absolute;top:10px;left:10px;background:rgba(13,17,23,.85);border:1px solid var(--line);color:var(--ink);font-size:12px;font-weight:600;border-radius:99px;padding:4px 10px}
+.disclose{font-size:13px;color:var(--soft);margin:8px 2px 0}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 22px;padding:0;list-style:none}
+.facts li{background:var(--bg2);border:1px solid var(--line);border-radius:99px;padding:7px 12px;font-size:14px;color:var(--soft)}
+.facts li b{color:var(--ink)}
+.privacy{display:flex;gap:10px;align-items:flex-start;background:var(--bg2);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:12px;padding:12px 14px;font-size:15px;color:var(--soft);margin-top:16px}
+.privacy b{color:var(--ink)}
+
+/* Buttons */
+.btn{appearance:none;border:0;cursor:pointer;font:700 19px "Space Grotesk",Inter,Arial,sans-serif;border-radius:14px;padding:18px 22px;min-height:60px;width:100%;
+  background:var(--green);color:var(--on-green);transition:transform .08s ease,filter .15s;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center}
+.btn:hover{filter:brightness(1.07)}.btn:active{transform:scale(.985)}
+.btn:focus-visible,.opt:focus-visible,input:focus-visible{outline:3px solid var(--green-l);outline-offset:3px}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.link{background:none;border:0;color:var(--soft);font:600 15px Inter,Arial,sans-serif;cursor:pointer;padding:10px 4px;text-decoration:underline;text-underline-offset:3px}
+
+/* Quiz */
+.qhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.count{font-size:14px;color:var(--soft);font-weight:600}
+.bar{height:10px;background:var(--bg3);border-radius:99px;overflow:hidden;margin-bottom:26px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green-d),var(--green));border-radius:99px;transition:width .35s ease}
+.area{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.q{font-size:clamp(25px,6.5vw,32px);font-weight:700;margin-bottom:10px}
+.help{color:var(--soft);margin:0 0 20px;font-size:16px}
+.opts{display:flex;flex-direction:column;gap:12px}
+.opt{appearance:none;text-align:left;width:100%;min-height:64px;padding:16px 18px;border-radius:14px;border:2px solid var(--line);background:var(--bg2);color:var(--ink);
+  font:600 18px Inter,Arial,sans-serif;cursor:pointer;display:flex;align-items:center;gap:14px;transition:border-color .12s,background .12s}
+.opt:hover{border-color:#3d4a58}
+.opt .dot{flex:0 0 22px;height:22px;border-radius:50%;border:2px solid var(--soft)}
+.opt.sel{border-color:var(--green);background:rgba(46,224,138,.10)}
+.opt.sel .dot{border-color:var(--green);background:var(--green);box-shadow:inset 0 0 0 4px var(--bg2)}
+.opt.multi .dot{border-radius:6px}
+.opt.multi.sel .dot{box-shadow:none;background:var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='%2304110A' stroke-width='3'/%3E%3C/svg%3E") center/16px no-repeat}
+.follow{margin-top:24px;padding-top:18px;border-top:1px solid var(--line)}
+.follow .q2{font:700 21px "Space Grotesk",Inter,Arial,sans-serif;line-height:1.2;margin:0 0 14px}
+.reveal{margin-top:22px;border:1px solid var(--line);border-left:4px solid var(--green);background:var(--bg2);border-radius:12px;padding:14px 16px;animation:revealIn .28s ease}
+.reveal-tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+.reveal p{margin:0;font-size:15.5px;line-height:1.5;color:var(--ink)}
+@keyframes revealIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.reveal{animation:none}}
+.qnav{margin-top:auto;padding-top:22px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.qnav .btn{width:auto;min-width:150px}
+
+/* Form */
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field label{font-weight:600;font-size:15px}
+.field label small{color:var(--soft);font-weight:400}
+input[type=text],input[type=email],input[type=tel]{width:100%;font:400 18px Inter,Arial,sans-serif;color:var(--ink);background:var(--bg2);border:2px solid var(--line);border-radius:12px;padding:15px 14px;min-height:56px}
+input::placeholder{color:#6f7d76}
+input.bad{border-color:var(--red)}
+.err{color:var(--red);font-size:14px;min-height:0}
+.consent{display:flex;gap:12px;align-items:flex-start;background:var(--bg2);border:2px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;margin:6px 0 6px}
+.consent input{width:26px;height:26px;flex:0 0 26px;accent-color:var(--green);margin:0}
+.consent span{font-size:16px}
+.consent.bad{border-color:var(--red)}
+.fine{font-size:13px;color:var(--soft);margin:10px 0 18px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* Result */
+.gauge{position:relative;width:220px;height:220px;margin:8px auto 10px}
+.gauge svg{width:100%;height:100%;transform:rotate(-90deg)}
+.gauge .n{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.gauge .n b{font:700 64px "Space Grotesk",Arial,sans-serif;line-height:1}
+.gauge .n span{color:var(--soft);font-size:14px}
+.band{display:inline-block;font:700 14px "Space Grotesk",Arial,sans-serif;letter-spacing:2px;text-transform:uppercase;border-radius:99px;padding:6px 14px;color:var(--on-green)}
+.center{text-align:center}
+.rtitle{font-size:clamp(26px,7vw,34px);margin:12px 0 8px}
+.rsub{color:var(--soft);margin:0 0 18px}
+.locked{display:flex;flex-direction:column;gap:10px;margin:4px 0 20px}
+.locked div{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.locked .k{font:700 20px "Space Grotesk",Arial,sans-serif;color:var(--green)}
+.locked .t{flex:1;height:12px;border-radius:6px;background:linear-gradient(90deg,#33404d,#25303b);filter:blur(1px)}
+.mail{display:flex;gap:12px;align-items:center;background:rgba(46,224,138,.10);border:1px solid var(--green-d);border-radius:12px;padding:14px 16px;margin-bottom:22px}
+.mail p{margin:0}
+.warn{background:rgba(255,181,71,.10);border:1px solid var(--yellow);border-radius:12px;padding:12px 14px;font-size:15px;margin-bottom:16px;display:none}
+.cta{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:22px 18px;margin-top:6px}
+.cta h3{font-size:24px;margin-bottom:6px}
+.cta p{color:var(--soft);margin:0 0 16px}
+.cta .row{display:flex;flex-direction:column;gap:10px}
+.price{color:var(--green)}
+.demo-box{margin-top:22px;border:1px dashed var(--yellow);border-radius:12px;padding:14px;display:none}
+.demo-box h4{margin:0 0 8px;font:700 15px "Space Grotesk",Arial,sans-serif;color:var(--yellow);letter-spacing:1px;text-transform:uppercase}
+.demo-box ol{margin:0;padding-left:20px}
+.demo-box li{margin-bottom:8px;font-size:15px}
+footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--soft)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--bg3);border:1px solid var(--line);color:var(--ink);padding:12px 16px;border-radius:12px;font-size:15px;display:none;z-index:9;max-width:92vw}
+@media (min-width:700px){.wrap{padding-top:32px}.cta .row{flex-direction:row}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="https://aigl.dev/">AI <b>GO</b> LONG</a>
+    <span id="demoFlag" class="demo-flag" hidden>Demo mode</span>
+    <span class="pill" id="pillTime">3 minutes</span>
+  </header>
+
+  <!-- HERO -->
+  <section class="screen on" id="s-hero" aria-labelledby="h-hero">
+    <p class="eyebrow">Free AI Safety Audit &middot; 5-minute version</p>
+    <h1 id="h-hero">AI is how you compete now. Are you using it <span class="hl">safely</span>?</h1>
+    <p class="lede">You can't sit AI out, but using it blind is where businesses get burned. Answer 20 quick questions and get your AI Safety Score and the top things to fix first.</p>
+
+    <div class="avatar" id="avatar" aria-label="AI presenter video">
+      <span class="ai-tag">AI presenter</span>
+      <div class="ph" id="avatarPh">
+        <span class="play" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z" fill="#04110A"/></svg></span>
+        <strong>AI presenter</strong>
+        <span>Short intro video coming soon</span>
+      </div>
+    </div>
+    <p class="disclose" id="disclose">Heads up: the presenter in this video is an AI-generated avatar, not a live person.</p>
+
+    <ul class="facts">
+      <li><b>20</b> questions</li>
+      <li><b>5</b> minutes</li>
+      <li><b>Free</b>, no sales call needed</li>
+    </ul>
+
+    <button class="btn" id="startBtn" type="button">Start my free audit &rarr;</button>
+
+    <div class="privacy" role="note">
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex:0 0 22px;margin-top:1px"><path d="M12 2l8 3v6c0 5-3.5 9.3-8 11-4.5-1.7-8-6-8-11V5z" fill="none" stroke="#2EE08A" stroke-width="2"/><path d="M8.5 12l2.5 2.5 4.5-5" fill="none" stroke="#2EE08A" stroke-width="2"/></svg>
+      <span><b>We never ask for passwords or customer data.</b> Just yes, no, or not sure about how things are set up.</span>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="screen" id="s-quiz" aria-live="polite">
+    <div class="qhead">
+      <span class="count" id="qCount">Question 1 of 20</span>
+      <span class="count" id="qLeft"></span>
+    </div>
+    <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0" id="bar"><i id="barFill"></i></div>
+    <p class="area" id="qArea"></p>
+    <h2 class="q" id="qText" tabindex="-1"></h2>
+    <p class="help" id="qHelp"></p>
+    <div class="opts" id="qOpts" role="radiogroup" aria-labelledby="qText"></div>
+    <div class="follow" id="qFollow" hidden>
+      <p class="q2" id="qFollowText"></p>
+      <p class="help" id="qFollowHelp"></p>
+      <div class="opts" id="qFollowOpts" role="radiogroup" aria-labelledby="qFollowText"></div>
+    </div>
+    <div class="reveal" id="qReveal" hidden aria-live="polite">
+      <span class="reveal-tag">Did you know?</span>
+      <p id="qRevealText"></p>
+    </div>
+    <div class="qnav">
+      <button class="link" id="backBtn" type="button">&larr; Back</button>
+      <span class="count" id="qHint">Tap an answer to keep going</span>
+      <button class="btn" id="nextBtn" type="button" disabled>Next &rarr;</button>
+    </div>
+  </section>
+
+  <!-- LEAD FORM -->
+  <section class="screen" id="s-form">
+    <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+    <p class="eyebrow">All done. Nice work.</p>
+    <h2 class="q" id="h-form" tabindex="-1">Where should we send your results?</h2>
+    <p class="help">Your score shows on the next screen. Your full results, with your top 3 fixes, come by email.</p>
+    <form id="leadForm" novalidate>
+      <div class="field">
+        <label for="fName">First name</label>
+        <input id="fName" name="firstName" type="text" autocomplete="given-name" placeholder="Jamie" required maxlength="60">
+      </div>
+      <div class="field">
+        <label for="fBiz">Business name</label>
+        <input id="fBiz" name="business" type="text" autocomplete="organization" placeholder="Jamie's Plumbing" required maxlength="120">
+      </div>
+      <div class="field">
+        <label for="fEmail">Email</label>
+        <input id="fEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="jamie@yourbusiness.com" required maxlength="160">
+      </div>
+      <div class="field">
+        <label for="fPhone">Phone <small>(optional)</small></label>
+        <input id="fPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(205) 555-0123" maxlength="30">
+      </div>
+      <div class="hp" aria-hidden="true"><label for="fWeb">Website</label><input id="fWeb" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+      <label class="consent" id="consentBox" for="fConsent">
+        <input id="fConsent" name="consent" type="checkbox" required>
+        <span id="consentText">Email me my results and occasional AI safety tips. Unsubscribe anytime.</span>
+      </label>
+      <p class="err" id="formErr" role="alert"></p>
+      <p class="fine">We never ask for passwords or customer data. We won't sell or share your info. This free audit is a quick self-review, not legal advice.</p>
+      <button class="btn" id="submitBtn" type="button">Show my score &rarr;</button>
+    </form>
+    <div class="qnav"><button class="link" id="formBack" type="button">&larr; Back to questions</button><span></span></div>
+  </section>
+
+  <!-- RESULT -->
+  <section class="screen" id="s-result">
+    <div class="center">
+      <p class="eyebrow" id="rHello">Your AI Safety Score</p>
+      <div class="gauge" aria-hidden="true">
+        <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#1C242E" stroke-width="12"/><circle id="gArc" cx="60" cy="60" r="52" fill="none" stroke="#2EE08A" stroke-width="12" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7" style="transition:stroke-dashoffset 1s ease"/></svg>
+        <div class="n"><b id="rScore">0</b><span>out of 100</span></div>
+      </div>
+      <span class="band" id="rBand">Green</span>
+      <h2 class="rtitle" id="rTitle" tabindex="-1"></h2>
+      <p class="rsub" id="rSub"></p>
+    </div>
+
+    <div class="warn" id="sendWarn">We couldn't reach our server just now, so your results may be delayed. <button class="link" id="retryBtn" type="button" style="padding:0 4px">Try again</button></div>
+
+    <div class="mail">
+      <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" style="flex:0 0 28px"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="#2EE08A" stroke-width="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5" fill="none" stroke="#2EE08A" stroke-width="2"/></svg>
+      <p><b>Your full results are on their way.</b> <span id="rMailNote"></span></p>
+    </div>
+
+    <p class="count" style="margin:0 0 8px">Your top 3 fixes (in your email)</p>
+    <div class="locked" aria-label="Your top 3 fixes are in your email">
+      <div><span class="k">1</span><span class="t"></span></div>
+      <div><span class="k">2</span><span class="t" style="max-width:80%"></span></div>
+      <div><span class="k">3</span><span class="t" style="max-width:65%"></span></div>
+    </div>
+
+    <div class="cta">
+      <h3>Want the whole picture?</h3>
+      <p>This free 3-minute version covers 10 quick spots. The <b>Full AI Safety Audit</b> covers all 12 risk areas in a 30 to 45 minute conversation. You just talk. You get your full score, top 10 fixes and a one-page AI policy for your staff.</p>
+      <div class="row">
+        <a class="btn" id="bookBtn" href="#">Book the Full Audit &middot; <span>$497</span></a>
+        <a class="btn ghost" id="seminarBtn" href="#">Join a free seminar</a>
+      </div>
+    </div>
+
+    <div class="demo-box" id="demoBox">
+      <h4>Demo only: what the email will say</h4>
+      <p id="demoMeta" style="margin:0 0 10px;font-size:14px;color:var(--soft)"></p>
+      <ol id="demoFixes"></ol>
+      <button class="link" id="restartBtn" type="button">Run it again</button>
+    </div>
+  </section>
+
+  <footer>
+    &copy; <span id="yr"></span> AI Go Long (AIGL) &middot; Calera, Alabama &middot; <a href="https://aigl.dev/">aigl.dev</a><br>
+    We never ask for passwords or customer data. The Free AI Safety Audit is a quick self-review, not legal or security advice.
+  </footer>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ===================== CONFIG (edit these) ===================== */
+var CONFIG = {
+  // Paste the Apps Script web app URL ending in /exec. While this still contains "PASTE", the page runs in demo mode.
+  BACKEND_URL: "PASTE_APPS_SCRIPT_WEB_APP_URL_HERE",
+  BOOKING_URL: "https://calendar.google.com/calendar/appointments/schedules/AcZssZ2NimZshA7XqXAeU11KVxC4PWL5CeZWcUv72uRMIWqhXS8qWj9ME8QiVft8FQxKUEoGkWzL0NM8",      // e.g. a Google Calendar booking page or Stripe link for the $497 audit
+  SEMINAR_URL: "",      // e.g. the next AI Go Long Academy seminar sign-up page
+  AVATAR_VIDEO_URL: "", // HeyGen MP4 URL. Leave blank to show the placeholder.
+  AVATAR_POSTER_URL: "",
+  MAIL_NOTE: "Check your inbox in the next day or so (and your spam folder, just in case)."
+};
+/* =============================================================== */
+
+/* Questions: points 2 = Green, 1 = Yellow, 0 = Red.
+   prio breaks ties when choosing the top 3 fixes (lower = more urgent).
+   type:"multi" = pick all that apply. Multi options are [label, points, exclusive, tag]; the tag goes in the Sheet and in fix text ({picked}).
+   Keep ids, order, area, prio, type, option order, points, exclusive flags, tags, follow-up points and fix text in sync with QUESTIONS in Code.gs. */
+var QUESTIONS = [
+  {id:"callback_rule", area:"Scams", prio:3,
+   q:"Picture this: your bookkeeper gets a call that sounds exactly like you, in a hurry, asking her to send a payment or change an account number right now. What happens?",
+   help:"AI can copy a voice from a few seconds of audio. Hearing a familiar voice is no longer proof it's really them.",
+   reveal:"In 2024, a finance worker at the engineering firm Arup paid out about $25 million after a video call with deepfakes of his own CFO and colleagues. Everyone on the call was fake but him.",
+   opts:[["She'd hang up and call back a number we already have, or we use a code word",2], ["I'm honestly not sure what she'd do",1], ["She'd know my voice and just handle it",0]],
+   fix:["A familiar voice is no longer proof. Set a rule today: any call asking to move money or change account info gets a hang-up and a call back to a number you already have. Add a code word with family and key staff.", "Decide what your team does before the call comes: hang up and call back a known number, or use a code word. Write it down and tell everyone, including family."]},
+  {id:"uses_ai", area:"Getting started", prio:20,
+   q:"Let's start easy. Does your team use AI tools like ChatGPT, Gemini or Copilot at all?",
+   help:"No wrong answer here. This just helps shape the rest.",
+   reveal:"Most small-business teams are already using AI, often on personal accounts the owner never set up. Knowing it's happening is step one.",
+   opts:[["Yes, pretty regularly",2], ["Here and there",2], ["Not yet, but we're looking",2], ["Honestly not sure",1]],
+   fix:["Start by finding out who on your team uses AI and for what. You can't protect what you can't see.", "Ask your team which AI tools they use. A quick, judgment-free list is the first step."]},
+  {id:"two_factor", area:"Logins", prio:16,
+   q:"Quick one: is two-step sign-in turned on for your email and your banking?",
+   help:"Two-step sign-in sends a code to your phone, so a stolen password alone can't get in.",
+   reveal:"Stolen passwords are behind most account break-ins, and two-step sign-in blocks the large majority of them. It's free and takes a few minutes.",
+   opts:[["Yes, on both",2], ["On some things, not all",1], ["No, or not sure",0]],
+   fix:["Turn on two-step sign-in today for your email and banking first, then your main business apps. It's the single cheapest thing that stops account takeovers.", "Finish turning on two-step sign-in everywhere, especially email and banking. Those two are the keys to everything else."]},
+  {id:"chatbot_promise", area:"Customer-facing AI", prio:8,
+   q:"If a chatbot or AI on your website told a customer a wrong price, a refund, or a guarantee, who has to honor it?",
+   help:"AI makes things up sometimes, and says them with total confidence.",
+   reveal:"A court made Air Canada honor a refund policy its own chatbot invented. The airline argued the bot was separate from the company and lost. Your AI's words are your words.",
+   opts:[["We'd have to honor it, so a person checks what it can say",2], ["Not sure, we've never thought about it",1], ["We don't have AI talking to customers",2], ["The AI company would, I'd assume",0]],
+   fix:["Set hard limits on any AI that talks to customers: no quoting prices, no promises, no guarantees, and a person reviews what it's allowed to say. You're on the hook for its words.", "Decide now what your customer-facing AI can and can't say, put the rules in writing, and have a person spot-check its chats. A made-up promise becomes your problem."]},
+  {id:"human_check", area:"Content", prio:15,
+   q:"When AI helps write something for a customer, a post, an email, a quote, does a person read it before it goes out?",
+   help:"A quick human read catches the wrong price, the made-up fact, the odd tone.",
+   reveal:"AI will state a wrong fact as confidently as a right one. A ten-second human read is still the best filter there is.",
+   opts:[["Yes, always",2], ["Most of the time",1], ["Not really, it just goes",0], ["We don't use AI for that",2]],
+   fix:["Make it a rule that a person reads anything AI wrote before it reaches a customer. One wrong price or made-up claim can cost you more than the time saved.", "Tighten up the review habit so every AI-written message gets a human read before it goes out, every time."]},
+  {id:"whose_account", area:"Staff AI use", prio:10,
+   q:"When your team uses AI, whose account is it on, yours and theirs, or whatever free login they grabbed?",
+   help:"Free personal accounts can keep and learn from what gets typed into them.",
+   reveal:"On many free AI plans, the company can keep and train on what you type unless you turn that off. Business accounts you own give you the controls and the off switch.",
+   opts:[["Business accounts the company owns",2], ["A mix, or I'm not sure",1], ["Free personal accounts",0], ["We don't use AI yet",2]],
+   fix:["Move your team off free personal AI accounts onto a business plan you own, then switch off any setting that lets the AI company keep and learn from what you type.", "List who uses which AI app and on what account, then move the work onto company-owned business accounts you control."]},
+  {id:"email_hijack", area:"AI that acts on its own", prio:7,
+   q:"Does any AI you use touch your email, files or calendar on its own?",
+   help:"If it does, a booby-trapped message can quietly give it orders.",
+   reveal:"An email or document with hidden instructions can trick an AI assistant into forwarding your files or replying as you, and you never even have to open it. It's a real, new kind of attack.",
+   opts:[["No, our AI can't get into email, files or calendar",2], ["Not sure what it can reach",1], ["Yes, and it acts without me approving",0]],
+   fix:["Check what each AI tool can reach and do on its own. Cut its access to email, files and calendar down to only what it needs, and require your approval before it sends or shares anything.", "Find out exactly what your AI assistants can touch, turn off access you didn't mean to grant, and add an approval step so a hidden message can't make them act for you."]},
+  {id:"approved_tools", area:"Rules", prio:18,
+   q:"Is there one person who approves a new AI tool before the team starts using it?",
+   help:"Without a gatekeeper, random AI apps pile up, each one a new place your data can leak.",
+   reveal:"\"Shadow AI\", tools nobody approved, is now one of the most common ways business data leaks. One person saying yes or no closes most of that gap.",
+   opts:[["Yes, someone signs off first",2], ["No, people just try things",1], ["We don't really use AI tools",2]],
+   fix:["Pick one person who approves any new AI tool before the team uses it. It keeps a handle on where your data goes.", "Name a gatekeeper for new AI tools so apps don't pile up unseen, each one a new place your data can end up."]},
+  {id:"shadow_ai", area:"Staff AI use", prio:11,
+   q:"Your honest gut guess: how many of your people are using AI you never set up or approved?",
+   help:"Not a trick. Owners almost always guess low.",
+   reveal:"Surveys keep finding that most employees who use AI at work do it on their own accounts, and many don't mention it to the boss. Whatever you guessed, the real number is usually higher.",
+   opts:[["None, or everything's on approved accounts",2], ["Maybe one or two",1], ["Probably several, or no idea",0]],
+   fix:["Ask your team, openly and without blame, which AI tools they actually use. Then move that work onto accounts you control so it's not scattered across personal logins.", "Get the real picture of what AI your team is already using, then bring it onto business accounts you can see and manage."]},
+  {id:"invoice_scam", area:"Money", prio:2,
+   q:"A vendor emails to say their bank details changed, use this new account for the next payment. What has to happen before anyone pays it?",
+   help:"These emails can look perfect now, logo, signature, real thread and all.",
+   reveal:"Fake \"we changed our bank info\" emails are one of the top ways businesses lose money, and AI makes them look flawless. The only reliable defense is a phone call to a number you already had.",
+   opts:[["We call the vendor on a number we already have and confirm",2], ["We'd probably just update it",0], ["Not sure what we'd do",1]],
+   fix:["Set one rule: no bank or payment-detail change gets made until someone calls the vendor on a number you already had on file, never the number in the email. This stops the most common money-loss scam cold.", "Put a call-back rule in writing for any change to vendor bank details, using a number you already have. It's the single best defense against invoice fraud."]},
+  {id:"backups", area:"Backups", prio:17,
+   q:"If your main computer or account died tonight, what would you lose?",
+   help:"Think customer records, photos, invoices, everything that runs the business.",
+   reveal:"Most small businesses that lose their data to a crash or ransomware never fully recover it. A backup you've actually tested is the difference.",
+   opts:[["Nothing, it's backed up and I've tested it",2], ["Some of it, I think",1], ["A lot, or I'm not sure",0]],
+   fix:["Set up an automatic backup of your business data and then actually test restoring a file, so you know it works before you need it.", "Confirm your backup covers everything that matters and test a restore. An untested backup isn't a backup yet."]},
+  {id:"customer_data_storage", area:"Where customer data lives", prio:5, type:"multi",
+   q:"Where does the customer info your AI tools collect end up? Pick all that apply.",
+   help:"Every chatbot or AI phone agent that takes a name or number saves it somewhere. You should know where, and who can open it.",
+   reveal:"Most owners can't say where this data lands. It's usually sitting in an inbox, a spreadsheet or a vendor's cloud that nobody has checked, wide open to anyone who gets in.",
+   opts:[["We don't use AI to collect customer info",2,1,"no AI collecting it"],
+         ["Our own secured system with logins and two-step sign-in",2,0,"our own secured system"],
+         ["The AI company's cloud",1,0,"the AI company's cloud"],
+         ["Email inboxes",0,0,"email inboxes"],
+         ["Spreadsheets or a computer in the office",0,0,"spreadsheets or office computers"],
+         ["Texts on someone's phone",0,0,"texts on someone's phone"],
+         ["I don't know",0,1,"don't know"]],
+   fixUnsure:"Ask every AI tool that collects customer info where it stores that info, who at that company can see it, and whether they keep and learn from it. Then move it into one secured system where each person has their own login and two-step sign-in.",
+   fix:["Customer info from your AI tools ends up in {picked}, where anyone who gets into that inbox, file or phone can see it. Move it into one secured system with its own logins and two-step sign-in, then clear out the old copies.", "Find out where your AI tools store customer info, who can see it, and whether that company learns from it. Turn on two-step sign-in and keep only what you need."]},
+  {id:"chat_history", area:"AI accounts", prio:9,
+   q:"Open your office manager's ChatGPT history in your head. What's the most sensitive thing sitting in there?",
+   help:"AI tools keep a running history of everything typed into them.",
+   reveal:"Those histories pile up months of customer names, prices, contracts and sometimes passwords, all saved and searchable. If someone got into that one account, that's what they'd walk away with.",
+   opts:[["Nothing sensitive, and two-step sign-in is on",2], ["Some business info, I'm not sure",1], ["Customer info, pricing, maybe a password",0]],
+   fix:["This week, clear out old AI chats that hold customer info, pricing or passwords, change any password ever typed into one, and turn on two-step sign-in for every AI account your team uses.", "Go through your team's AI chat history, delete anything with customer or private business info, and switch on two-step sign-in for every AI account."]},
+  {id:"ai_discloses", area:"Customer-facing AI", prio:14,
+   q:"If a customer asks your website chat or phone AI \"am I talking to a person?\", does it tell the truth?",
+   help:"Being upfront that it's AI builds trust and keeps you out of trouble.",
+   reveal:"A growing number of places now require AI to say it's AI when asked. Being honest about it also tends to make customers trust the answer more, not less.",
+   opts:[["Yes, it says it's an AI assistant",2], ["Not sure what it says",1], ["No, it acts like a person",0], ["We don't have customer-facing AI",2]],
+   fix:["Set your customer-facing AI to say it's an AI assistant when asked. It keeps you clear of disclosure rules and actually builds trust.", "Check what your AI says when asked if it's human, and make sure it's honest about being AI."]},
+  {id:"agentic_ai", area:"AI that acts on its own", prio:6, type:"multi",
+   q:"What does your AI do on its own, without a person approving first? Pick all that apply.",
+   help:"\"Agentic\" AI doesn't just answer, it takes action. Without a check, one mistake goes straight to a customer.",
+   reveal:"The more an AI can do on its own, the more one bad instruction or wrong guess can cost you. The businesses that stay safe keep a person between the AI and anything that reaches a customer or moves money.",
+   opts:[["Sends emails",1,0,"sends emails"],
+         ["Sends texts",1,0,"sends texts"],
+         ["Books jobs or appointments",1,0,"books jobs or appointments"],
+         ["Replies to reviews or messages",1,0,"replies to reviews or messages"],
+         ["Quotes prices",0,0,"quotes prices"],
+         ["Moves money or sends invoices",0,0,"moves money or sends invoices"],
+         ["Nothing, a person approves everything",2,1,"nothing without approval"],
+         ["We don't use AI agents",2,1,"no AI agents"],
+         ["Not sure what it does",0,1,"not sure"]],
+   tooMany:3,
+   fixUnsure:"Find out what your AI tools can do on their own, send emails or texts, book jobs, reply to customers, quote prices or move money. Turn off anything you didn't mean to allow, and add an approval step before anything reaches a customer.",
+   fix:["Right now your AI {picked} with no one approving first. Add an approval step for anything that quotes a price, touches money or reaches a customer, and limit what each agent can do until that's in place.", "Right now your AI {picked} on its own. Read back what it's actually sent, turn on approval for anything customer-facing, and keep it away from prices and money."]},
+  {id:"customer_info", area:"Customer data", prio:4, type:"multi",
+   q:"Which of these has ever been typed or pasted into an AI chat? Pick all that apply.",
+   help:"No details needed, just the kinds of info. Free AI apps can keep what's typed.",
+   reveal:"Samsung engineers pasted confidential source code into ChatGPT in 2023 and couldn't get it back. Whatever goes into a free AI chat can be stored on someone else's servers, out of your hands.",
+   opts:[["Customer names",1,0,"names"],
+         ["Phone numbers or emails",1,0,"phone numbers or emails"],
+         ["Addresses",1,0,"addresses"],
+         ["Job notes, contracts or invoices",1,0,"job notes, contracts or invoices"],
+         ["Payment or bank info",0,0,"payment or bank info"],
+         ["Health info",0,0,"health info"],
+         ["Social Security or driver's license numbers",0,0,"Social Security or driver's license numbers"],
+         ["None that I know of",2,1,"none that I know of"],
+         ["I wouldn't know",0,1,"wouldn't know"]],
+   fixUnsure:"You can't see what your team types into AI. Move everyone onto business AI accounts where you're the admin, and set a rule today: no customer names, numbers, addresses, payment, health or ID info in AI chats.",
+   fix:["These have gone into AI chats: {picked}. Payment, health and ID info are the most dangerous to leak. Delete those chats, move the team onto business AI accounts you control, and set a hard rule that none of that ever goes into an AI tool.", "Customer {picked} have gone into AI chats. Move the team onto business AI accounts you control, use \"Customer A\" instead of real names, and write down what never goes in."]},
+  {id:"ai_training", area:"AI tool settings", prio:12, type:"multi",
+   q:"Which of these do you or your team use? Pick all that apply.",
+   help:"Many AI apps, and AI features inside apps you already have, can learn from what you type unless you turn it off.",
+   reveal:"On a lot of free plans the company keeps and trains on what you type unless you dig into settings and switch it off, and almost nobody does. Business plans usually don't do this at all.",
+   opts:[["Free ChatGPT, Gemini or Claude accounts",null,0,"free ChatGPT, Gemini or Claude accounts"],
+         ["AI notetakers on calls or meetings",null,0,"AI notetakers"],
+         ["AI writing helpers (Grammarly, Canva AI, Copilot)",null,0,"AI writing helpers"],
+         ["AI features in your CRM, email or bookkeeping",null,0,"AI features in your CRM, email or bookkeeping"],
+         ["A chatbot or AI phone agent on your website",null,0,"website chatbot or AI phone agent"],
+         ["None of these",2,1,"none of these"]],
+   follow:{q:"Do you know where those tools keep what you type and whether they learn from it?", help:"Check each one's Data or Privacy settings, or let us check for you.", opts:[["Yes, I know, and it's private or on business plans",2], ["I have a rough idea",1], ["No idea",0]]},
+   fix:["Find out where your {picked} keep what you type. Then open each one's Data or Privacy settings and switch off the option that lets the company keep and learn from it, or move to business plans that don't.", "Confirm the Data or Privacy settings on your {picked}: know where each keeps what you type, and make sure the company can't learn from it. If it can, switch it off or move to a business plan."]},
+  {id:"money_connected", area:"Money", prio:1,
+   q:"Could any app, automation or AI assistant move money, pay a bill, or change payment info without a person approving it first?",
+   help:"Think bank apps, QuickBooks, payment processors, Zapier-style automations, AI bookkeepers. Most have AI built in now.",
+   reveal:"The moment anything can move money on its own, a single fake invoice or wrong guess can drain an account before anyone notices. A human tap before money moves is the cheapest insurance there is.",
+   opts:[["No, a person approves anything that moves money",2], ["I'm honestly not sure",1], ["Yes, some things run on their own",0]],
+   fix:["This week, find anything that can move money, pay bills or change payment info on its own and add a person-approval step. Keep only auto-pay you set up yourself for fixed, known bills.", "List every app, automation and AI tool connected to your bank, QuickBooks or payment processor, check which can move money without approval, and disconnect anything you don't use."]},
+  {id:"ai_policy", area:"Rules", prio:19,
+   q:"If an employee pasted a customer's info into the wrong AI tomorrow, is there a written rule that says they shouldn't have?",
+   help:"Even one page saying what's OK to paste and what isn't.",
+   reveal:"For most offices the honest answer is no, and that's exactly why it keeps happening. A one-page rule sheet is the fastest fix on this whole list.",
+   opts:[["Yes, it's written down and shared",2], ["We've talked about it, nothing written",1], ["No",0]],
+   fix:["Write a one-page AI rule sheet: which tools are OK, what never gets pasted, and who to ask. Have everyone read it. It's the cheapest fix here.", "Put your AI rules in writing, one page is plenty, and have the team read and sign it."]},
+  {id:"hallucination", area:"Trusting AI", prio:13,
+   q:"Last one, and it's a big one. Your AI gives your staff an answer, a code, a law, a number, and states it with total confidence. How often do they double-check it?",
+   help:"AI can be flat wrong and still sound completely sure of itself.",
+   reveal:"When AI states something made up as fact, it's called a hallucination. It'll invent prices, laws, part numbers and quotes that look real, which is why anything that matters needs a human check before you act on it.",
+   opts:[["We treat it as a draft and verify anything that matters",2], ["Sometimes, depends who's using it",1], ["We mostly trust what it says",0]],
+   fix:["Teach your team the one rule that prevents most AI messes: treat every AI answer as a confident draft, and verify anything you'd act on, a price, a law, a number, before you use it.", "Tighten the habit of checking AI answers that matter. It sounds sure even when it's wrong, so a quick verify on anything important saves you later."]}
+];
+
+var state = {i:0, answers:{}, payload:null, result:null};
+var $ = function(id){return document.getElementById(id);};
+var DEMO = /PASTE/.test(CONFIG.BACKEND_URL) || !CONFIG.BACKEND_URL || /[?#&]demo\b/.test(location.href);
+
+function show(id){
+  var s = document.querySelectorAll(".screen");
+  for (var k=0;k<s.length;k++) s[k].classList.remove("on");
+  $(id).classList.add("on");
+  window.scrollTo(0,0);
+}
+function toast(msg){var t=$("toast");t.textContent=msg;t.style.display="block";clearTimeout(t._h);t._h=setTimeout(function(){t.style.display="none";},3200);}
+
+function renderQ(){
+  var Q = QUESTIONS[state.i], n = QUESTIONS.length, multi = Q.type === "multi";
+  $("qCount").textContent = "Question " + (state.i+1) + " of " + n;
+  var left = Math.max(1, Math.round((n - state.i) * 18 / 60));
+  $("qLeft").textContent = "About " + left + " min left";
+  $("barFill").style.width = (state.i / n * 100) + "%";
+  $("bar").setAttribute("aria-valuenow", state.i);
+  $("qArea").textContent = Q.area;
+  $("qText").textContent = Q.q;
+  $("qHelp").textContent = Q.help;
+  var box = $("qOpts"); box.innerHTML = "";
+  box.setAttribute("role", multi ? "group" : "radiogroup");
+  Q.opts.forEach(function(o, idx){
+    var b = optButton(o[0], multi ? "checkbox" : "radio");
+    if (multi){ b.classList.add("multi"); b.addEventListener("click", function(){ toggle(idx); }); }
+    else {
+      if (state.answers[Q.id] === idx){ b.classList.add("sel"); b.setAttribute("aria-checked","true"); }
+      b.addEventListener("click", function(){ pick(idx, b); });
+    }
+    box.appendChild(b);
+  });
+  var fb = $("qFollowOpts"); fb.innerHTML = "";
+  if (Q.follow){
+    $("qFollowText").textContent = Q.follow.q;
+    $("qFollowHelp").textContent = Q.follow.help || "";
+    Q.follow.opts.forEach(function(o, idx){
+      var b = optButton(o[0], "radio");
+      b.addEventListener("click", function(){ state.answers[Q.id].f = idx; syncMulti(); });
+      fb.appendChild(b);
+    });
+  }
+  $("qHint").textContent = multi ? "" : "Tap an answer to keep going";
+  $("nextBtn").hidden = !multi;
+  if (multi) syncMulti(); else $("qFollow").hidden = true;
+  $("backBtn").style.visibility = "visible";
+  $("qText").focus({preventScroll:true});
+}
+function optButton(label, role){
+  var b = document.createElement("button");
+  b.type = "button"; b.className = "opt"; b.setAttribute("role", role); b.setAttribute("aria-checked","false");
+  b.innerHTML = '<span class="dot" aria-hidden="true"></span><span></span>';
+  b.lastChild.textContent = label;
+  return b;
+}
+function pick(idx, btn){
+  var Q = QUESTIONS[state.i];
+  state.answers[Q.id] = idx;
+  var all = $("qOpts").children;
+  for (var k=0;k<all.length;k++){all[k].classList.remove("sel");all[k].setAttribute("aria-checked","false");}
+  btn.classList.add("sel"); btn.setAttribute("aria-checked","true");
+  $("barFill").style.width = ((state.i+1) / QUESTIONS.length * 100) + "%";
+  setTimeout(next, 220);
+}
+function next(){
+  if (state.i < QUESTIONS.length - 1){ state.i++; renderQ(); }
+  else { show("s-form"); $("h-form").focus({preventScroll:true}); }
+}
+/* Multi-select: an exclusive option ("None", "I don't know") clears the others, and picking any other option clears the exclusive ones. */
+function toggle(idx){
+  var Q = QUESTIONS[state.i];
+  var a = state.answers[Q.id] || (state.answers[Q.id] = {s:[]});
+  var at = a.s.indexOf(idx);
+  if (at >= 0) a.s.splice(at, 1);
+  else if (Q.opts[idx][2]) a.s = [idx];
+  else { a.s = a.s.filter(function(k){ return !Q.opts[k][2]; }); a.s.push(idx); }
+  a.s.sort(function(x,y){ return x - y; });
+  syncMulti();
+}
+function hasExclusive(Q, a){ return a.s.some(function(k){ return Q.opts[k][2]; }); }
+function multiReady(Q, a){ return !!a && a.s.length > 0 && (!Q.follow || hasExclusive(Q, a) || a.f != null); }
+function syncMulti(){
+  var Q = QUESTIONS[state.i], a = state.answers[Q.id] || {s:[]};
+  var all = $("qOpts").children;
+  for (var k=0;k<all.length;k++){ var on = a.s.indexOf(k) >= 0; all[k].classList.toggle("sel", on); all[k].setAttribute("aria-checked", on ? "true" : "false"); }
+  if (Q.follow){
+    var showF = a.s.length > 0 && !hasExclusive(Q, a);
+    $("qFollow").hidden = !showF;
+    var fo = $("qFollowOpts").children;
+    for (var m=0;m<fo.length;m++){ var fon = a.f === m; fo[m].classList.toggle("sel", fon); fo[m].setAttribute("aria-checked", fon ? "true" : "false"); }
+  } else $("qFollow").hidden = true;
+  var ready = multiReady(Q, a);
+  $("nextBtn").disabled = !ready;
+  $("qHint").textContent = ready ? "" : (a.s.length && Q.follow && !hasExclusive(Q, a) ? "Answer the second part too" : "Pick all that apply");
+}
+
+/* ===== Shared scoring: keep this block identical in index.html and Code.gs ===== */
+function tag_(q, i){ var o = q.opts[i]; return o.length > 3 ? o[3] : o[0]; }
+function joinList_(a){ return a.length < 2 ? (a[0] || '') : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1]; }
+// Single answer: an option index. Multi answer: {s: [option indexes], f: follow-up index}.
+// Multi score: an exclusive option scores itself; with a follow-up, the follow-up scores;
+// otherwise the worst option picked, and picking tooMany or more options scores 0.
+function scoreAnswer_(q, a){
+  if (q.type !== 'multi') return { pts: q.opts[a][1], picked: [], unsure: false };
+  var s = a.s, ex = -1, i;
+  for (i = 0; i < s.length; i++) if (q.opts[s[i]][2]) ex = s[i];
+  if (ex >= 0) return { pts: q.opts[ex][1], picked: [], unsure: q.opts[ex][1] === 0 };
+  if (q.follow) return { pts: q.follow.opts[a.f][1], picked: s.map(function (k) { return tag_(q, k); }), unsure: false };
+  var pts = 2;
+  for (i = 0; i < s.length; i++) if (q.opts[s[i]][1] < pts) pts = q.opts[s[i]][1];
+  if (q.tooMany && s.length >= q.tooMany) pts = 0;
+  var worst = s.filter(function (k) { return q.opts[k][1] === pts; });
+  if (!worst.length) worst = s.slice();
+  return { pts: pts, picked: worst.map(function (k) { return tag_(q, k); }), unsure: false };
+}
+function fixText_(q, r){
+  if (r.unsure && q.fixUnsure) return q.fixUnsure;
+  return q.fix[r.pts].replace('{picked}', joinList_(r.picked));
+}
+/* ===== End shared scoring ===== */
+
+/* Scoring: each question 0/1/2, total out of 20, scaled to 0-100. */
+function score(){
+  var pts = 0;
+  QUESTIONS.forEach(function(Q){ pts += scoreAnswer_(Q, state.answers[Q.id]).pts; });
+  var s = Math.round(pts / (QUESTIONS.length * 2) * 100);
+  var band = s >= 80 ? "Green" : (s >= 60 ? "Yellow" : "Red");
+  return {score:s, band:band};
+}
+
+/* Demo-only preview of the top 3 fixes. The real email is built by Code.gs from the same QUESTIONS. */
+var FILL_TIPS = [
+  "Review which AI tools can see your email, files or calendar, and remove access you don't use.",
+  "Pick one person who approves any new AI tool before the team starts using it.",
+  "Write down who to call and what to switch off if an AI tool or AI account is misused."
+];
+function topFixes(){
+  var list = QUESTIONS.map(function(Q){ return {Q:Q, r:scoreAnswer_(Q, state.answers[Q.id])}; })
+    .filter(function(x){ return x.r.pts < 2; })
+    .sort(function(a,b){ return a.r.pts - b.r.pts || a.Q.prio - b.Q.prio; })
+    .slice(0,3)
+    .map(function(x){ return fixText_(x.Q, x.r); });
+  var k = 0; while (list.length < 3) list.push(FILL_TIPS[k++]);
+  return list;
+}
+
+var COPY = {
+  Green:{c:"#2EE08A", t:"You're in good shape.", s:"You've got the basics covered. A few small tweaks will keep it that way."},
+  Yellow:{c:"#FFB547", t:"Some gaps worth closing.", s:"Nothing on fire, but a couple of these are the exact openings scammers look for."},
+  Red:{c:"#FF5C5C", t:"Let's fix a few things soon.", s:"You're not alone. Most small businesses start here, and the top fixes are quick and cheap."}
+};
+
+function validate(){
+  var ok = true, err = "";
+  var f = $("fName"), b = $("fBiz"), e = $("fEmail"), c = $("fConsent");
+  [f,b,e].forEach(function(x){ x.classList.remove("bad"); });
+  $("consentBox").classList.remove("bad");
+  if (!f.value.trim()){ f.classList.add("bad"); ok=false; }
+  if (!b.value.trim()){ b.classList.add("bad"); ok=false; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e.value.trim())){ e.classList.add("bad"); ok=false; err="Please check your email address. "; }
+  if (!ok && !err) err = "Please fill in the highlighted boxes. ";
+  if (!c.checked){ $("consentBox").classList.add("bad"); ok=false; err += "Check the box so we can email your results."; }
+  $("formErr").textContent = ok ? "" : err.trim();
+  return ok;
+}
+
+function utm(){
+  var o = {}; try { var p = new URLSearchParams(location.search);
+    ["utm_source","utm_medium","utm_campaign","utm_content","ref"].forEach(function(k){ if (p.get(k)) o[k] = p.get(k); }); } catch(e){}
+  return o;
+}
+
+function send(){
+  $("sendWarn").style.display = "none";
+  if (DEMO) return Promise.resolve({ok:true, demo:true});
+  // text/plain avoids a CORS preflight, which Apps Script web apps don't answer.
+  return fetch(CONFIG.BACKEND_URL, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(state.payload), redirect:"follow"})
+    .then(function(r){ return r.json(); })
+    .then(function(j){ if (!j || !j.ok) throw new Error((j && j.error) || "bad response"); return j; })
+    .catch(function(){ $("sendWarn").style.display = "block"; return {ok:false}; });
+}
+
+function showResult(){
+  var r = state.result, cp = COPY[r.band];
+  $("rHello").textContent = state.payload.firstName + ", here's your AI Safety Score";
+  $("rBand").textContent = r.band; $("rBand").style.background = cp.c;
+  $("gArc").setAttribute("stroke", cp.c);
+  $("rTitle").textContent = cp.t; $("rSub").textContent = cp.s;
+  $("rMailNote").textContent = "We're sending your full score and top 3 fixes to " + state.payload.email + ". " + CONFIG.MAIL_NOTE;
+  show("s-result");
+  var n = 0, target = r.score, el = $("rScore");
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce){ el.textContent = target; }
+  else { var t = setInterval(function(){ n += Math.max(1, Math.ceil((target-n)/8)); if (n >= target){ n = target; clearInterval(t);} el.textContent = n; }, 30); }
+  setTimeout(function(){ $("gArc").setAttribute("stroke-dashoffset", (326.7 * (1 - target/100)).toFixed(1)); }, 60);
+  $("rTitle").focus({preventScroll:true});
+  if (DEMO){
+    $("demoBox").style.display = "block";
+    $("demoMeta").textContent = "Subject: Your Free AI Safety Audit results: " + r.score + "/100 (" + r.band + "). In live mode this goes into a Gmail draft for Jason to review.";
+    var ol = $("demoFixes"); ol.innerHTML = "";
+    topFixes().forEach(function(f){ var li = document.createElement("li"); li.textContent = f; ol.appendChild(li); });
+  }
+}
+
+/* Wire up */
+$("yr").textContent = new Date().getFullYear();
+if (DEMO) $("demoFlag").hidden = false;
+if (CONFIG.AVATAR_VIDEO_URL){
+  var v = document.createElement("video");
+  v.src = CONFIG.AVATAR_VIDEO_URL; v.controls = true; v.playsInline = true; v.preload = "metadata";
+  if (CONFIG.AVATAR_POSTER_URL) v.poster = CONFIG.AVATAR_POSTER_URL;
+  v.setAttribute("aria-describedby","disclose");
+  $("avatarPh").replaceWith(v);
+  $("avatar").style.borderStyle = "solid";
+}
+function linkOrToast(id, url, label){
+  var a = $(id);
+  if (url){ a.href = url; a.target = "_blank"; a.rel = "noopener"; }
+  else a.addEventListener("click", function(e){ e.preventDefault(); toast(label + " link goes here (set it in CONFIG)."); });
+}
+linkOrToast("bookBtn", CONFIG.BOOKING_URL, "Booking");
+linkOrToast("seminarBtn", CONFIG.SEMINAR_URL, "Seminar");
+
+$("startBtn").addEventListener("click", function(){ state.i = 0; show("s-quiz"); renderQ(); });
+$("nextBtn").addEventListener("click", function(){ var Q = QUESTIONS[state.i]; if (multiReady(Q, state.answers[Q.id])) next(); });
+$("backBtn").addEventListener("click", function(){ if (state.i > 0){ state.i--; renderQ(); } else show("s-hero"); });
+$("formBack").addEventListener("click", function(){ state.i = QUESTIONS.length - 1; show("s-quiz"); renderQ(); });
+$("restartBtn").addEventListener("click", function(){ state = {i:0, answers:{}, payload:null, result:null}; $("leadForm").reset(); $("demoBox").style.display="none"; show("s-hero"); });
+$("retryBtn").addEventListener("click", function(){ send().then(function(j){ if (j.ok) toast("Sent. Your results are on the way."); }); });
+
+function onLeadSubmit(e){
+  if (e && e.preventDefault) e.preventDefault();
+  if (!validate()) return;
+  if ($("fWeb").value) return; // bot trap
+  var btn = $("submitBtn"); btn.disabled = true; btn.textContent = "Scoring...";
+  state.result = score();
+  var answers = {};
+  QUESTIONS.forEach(function(Q){
+    var a = state.answers[Q.id];
+    if (Q.type !== "multi") answers[Q.id] = a;
+    else { answers[Q.id] = {s: a.s.slice()}; if (Q.follow && !hasExclusive(Q, a)) answers[Q.id].f = a.f; }
+  });
+  state.payload = {
+    firstName: $("fName").value.trim(), business: $("fBiz").value.trim(),
+    email: $("fEmail").value.trim(), phone: $("fPhone").value.trim(),
+    consent: true, consentText: $("consentText").textContent,
+    answers: answers, clientScore: state.result.score,
+    page: location.href.split("#")[0], referrer: document.referrer, utm: utm(), website: $("fWeb").value
+  };
+  send().then(function(){ btn.disabled = false; btn.textContent = "Show my score →"; showResult(); });
+}
+$("leadForm").addEventListener("submit", onLeadSubmit);
+$("submitBtn").addEventListener("click", onLeadSubmit);
+$("leadForm").addEventListener("keydown", function(e){ if (e.key === "Enter" && e.target.tagName === "INPUT" && e.target.type !== "checkbox") onLeadSubmit(e); });
+</script>
+</body>
+</html>

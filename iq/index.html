@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free AI IQ Test | AI Go Long</title>
+<meta name="description" content="A free 3-minute AI IQ Test for small business owners. See how much you really know about AI, and get the top 3 things to learn next.">
+<meta name="theme-color" content="#0D1117">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0D1117;--bg2:#161C24;--bg3:#1C242E;--ink:#F2F5F0;--soft:#B4C1B9;--line:#2B3440;
+  --green:#2EE08A;--green-d:#1E9F63;--green-l:#7CF5B8;--yellow:#FFB547;--red:#FF5C5C;--blue:#5CC8FF;--on-green:#04110A;
+  --r:18px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Arial,sans-serif;font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.disp{font-family:"Space Grotesk",Inter,Arial,sans-serif;line-height:1.08;margin:0}
+a{color:var(--green)}
+.wrap{max-width:640px;margin:0 auto;padding:20px 18px 48px;min-height:100vh;display:flex;flex-direction:column}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 0 18px}
+.logo{font-family:"Space Grotesk",Arial,sans-serif;font-weight:700;font-size:18px;letter-spacing:.5px;color:var(--ink);text-decoration:none}
+.logo b{color:var(--green)}
+.pill{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);border:1px solid var(--line);border-radius:99px;padding:5px 10px}
+.demo-flag{font-size:12px;color:var(--on-green);background:var(--yellow);border-radius:99px;padding:4px 10px;font-weight:600}
+.screen{display:none;flex:1;flex-direction:column;animation:in .28s ease both}
+.screen.on{display:flex}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.screen{animation:none}.bar i{transition:none!important}}
+
+/* Hero */
+.eyebrow{font-family:"Space Grotesk",Arial,sans-serif;font-weight:700;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin:6px 0 10px}
+h1{font-size:clamp(34px,9vw,52px);font-weight:700}
+h1 .hl{color:var(--green)}
+.lede{color:var(--soft);font-size:18px;margin:14px 0 22px}
+.avatar{position:relative;aspect-ratio:16/9;border-radius:var(--r);background:var(--bg2);border:2px solid var(--line);overflow:hidden;margin-bottom:0}
+.avatar video{width:100%;height:100%;object-fit:cover;display:block}
+.ai-tag{position:absolute;top:10px;left:10px;background:rgba(13,17,23,.85);border:1px solid var(--line);color:var(--ink);font-size:12px;font-weight:600;border-radius:99px;padding:4px 10px}
+.disclose{font-size:13px;color:var(--soft);margin:8px 2px 0}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 22px;padding:0;list-style:none}
+.facts li{background:var(--bg2);border:1px solid var(--line);border-radius:99px;padding:7px 12px;font-size:14px;color:var(--soft)}
+.facts li b{color:var(--ink)}
+.measures{background:var(--bg2);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:12px;padding:12px 14px;font-size:15px;color:var(--soft);margin-top:16px}
+.measures b{color:var(--ink)}
+
+/* Buttons */
+.btn{appearance:none;border:0;cursor:pointer;font:700 19px "Space Grotesk",Inter,Arial,sans-serif;border-radius:14px;padding:18px 22px;min-height:60px;width:100%;
+  background:var(--green);color:var(--on-green);transition:transform .08s ease,filter .15s;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center}
+.btn:hover{filter:brightness(1.07)}.btn:active{transform:scale(.985)}
+.btn:focus-visible,.opt:focus-visible,input:focus-visible,.link:focus-visible{outline:3px solid var(--green-l);outline-offset:3px}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.link{background:none;border:0;color:var(--soft);font:600 15px Inter,Arial,sans-serif;cursor:pointer;padding:10px 4px;text-decoration:underline;text-underline-offset:3px}
+
+/* Quiz */
+.qhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.count{font-size:14px;color:var(--soft);font-weight:600}
+.bar{height:10px;background:var(--bg3);border-radius:99px;overflow:hidden;margin-bottom:26px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green-d),var(--green));border-radius:99px;transition:width .35s ease}
+.area{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.q{font-size:clamp(25px,6.5vw,32px);font-weight:700;margin-bottom:10px}
+.help{color:var(--soft);margin:0 0 20px;font-size:16px}
+.opts{display:flex;flex-direction:column;gap:12px}
+.opts.grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media (min-width:480px){.opts.grid{grid-template-columns:1fr 1fr}}
+.opt{appearance:none;text-align:left;width:100%;min-height:64px;padding:16px 18px;border-radius:14px;border:2px solid var(--line);background:var(--bg2);color:var(--ink);
+  font:600 18px Inter,Arial,sans-serif;cursor:pointer;display:flex;align-items:center;gap:14px;transition:border-color .12s,background .12s}
+.opts.grid .opt{font-size:17px;min-height:58px;padding:14px 16px}
+.opt:hover{border-color:#3d4a58}
+.opt .dot{flex:0 0 22px;height:22px;border-radius:50%;border:2px solid var(--soft)}
+.opt.sel{border-color:var(--green);background:rgba(46,224,138,.10)}
+.opt.sel .dot{border-color:var(--green);background:var(--green);box-shadow:inset 0 0 0 4px var(--bg2)}
+.opt > span:last-child{min-width:0;overflow-wrap:break-word}
+.opt.chk .dot{border-radius:6px;position:relative}
+.opt.chk.sel .dot{box-shadow:none}
+.opt.chk.sel .dot::after{content:"";position:absolute;left:5px;top:1px;width:6px;height:11px;border:solid var(--on-green);border-width:0 3px 3px 0;transform:rotate(45deg)}
+.partq{font-size:clamp(20px,5.2vw,24px);margin:26px 0 14px}
+.nextrow{margin-top:18px}
+.qnav{margin-top:auto;padding-top:22px;display:flex;justify-content:space-between;align-items:center}
+
+/* Form */
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field label{font-weight:600;font-size:15px}
+.field label small{color:var(--soft);font-weight:400}
+input[type=text],input[type=email],input[type=tel]{width:100%;font:400 18px Inter,Arial,sans-serif;color:var(--ink);background:var(--bg2);border:2px solid var(--line);border-radius:12px;padding:15px 14px;min-height:56px}
+input::placeholder{color:#6f7d76}
+input.bad{border-color:var(--red)}
+.err{color:var(--red);font-size:14px;min-height:0}
+.consent{display:flex;gap:12px;align-items:flex-start;background:var(--bg2);border:2px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;margin:6px 0 6px}
+.consent input{width:26px;height:26px;flex:0 0 26px;accent-color:var(--green);margin:0}
+.consent span{font-size:16px}
+.consent.bad{border-color:var(--red)}
+.fine{font-size:13px;color:var(--soft);margin:10px 0 18px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.mail{display:flex;gap:12px;align-items:center;background:rgba(46,224,138,.10);border:1px solid var(--green-d);border-radius:12px;padding:14px 16px;margin-bottom:18px}
+.mail p{margin:0}
+
+/* Result */
+.gauge{position:relative;width:220px;height:220px;margin:8px auto 10px}
+.gauge svg{width:100%;height:100%;transform:rotate(-90deg)}
+.gauge .n{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.gauge .n b{font:700 64px "Space Grotesk",Arial,sans-serif;line-height:1}
+.gauge .n span{color:var(--soft);font-size:14px}
+.gauge .n .lbl{font:700 13px "Space Grotesk",Arial,sans-serif;letter-spacing:2px;text-transform:uppercase;color:var(--soft);margin-bottom:4px}
+.iqline{font:700 18px "Space Grotesk",Arial,sans-serif;margin:0 0 12px}
+.rank{display:flex;align-items:center;justify-content:center;gap:10px}
+.rank-ico{width:44px;height:44px;flex:0 0 44px}
+.rank-ico svg{width:100%;height:100%;display:block}
+.track{display:flex;justify-content:center;gap:6px;margin:14px 0 4px}
+.track i{width:28px;height:6px;border-radius:99px;background:var(--bg3)}
+.track i.on{background:currentColor;opacity:.45}
+.track i.cur{opacity:1}
+.tlabel{font-size:13px;color:var(--soft);margin:0}
+.share{margin:0 auto 20px;max-width:320px}
+.btn.sm{font-size:16px;min-height:48px;padding:12px 18px}
+.share input{margin-top:10px;font-size:15px;min-height:44px;padding:10px 12px}
+.band{display:inline-block;font:700 14px "Space Grotesk",Arial,sans-serif;letter-spacing:2px;text-transform:uppercase;border-radius:99px;padding:6px 14px;color:var(--on-green)}
+.center{text-align:center}
+.rtitle{font-size:clamp(26px,7vw,34px);margin:12px 0 8px}
+.rsub{color:var(--soft);margin:0 0 18px}
+.ind{background:var(--bg2);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:12px;padding:14px 16px;margin:0 0 20px}
+.ind h3{font-size:18px;margin-bottom:6px}
+.ind p{margin:0;color:var(--soft);font-size:16px}
+.steps{list-style:none;margin:4px 0 20px;padding:0;display:flex;flex-direction:column;gap:10px;counter-reset:s}
+.steps li{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;counter-increment:s;font-size:16px}
+.steps li::before{content:counter(s);font:700 20px "Space Grotesk",Arial,sans-serif;color:var(--green);flex:0 0 18px;line-height:1.2}
+.warn{background:rgba(255,181,71,.10);border:1px solid var(--yellow);border-radius:12px;padding:12px 14px;font-size:15px;margin-bottom:16px;display:none}
+.cta{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:22px 18px;margin-top:6px}
+.cta + .cta{margin-top:14px}
+.cta h3{font-size:24px;margin-bottom:6px}
+.cta p{color:var(--soft);margin:0 0 16px}
+.cta .row{display:flex;flex-direction:column;gap:10px}
+.demo-box{margin-top:22px;border:1px dashed var(--yellow);border-radius:12px;padding:14px;display:none}
+.demo-box h4{margin:0 0 8px;font:700 15px "Space Grotesk",Arial,sans-serif;color:var(--yellow);letter-spacing:1px;text-transform:uppercase}
+footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--soft)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--bg3);border:1px solid var(--line);color:var(--ink);padding:12px 16px;border-radius:12px;font-size:15px;display:none;z-index:9;max-width:92vw}
+@media (min-width:700px){.wrap{padding-top:32px}.cta .row{flex-direction:row}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="https://aigl.dev/">AI <b>GO</b> LONG</a>
+    <span id="demoFlag" class="demo-flag" hidden>Demo mode</span>
+    <span class="pill">3 minutes</span>
+  </header>
+
+  <main id="main" style="flex:1;display:flex;flex-direction:column">
+  <!-- HERO -->
+  <section class="screen on" id="s-hero" aria-labelledby="h-hero">
+    <p class="eyebrow">Free AI IQ Test</p>
+    <h1 id="h-hero">AI is changing your industry. Where does that leave <span class="hl">you</span>?</h1>
+    <p class="lede">Answer 10 quick questions. See how much you really know about AI, and get the 3 things most worth learning next.</p>
+
+    <!-- Optional intro video: shown only when CONFIG.AVATAR_VIDEO_URL is set. -->
+    <div id="avatarWrap" hidden>
+      <div class="avatar" id="avatar"><span class="ai-tag">AI presenter</span></div>
+      <p class="disclose" id="disclose">Heads up: the presenter in this video is an AI-generated avatar, not a live person.</p>
+    </div>
+
+    <ul class="facts">
+      <li><b>10</b> questions</li>
+      <li><b>3</b> minutes</li>
+      <li><b>Free</b>, no sales call needed</li>
+    </ul>
+
+    <button class="btn" id="startBtn" type="button">Start my free AI IQ Test &rarr;</button>
+
+    <div class="measures" role="note">
+      <b>What it measures:</b> what you know about AI today: the tools out there, the main types of AI (chat, voice and agents), how it works, and the risks to watch for. No tech knowledge needed, and "Not sure" is always a fine answer.
+    </div>
+  </section>
+
+  <!-- INDUSTRY -->
+  <section class="screen" id="s-industry" aria-labelledby="h-ind">
+    <div class="qhead"><span class="count">Step 1: your industry</span><span class="count">Not scored</span></div>
+    <div class="bar" aria-hidden="true"><i style="width:0"></i></div>
+    <h2 class="q" id="h-ind" tabindex="-1">What kind of business do you run?</h2>
+    <p class="help">We use this to tailor your results. It doesn't change your score.</p>
+    <div class="opts grid" id="indOpts" role="radiogroup" aria-labelledby="h-ind"></div>
+    <div class="qnav">
+      <button class="link" id="indBack" type="button">&larr; Back</button>
+      <span class="count">Tap one to start</span>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="screen" id="s-quiz" aria-live="polite">
+    <div class="qhead">
+      <span class="count" id="qCount">Question 1 of 10</span>
+      <span class="count" id="qLeft"></span>
+    </div>
+    <div class="bar" role="progressbar" aria-label="Test progress" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" id="bar"><i id="barFill"></i></div>
+    <p class="area" id="qArea"></p>
+    <h2 class="q" id="qText" tabindex="-1"></h2>
+    <p class="help" id="qHelp"></p>
+    <div class="opts" id="qOpts" role="radiogroup" aria-labelledby="qText"></div>
+    <div id="qPartB" hidden>
+      <h3 class="partq" id="qTextB"></h3>
+      <div class="opts" id="qOptsB" role="radiogroup" aria-labelledby="qTextB"></div>
+    </div>
+    <div class="nextrow"><button class="btn" id="nextBtn" type="button" hidden>Next &rarr;</button></div>
+    <div class="qnav">
+      <button class="link" id="backBtn" type="button">&larr; Back</button>
+      <span class="count" id="qHint">Tap an answer to keep going</span>
+    </div>
+  </section>
+
+  <!-- LEAD FORM -->
+  <section class="screen" id="s-form">
+    <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+    <p class="eyebrow">All done. Nice work.</p>
+    <h2 class="q" id="h-form" tabindex="-1">Where should we send your results?</h2>
+    <p class="help">Your score and the top 3 things to learn next show on the next screen.</p>
+    <div class="mail" role="note">
+      <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" style="flex:0 0 28px"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="#2EE08A" stroke-width="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5" fill="none" stroke="#2EE08A" stroke-width="2"/></svg>
+      <p><b>Your full results are emailed to you,</b> including what you knew and what to learn in each of the 4 areas, and what AI means for your industry.</p>
+    </div>
+    <form id="leadForm" novalidate>
+      <div class="field">
+        <label for="fName">First name</label>
+        <input id="fName" name="firstName" type="text" autocomplete="given-name" placeholder="Jamie" required maxlength="60">
+      </div>
+      <div class="field">
+        <label for="fBiz">Business name</label>
+        <input id="fBiz" name="business" type="text" autocomplete="organization" placeholder="Jamie's Plumbing" required maxlength="120">
+      </div>
+      <div class="field">
+        <label for="fEmail">Email</label>
+        <input id="fEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="jamie@yourbusiness.com" required maxlength="160">
+      </div>
+      <div class="field">
+        <label for="fPhone">Phone <small>(optional)</small></label>
+        <input id="fPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(205) 555-0123" maxlength="30">
+      </div>
+      <div class="hp" aria-hidden="true"><label for="fWeb">Website</label><input id="fWeb" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+      <label class="consent" id="consentBox" for="fConsent">
+        <input id="fConsent" name="consent" type="checkbox" required>
+        <span id="consentText">Email me my results and occasional AI tips from AI Go Long. Unsubscribe anytime.</span>
+      </label>
+      <p class="err" id="formErr" role="alert"></p>
+      <p class="fine">We won't sell or share your info. This test is a quick self-review to help you plan, not professional advice.</p>
+      <button class="btn" id="submitBtn" type="button">Show my AI IQ &rarr;</button>
+    </form>
+    <div class="qnav"><button class="link" id="formBack" type="button">&larr; Back to questions</button><span></span></div>
+  </section>
+
+  <!-- RESULT -->
+  <section class="screen" id="s-result">
+    <div class="center">
+      <p class="eyebrow" id="rHello">Your AI IQ</p>
+      <div class="gauge" aria-hidden="true">
+        <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#1C242E" stroke-width="12"/><circle id="gArc" cx="60" cy="60" r="52" fill="none" stroke="#2EE08A" stroke-width="12" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7" style="transition:stroke-dashoffset 1s ease"/></svg>
+        <div class="n"><span class="lbl">AI IQ</span><b id="rScore">0</b><span>/ 100</span></div>
+      </div>
+      <p class="iqline" id="rScoreText"></p>
+      <div class="rank"><span class="rank-ico" id="rIcon" aria-hidden="true"></span><span class="band" id="rBand"></span></div>
+      <div class="track" id="rTrack" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <p class="tlabel" id="rTrackLbl"></p>
+      <h2 class="rtitle" id="rTitle" tabindex="-1"></h2>
+      <p class="rsub" id="rSub"></p>
+      <div class="share">
+        <button class="btn ghost sm" id="shareBtn" type="button">Share my rank</button>
+        <input type="text" id="shareFallback" readonly hidden aria-label="Your rank to share. Select and copy it.">
+      </div>
+    </div>
+
+    <div class="warn" id="sendWarn">We couldn't reach our server just now, so your emailed results may be delayed. <button class="link" id="retryBtn" type="button" style="padding:0 4px">Try again</button></div>
+
+    <div class="ind" id="rInd"><h3 id="rIndH"></h3><p id="rIndP"></p></div>
+
+    <p class="count" style="margin:0 0 8px" id="rStepsH">Your top 3 to learn next</p>
+    <ol class="steps" id="rSteps"></ol>
+
+    <div class="mail">
+      <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" style="flex:0 0 28px"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="#2EE08A" stroke-width="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5" fill="none" stroke="#2EE08A" stroke-width="2"/></svg>
+      <p><b>Your full results are on their way.</b> <span id="rMailNote"></span></p>
+    </div>
+
+    <div class="cta" id="academyCta" hidden>
+      <h3>Next step: AI Go Long Academy</h3>
+      <p>Hands-on training for owners and teams. Learn the AI tools that fit your business, in plain language, and leave with something already working.</p>
+      <div class="row"><a class="btn" id="academyBtn" href="#">See the Academy training</a></div>
+    </div>
+
+    <div class="cta">
+      <h3>Keep going</h3>
+      <p>Using more AI? Make sure it's not opening any doors you didn't mean to. Take the Free AI Safety Audit, or talk it through with Jason and get a plan for your business.</p>
+      <div class="row">
+        <a class="btn" id="safetyBtn" href="#">Take the Free AI Safety Audit</a>
+        <a class="btn ghost" id="bookBtn" href="#">Book a call</a>
+      </div>
+    </div>
+
+    <div class="demo-box" id="demoBox">
+      <h4>Demo only</h4>
+      <p id="demoMeta" style="margin:0 0 10px;font-size:14px;color:var(--soft)"></p>
+      <button class="link" id="restartBtn" type="button">Run it again</button>
+    </div>
+  </section>
+  </main>
+
+  <footer>
+    AI Go Long &middot; <a href="https://aigl.dev/">aigl.dev</a><br>
+    A quick self-check to help you plan, not professional advice.
+  </footer>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ===================== CONFIG (edit these) ===================== */
+var CONFIG = {
+  // Paste the Apps Script web app URL ending in /exec. While this still contains "PASTE", the page runs in demo mode.
+  BACKEND_URL: "PASTE_APPS_SCRIPT_WEB_APP_URL_HERE",
+  SAFETY_CHECK_URL: "", // the live Free AI Safety Audit page, e.g. https://check.aigl.dev/
+  BOOKING_URL: "https://calendar.google.com/calendar/appointments/schedules/AcZssZ2NimZshA7XqXAeU11KVxC4PWL5CeZWcUv72uRMIWqhXS8qWj9ME8QiVft8FQxKUEoGkWzL0NM8",      // a booking page for a call with Jason
+  ACADEMY_URL: "",      // AI Go Long Academy training page (shown to Earthbound, Liftoff and In Orbit)
+  SHARE_SITE: "aigl.dev", // where the "Share my rank" text points people
+  AVATAR_VIDEO_URL: "", // optional HeyGen MP4. Leave blank and the video block stays hidden.
+  AVATAR_POSTER_URL: "",
+  MAIL_NOTE: "Check your inbox in the next day or so (and your spam folder, just in case)."
+};
+/* =============================================================== */
+
+/* Industries: not scored. Keep ids and text in sync with INDUSTRIES in Code.gs. */
+var INDUSTRIES = [
+  {id:"home",       label:"Home services / contractor",
+   note:"AI is starting to answer calls and texts, book estimates, send reminders and follow up on quotes for contractors. When a customer can't reach you, they usually just call the next company, so fast replies matter more than ever."},
+  {id:"restaurant", label:"Restaurant / hospitality",
+   note:"AI is showing up in phone orders, reservations, review replies, scheduling and menu or inventory planning. The goal isn't fewer people, it's freeing your staff to focus on guests."},
+  {id:"health",     label:"Health / medical / dental",
+   note:"AI is being used for scheduling, reminders, intake forms and drafting notes and messages. With patient privacy rules like HIPAA, which tools you pick and how they're set up matters as much as what they can do."},
+  {id:"legal",      label:"Legal / accounting / finance",
+   note:"AI can now draft first versions of letters and summaries, sort documents and help with client intake. Confidentiality rules mean a person still reviews the work and the tools need the right privacy settings."},
+  {id:"retail",     label:"Retail / e-commerce",
+   note:"AI is writing product descriptions and emails, answering common customer questions around the clock, and helping plan what to stock and when to promote it."},
+  {id:"salon",      label:"Salon / beauty / fitness",
+   note:"AI is handling booking, reminders, rebooking nudges and social posts. That can help cut no-shows and keep your chairs or classes full without more time on the phone."},
+  {id:"realestate", label:"Real estate",
+   note:"AI is drafting listing descriptions and posts, answering new leads right away, and keeping follow-up going with past clients. Fair housing rules still apply to anything AI writes for you."},
+  {id:"other",      label:"Other",
+   note:"In almost every field, AI is taking over repetitive office work: answering common questions, scheduling, follow-ups, writing and paperwork. The owners who start small now have the head start."}
+];
+
+/* ==================== SHARED SCORING BLOCK: BEGIN ====================
+   Everything from this BEGIN line to the END line must be IDENTICAL in index.html and Code.gs.
+   Copy and paste the whole block between the two files after any change.
+
+   Questions: a knowledge test. Each question is worth 0, 1 or 2 points. 10 questions = 20 points, x5 = AI IQ out of 100.
+   Option order is fixed on purpose (answers are sent as option indexes), so never shuffle it.
+   Question types:
+     (no type)  single choice. opts are [text, points]. Knowledge questions: the one right answer = 2,
+                every other option (ending with "Not sure") = 0. tools_count: None = 0, 1 to 3 = 1, 4 or more = 2.
+     "depth"    multi-select. opts are [text, level, short]. Scored by the deepest level picked:
+                none or only level 1 = 0, any level 2 (no level 3) = 1, any level 3 = 2.
+                "exclusive" is the "None of these" option: it clears every other pick.
+                learnBy gives the "learn this next" text by deepest level picked (0, 1 or 2).
+     "allTrue"  multi-select. opts are [text, 1 if true / 0 if false, short]. Any false option picked = 0.
+                Otherwise every true option picked = 2, at least "partial" true options = 1, fewer = 0.
+                Nothing picked is allowed (unchecked = not sure).
+     "twoPart"  two single-choice parts on one screen. parts[n].opts are [text, 1 if right (or "yes") / 0, short].
+                The answer is [part A index, part B index]; both parts are required.
+                rule "bThenA": part B right = 2, else part A "yes" = 1, else 0.
+                rule "count": 1 point for each part answered right (0, 1 or 2).
+   minPick = fewest picks allowed for a multi-select question.
+   title + learn (or learnBy) is the "learn this next" item shown when the answer scores under 2.
+   answer overrides the "Right answer" line (blank = no single right answer).
+   prio breaks ties when choosing the top 3 (lower = shown first). */
+var QUESTIONS = [
+  {id:"tools_count", area:"Tools", prio:10,
+   q:"Besides ChatGPT, Claude or Gemini, how many AI tools do you use for work?",
+   help:"Things like AI notetakers, AI website chat, AI phone answering, Canva or Grammarly AI, AI in your CRM or bookkeeping.",
+   opts:[["None",0],["1 to 3",1],["4 or more",2]],
+   title:"AI is already built into everyday tools",
+   learn:"Beyond chat apps, AI now shows up as meeting notetakers, website chat, phone answering, and features inside Canva, Grammarly, CRMs and bookkeeping software. Pick one task you already do every week and try the AI tool made for it."},
+  {id:"ai_depth", area:"Types of AI", prio:5, type:"depth", exclusive:7, minPick:1,
+   q:"Which of these have you done with ChatGPT, Claude or Gemini? (Pick all that apply)",
+   help:"Check every one you've tried, or \"None of these\".",
+   opts:[["Asked it questions or had it write an email or post",1,"Q&A/writing"],
+         ["Talked to it out loud (voice mode)",2,"Voice"],
+         ["Uploaded a photo, PDF or spreadsheet for it to read",2,"Files"],
+         ["Connected it to your email, calendar or Google Drive",2,"Connected apps"],
+         ["Built your own custom assistant (a custom GPT, Claude Project or Gem)",2,"Custom assistant"],
+         ["Had it browse websites and do tasks for you, like research, filling out forms or booking",3,"Browse/act"],
+         ["Let it control your computer or run tasks on a schedule while you're away",3,"Computer/scheduled"],
+         ["None of these",0,"None"]],
+   title:"How deep chat AI can go",
+   learnBy:{
+     0:"Start simple: ask ChatGPT, Claude or Gemini to answer a question about your field or draft an email you'd normally write yourself. From there, they can also read your files, connect to your email and calendar, and even browse and take actions for you.",
+     1:"ChatGPT, Claude and Gemini can do far more than answer questions: read your files, connect to your email and calendar, and now even browse and take actions for you. Try uploading a document or talking to it out loud this week.",
+     2:"The next level is letting AI act for you: browsing websites to research, fill out forms or book things, and running tasks on a schedule while you're away. Start with one low-risk task and check its work."}},
+  {id:"voice_agent", area:"Types of AI", prio:3, type:"allTrue", partial:4, minPick:0,
+   q:"Which of these can an AI phone agent do today? (Pick all that apply)",
+   help:"Check every one you think is true. Leave any you're not sure about unchecked.",
+   opts:[["Answer calls 24/7 and hold a natural back-and-forth conversation",1,"24/7 conversation"],
+         ["Book the appointment straight into your calendar while the caller is on the line",1,"Books appointments"],
+         ["Record calls in every state without telling the caller",0,"Secret recording (false)"],
+         ["Speak Spanish or other languages with callers",1,"Other languages"],
+         ["Text the caller a link, quote or confirmation during the call",1,"Texts during call"],
+         ["Guarantee it never gets a fact wrong",0,"Never wrong (false)"],
+         ["Hand the call to a real person when it's urgent or the caller asks",1,"Hands off to a person"],
+         ["Sound like a specific real person, using a cloned voice",1,"Cloned voice"]],
+   title:"What AI phone agents can (and can't) do",
+   answer:"Every one except recording without telling the caller and never getting a fact wrong.",
+   learn:"With the right setup, an AI phone agent can answer calls day or night, hold a natural conversation, book appointments into your calendar, text a link or confirmation during the call, speak Spanish and other languages, hand the call to a real person when it's urgent, and even sound like a specific person using a cloned voice. Two traps: some states require everyone on a call to agree to recording, so always tell callers; and AI can be confidently wrong, so keep a human check on anything important."},
+  {id:"agentic", area:"Types of AI", prio:6,
+   q:"What makes AI \"agentic\"?",
+   help:"You'll hear \"AI agents\" and \"agentic AI\" a lot. Here's what it means.",
+   opts:[["It's a chatbot that thinks step by step before it answers",0],
+         ["It follows a set script, like \"if a form comes in, send this email\"",0],
+         ["It's given a goal, reasons out a plan, takes action with your tools, checks the results and adjusts until the job's done",2],
+         ["It talks out loud and has a human-looking avatar",0],
+         ["Not sure",0]],
+   title:"Agentic AI reasons and acts",
+   learn:"Agentic AI reasons AND acts, in a loop. A chatbot reasons and then answers, and you still do the work. An automation acts, but only follows a fixed script. An agent is given a goal, plans, uses your tools (email, calendar, browser, apps), checks what happened and adjusts until it's done."},
+  {id:"hallucination", area:"How AI works", prio:2, type:"twoPart", rule:"bThenA",
+   q:"Did you know ChatGPT, Claude and other AIs can state something completely wrong, with total confidence, like it's a fact?",
+   help:"Answer both parts.",
+   parts:[
+     {q:"Did you know ChatGPT, Claude and other AIs can state something completely wrong, with total confidence, like it's a fact?",
+      opts:[["Yes, I've seen it happen",1,"seen"],["Yes, I've heard about it",1,"heard"],["No, I didn't know that",0,"didn't know"]]},
+     {q:"What's that called?",
+      opts:[["A glitch report",0,"glitch report"],["A hallucination",1,"hallucination"],["A firewall error",0,"firewall error"],["A data leak",0,"data leak"],["Not sure",0,"not sure"]]}],
+   title:"AI can \"hallucinate\"",
+   answer:"A hallucination",
+   learn:"It's called a hallucination. AI can make up facts, prices, laws or quotes that sound completely real. That's why anything AI writes for your customers needs a human check before it goes out, and why an AI agent should never quote prices on its own."},
+  {id:"prompting", area:"How AI works", prio:7, type:"twoPart", rule:"count",
+   q:"What do you call the instructions or question you type into an AI?",
+   help:"Answer both parts.",
+   parts:[
+     {q:"What do you call the instructions or question you type into an AI?",
+      opts:[["A query code",0,"query code"],["A prompt",1,"prompt"],["A command line",0,"command line"],["A script",0,"script"],["Not sure",0,"not sure"]]},
+     {q:"Which prompt will get you the best answer?",
+      opts:[["\"Write a Facebook post.\"",0,"short"],
+            ["\"Write a good Facebook post for my business, make it really good.\"",0,"vague"],
+            ["\"You're a marketing pro for a roofing company in Birmingham. Write a short, friendly Facebook post about free storm inspections this week. Here's one we liked before: [example]. Keep it under 80 words, with one call to action.\"",1,"detailed"],
+            ["Not sure",0,"not sure"]]}],
+   title:"How to get better answers from AI",
+   answer:"A prompt, and the detailed prompt that says who to be, what you want, gives an example and sets the format and length.",
+   learn:"Those instructions are called a prompt, and better prompts get better answers. A simple formula: tell it who to be, what you want, give an example, and say the format and length."},
+  {id:"connectors", area:"How AI works", prio:8,
+   q:"What does connecting AI to your other apps (through an API or a connector) let it do?",
+   help:"Your other apps: email, calendar, CRM, booking or bookkeeping software.",
+   opts:[["Read and act on info in those apps, like pulling a customer's history or adding a job to your calendar",2],["Just make the AI run faster",0],["Nothing, AI can't connect to other apps",0],["Not sure",0]],
+   title:"Connected AI can work inside your apps",
+   learn:"Connecting AI to your other apps through an API or connector lets it read and act on what's in them, like pulling up a customer's history or adding a job to your calendar. That's how AI goes from chatting to doing real work in your business."},
+  {id:"data_training", area:"Risks & safety", prio:1,
+   q:"On a free personal AI chat account, what can happen to what you type?",
+   help:"Think customer names, prices, contracts or passwords.",
+   opts:[["Nothing, it's deleted when you close the chat",0],["The company may use it to train its AI unless you turn that off",2],["It's automatically protected like a bank",0],["Not sure",0]],
+   title:"Free AI accounts may train on what you type",
+   learn:"On free personal accounts, the AI company may use what you type to train its AI unless you turn that setting off. Keep customer details, passwords and private numbers out, or use a business account that doesn't train on your data."},
+  {id:"voice_clone", area:"Risks & safety", prio:4,
+   q:"How much of someone's voice does AI need to make a convincing copy of it?",
+   help:"Scammers use voice copies to fake calls from bosses, customers and family.",
+   opts:[["At least an hour of recordings",0],["It can't be done convincingly yet",0],["Just a few seconds of audio",2],["Not sure",0]],
+   title:"AI can copy a voice from a few seconds of audio",
+   learn:"AI can make a convincing copy of someone's voice from just a few seconds of audio, like a voicemail greeting or a social media video. Before acting on an urgent call about money, hang up and call back on a number you know, or use a code word your team agrees on."},
+  {id:"deepfake_video", area:"Risks & safety", prio:9,
+   q:"Could the person talking in a video online be an AI copy of a real person?",
+   help:"These are often called deepfakes.",
+   opts:[["Yes, AI can make realistic video of a real person from photos and a voice sample",2],["No, AI video still looks obviously fake",0],["Only big Hollywood studios can do that",0],["Not sure",0]],
+   title:"AI video of real people can look real",
+   learn:"AI can now make realistic video of a real person from photos and a voice sample, and the tools to do it are easy to find. Don't trust a video alone for anything involving money, passwords or big decisions; check through another channel first."}
+];
+
+/* Used when fewer than 3 answers were missed. */
+var FILL_STEPS = [
+  {title:"Put what you know to work", learn:"Pick one task in your business that an AI tool could take over end to end, not just the first draft, and run it for a month."},
+  {title:"Write a simple AI policy", learn:"Write down which AI tools your team may use and what never goes into them, like customer details and passwords."},
+  {title:"Check how safely you use AI", learn:"Take the Free AI Safety Audit to see whether the AI tools you already use are set up safely."}
+];
+
+/* Ranks: checked top to bottom, first match wins.
+   0-39 Earthbound, 40-59 Liftoff, 60-79 In Orbit, 80-94 Star Navigator, 95-100 Galaxy Brain.
+   c = color on the dark page, email = color in the (light) email. academy = show the Academy block. */
+var RANKS = [
+  {min:95, name:"Galaxy Brain", share:"I'm a Galaxy Brain", c:"#B89CFF", email:"#7C5CD6", academy:false,
+   line:"AI genius. You should be teaching this.",
+   meaning:"You know this stuff cold: the tools, the types of AI, how it works and the risks. Put it to work in your business and help your team catch up."},
+  {min:80, name:"Star Navigator", share:"I'm a Star Navigator", c:"#5CC8FF", email:"#2A9FD6", academy:false,
+   line:"You know AI better than most owners out there.",
+   meaning:"You know the tools, the types of AI, how it works and what to watch out for. Now it's about steering it toward real results, safely."},
+  {min:60, name:"In Orbit", share:"I'm In Orbit", c:"#2EE08A", email:"#1E9F63", academy:true,
+   line:"You get it. Time to put it to work.",
+   meaning:"You have a solid grasp of what AI is and what it can do. Close the gaps below and start putting it to work in your business."},
+  {min:40, name:"Liftoff", share:"I've hit Liftoff", c:"#7CF5B8", email:"#3BB27A", academy:true,
+   line:"You're off the ground. Now let's get you into orbit.",
+   meaning:"You know some of what AI can do, with a few gaps. A little hands-on practice will have you climbing fast."},
+  {min:0, name:"Earthbound", share:"I'm Earthbound", c:"#FFB547", email:"#C98300", academy:true,
+   line:"AI hasn't left the launch pad at your business yet.",
+   meaning:"Everyone starts on the ground, and AI is new to almost everyone. The 3 things below are the quickest way to fire up the engines."}
+];
+
+function rankFor_(score) {
+  for (var k = 0; k < RANKS.length; k++) if (score >= RANKS[k].min) return RANKS[k];
+  return RANKS[RANKS.length - 1];
+}
+function rankIndex_(rank) { return RANKS.length - 1 - RANKS.indexOf(rank); } // 0 = Earthbound ... 4 = Galaxy Brain
+
+function isMulti_(q) { return q.type === "depth" || q.type === "allTrue"; }
+
+/* Checks and tidies one answer. Returns the clean answer (an index, or a sorted list of indexes), or null if invalid. */
+function normAnswer_(q, a) {
+  function idx(x, n) {
+    if (typeof x !== "number" && typeof x !== "string") return null;
+    if (typeof x === "string" && !/^\d+$/.test(x)) return null;
+    var v = Number(x);
+    return (v % 1 === 0 && v >= 0 && v < n) ? v : null;
+  }
+  var isArr = Object.prototype.toString.call(a) === "[object Array]";
+  if (q.type === "twoPart") {
+    if (!isArr || a.length !== q.parts.length) return null;
+    var two = [];
+    for (var p = 0; p < q.parts.length; p++) { var w = idx(a[p], q.parts[p].opts.length); if (w === null) return null; two.push(w); }
+    return two;
+  }
+  if (!isMulti_(q)) return idx(a, q.opts.length);
+  if (!isArr) return null;
+  var seen = {}, out = [];
+  for (var k = 0; k < a.length; k++) {
+    var v = idx(a[k], q.opts.length);
+    if (v === null) return null;
+    if (!seen[v]) { seen[v] = true; out.push(v); }
+  }
+  out.sort(function (x, y) { return x - y; });
+  if (q.exclusive != null && out.indexOf(q.exclusive) >= 0) out = [q.exclusive];
+  if (out.length < (q.minPick || 0)) return null;
+  return out;
+}
+
+function depthLevel_(q, a) {
+  var max = 0;
+  for (var k = 0; k < a.length; k++) if (q.opts[a[k]][1] > max) max = q.opts[a[k]][1];
+  return max;
+}
+
+/* Points (0, 1 or 2) for one clean answer. */
+function qPoints_(q, a) {
+  if (q.type === "depth") { var lv = depthLevel_(q, a); return lv >= 3 ? 2 : (lv === 2 ? 1 : 0); }
+  if (q.type === "allTrue") {
+    var total = 0, good = 0;
+    for (var k = 0; k < q.opts.length; k++) if (q.opts[k][1] === 1) total++;
+    for (var j = 0; j < a.length; j++) { if (q.opts[a[j]][1] !== 1) return 0; good++; }
+    return good === total ? 2 : (good >= q.partial ? 1 : 0);
+  }
+  if (q.type === "twoPart") {
+    var aOk = q.parts[0].opts[a[0]][1] === 1, bOk = q.parts[1].opts[a[1]][1] === 1;
+    if (q.rule === "bThenA") return bOk ? 2 : (aOk ? 1 : 0);
+    return (aOk ? 1 : 0) + (bOk ? 1 : 0);
+  }
+  return q.opts[a][1];
+}
+
+/* The "learn this next" text for one clean answer. */
+function qLearn_(q, a) {
+  if (q.type === "depth") { var lv = depthLevel_(q, a); return q.learnBy[lv >= 2 ? 2 : lv]; }
+  return q.learn;
+}
+
+/* The "Right answer" line. Blank when there's no single right answer (tools_count, ai_depth). */
+function qAnswerText_(q) {
+  if (q.answer != null) return q.answer;
+  if (q.type) return "";
+  for (var k = 0; k < q.opts.length; k++) if (q.opts[k][1] === 1) return "";
+  for (var j = 0; j < q.opts.length; j++) if (q.opts[j][1] === 2) return q.opts[j][0];
+  return "";
+}
+
+/* Short label for the Sheet: the option text, or a comma list of short names for multi-select. */
+function qLabel_(q, a) {
+  if (q.type === "twoPart") return q.parts[0].opts[a[0]][2] + " / " + q.parts[1].opts[a[1]][2];
+  if (!isMulti_(q)) return q.opts[a][0];
+  if (!a.length) return "(none checked)";
+  return a.map(function (i) { return q.opts[i][2] || q.opts[i][0]; }).join(", ");
+}
+
+/* Scores a full set of clean answers. Same result on the page and the server.
+   steps = the top 3 "learn this next" items: missed answers first (0s, then 1s), ties by prio. */
+function scoreCore_(answers) {
+  var pts = 0, rows = [];
+  for (var k = 0; k < QUESTIONS.length; k++) {
+    var q = QUESTIONS[k], a = answers[q.id], p = qPoints_(q, a);
+    pts += p;
+    rows.push({q: q, a: a, pts: p, label: qLabel_(q, a), learn: qLearn_(q, a), answer: qAnswerText_(q)});
+  }
+  var score = pts * 5; // 20 points max, x5 = out of 100
+  var missed = rows.filter(function (r) { return r.pts < 2; });
+  var steps = missed.slice()
+    .sort(function (x, y) { return x.pts - y.pts || x.q.prio - y.q.prio; })
+    .slice(0, 3)
+    .map(function (r) { return {title: r.q.title, learn: r.learn, answer: r.answer}; });
+  for (var i = 0; steps.length < 3; i++) steps.push({title: FILL_STEPS[i].title, learn: FILL_STEPS[i].learn, answer: ""});
+  return {score: score, rank: rankFor_(score), steps: steps, rows: rows, points: pts, missed: missed.length};
+}
+/* ==================== SHARED SCORING BLOCK: END ==================== */
+
+/* Small line icons per rank (page only). Drawn with currentColor, so they take the rank's color. */
+var RANK_ICONS = {
+  "Earthbound": '<path d="M24 7c5 5 6.5 12 5.5 20h-11C17.5 19 19 12 24 7z"/><circle cx="24" cy="17" r="2.5"/><path d="M18.5 22l-4 6h4.5M29.5 22l4 6H29"/><path d="M6 38h36M15 33h18"/>',
+  "Liftoff": '<path d="M24 4c5 5 6.5 12 5.5 20h-11C17.5 16 19 9 24 4z"/><circle cx="24" cy="14" r="2.5"/><path d="M18.5 19l-4 6h4.5M29.5 19l4 6H29"/><path d="M21 28c0 5 3 7 3 12 0-5 3-7 3-12"/><path d="M8 44h7M33 44h7"/>',
+  "In Orbit": '<circle cx="24" cy="24" r="8"/><ellipse cx="24" cy="24" rx="19" ry="7" transform="rotate(-20 24 24)"/><circle cx="41" cy="17" r="2" fill="currentColor"/>',
+  "Star Navigator": '<path d="M24 8l4.4 9.4 10.1 1.2-7.5 7 2 10.1L24 30.6l-9 5.1 2-10.1-7.5-7 10.1-1.2z"/><path d="M39 6v5M36.5 8.5h5M9 37v4M7 39h4"/>',
+  "Galaxy Brain": '<path d="M24 24a2 2 0 1 1 3 1.7A5 5 0 1 1 19.5 21 8 8 0 1 1 31 33a11 11 0 1 1-17.5-16A14 14 0 1 1 37 34"/><circle cx="9" cy="9" r="1.5" fill="currentColor"/><circle cx="40" cy="8" r="1.5" fill="currentColor"/><circle cx="7" cy="40" r="1.5" fill="currentColor"/>'
+};
+
+var state = {i:0, industry:null, answers:{}, payload:null, result:null};
+var $ = function(id){return document.getElementById(id);};
+var DEMO = /PASTE/.test(CONFIG.BACKEND_URL) || !CONFIG.BACKEND_URL || /[?#&]demo\b/.test(location.href);
+
+function show(id){
+  var s = document.querySelectorAll(".screen");
+  for (var k=0;k<s.length;k++) s[k].classList.remove("on");
+  $(id).classList.add("on");
+  window.scrollTo(0,0);
+}
+function toast(msg){var t=$("toast");t.textContent=msg;t.style.display="block";clearTimeout(t._h);t._h=setTimeout(function(){t.style.display="none";},3200);}
+function industryById(id){ for (var k=0;k<INDUSTRIES.length;k++) if (INDUSTRIES[k].id===id) return INDUSTRIES[k]; return INDUSTRIES[INDUSTRIES.length-1]; }
+
+function optButton(text, selected, onPick, role){
+  var b = document.createElement("button");
+  role = role || "radio";
+  b.type = "button"; b.className = "opt" + (role === "checkbox" ? " chk" : ""); b.setAttribute("role", role);
+  if (selected) b.classList.add("sel");
+  b.setAttribute("aria-checked", selected ? "true" : "false");
+  b.innerHTML = '<span class="dot" aria-hidden="true"></span><span></span>';
+  b.lastChild.textContent = text;
+  b.addEventListener("click", function(){ onPick(b); });
+  return b;
+}
+function markSel(box, btn){
+  var all = box.children;
+  for (var k=0;k<all.length;k++){all[k].classList.remove("sel");all[k].setAttribute("aria-checked","false");}
+  btn.classList.add("sel"); btn.setAttribute("aria-checked","true");
+}
+
+function renderIndustry(){
+  var box = $("indOpts"); box.innerHTML = "";
+  INDUSTRIES.forEach(function(ind){
+    box.appendChild(optButton(ind.label, state.industry === ind.id, function(b){
+      state.industry = ind.id; markSel(box, b);
+      setTimeout(function(){ state.i = 0; show("s-quiz"); renderQ(); }, 220);
+    }));
+  });
+  $("h-ind").focus({preventScroll:true});
+}
+
+function renderQ(){
+  var Q = QUESTIONS[state.i], n = QUESTIONS.length, A = state.answers[Q.id];
+  $("qCount").textContent = "Question " + (state.i+1) + " of " + n;
+  var left = Math.max(1, Math.round((n - state.i) * 15 / 60));
+  $("qLeft").textContent = "About " + left + " min left";
+  $("barFill").style.width = (state.i / n * 100) + "%";
+  $("bar").setAttribute("aria-valuenow", state.i);
+  $("qArea").textContent = Q.area;
+  $("qText").textContent = Q.type === "twoPart" ? Q.parts[0].q : Q.q;
+  $("qHelp").textContent = Q.help;
+  var box = $("qOpts"), next = $("nextBtn");
+  box.innerHTML = ""; $("qOptsB").innerHTML = ""; $("qPartB").hidden = true;
+  next.hidden = true; state.onNext = null;
+  $("qHint").textContent = "Tap an answer to keep going";
+
+  if (Q.type === "twoPart"){
+    // Two single-choice parts on one screen. Both are required before Next.
+    var cur = A ? A.slice() : [null, null], boxB = $("qOptsB");
+    var upd = function(){ next.disabled = (cur[0] === null || cur[1] === null); };
+    box.setAttribute("role","radiogroup");
+    Q.parts[0].opts.forEach(function(o, idx){
+      box.appendChild(optButton(o[0], cur[0] === idx, function(b){ cur[0] = idx; markSel(box, b); upd(); }));
+    });
+    $("qTextB").textContent = Q.parts[1].q;
+    Q.parts[1].opts.forEach(function(o, idx){
+      boxB.appendChild(optButton(o[0], cur[1] === idx, function(b){ cur[1] = idx; markSel(boxB, b); upd(); }));
+    });
+    $("qPartB").hidden = false;
+    $("qHint").textContent = "Answer both parts, then tap Next";
+    next.hidden = false; upd();
+    state.onNext = function(){ state.answers[Q.id] = cur.slice(); advance(); };
+  } else if (isMulti_(Q)){
+    // Checkboxes. The "exclusive" option ("None of these") clears every other pick, and any other pick clears it.
+    var sel = A ? A.slice() : [];
+    var sync = function(){
+      for (var k=0;k<box.children.length;k++){
+        var on = sel.indexOf(k) >= 0;
+        box.children[k].classList.toggle("sel", on);
+        box.children[k].setAttribute("aria-checked", on ? "true" : "false");
+      }
+      next.disabled = sel.length < (Q.minPick || 0);
+    };
+    box.setAttribute("role","group");
+    Q.opts.forEach(function(o, idx){
+      box.appendChild(optButton(o[0], sel.indexOf(idx) >= 0, function(){
+        var at = sel.indexOf(idx);
+        if (at >= 0) sel.splice(at, 1);
+        else if (idx === Q.exclusive) sel = [idx];
+        else { if (Q.exclusive != null && sel.indexOf(Q.exclusive) >= 0) sel.splice(sel.indexOf(Q.exclusive), 1); sel.push(idx); }
+        sync();
+      }, "checkbox"));
+    });
+    $("qHint").textContent = Q.minPick ? "Check all that apply, then tap Next" : "Check all you think are true, then tap Next";
+    next.hidden = false; sync();
+    state.onNext = function(){ state.answers[Q.id] = sel.slice().sort(function(x,y){ return x-y; }); advance(); };
+  } else {
+    box.setAttribute("role","radiogroup");
+    Q.opts.forEach(function(o, idx){
+      box.appendChild(optButton(o[0], A === idx, function(b){ pick(idx, b); }));
+    });
+  }
+  $("qText").focus({preventScroll:true});
+}
+function pick(idx, btn){
+  state.answers[QUESTIONS[state.i].id] = idx;
+  markSel($("qOpts"), btn);
+  advance();
+}
+function advance(){
+  $("barFill").style.width = ((state.i+1) / QUESTIONS.length * 100) + "%";
+  setTimeout(function(){
+    if (state.i < QUESTIONS.length - 1){ state.i++; renderQ(); }
+    else { show("s-form"); $("h-form").focus({preventScroll:true}); }
+  }, 220);
+}
+
+/* Scoring runs through scoreCore_() in the shared block, the same code Code.gs runs on the server. */
+function cleanAnswers(answers){
+  var clean = {};
+  QUESTIONS.forEach(function(Q){
+    var a = answers[Q.id];
+    if (a === undefined && isMulti_(Q)) a = [];
+    clean[Q.id] = normAnswer_(Q, a);
+  });
+  return clean;
+}
+function scoreAnswers(answers){ return scoreCore_(cleanAnswers(answers)); }
+
+function validate(){
+  var ok = true, err = "";
+  var f = $("fName"), b = $("fBiz"), e = $("fEmail"), c = $("fConsent");
+  [f,b,e].forEach(function(x){ x.classList.remove("bad"); x.removeAttribute("aria-invalid"); });
+  $("consentBox").classList.remove("bad");
+  if (!f.value.trim()){ f.classList.add("bad"); f.setAttribute("aria-invalid","true"); ok=false; }
+  if (!b.value.trim()){ b.classList.add("bad"); b.setAttribute("aria-invalid","true"); ok=false; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e.value.trim())){ e.classList.add("bad"); e.setAttribute("aria-invalid","true"); ok=false; err="Please check your email address. "; }
+  if (!ok && !err) err = "Please fill in the highlighted boxes. ";
+  if (!c.checked){ $("consentBox").classList.add("bad"); ok=false; err += "Check the box so we can email your results."; }
+  $("formErr").textContent = ok ? "" : err.trim();
+  return ok;
+}
+
+function utm(){
+  var o = {}; try { var p = new URLSearchParams(location.search);
+    ["utm_source","utm_medium","utm_campaign","utm_content","ref"].forEach(function(k){ if (p.get(k)) o[k] = p.get(k); }); } catch(e){}
+  return o;
+}
+
+function send(){
+  $("sendWarn").style.display = "none";
+  if (DEMO) return Promise.resolve({ok:true, demo:true});
+  // text/plain avoids a CORS preflight, which Apps Script web apps don't answer.
+  return fetch(CONFIG.BACKEND_URL, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(state.payload), redirect:"follow"})
+    .then(function(r){ return r.json(); })
+    .then(function(j){ if (!j || !j.ok) throw new Error((j && j.error) || "bad response"); return j; })
+    .catch(function(){ $("sendWarn").style.display = "block"; return {ok:false}; });
+}
+
+function showResult(){
+  var r = state.result, b = r.rank, ind = industryById(state.industry), ri = rankIndex_(b);
+  $("rHello").textContent = state.payload.firstName + ", here's your AI IQ";
+  $("rScoreText").textContent = "Your AI IQ: " + r.score + " / 100";
+  $("rBand").textContent = b.name; $("rBand").style.background = b.c;
+  $("rIcon").innerHTML = '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' + RANK_ICONS[b.name] + '</svg>';
+  $("rIcon").style.color = b.c;
+  var tr = $("rTrack"); tr.style.color = b.c;
+  for (var k=0;k<tr.children.length;k++){ tr.children[k].className = (k <= ri ? "on" : "") + (k === ri ? " cur" : ""); }
+  $("rTrackLbl").textContent = "Rank " + (ri+1) + " of " + RANKS.length + (ri < RANKS.length-1 ? ". Next up: " + RANKS[RANKS.length-2-ri].name : ". The top rank");
+  $("gArc").setAttribute("stroke", b.c);
+  $("rTitle").textContent = b.line; $("rSub").textContent = b.meaning;
+  $("shareFallback").hidden = true;
+  $("rIndH").textContent = "How AI is changing " + (ind.id === "other" ? "small business" : "your industry") + " (" + ind.label + ")";
+  $("rIndP").textContent = ind.note;
+  var ol = $("rSteps"); ol.innerHTML = "";
+  $("rStepsH").textContent = r.missed ? "Your top 3 to learn next" : "You got them all. Your top 3 next steps";
+  r.steps.forEach(function(t){
+    var li = document.createElement("li"), sp = document.createElement("span"), b = document.createElement("b");
+    b.textContent = t.title + ". "; sp.appendChild(b); sp.appendChild(document.createTextNode(t.learn));
+    if (t.answer){ var a = document.createElement("small"); a.style.cssText = "display:block;margin-top:6px;color:var(--soft)"; a.textContent = "Right answer: " + t.answer; sp.appendChild(a); }
+    li.appendChild(sp); ol.appendChild(li);
+  });
+  $("academyCta").hidden = !b.academy;
+  $("rMailNote").textContent = "We're sending your full results, with what you knew and what to learn in each area, to " + state.payload.email + ". " + CONFIG.MAIL_NOTE;
+  show("s-result");
+  var n = 0, target = r.score, el = $("rScore");
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce || target === 0){ el.textContent = target; }
+  else { var t = setInterval(function(){ n += Math.max(1, Math.ceil((target-n)/8)); if (n >= target){ n = target; clearInterval(t);} el.textContent = n; }, 30); }
+  setTimeout(function(){ $("gArc").setAttribute("stroke-dashoffset", (326.7 * (1 - target/100)).toFixed(1)); }, 60);
+  $("rTitle").focus({preventScroll:true});
+  if (DEMO){
+    $("demoBox").style.display = "block";
+    $("demoMeta").textContent = "Nothing was sent. Email subject would be: \"Your AI IQ: " + r.score + " / 100 (" + b.name + ")\". In live mode it goes into a Gmail draft for Jason to review.";
+  }
+}
+
+/* Wire up */
+if (DEMO) $("demoFlag").hidden = false;
+if (CONFIG.AVATAR_VIDEO_URL){
+  var v = document.createElement("video");
+  v.src = CONFIG.AVATAR_VIDEO_URL; v.controls = true; v.playsInline = true; v.preload = "metadata";
+  if (CONFIG.AVATAR_POSTER_URL) v.poster = CONFIG.AVATAR_POSTER_URL;
+  v.setAttribute("aria-describedby","disclose");
+  $("avatar").appendChild(v);
+  $("avatarWrap").hidden = false;
+}
+function linkOrToast(id, url, label){
+  var a = $(id);
+  if (url){ a.href = url; a.target = "_blank"; a.rel = "noopener"; }
+  else a.addEventListener("click", function(e){ e.preventDefault(); toast(label + " link goes here (set it in CONFIG)."); });
+}
+linkOrToast("safetyBtn", CONFIG.SAFETY_CHECK_URL, "AI Safety Audit");
+linkOrToast("bookBtn", CONFIG.BOOKING_URL, "Booking");
+linkOrToast("academyBtn", CONFIG.ACADEMY_URL, "Academy");
+
+/* Share my rank: copy to the clipboard, with an older-browser fallback, then a select-it-yourself box. */
+function shareText(){ var r = state.result; return r.rank.share + " (AI IQ " + r.score + ") \u2014 take the free AI IQ Test at " + CONFIG.SHARE_SITE; }
+function legacyCopy(t){
+  var ta = document.createElement("textarea"), ok = false;
+  ta.value = t; ta.setAttribute("readonly",""); ta.style.cssText = "position:fixed;top:0;left:-9999px;opacity:0";
+  document.body.appendChild(ta); ta.select();
+  try { ok = document.execCommand("copy"); } catch(e){ ok = false; }
+  document.body.removeChild(ta);
+  return ok;
+}
+function copyText(t){
+  if (navigator.clipboard && window.isSecureContext)
+    return navigator.clipboard.writeText(t).then(function(){ return true; }, function(){ return legacyCopy(t); });
+  return Promise.resolve(legacyCopy(t));
+}
+$("shareBtn").addEventListener("click", function(){
+  var t = shareText();
+  copyText(t).then(function(ok){
+    if (ok){ toast("Copied. Paste it anywhere to share your rank."); return; }
+    var f = $("shareFallback"); f.value = t; f.hidden = false; f.focus(); f.select();
+    toast("Couldn't copy automatically. Select the text below and copy it.");
+  });
+});
+$("nextBtn").addEventListener("click", function(){ if (!this.disabled && state.onNext) state.onNext(); });
+
+$("startBtn").addEventListener("click", function(){ show("s-industry"); renderIndustry(); });
+$("indBack").addEventListener("click", function(){ show("s-hero"); });
+$("backBtn").addEventListener("click", function(){ if (state.i > 0){ state.i--; renderQ(); } else { show("s-industry"); renderIndustry(); } });
+$("formBack").addEventListener("click", function(){ state.i = QUESTIONS.length - 1; show("s-quiz"); renderQ(); });
+$("restartBtn").addEventListener("click", function(){ state = {i:0, industry:null, answers:{}, payload:null, result:null}; $("leadForm").reset(); $("demoBox").style.display="none"; show("s-hero"); });
+$("retryBtn").addEventListener("click", function(){ send().then(function(j){ if (j.ok) toast("Sent. Your results are on the way."); }); });
+
+function onLeadSubmit(e){
+  if (e && e.preventDefault) e.preventDefault();
+  if (!validate()) return;
+  if ($("fWeb").value) return; // bot trap
+  var btn = $("submitBtn"); btn.disabled = true; btn.textContent = "Scoring...";
+  state.result = scoreAnswers(state.answers);
+  var answers = {};
+  var clean = cleanAnswers(state.answers);
+  QUESTIONS.forEach(function(Q){ answers[Q.id] = clean[Q.id]; });
+  state.payload = {
+    firstName: $("fName").value.trim(), business: $("fBiz").value.trim(),
+    email: $("fEmail").value.trim(), phone: $("fPhone").value.trim(),
+    consent: true, consentText: $("consentText").textContent,
+    industry: state.industry, answers: answers, clientScore: state.result.score,
+    page: location.href.split("#")[0], referrer: document.referrer, utm: utm(), website: $("fWeb").value
+  };
+  send().then(function(){ btn.disabled = false; btn.textContent = "Show my AI IQ →"; showResult(); });
+}
+$("leadForm").addEventListener("submit", onLeadSubmit);
+$("submitBtn").addEventListener("click", onLeadSubmit);
+$("leadForm").addEventListener("keydown", function(e){ if (e.key === "Enter" && e.target.tagName === "INPUT" && e.target.type !== "checkbox") onLeadSubmit(e); });
+</script>
+</body>
+</html>

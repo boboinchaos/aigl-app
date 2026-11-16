@@ -46,6 +46,7 @@ html,body{margin:0;background:#dfe6ec}
   <form class="aaf" id="aaf"><input id="aain" placeholder="Type your question&hellip;" autocomplete="off"><button type="submit">Send</button></form>
   <div class="aafoot">Powered by <b style="color:#c22d28">AI Go Long</b> &middot; demo</div>
 </div>
+<script src="knowledge.js"></script>
 <script>
 (function(){
 var L=document.getElementById('aigl-launch'),C=document.getElementById('aigl-chat'),body=document.getElementById('aab'),qd=document.getElementById('aaq');
@@ -57,16 +58,12 @@ function open(){C.classList.add('on');L.style.display='none';if(!started){starte
 L.onclick=open;document.getElementById('aigl-x').onclick=function(){C.classList.remove('on');L.style.display='flex';};
 document.getElementById('aaf').addEventListener('submit',function(e){e.preventDefault();var v=document.getElementById('aain').value.trim();if(!v)return;document.getElementById('aain').value='';h(v);});
 function h(text){add(text,'aamm');q([]);if(bk)return bstep(text);var t=text.toLowerCase();
- if(/sched|book|appoint|inspection/.test(t))return start();
- if(/price|cost|how much|\$|fee/.test(t))return say("Depends on the home's size, age and services. I can get you a firm quote fast — want me to grab a few details and have Nathan confirm your exact price?",function(){q(['Yes, get me a quote','What is FORTIFIED?']);});
- if(/renew|expire|expiration|coming up|how long.*good|valid for|designation.*good/.test(t))return say("Your FORTIFIED designation is good for 5 years from the date it was issued, and you'll want to renew before it lapses to keep your insurance discount. Remembering the date is the hard part — we track your expiration and remind you ahead of time. Want me to note your designation date so we can flag your renewal?",function(){q(['Set a renewal reminder','Book FORTIFIED eval']);});
- if(/insuranc|discount|premium|carrier|compan|save money|lower/.test(t))return say("In Alabama, insurers are required to offer a discount for FORTIFIED homes, and most major carriers do — the exact savings depend on your carrier and FORTIFIED level, so it's worth confirming with your agent. Want me to have Nathan point you to the details and get your evaluation booked?",function(){q(['Book FORTIFIED eval','What is FORTIFIED?']);});
- if(/fortif/.test(t))return say("FORTIFIED is the IBHS program that rates how well a home handles severe weather, and many insurers give a discount for it. We do new evaluations and renewals. Want to book yours?",function(){q(['Book FORTIFIED eval','How much?']);});
- if(/area|where|serve|mobile|daphne|fairhope|cover|tuscaloosa/.test(t))return say("We're licensed across Alabama, Florida, Louisiana, Mississippi and Kentucky, and FORTIFIED in all states. What city are you in? I'll confirm and get you scheduled.",function(){q(['Schedule an inspection']);});
- if(/report|how long|turnaround|when/.test(t))return say("Most inspections are next-day, and your full report is emailed the same day, usually within hours. Want me to find you a time?",function(){q(['Schedule an inspection']);});
- if(/human|nathan|call|person|talk/.test(t))return say("Of course — I can have Nathan call you. What's your name and best number?",function(){bk={s:1,m:'cb'};});
- if(/hour|night|weekend|sunday|24/.test(t))return say("That's the best part — I'm here 24/7, nights and weekends included. Want to lock in a time now?",function(){q(['Schedule an inspection']);});
- return say("Great question — let me get that to Nathan so you get an exact answer. Can I grab your name and number? I can also book your inspection right now.",function(){q(['Schedule an inspection','Have Nathan call me']);});}
+ if(/\b(book|schedule|set up|get me scheduled|lock in|appointment|get scheduled)\b/.test(t)||/yes.*(quote|book|schedule|eval|detail)/.test(t))return start();
+ if(/human|nathan|call me|speak to|talk to (a|an|someone|the|your)|real person|representative/.test(t))return say("Of course — I can have Nathan or the team call you. What's your name and best number?",function(){bk={s:1,m:'cb'};});
+ var E=window.KB.entries;
+ for(var i=0;i<E.length;i++){if(E[i].k.test(t)){(function(e){say(e.a,function(){q(e.q||['Schedule an inspection']);});})(E[i]);return;}}
+ return say(window.KB.fallback,function(){q(['Schedule an inspection','Have Nathan call me']);});
+}
 function start(){bk={s:1,m:'book'};say("Perfect, let's get you scheduled. What's the property address or city?");}
 function bstep(x){var b=bk;if(b.m==='cb'){if(b.s===1){lead.n=x;b.s=2;return say("Thanks "+x.split(' ')[0]+"! Best number for Nathan to reach you?");}if(b.s===2){return fin("Nathan will call you shortly.");}}
  if(b.s===1){lead.a=x;b.s=2;return say("Got it. Standard home inspection, FORTIFIED, or not sure yet?");}
@@ -101,9 +98,7 @@ function fin(tail){say("Perfect — you're all set! ✅",function(){say("I've se
 import Vapi from "https://esm.sh/@vapi-ai/web@2.3.10";
 const PUBLIC_KEY = "8126359c-d121-47eb-855d-7167d44e6f88";
 const ASSISTANT_ID = "dea2ff86-9283-4ddd-971b-42654b5f7617";
-const KO_PROMPT = `You are the friendly AI receptionist for Knockout Inspections, a home inspection and FORTIFIED evaluation company based in Fairhope, Alabama, licensed across Alabama, Florida, Louisiana, Mississippi and Kentucky, and FORTIFIED in all of them. You answer 24/7. Keep every reply to one or two short spoken sentences, warm and natural.
-You can: answer questions about home inspections and about FORTIFIED (the IBHS program that rates how well a home withstands severe weather and often earns an insurance discount — Knockout does new evaluations and renewals), and book an inspection by collecting the caller's name, phone number, property address, and what they need, then confirming that the team will reach out to lock in the time.
-For pricing, say it depends on the home's size, age and services, and offer to take a few details so the team can confirm an exact quote — never quote a specific dollar amount. If asked something you don't know, offer to take a message. This is a live demo of an AI receptionist.`;
+const KO_PROMPT = window.KB.prompt;
 const vapi = new Vapi(PUBLIC_KEY);
 const btn = document.getElementById('aigl-voice');
 const label = document.getElementById('aigl-voice-label');

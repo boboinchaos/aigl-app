@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>1-on-1 Live AI Training with Jason | AIGL AI Academy</title>
-<meta name="description" content="A 3-hour live, 1-on-1 AI training built around your job. Pick a Friday, pay to reserve, and get a calendar invite with a video link.">
+<meta name="description" content="A 3-hour live, 1-on-1 AI training built around your job. Pick a Friday or weekend time, pay to reserve, and get a calendar invite with a video link.">
 <meta name="theme-color" content="#0D1117">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,15 +56,15 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-si
     </div>
   </div>
 
-  <div id="paidHead" class="card hide" style="border-color:var(--green)"><h3 id="paidMsg">Payment received. Thank you!</h3><p class="soft" style="margin:6px 0 0">Now pick your Friday session below.</p></div>
+  <div id="paidHead" class="card hide" style="border-color:var(--green)"><h3 id="paidMsg">Payment received. Thank you!</h3><p class="soft" style="margin:6px 0 0">Now pick your session time below.</p></div>
 
-  <h2 style="margin-top:18px" id="slotsTitle">Open Fridays</h2>
-  <p class="soft" id="slotsHelp">Sessions run Fridays, 9 AM–12 PM or 1–4 PM Central. Pay to reserve, then pick your time.</p>
+  <h2 style="margin-top:18px" id="slotsTitle">Open sessions</h2>
+  <p class="soft" id="slotsHelp">Sessions run Fridays, Saturdays and Sundays, 9 AM–12 PM or 1–4 PM Central. Pay to reserve, then pick your time.</p>
   <div id="slots"><p class="soft">Loading open times…</p></div>
 
   <div id="payBox">
     <a class="btn" id="payBtn" href="#">Pay $1,000 to reserve my session</a>
-    <p class="soft" style="font-size:14px;margin-top:8px">Secure checkout by Stripe. After you pay, you'll come right back here to pick your Friday.</p>
+    <p class="soft" style="font-size:14px;margin-top:8px">Secure checkout by Stripe. After you pay, you'll come right back here to pick your time.</p>
   </div>
 
   <div id="form" class="hide">
@@ -88,7 +88,7 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-si
 </div>
 <script>
 var API = "https://spam-agent.vercel.app/api/academy";
-var PAY_URL = "PASTE_STRIPE_1000_LINK";
+var PAY_URL = "https://buy.stripe.com/5kQ6oG9gE7l9aFv4drcwg13";
 var sid = new URLSearchParams(location.search).get("session_id");
 var chosen = null;
 function $(id){return document.getElementById(id)}
@@ -98,7 +98,7 @@ if (/PASTE/.test(PAY_URL)) { $("payBtn").textContent = "Booking opens soon. Call
 
 function render(slots, canPick){
   var box=$("slots"); box.innerHTML="";
-  if (!slots.length){ box.appendChild(el("p","soft","No open Fridays in the next few weeks. Call (205) 203-8377 and we'll find a time.")); return; }
+  if (!slots.length){ box.appendChild(el("p","soft","No open sessions in the next few weeks. Call (205) 203-8377 and we'll find a time.")); return; }
   var byDay={}; slots.forEach(function(s){ (byDay[s.day]=byDay[s.day]||[]).push(s) });
   Object.keys(byDay).forEach(function(d){
     box.appendChild(el("div","day",d)); var row=el("div","times");
@@ -116,7 +116,7 @@ fetch(API+"/slots"+(sid?"?session_id="+encodeURIComponent(sid):"")).then(functio
   if (j.error){ $("slots").innerHTML=""; $("slots").appendChild(el("p","err",j.error)); return; }
   var p=j.paid;
   if (sid && p && p.ok && p.already){ $("intro").classList.add("hide"); $("slotsTitle").classList.add("hide"); $("slotsHelp").classList.add("hide"); $("slots").classList.add("hide"); $("payBox").classList.add("hide"); $("done").classList.remove("hide"); $("when").textContent=fmt(p.already); return; }
-  if (sid && p && p.ok){ $("payBox").classList.add("hide"); $("paidHead").classList.remove("hide"); if(p.name) $("paidMsg").textContent="Payment received. Thank you, "+p.name.split(" ")[0]+"!"; $("slotsTitle").textContent="Pick your Friday"; $("slotsHelp").textContent="Tap a time. All times are Central."; render(j.slots,true); return; }
+  if (sid && p && p.ok){ $("payBox").classList.add("hide"); $("paidHead").classList.remove("hide"); if(p.name) $("paidMsg").textContent="Payment received. Thank you, "+p.name.split(" ")[0]+"!"; $("slotsTitle").textContent="Pick your session"; $("slotsHelp").textContent="Tap a time. All times are Central."; render(j.slots,true); return; }
   if (sid && p && !p.ok){ $("slotsHelp").textContent=(p.error||"We couldn't confirm your payment.")+" If you just paid, refresh in a minute or call (205) 203-8377."; }
   render(j.slots,false);
 }).catch(function(){ $("slots").innerHTML=""; $("slots").appendChild(el("p","err","Couldn't load open times. Call (205) 203-8377.")); });

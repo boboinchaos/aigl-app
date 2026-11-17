@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Test Drive: Free Class | AIGL AI Academy</title>
+<meta name="description" content="A free 60-minute AI class built around your job. Take a quiz made for you, try AI on your real tasks, build your first mini app, and learn to use AI safely.">
+<meta name="theme-color" content="#0D1117">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0D1117;--bg2:#161C24;--bg3:#1C242E;--ink:#F2F5F0;--soft:#B4C1B9;--line:#2B3440;--green:#2EE08A;--green-d:#1E9F63;--green-l:#7CF5B8;--yellow:#FFB547;--red:#FF5C5C;--blue:#5CC8FF;--on-green:#04110A;--r:18px}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Arial,sans-serif;font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Space Grotesk",Inter,Arial,sans-serif;line-height:1.1;margin:0}
+a{color:var(--green)}
+.wrap{max-width:660px;margin:0 auto;padding:20px 18px 48px;min-height:100vh;display:flex;flex-direction:column}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 0 14px}
+.logo{font-family:"Space Grotesk",Arial,sans-serif;font-weight:700;font-size:18px;color:var(--ink);text-decoration:none}.logo b{color:var(--green)}
+.pill{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);border:1px solid var(--line);border-radius:99px;padding:5px 10px}
+.demo-flag{font-size:12px;color:var(--on-green);background:var(--yellow);border-radius:99px;padding:4px 10px;font-weight:600}
+.steps{display:flex;gap:6px;margin:0 0 22px;padding:0;list-style:none}
+.steps li{flex:1;height:6px;border-radius:99px;background:var(--bg3)}.steps li.done{background:var(--green-d)}.steps li.now{background:var(--green)}
+.screen{display:none;flex-direction:column;animation:in .28s ease both}.screen.on{display:flex}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.screen{animation:none}}
+.eyebrow{font-family:"Space Grotesk",Arial,sans-serif;font-weight:700;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin:6px 0 10px}
+h1{font-size:clamp(32px,8.5vw,48px)}h1 .hl{color:var(--green)}
+h2{font-size:clamp(26px,6.5vw,34px);margin-bottom:10px}
+h3{font-size:20px;margin:0 0 6px}
+.lede{color:var(--soft);font-size:18px;margin:12px 0 20px}
+.agenda{list-style:none;padding:0;margin:0 0 22px;display:grid;gap:8px}
+.agenda li{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px 14px;display:flex;gap:12px;align-items:baseline}
+.agenda b{font-family:"Space Grotesk",Arial,sans-serif;color:var(--green);min-width:56px}
+.note{font-size:14px;color:var(--soft);margin:10px 2px 0}
+.btn{appearance:none;border:0;cursor:pointer;font:700 19px "Space Grotesk",Inter,Arial,sans-serif;border-radius:14px;padding:16px 22px;min-height:58px;width:100%;background:var(--green);color:var(--on-green);display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center;text-decoration:none}
+.btn:hover{filter:brightness(1.07)}.btn[disabled]{opacity:.5;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.btn.small{font-size:15px;min-height:44px;padding:10px 14px;width:auto}
+.btn:focus-visible,.opt:focus-visible,.chip:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--green-l);outline-offset:3px}
+.row{display:flex;gap:10px;margin-top:18px}.row .btn{flex:1}
+label.f{display:block;font-weight:600;margin:16px 0 6px}label.f span{color:var(--soft);font-weight:400;font-size:14px}
+input[type=text],select{width:100%;font:500 17px Inter,Arial,sans-serif;color:var(--ink);background:var(--bg2);border:2px solid var(--line);border-radius:12px;padding:13px 14px;min-height:52px}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--soft) 50%),linear-gradient(135deg,var(--soft) 50%,transparent 50%);background-position:calc(100% - 20px) 50%,calc(100% - 14px) 50%;background-size:6px 6px;background-repeat:no-repeat}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{appearance:none;border:2px solid var(--line);background:var(--bg2);color:var(--ink);font:600 15px Inter,Arial,sans-serif;border-radius:99px;padding:9px 14px;cursor:pointer}
+.chip.sel{border-color:var(--green);background:rgba(46,224,138,.12)}
+.err{color:var(--red);font-weight:600;margin-top:12px;min-height:1em}
+.loader{display:flex;flex-direction:column;align-items:center;text-align:center;padding:60px 0}
+.spin{width:56px;height:56px;border-radius:50%;border:5px solid var(--bg3);border-top-color:var(--green);animation:sp 1s linear infinite;margin-bottom:22px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.qhead{display:flex;justify-content:space-between;color:var(--soft);font-size:14px;font-weight:600;margin-bottom:8px}
+.area{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.q{font-size:clamp(22px,5.8vw,28px);font-weight:700;font-family:"Space Grotesk",Arial,sans-serif;line-height:1.2;margin-bottom:18px}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{appearance:none;text-align:left;width:100%;min-height:58px;padding:14px 16px;border-radius:14px;border:2px solid var(--line);background:var(--bg2);color:var(--ink);font:600 17px Inter,Arial,sans-serif;cursor:pointer}
+.opt.right{border-color:var(--green);background:rgba(46,224,138,.12)}.opt.wrong{border-color:var(--red);background:rgba(255,92,92,.10)}
+.opt[disabled]{cursor:default}
+.fb{margin-top:16px;background:var(--bg2);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:12px;padding:14px 16px}
+.fb.miss{border-left-color:var(--yellow)}
+.fb .verdict{font-family:"Space Grotesk",Arial,sans-serif;font-weight:700;font-size:18px;margin-bottom:4px}
+.fb .foryou{margin-top:8px;color:var(--green-l);font-weight:600}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;margin-bottom:14px}
+.card p{margin:6px 0}
+.prompt{background:var(--bg);border:1px dashed var(--line);border-radius:12px;padding:12px 14px;font:15px/1.5 ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap;color:var(--ink);margin:10px 0}
+.score{font:700 64px "Space Grotesk",Arial,sans-serif;color:var(--green);line-height:1}
+.type{font:700 28px "Space Grotesk",Arial,sans-serif;margin:6px 0}
+.badge{display:inline-block;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-radius:99px;padding:4px 10px;margin-bottom:8px}
+.badge.high{background:rgba(255,181,71,.15);color:var(--yellow)}.badge.medium{background:rgba(92,200,255,.15);color:var(--blue)}.badge.lower{background:rgba(46,224,138,.15);color:var(--green)}
+ol.clean,ul.clean{margin:8px 0 0;padding-left:22px}ol.clean li,ul.clean li{margin:6px 0}
+.rule{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}.rule:last-child{border-bottom:0}
+.rule .n{flex:0 0 32px;height:32px;border-radius:50%;background:rgba(255,92,92,.14);color:var(--red);font:700 16px "Space Grotesk",Arial,sans-serif;display:flex;align-items:center;justify-content:center}
+.tag{font-size:12px;color:var(--soft);font-weight:600;letter-spacing:1px;text-transform:uppercase}
+footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--soft)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="/">AI <b>GO</b> LONG</a>
+    <span id="flag" class="pill">AI Academy</span>
+  </header>
+  <ul class="steps" id="steps" aria-hidden="true"></ul>
+
+  <!-- 0. Welcome -->
+  <section class="screen on" id="s-welcome">
+    <div class="eyebrow">Free 60-minute class</div>
+    <h1>Take AI for a <span class="hl">test drive.</span></h1>
+    <p class="lede"><b>Learn how to use and integrate AI, or risk getting replaced at work.</b> The people who learn it stay valuable. In the next hour you'll use AI on <b>your</b> work, not a textbook example.</p>
+    <ul class="agenda">
+      <li><b>5 min</b><span>Tell us about your job</span></li>
+      <li><b>10 min</b><span>A quiz built just for your job</span></li>
+      <li><b>15 min</b><span>Try AI on 3 of your real tasks</span></li>
+      <li><b>15 min</b><span>Build your first mini app + automation</span></li>
+      <li><b>10 min</b><span>The safety rules for your job</span></li>
+      <li><b>5 min</b><span>How to protect your job from AI</span></li>
+    </ul>
+    <button class="btn" data-go="s-intake">Start my test drive →</button>
+    <p class="note">You'll need a free AI app open in another tab or on your phone: Claude, ChatGPT or Gemini all work.</p>
+  </section>
+
+  <!-- 1. Intake -->
+  <section class="screen" id="s-intake">
+    <div class="eyebrow">Step 1 · About you</div>
+    <h2>Tell us about your job</h2>
+    <p class="lede" style="margin-bottom:4px">We use this to build your quiz and examples. We don't save your answers.</p>
+    <label class="f" for="firstName">First name <span>(optional)</span></label>
+    <input type="text" id="firstName" autocomplete="given-name" maxlength="40">
+    <label class="f" for="industry">What industry are you in?</label>
+    <select id="industry">
+      <option value="">Pick one…</option>
+      <option>Customer service / call center</option><option>Healthcare office</option><option>Construction or home services</option>
+      <option>Restaurant or hospitality</option><option>Retail</option><option>Real estate</option><option>Insurance</option>
+      <option>Banking or finance</option><option>Legal</option><option>Government or nonprofit</option><option>Manufacturing</option>
+      <option>Education</option><option value="other">Other…</option>
+    </select>
+    <input type="text" id="industryOther" placeholder="Type your industry" maxlength="80" style="display:none;margin-top:8px">
+    <label class="f" for="employer">Who do you work for? <span>(optional, a company type is fine)</span></label>
+    <input type="text" id="employer" placeholder="e.g. a dental office, a big bank, a roofing company" maxlength="80">
+    <label class="f" for="jobTitle">What's your job title?</label>
+    <input type="text" id="jobTitle" placeholder="e.g. Customer service rep, Office manager" maxlength="80">
+    <label class="f">What do you do at work? <span>(pick all that fit)</span></label>
+    <div class="chips" id="taskChips"></div>
+    <input type="text" id="taskOther" placeholder="Anything else you do a lot? (optional)" maxlength="80" style="margin-top:10px">
+    <label class="f">How often do you use AI now?</label>
+    <div class="chips" id="aiUse"></div>
+    <label class="f" for="pay">What's your pay range? <span>(optional, helps us talk about what AI skills are worth)</span></label>
+    <select id="pay">
+      <option value="">Prefer not to say</option><option>Under $35k a year</option><option>$35k to $50k a year</option>
+      <option>$50k to $75k a year</option><option>Over $75k a year</option>
+    </select>
+    <div class="err" id="intakeErr" role="alert"></div>
+    <div class="row"><button class="btn ghost" data-go="s-welcome">Back</button><button class="btn" id="buildBtn">Build my quiz →</button></div>
+  </section>
+
+  <!-- 2. Loading -->
+  <section class="screen" id="s-loading">
+    <div class="loader"><div class="spin"></div><h2 id="loadMsg">Building your quiz…</h2><p class="lede">AI is writing questions about your job right now. This takes about 15 seconds.</p></div>
+  </section>
+
+  <!-- 3. Quiz -->
+  <section class="screen" id="s-quiz">
+    <div class="qhead"><span id="qCount"></span><span id="qScore"></span></div>
+    <div class="area" id="qArea"></div>
+    <div class="q" id="qText"></div>
+    <div class="opts" id="qOpts"></div>
+    <div id="qFb"></div>
+    <button class="btn" id="qNext" style="margin-top:16px;display:none">Next →</button>
+  </section>
+
+  <!-- 4. Results -->
+  <section class="screen" id="s-results">
+    <div class="eyebrow">Your results</div>
+    <p id="headline" class="lede" style="margin-top:0"></p>
+    <div class="card" style="text-align:center"><div class="score" id="rScore"></div><div class="type" id="rType"></div><p id="rTypeLine" style="color:var(--soft)"></p></div>
+    <div class="card"><span class="badge" id="expBadge"></span><h3>How much AI can help with your job</h3><p id="expLine"></p></div>
+    <button class="btn" data-go="s-tasks">Next: try AI on your work →</button>
+  </section>
+
+  <!-- 5. Hands-on tasks -->
+  <section class="screen" id="s-tasks">
+    <div class="eyebrow">Step 3 · Hands-on (15 min)</div>
+    <h2>Try AI on 3 of your real tasks</h2>
+    <p class="lede">Copy each prompt into your AI app. Swap the [brackets] for made-up details, never real customer info.</p>
+    <div id="taskList"></div>
+    <button class="btn" data-go="s-build">Next: build your first mini app →</button>
+  </section>
+
+  <!-- 6. Build -->
+  <section class="screen" id="s-build">
+    <div class="eyebrow">Step 4 · Build (15 min)</div>
+    <h2>Build your first mini app</h2>
+    <p class="lede">No coding. Paste this into Claude, ChatGPT or Gemini and it builds the app on screen.</p>
+    <div class="card"><span class="tag">Your app</span><h3 id="appTitle"></h3><p id="appWhat" style="color:var(--soft)"></p><div class="prompt" id="appPrompt"></div><button class="btn small" data-copy="appPrompt">Copy prompt</button>
+      <p style="margin-top:14px"><b>Then test it:</b></p><ol class="clean" id="appTest"></ol></div>
+    <h2 style="margin-top:10px">Set up your first automation</h2>
+    <div class="card"><span class="tag">Your automation</span><h3 id="autoTitle"></h3><p id="autoWhat" style="color:var(--soft)"></p><ol class="clean" id="autoSteps"></ol></div>
+    <button class="btn" data-go="s-safety">Next: the safety rules →</button>
+  </section>
+
+  <!-- 7. Safety -->
+  <section class="screen" id="s-safety">
+    <div class="eyebrow">Step 5 · Safety (10 min)</div>
+    <h2>Use AI safely at your job</h2>
+    <p class="lede">Building with AI is easy. Building safely is what makes you trusted at work.</p>
+    <div class="card" id="safetyList"></div>
+    <div class="card"><h3>Quick check: AI scams</h3><p>AI can copy a voice from about <b>3 seconds</b> of audio. If "your boss" calls or texts asking for gift cards, money or a password, hang up and call back on a number you already know.</p></div>
+    <button class="btn" data-go="s-protect">Last step: protect your job →</button>
+  </section>
+
+  <!-- 8. Protect + next -->
+  <section class="screen" id="s-protect">
+    <div class="eyebrow">Step 6 · Your plan</div>
+    <h2>5 ways to protect your job from AI</h2>
+    <div class="card"><ol class="clean" id="protectList"></ol></div>
+    <div class="card" style="border-color:var(--green)"><h3>Liked it? Go deeper.</h3>
+      <p><b>AI-Ready Pro</b> is our 4-week class: become the person at work who runs the AI, build an "I automated this" portfolio, and finish with a certificate of completion.</p>
+      <a class="btn" id="proCta" href="/book/?from=academy-test-drive" style="margin-top:10px">Save my spot in AI-Ready Pro</a>
+      <a class="btn ghost" href="/iq/" style="margin-top:10px">Take the AI IQ Test too</a>
+    </div>
+    <button class="btn ghost" id="restart">Start over with a different job</button>
+  </section>
+
+  <footer>AIGL AI Academy · AI Go Long, Birmingham, AL. This class is a learning tool, not career, legal or financial advice. We can't promise a job, a raise or a result. Your answers aren't saved.</footer>
+</div>
+<script>
+var API = "https://spam-agent.vercel.app/api/academy/test-drive";
+var DEMO = /[?#&]demo\b/.test(location.href);
+var TASKS = ["Answer phone calls","Answer emails","Schedule appointments","Data entry","Handle complaints","Quotes or invoices","Follow up with customers","Take notes","Reports or spreadsheets","Paperwork and forms","Bookkeeping","Social media posts","Check in customers or patients","Sales calls"];
+var AIUSE = ["Never tried it","Tried it a few times","Use it weekly","Use it daily"];
+var ORDER = ["s-welcome","s-intake","s-quiz","s-results","s-tasks","s-build","s-safety","s-protect"];
+var state = {tasks:[], aiUse:"", data:null, i:0, right:0};
+function $(id){return document.getElementById(id)}
+function el(tag, cls, text){var e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e}
+function show(id){
+  document.querySelectorAll(".screen").forEach(function(s){s.classList.toggle("on", s.id===id)});
+  var k = ORDER.indexOf(id === "s-loading" ? "s-quiz" : id), ul=$("steps"); ul.innerHTML="";
+  ORDER.forEach(function(_,i){var li=el("li", i<k?"done":i===k?"now":""); ul.appendChild(li)});
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+document.addEventListener("click", function(e){
+  var g = e.target.closest("[data-go]"); if (g){ show(g.getAttribute("data-go")); return; }
+  var c = e.target.closest("[data-copy]");
+  if (c){ var t=$(c.getAttribute("data-copy")).textContent; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function(){c.textContent="Copied ✓"; setTimeout(function(){c.textContent="Copy prompt"},1600)}, function(){c.textContent="Select and copy"}); }
+});
+function chips(box, list, multi, onPick){
+  list.forEach(function(name){
+    var b=el("button","chip",name); b.type="button"; b.setAttribute("aria-pressed","false");
+    b.onclick=function(){
+      if(!multi) box.querySelectorAll(".chip").forEach(function(x){x.classList.remove("sel"); x.setAttribute("aria-pressed","false")});
+      var on=!b.classList.contains("sel")||!multi; b.classList.toggle("sel", on); b.setAttribute("aria-pressed", String(on)); onPick(name, on);
+    };
+    box.appendChild(b);
+  });
+}
+chips($("taskChips"), TASKS, true, function(n,on){ state.tasks = on ? state.tasks.concat(n) : state.tasks.filter(function(x){return x!==n}) });
+chips($("aiUse"), AIUSE, false, function(n){ state.aiUse=n });
+$("industry").onchange=function(){ $("industryOther").style.display = this.value==="other" ? "block" : "none" };
+if (DEMO){ $("flag").className="demo-flag"; $("flag").textContent="Demo"; }
+
+$("buildBtn").onclick=function(){
+  var industry = $("industry").value==="other" ? $("industryOther").value.trim() : $("industry").value;
+  var tasks = state.tasks.slice(); if ($("taskOther").value.trim()) tasks.push($("taskOther").value.trim());
+  var body = {firstName:$("firstName").value.trim(), industry:industry, employer:$("employer").value.trim(), jobTitle:$("jobTitle").value.trim(), tasks:tasks, aiUse:state.aiUse||"Not sure", payRange:$("pay").value};
+  if (!body.industry || !body.jobTitle || !tasks.length){ $("intakeErr").textContent="Please add your industry, job title and at least one thing you do at work."; return; }
+  $("intakeErr").textContent=""; show("s-loading");
+  var msgs=["Reading about your job…","Writing your questions…","Picking your hands-on tasks…","Designing your first mini app…"], m=0;
+  var tick=setInterval(function(){ $("loadMsg").textContent=msgs[++m % msgs.length] }, 3500);
+  var go = DEMO ? Promise.resolve(SAMPLE) : fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}).then(function(r){return r.json().then(function(j){ if(!r.ok) throw new Error(j.error||"Something went wrong."); return j; })});
+  go.then(function(d){ clearInterval(tick); state.data=d; state.i=0; state.right=0; renderQ(); show("s-quiz"); })
+    .catch(function(err){ clearInterval(tick); show("s-intake"); $("intakeErr").textContent=(err && err.message)||"Couldn't build your quiz. Please try again."; });
+};
+
+function renderQ(){
+  var qs=state.data.questions, q=qs[state.i];
+  $("qCount").textContent="Question "+(state.i+1)+" of "+qs.length; $("qScore").textContent=state.right+" right";
+  $("qArea").textContent=q.area||""; $("qText").textContent=q.q; $("qFb").innerHTML=""; $("qNext").style.display="none";
+  var box=$("qOpts"); box.innerHTML="";
+  q.options.forEach(function(o,idx){
+    var b=el("button","opt",o); b.type="button";
+    b.onclick=function(){
+      var ok = idx===q.answer; if (ok) state.right++;
+      box.querySelectorAll(".opt").forEach(function(x,j){ x.disabled=true; if(j===q.answer) x.classList.add("right"); else if(j===idx) x.classList.add("wrong"); });
+      var fb=el("div","fb"+(ok?"":" miss")); fb.appendChild(el("div","verdict", ok?"That's right.":"Not quite."));
+      fb.appendChild(el("div","",q.why)); fb.appendChild(el("div","foryou","AI can do this for you: "+q.forYou)); $("qFb").appendChild(fb);
+      $("qScore").textContent=state.right+" right";
+      $("qNext").textContent = state.i===qs.length-1 ? "See my results →" : "Next →"; $("qNext").style.display="flex"; $("qNext").focus();
+    };
+    box.appendChild(b);
+  });
+}
+$("qNext").onclick=function(){ if (state.i < state.data.questions.length-1){ state.i++; renderQ(); } else { renderResults(); show("s-results"); } };
+
+function aiType(r,n){ var p=r/n; return p<=.375?["AI Rookie","AI is moving fast around you. Good news: the first steps are easy."]:p<=.625?["AI Explorer","You know enough to be dangerous. A few skills would change your week."]:p<=.875?["AI Operator","You get it. Now make it do the work for you."]:["AI Mastermind","You're ahead of almost everyone. Time to be the AI person at work."]; }
+function renderResults(){
+  var d=state.data, n=d.questions.length, t=aiType(state.right,n);
+  $("headline").textContent=d.headline; $("rScore").textContent=state.right+"/"+n; $("rType").textContent=t[0]; $("rTypeLine").textContent=t[1];
+  var lvl=(d.exposure&&d.exposure.level)||"medium"; $("expBadge").className="badge "+lvl; $("expBadge").textContent={high:"High AI exposure",medium:"Medium AI exposure",lower:"Lower AI exposure"}[lvl]||lvl; $("expLine").textContent=d.exposure?d.exposure.line:"";
+  var tl=$("taskList"); tl.innerHTML="";
+  d.tasks.forEach(function(t,i){ var c=el("div","card"); c.appendChild(el("span","tag","Task "+(i+1))); c.appendChild(el("h3","",t.title)); c.appendChild(el("p","",t.why)); var p=el("div","prompt",t.prompt); p.id="tp"+i; c.appendChild(p); var b=el("button","btn small","Copy prompt"); b.type="button"; b.setAttribute("data-copy","tp"+i); c.appendChild(b); tl.appendChild(c); });
+  var b=d.build; $("appTitle").textContent=b.appTitle; $("appWhat").textContent=b.appWhat; $("appPrompt").textContent=b.appPrompt;
+  fill($("appTest"), b.testSteps); $("autoTitle").textContent=b.automation.title; $("autoWhat").textContent=b.automation.what; fill($("autoSteps"), b.automation.steps);
+  var sl=$("safetyList"); sl.innerHTML=""; d.safety.forEach(function(s,i){ var r=el("div","rule"); r.appendChild(el("div","n",String(i+1))); r.appendChild(el("div","",s)); sl.appendChild(r); });
+  fill($("protectList"), d.protect);
+}
+function fill(ol, items){ ol.innerHTML=""; (items||[]).forEach(function(x){ ol.appendChild(el("li","",x)) }); }
+$("restart").onclick=function(){ state.data=null; show("s-intake"); };
+show("s-welcome");
+
+var SAMPLE = {"headline":"Tanya, here's how AI fits into your work at the front desk.","exposure":{"level":"high","line":"A lot of your day is phones, scheduling and paperwork, the work AI is learning fastest. That's exactly why learning to run it puts you ahead."},"questions":[{"area":"AI in your job","q":"A patient calls after hours to book a checkup. What can an AI phone assistant do today?","options":["Answer, find an open time and book it on the calendar","Only play a recorded message","Nothing until a person calls back","Take a voicemail and email it"],"answer":0,"why":"AI phone assistants can hold a normal conversation and book into a calendar.","forYou":"Answer after-hours calls and fill the schedule while the office is closed."},{"area":"Writing prompts","q":"Which prompt gets the most useful appointment reminder text?","options":["Write a reminder","You're a friendly clinic front desk. Write a 2-sentence text reminding [first name] of their visit on [date] at [time]. Ask them to reply C to confirm.","Make a text","Remind patients"],"answer":1,"why":"Telling AI who to be, what you want, the details and the format gets something you can use.","forYou":"Write reminder texts in your clinic's voice in seconds."},{"area":"Data safety","q":"Is it OK to paste a patient's name and date of birth into a free AI app?","options":["Yes, AI apps are private","Yes, if you delete it after","No. Patient details don't go in a free AI app","Only on your phone"],"answer":2,"why":"Free AI apps may use what you type, and patient info is protected.","forYou":"Use made-up details to practice, and your clinic's approved tools for real work."},{"area":"AI makes mistakes","q":"AI tells you a patient's insurance covers a visit. What do you do?","options":["Trust it","Check it with the insurance company or your system","Tell the patient it's covered","Ask the AI again"],"answer":1,"why":"AI can make up facts that sound sure. That's called a hallucination.","forYou":"Let AI draft the explanation, then check the facts before the patient sees it."},{"area":"Scams","q":"Your office manager texts from a new number asking you to buy gift cards for a staff party. What's the move?","options":["Buy them fast","Reply asking for the receipt","Call your manager on the number you already know","Forward it to coworkers"],"answer":2,"why":"Scammers fake messages and even voices. Calling back on a known number stops them.","forYou":"Spot the scam that costs offices thousands."},{"area":"AI in your job","q":"Which part of check-in can AI help with right now?","options":["None of it","Reading a photo of an insurance card into a form","Giving medical advice","Signing forms for the patient"],"answer":1,"why":"AI can read photos and fill in forms, which saves retyping.","forYou":"Cut retyping from insurance cards and forms."},{"area":"Chatbot vs. agent","q":"What makes an AI agent different from a chatbot?","options":["Agents are robots","Agents take actions, like booking, sending and updating records","Agents only answer questions","There's no difference"],"answer":1,"why":"A chatbot talks. An agent does the work, step by step.","forYou":"Have an agent send reminders and update the schedule for you."},{"area":"AI in your job","q":"What's the best first use of AI for a busy front desk?","options":["Replacing the doctor","Drafting replies to common calls and emails","Guessing insurance rules","Deleting old records"],"answer":1,"why":"Common, repeatable messages are where AI saves the most time safely.","forYou":"Build a library of ready replies for your most common questions."}],"tasks":[{"title":"Clean up a phone message","why":"Turns rushed notes into a clear message for the doctor.","prompt":"You're a medical front desk assistant. Turn these rough notes into a clear 3-line message for the nurse, with the callback number and what the patient needs: [patient first name] called, refill question about [medicine], wants a call before 3pm, number [555-0100]."},{"title":"Reply to a frustrated patient","why":"Calm, professional replies in seconds.","prompt":"You're a kind clinic front desk. Write a short, calm reply to a patient upset that their appointment was moved. Apologize, offer two new times ([time 1], [time 2]) and keep it under 60 words."},{"title":"Build a daily checklist","why":"Never miss an opening or closing step.","prompt":"Make a simple checklist for opening and closing a clinic front desk: phones, schedule, check-in forms, mail and end-of-day reports. Use checkboxes and keep it to one page."}],"build":{"appTitle":"Appointment Reminder Builder","appWhat":"Pick the visit type and time, and it writes a ready-to-send reminder text, so you stop typing the same message all day.","appPrompt":"Build me a simple single-page app called Appointment Reminder Builder. It has fields for first name, visit type (dropdown: checkup, follow-up, lab work), date and time, and a big Create button. It writes a friendly 2-sentence reminder text and has a Copy button. Use big buttons that work on a phone. Do not save, store or send any data anywhere.","testSteps":["Try it with made-up names and times.","Ask the AI to add a Spanish version button.","Read every reminder to make sure the date and time are right."]},"automation":{"title":"A ready-reply library in your email","what":"Save your 5 most common answers as templates so any reply takes one click.","steps":["Ask AI to write replies to your 5 most common patient emails (no real names).","In Gmail, turn on Templates under Settings > Advanced. In Outlook, use My Templates.","Save each reply as a template with a clear name.","Next time, insert the template and add the personal details."]}},"safety":["Never type real patient names, birthdays, insurance numbers or medical details into a free AI app or a test app.","Ask your office manager before connecting AI to the clinic's email, schedule or records.","Never give AI or an app your passwords, and use the tools your clinic approves.","Check every date, time and insurance answer before a patient sees it.","If 'your manager' calls or texts asking for gift cards, money or a password, hang up and call back on a number you know."],"protect":["Learn AI on your own front-desk tasks first: reminders, messages and checklists.","Be the person who sets up and checks the AI reminders and phone assistant.","Lean into what AI can't do: calming worried patients and solving the odd problem.","Move toward running the schedule and patient experience, not just typing.","Keep a list of what you automated and the minutes it saves each week."]};
+</script>
+</body>
+</html>

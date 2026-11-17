@@ -158,13 +158,15 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-si
       <div class="small">Certificate of completion, not an accredited credential. Training delivered by an AI instructor, AIGL AI Academy, Birmingham, AL.</div>
     </div>
     <div class="row noprint"><button class="btn" id="printCert">Print or save as PDF</button></div>
+    <div id="review" class="noprint"></div>
   </section>
 
   <footer>AIGL AI Academy · course taught by an AI instructor (it can be wrong, so check its work). <a href="/book/?from=academy-course">Need a human? Book time with Jason</a> · (205) 203-8377. Educational only; we can't promise a job, a raise or a result.</footer>
 </div>
+<script src="/academy/review.js"></script>
 <script>
 var API = "https://spam-agent.vercel.app/api/academy";
-var PAY_URL = "PASTE_STRIPE_299_LINK";
+var PAY_URL = "https://buy.stripe.com/4gMcN49gE9th14V11fcwg14";
 var DEMO = /[?&]demo\b/.test(location.search);
 var TASKS = ["Answer phone calls","Answer emails","Schedule appointments","Data entry","Handle complaints","Quotes or invoices","Follow up with customers","Take notes","Reports or spreadsheets","Paperwork and forms","Bookkeeping","Social media posts","Check in customers or patients","Sales calls"];
 var AIUSE = ["Never tried it","Tried it a few times","Use it weekly","Use it daily"];
@@ -194,7 +196,9 @@ $("industry").onchange=function(){ $("industryOther").style.display = this.value
 // ---------- start ----------
 (function start(){
   if (DEMO){ $("flag").className="demo-flag"; $("flag").textContent="Demo"; }
-  if (!/PASTE/.test(PAY_URL)) $("buyBtn").href = PAY_URL;
+  // Only sell once payment checks are switched on (AIGL_STRIPE_KEY in Vercel); until then point to a call.
+  $("buyBtn").textContent = "Coming soon: book a call"; $("buyBtn").href = "/book/?from=academy-course";
+  fetch(API+"/slots").then(function(r){return r.json()}).then(function(j){ if (j && j.payReady && !/PASTE/.test(PAY_URL)){ $("buyBtn").textContent = "Get the course: $299"; $("buyBtn").href = PAY_URL; } }).catch(function(){});
   var saved = load();
   var urlSid = new URLSearchParams(location.search).get("session_id");
   st.sid = DEMO ? "demo" : (urlSid || saved.sid || null);
@@ -297,6 +301,7 @@ function sampleModule(id){
       {title:"Make a reply template",steps:["Pick a question customers ask every day.","Use the prompt to draft a reply.","Save it as an email template."],prompt:"You're a customer service rep. Write a short, warm reply to a customer asking [common question]. Keep it under 70 words and end with how to reach us."}],
     catchTheAi:{claim:"AI apps always look up today's information before they answer.",isTrue:false,howToCheck:"Ask it something that changed this week, then compare with a trusted website.",explanation:"Many AI apps answer from what they learned in training unless they search the web, so recent facts can be out of date."}};
 }
+if (window.AIGLReview) AIGLReview.mount("review", {source:"course", demo:DEMO, title:"How was the course? Help us make it better", jobTitle:function(){return (st.intake||{}).jobTitle}, industry:function(){return (st.intake||{}).industry}, sessionRef:function(){return DEMO?"":st.sid}});
 </script>
 </body>
 </html>

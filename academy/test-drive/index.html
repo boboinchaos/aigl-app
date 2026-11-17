@@ -48,6 +48,7 @@ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,va
 .chip{appearance:none;border:2px solid var(--line);background:var(--bg2);color:var(--ink);font:600 15px Inter,Arial,sans-serif;border-radius:99px;padding:9px 14px;cursor:pointer}
 .chip.sel{border-color:var(--green);background:rgba(46,224,138,.12)}
 .err{color:var(--red);font-weight:600;margin-top:12px;min-height:1em}
+.ckline{display:flex;gap:10px;align-items:flex-start;margin-top:16px;font-weight:600;cursor:pointer}.ckline input{width:22px;height:22px;margin-top:2px;flex:0 0 22px}
 .loader{display:flex;flex-direction:column;align-items:center;text-align:center;padding:60px 0}
 .spin{width:56px;height:56px;border-radius:50%;border:5px solid var(--bg3);border-top-color:var(--green);animation:sp 1s linear infinite;margin-bottom:22px}
 @keyframes sp{to{transform:rotate(360deg)}}
@@ -107,7 +108,7 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-si
   <section class="screen" id="s-intake">
     <div class="eyebrow">Step 1 · About you</div>
     <h2>Tell us about your job</h2>
-    <p class="lede" style="margin-bottom:4px">We use this to build your quiz and examples. We don't save your answers.</p>
+    <p class="lede" style="margin-bottom:4px">We use this to build your quiz and examples. We don't save your quiz answers.</p>
     <label class="f" for="firstName">First name <span>(optional)</span></label>
     <input type="text" id="firstName" autocomplete="given-name" maxlength="40">
     <label class="f" for="industry">What industry are you in?</label>
@@ -150,6 +151,22 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-si
     <div class="opts" id="qOpts"></div>
     <div id="qFb"></div>
     <button class="btn" id="qNext" style="margin-top:16px;display:none">Next →</button>
+  </section>
+
+  <!-- 3b. Email -->
+  <section class="screen" id="s-email">
+    <div class="eyebrow">Quiz done!</div>
+    <h2>Where should we send your results and prompts?</h2>
+    <p class="lede" style="margin-top:0">Your results, your 3 hands-on prompts and your first mini app are ready. Enter your email to see them and get a copy.</p>
+    <label class="f" for="leadName">First name</label>
+    <input type="text" id="leadName" autocomplete="given-name" maxlength="40">
+    <label class="f" for="leadEmail">Email</label>
+    <input type="text" id="leadEmail" inputmode="email" autocomplete="email" maxlength="120" placeholder="you@example.com">
+    <label class="ckline"><input type="checkbox" id="leadOk"> <span>Send me AI tips and class offers from AIGL. Unsubscribe anytime.</span></label>
+    <div style="position:absolute;left:-5000px;width:1px;height:1px;overflow:hidden" aria-hidden="true"><input type="text" id="leadHp" tabindex="-1" autocomplete="off"></div>
+    <div class="err" id="leadErr" role="alert"></div>
+    <button class="btn" id="leadBtn" style="margin-top:16px">Show my results →</button>
+    <p class="note">We save your name, email and job title to send your results and, if you agree, class offers. We don't save your quiz answers or sell your info.</p>
   </section>
 
   <!-- 4. Results -->
@@ -198,6 +215,7 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-si
     <div class="eyebrow">Step 6 · Your plan</div>
     <h2>5 ways to protect your job from AI</h2>
     <div class="card"><ol class="clean" id="protectList"></ol></div>
+    <div id="review"></div>
     <h2 style="margin-top:8px">Ready to go further?</h2>
     <p class="lede" style="margin-top:0">Pick the training that fits. Every option is hands-on, built around your actual job, and gets you ready to earn a recognized AI certificate like <b>Google AI Essentials</b> or <b>OpenAI's AI Foundations</b>.</p>
     <div class="offer feat">
@@ -212,7 +230,7 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-si
       <h3>1-on-1 Training with the AI Instructor</h3>
       <div class="price">$299</div>
       <ul class="clean"><li>The same 3-hour training, led by Jason's AI instructor</li><li>Go at your own pace, on your schedule</li><li>Same hands-on builds and safety training</li><li>Guided path to Google AI Essentials or OpenAI AI Foundations</li></ul>
-      <a class="btn" href="/book/?from=academy-test-drive&amp;plan=ai-instructor">Start with the AI instructor</a>
+      <a class="btn" href="/academy/course/">Start with the AI instructor</a>
     </div>
     <div class="offer">
       <span class="tag">For employers</span>
@@ -225,14 +243,16 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-si
     <button class="btn ghost" id="restart">Start over with a different job</button>
   </section>
 
-  <footer>AIGL AI Academy · AI Go Long, Birmingham, AL. This class is a learning tool, not career, legal or financial advice. We can't promise a job, a raise or a result. Your answers aren't saved.</footer>
+  <footer>AIGL AI Academy · AI Go Long, Birmingham, AL. This class is a learning tool, not career, legal or financial advice. We can't promise a job, a raise or a result. We save your name, email and job title to send your results and, if you agree, class offers. We don't save your quiz answers.</footer>
 </div>
+<script src="/academy/review.js"></script>
 <script>
 var API = "https://spam-agent.vercel.app/api/academy/test-drive";
+var LEAD_API = "https://spam-agent.vercel.app/api/academy/lead";
 var DEMO = /[?#&]demo\b/.test(location.href);
 var TASKS = ["Answer phone calls","Answer emails","Schedule appointments","Data entry","Handle complaints","Quotes or invoices","Follow up with customers","Take notes","Reports or spreadsheets","Paperwork and forms","Bookkeeping","Social media posts","Check in customers or patients","Sales calls"];
 var AIUSE = ["Never tried it","Tried it a few times","Use it weekly","Use it daily"];
-var ORDER = ["s-welcome","s-intake","s-quiz","s-results","s-tasks","s-build","s-safety","s-protect"];
+var ORDER = ["s-welcome","s-intake","s-quiz","s-email","s-results","s-tasks","s-build","s-safety","s-protect"];
 var state = {tasks:[], aiUse:"", data:null, i:0, right:0};
 function $(id){return document.getElementById(id)}
 function el(tag, cls, text){var e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e}
@@ -267,7 +287,7 @@ $("buildBtn").onclick=function(){
   var tasks = state.tasks.slice(); if ($("taskOther").value.trim()) tasks.push($("taskOther").value.trim());
   var body = {firstName:$("firstName").value.trim(), industry:industry, employer:$("employer").value.trim(), jobTitle:$("jobTitle").value.trim(), tasks:tasks, aiUse:state.aiUse||"Not sure", payRange:$("pay").value};
   if (!body.industry || !body.jobTitle || !tasks.length){ $("intakeErr").textContent="Please add your industry, job title and at least one thing you do at work."; return; }
-  $("intakeErr").textContent=""; show("s-loading");
+  $("intakeErr").textContent=""; state.intake=body; window.AIGL_INTAKE=body; show("s-loading");
   var msgs=["Reading about your job…","Writing your questions…","Picking your hands-on tasks…","Designing your first mini app…"], m=0;
   var tick=setInterval(function(){ $("loadMsg").textContent=msgs[++m % msgs.length] }, 3500);
   var go = DEMO ? Promise.resolve(SAMPLE) : fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}).then(function(r){return r.json().then(function(j){ if(!r.ok) throw new Error(j.error||"Something went wrong."); return j; })});
@@ -293,7 +313,19 @@ function renderQ(){
     box.appendChild(b);
   });
 }
-$("qNext").onclick=function(){ if (state.i < state.data.questions.length-1){ state.i++; renderQ(); } else { renderResults(); show("s-results"); } };
+$("qNext").onclick=function(){ if (state.i < state.data.questions.length-1){ state.i++; renderQ(); } else { $("leadName").value = (state.intake && state.intake.firstName) || ""; show("s-email"); $("leadEmail").focus(); } };
+$("leadBtn").onclick=function(){
+  var email=$("leadEmail").value.trim(), err=$("leadErr");
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){ err.textContent="Please enter a valid email so we can send your results."; return; }
+  err.textContent=""; var b=$("leadBtn"); b.disabled=true; b.textContent="Saving…";
+  var n=state.data.questions.length, t=aiType(state.right,n), q=new URLSearchParams(location.search), utm={};
+  ["utm_source","utm_medium","utm_campaign","utm_content","from"].forEach(function(k){ if(q.get(k)) utm[k]=q.get(k) });
+  var it=state.intake||{};
+  var body={email:email, first_name:$("leadName").value.trim(), job_title:it.jobTitle, industry:it.industry, employer_type:it.employer, ai_use:it.aiUse, quiz_score:state.right, ai_type:t[0], marketing_ok:$("leadOk").checked, utm:utm, website:$("leadHp").value};
+  var go = DEMO ? Promise.resolve() : fetch(LEAD_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}).then(function(r){return r.json().then(function(j){ if(!r.ok) throw new Error(j.error||"Something went wrong."); })});
+  go.then(function(){ b.disabled=false; b.textContent="Show my results →"; renderResults(); show("s-results"); })
+    .catch(function(e){ b.disabled=false; b.textContent="Show my results →"; err.textContent=e.message+" Please try again."; });
+};
 
 function aiType(r,n){ var p=r/n; return p<=.375?["AI Rookie","AI is moving fast around you. Good news: the first steps are easy."]:p<=.625?["AI Explorer","You know enough to be dangerous. A few skills would change your week."]:p<=.875?["AI Operator","You get it. Now make it do the work for you."]:["AI Mastermind","You're ahead of almost everyone. Time to be the AI person at work."]; }
 function renderResults(){
@@ -310,6 +342,7 @@ function renderResults(){
 function fill(ol, items){ ol.innerHTML=""; (items||[]).forEach(function(x){ ol.appendChild(el("li","",x)) }); }
 $("restart").onclick=function(){ state.data=null; show("s-intake"); };
 show("s-welcome");
+if (window.AIGLReview) AIGLReview.mount("review", {source:"test-drive", demo:DEMO, jobTitle:function(){return (state.intake||{}).jobTitle}, industry:function(){return (state.intake||{}).industry}});
 
 var SAMPLE = {"headline": "Tanya, here's how AI fits into your work at the front desk.", "exposure": {"level": "high", "line": "A lot of your day is phones, scheduling and paperwork, the work AI is learning fastest. That's exactly why learning to run it puts you ahead."}, "questions": [{"area": "AI in your job", "q": "A patient calls after hours to book a checkup. What can an AI phone assistant do today?", "options": ["Answer, find an open time and book it on the calendar", "Only play a recorded message", "Nothing until a person calls back", "Take a voicemail and email it"], "answer": 0, "why": "AI phone assistants can hold a normal conversation and book into a calendar.", "forYou": "Answer after-hours calls and fill the schedule while the office is closed."}, {"area": "Writing prompts", "q": "Which prompt gets the most useful appointment reminder text?", "options": ["Write a reminder", "You're a friendly clinic front desk. Write a 2-sentence text reminding [first name] of their visit on [date] at [time]. Ask them to reply C to confirm.", "Make a text", "Remind patients"], "answer": 1, "why": "Telling AI who to be, what you want, the details and the format gets something you can use.", "forYou": "Write reminder texts in your clinic's voice in seconds."}, {"area": "Data safety", "q": "Is it OK to paste a patient's name and date of birth into a free AI app?", "options": ["Yes, AI apps are private", "Yes, if you delete it after", "No. Patient details don't go in a free AI app", "Only on your phone"], "answer": 2, "why": "Free AI apps may use what you type, and patient info is protected.", "forYou": "Use made-up details to practice, and your clinic's approved tools for real work."}, {"area": "AI makes mistakes", "q": "AI tells you a patient's insurance covers a visit. What do you do?", "options": ["Trust it", "Check it with the insurance company or your system", "Tell the patient it's covered", "Ask the AI again"], "answer": 1, "why": "AI can make up facts that sound sure. That's called a hallucination.", "forYou": "Let AI draft the explanation, then check the facts before the patient sees it."}, {"area": "Scams", "q": "Your office manager texts from a new number asking you to buy gift cards for a staff party. What's the move?", "options": ["Buy them fast", "Reply asking for the receipt", "Call your manager on the number you already know", "Forward it to coworkers"], "answer": 2, "why": "Scammers fake messages and even voices. Calling back on a known number stops them.", "forYou": "Spot the scam that costs offices thousands."}, {"area": "AI in your job", "q": "Which part of check-in can AI help with right now?", "options": ["None of it", "Reading a photo of an insurance card into a form", "Giving medical advice", "Signing forms for the patient"], "answer": 1, "why": "AI can read photos and fill in forms, which saves retyping.", "forYou": "Cut retyping from insurance cards and forms."}, {"area": "Chatbot vs. agent", "q": "What makes an AI agent different from a chatbot?", "options": ["Agents are robots", "Agents take actions, like booking, sending and updating records", "Agents only answer questions", "There's no difference"], "answer": 1, "why": "A chatbot talks. An agent does the work, step by step.", "forYou": "Have an agent send reminders and update the schedule for you."}, {"area": "AI in your job", "q": "What's the best first use of AI for a busy front desk?", "options": ["Replacing the doctor", "Drafting replies to common calls and emails", "Guessing insurance rules", "Deleting old records"], "answer": 1, "why": "Common, repeatable messages are where AI saves the most time safely.", "forYou": "Build a library of ready replies for your most common questions."}], "tasks": [{"title": "Clean up a phone message", "why": "Turns rushed notes into a clear message for the doctor.", "prompt": "You're a medical front desk assistant. Turn these rough notes into a clear 3-line message for the nurse, with the callback number and what the patient needs: [patient first name] called, refill question about [medicine], wants a call before 3pm, number [555-0100]."}, {"title": "Reply to a frustrated patient", "why": "Calm, professional replies in seconds.", "prompt": "You're a kind clinic front desk. Write a short, calm reply to a patient upset that their appointment was moved. Apologize, offer two new times ([time 1], [time 2]) and keep it under 60 words."}, {"title": "Build a daily checklist", "why": "Never miss an opening or closing step.", "prompt": "Make a simple checklist for opening and closing a clinic front desk: phones, schedule, check-in forms, mail and end-of-day reports. Use checkboxes and keep it to one page."}], "build": {"appTitle": "Appointment Reminder Builder", "appWhat": "Pick the visit type and time, and it writes a ready-to-send reminder text, so you stop typing the same message all day.", "appPrompt": "Build me a simple single-page app called Appointment Reminder Builder. It has fields for first name, visit type (dropdown: checkup, follow-up, lab work), date and time, and a big Create button. It writes a friendly 2-sentence reminder text and has a Copy button. Use big buttons that work on a phone. Do not save, store or send any data anywhere.", "testSteps": ["Try it with made-up names and times.", "Ask the AI to add a Spanish version button.", "Read every reminder to make sure the date and time are right."], "automation": {"title": "A ready-reply library in your email", "what": "Save your 5 most common answers as templates so any reply takes one click.", "steps": ["Ask AI to write replies to your 5 most common patient emails (no real names).", "In Gmail, turn on Templates under Settings > Advanced. In Outlook, use My Templates.", "Save each reply as a template with a clear name.", "Next time, insert the template and add the personal details."]}}, "safety": ["Never type real patient names, birthdays, insurance numbers or medical details into a free AI app or a test app.", "Ask your office manager before connecting AI to the clinic's email, schedule or records.", "Never give AI or an app your passwords, and use the tools your clinic approves.", "Check every date, time and insurance answer before a patient sees it.", "If 'your manager' calls or texts asking for gift cards, money or a password, hang up and call back on a number you know."], "protect": ["Learn AI on your own front-desk tasks first: reminders, messages and checklists.", "Be the person who sets up and checks the AI reminders and phone assistant.", "Lean into what AI can't do: calming worried patients and solving the odd problem.", "Move toward running the schedule and patient experience, not just typing.", "Keep a list of what you automated and the minutes it saves each week."]};
 </script>

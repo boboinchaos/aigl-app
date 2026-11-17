@@ -110,7 +110,7 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-si
     <div class="soft" style="font-size:14px;font-weight:600" id="progText"></div>
     <div class="bar"><i id="progBar" style="width:0"></i></div>
     <div class="mods" id="mods"></div>
-    <button class="btn" id="certBtn" style="margin-top:16px;display:none">🎓 Get my certificate</button>
+    <button class="btn" id="certBtn" style="margin-top:16px;display:none">🎓 Finish: certificates</button>
     <div class="card" style="margin-top:16px"><b>Bookmark your course link</b><p class="soft" style="margin:6px 0">Come back anytime from any device with this link:</p><div class="prompt" id="myLink"></div><button class="btn small" data-copy="myLink">Copy link</button>
       <p style="margin:12px 0 0"><button class="btn small ghost" id="editJob">Change my job details</button></p></div>
   </section>
@@ -120,6 +120,29 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-si
     <div class="eyebrow" id="mEyebrow"></div>
     <h2 id="mTitle"></h2>
     <div id="mBody"></div>
+  </section>
+
+  <section class="screen" id="s-recog">
+    <button class="btn small ghost noprint" data-home style="align-self:flex-start;margin-bottom:12px">← All lessons</button>
+    <div class="eyebrow">Optional next step</div>
+    <h2>Earn a recognized certificate</h2>
+    <p class="lede" style="margin-top:0">You've done the hands-on work. If you want a credential employers already know, these two courses cover the same ground. You're ready for either one.</p>
+    <div class="card"><span class="tag">Option 1 · Paid</span><h3>Google AI Essentials</h3><p class="soft" style="margin:4px 0">Offered by Google on Coursera. About $49 and under 10 hours (check the current price before you sign up).</p>
+      <ol class="clean"><li>Go to <a href="https://grow.google/ai-essentials/" target="_blank" rel="noopener">grow.google/ai-essentials</a>.</li><li>Click to enroll. It opens on Coursera, where you make a free account.</li><li>Work through the lessons at your own pace. Your prompts and safety habits from this course will help.</li><li>Finish to get Google's certificate, and add it to LinkedIn and your resume.</li></ol>
+      <a class="btn small" href="https://grow.google/ai-essentials/" target="_blank" rel="noopener" style="margin-top:10px">Open Google AI Essentials</a></div>
+    <div class="card"><span class="tag">Option 2 · Free</span><h3>OpenAI Academy: AI Foundations</h3><p class="soft" style="margin:4px 0">A free course from OpenAI that you take inside ChatGPT.</p>
+      <ol class="clean"><li>Go to <a href="https://academy.openai.com/" target="_blank" rel="noopener">academy.openai.com</a>.</li><li>Sign in with a free ChatGPT account.</li><li>Find the AI Foundations course and start it.</li><li>Complete it to earn their certification, then add it to LinkedIn and your resume.</li></ol>
+      <a class="btn small" href="https://academy.openai.com/" target="_blank" rel="noopener" style="margin-top:10px">Open OpenAI Academy</a></div>
+    <div class="card"><h3>How your lessons line up</h3>
+      <ul class="clean">
+        <li><b>Lesson 1 (daily tasks + prompt formula)</b> → writing good prompts and using AI for everyday work</li>
+        <li><b>Lesson 2 (customer communication)</b> → using AI to draft, summarize and communicate</li>
+        <li><b>Lessons 3–4 (mini app + automations)</b> → using AI tools to boost productivity</li>
+        <li><b>Lesson 5 (checking AI + scams)</b> → using AI responsibly: mistakes, bias, privacy and safety</li>
+        <li><b>Lesson 6 (human skills + proof)</b> → staying ahead as AI changes work</li>
+      </ul></div>
+    <p class="soft" style="font-size:14px">AIGL is not a partner of Google or OpenAI, and these courses aren't part of AIGL. They're taken separately; their fees and terms apply. Your AIGL certificate is a certificate of completion.</p>
+    <button class="btn" id="toCert">Get my AIGL certificate of completion →</button>
   </section>
 
   <section class="screen" id="s-cert">
@@ -220,7 +243,9 @@ function renderHome(){
   $("certBtn").style.display = n>=6 ? "flex" : "none";
   $("myLink").textContent = DEMO ? location.origin+location.pathname+"?demo" : location.origin+location.pathname+"?session_id="+st.sid;
 }
-$("certBtn").onclick=function(){ $("certName").value = st.certName || st.name || ""; updCert(); show("s-cert"); };
+function openCert(){ $("certName").value = st.certName || st.name || ""; updCert(); show("s-cert"); }
+$("certBtn").onclick=function(){ show("s-recog"); };
+$("toCert").onclick=openCert;
 
 // ---------- module ----------
 function openModule(id){
@@ -256,7 +281,7 @@ function renderModule(c){
   };
   tc.appendChild(send); tc.appendChild(err); body.appendChild(tc);
   var done=el("button","btn",st.done.indexOf(id)>=0?"Lesson complete ✓ Back to lessons":"Mark this lesson complete →"); done.type="button";
-  done.onclick=function(){ if (st.done.indexOf(id)<0){ st.done.push(id); if(!DEMO) post("/course",{action:"progress",sessionId:st.sid,done:id}).catch(function(){}); } renderHome(); show("s-home"); };
+  done.onclick=function(){ if (st.done.indexOf(id)<0){ st.done.push(id); if(!DEMO) post("/course",{action:"progress",sessionId:st.sid,done:id}).catch(function(){}); } renderHome(); show(st.done.length>=6 && id===6 ? "s-recog" : "s-home"); };
   body.appendChild(done);
 }
 

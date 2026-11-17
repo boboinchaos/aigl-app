@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1-on-1 Training with the AI Instructor | AIGL AI Academy</title>
+<meta name="description" content="Your self-paced AIGL AI Academy course: six lessons built around your job, hands-on exercises, and an AI instructor to check your work.">
+<meta name="theme-color" content="#0D1117">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0D1117;--bg2:#161C24;--bg3:#1C242E;--ink:#F2F5F0;--soft:#B4C1B9;--line:#2B3440;--green:#2EE08A;--green-d:#1E9F63;--green-l:#7CF5B8;--yellow:#FFB547;--red:#FF5C5C;--blue:#5CC8FF;--on-green:#04110A;--r:18px}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Arial,sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Space Grotesk",Inter,Arial,sans-serif;line-height:1.12;margin:0}
+a{color:var(--green)}
+.wrap{max-width:700px;margin:0 auto;padding:20px 18px 48px;min-height:100vh;display:flex;flex-direction:column}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 0 16px}
+.logo{font:700 18px "Space Grotesk",Arial,sans-serif;color:var(--ink);text-decoration:none}.logo b{color:var(--green)}
+.pill{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);border:1px solid var(--line);border-radius:99px;padding:5px 10px}
+.demo-flag{font-size:12px;color:var(--on-green);background:var(--yellow);border-radius:99px;padding:4px 10px;font-weight:600}
+.screen{display:none;flex-direction:column;animation:in .25s ease both}.screen.on{display:flex}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.screen{animation:none}}
+.eyebrow{font:700 13px "Space Grotesk",Arial,sans-serif;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin:6px 0 10px}
+h1{font-size:clamp(30px,8vw,44px)}h2{font-size:clamp(24px,6vw,32px);margin-bottom:10px}h3{font-size:19px;margin:0 0 6px}
+.lede{color:var(--soft);font-size:18px;margin:10px 0 18px}
+.soft{color:var(--soft)}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;margin-bottom:14px}
+.btn{appearance:none;border:0;cursor:pointer;font:700 18px "Space Grotesk",Inter,Arial,sans-serif;border-radius:14px;padding:15px 20px;min-height:56px;width:100%;background:var(--green);color:var(--on-green);display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center;text-decoration:none}
+.btn:hover{filter:brightness(1.07)}.btn[disabled]{opacity:.5;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.btn.small{font-size:15px;min-height:42px;padding:9px 14px;width:auto}
+.btn:focus-visible,.chip:focus-visible,.mod:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--green-l);outline-offset:3px}
+.row{display:flex;gap:10px;margin-top:16px}.row .btn{flex:1}
+label.f{display:block;font-weight:600;margin:16px 0 6px}label.f span{color:var(--soft);font-weight:400;font-size:14px}
+input[type=text],select,textarea{width:100%;font:500 17px Inter,Arial,sans-serif;color:var(--ink);background:var(--bg2);border:2px solid var(--line);border-radius:12px;padding:12px 14px;min-height:50px}
+textarea{min-height:96px;resize:vertical}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{appearance:none;border:2px solid var(--line);background:var(--bg2);color:var(--ink);font:600 15px Inter,Arial,sans-serif;border-radius:99px;padding:9px 14px;cursor:pointer}
+.chip.sel{border-color:var(--green);background:rgba(46,224,138,.12)}
+.err{color:var(--red);font-weight:600;margin-top:12px;min-height:1em}
+.bar{height:10px;background:var(--bg3);border-radius:99px;overflow:hidden;margin:6px 0 18px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--green-d),var(--green));border-radius:99px;transition:width .35s}
+.mods{display:grid;gap:10px}
+.mod{appearance:none;text-align:left;width:100%;background:var(--bg2);border:2px solid var(--line);border-radius:14px;padding:14px 16px;color:var(--ink);cursor:pointer;display:flex;gap:14px;align-items:center;font:inherit}
+.mod .n{flex:0 0 38px;height:38px;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center;font:700 17px "Space Grotesk",Arial,sans-serif}
+.mod.done{border-color:var(--green-d)}.mod.done .n{background:var(--green);color:var(--on-green)}
+.mod small{display:block;color:var(--soft)}
+.prompt{background:var(--bg);border:1px dashed var(--line);border-radius:12px;padding:12px 14px;font:15px/1.5 ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap;margin:10px 0}
+ol.clean,ul.clean{margin:8px 0 0;padding-left:22px}ol.clean li,ul.clean li{margin:5px 0}
+.tag{font-size:12px;color:var(--soft);font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.catch{border-color:var(--yellow)}.catch .tag{color:var(--yellow)}
+.verdict{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--bg3)}
+.chat{display:flex;flex-direction:column;gap:10px;margin:10px 0;max-height:420px;overflow:auto}
+.msg{padding:10px 14px;border-radius:14px;white-space:pre-wrap;max-width:92%}
+.msg.me{align-self:flex-end;background:rgba(46,224,138,.12);border:1px solid var(--green-d)}
+.msg.ai{align-self:flex-start;background:var(--bg3);border:1px solid var(--line)}
+.msg.ai::before{content:"AI instructor";display:block;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:4px}
+.spin{width:48px;height:48px;border-radius:50%;border:5px solid var(--bg3);border-top-color:var(--green);animation:sp 1s linear infinite;margin:40px auto 18px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.cert{background:#fff;color:#14202A;border:10px double #1E9F63;border-radius:8px;padding:34px 26px;text-align:center;margin:10px 0 16px}
+.cert h2{color:#14202A;font-size:28px;margin:8px 0}.cert .name{font:700 34px "Space Grotesk",Arial,sans-serif;margin:16px 0 6px;border-bottom:2px solid #1E9F63;display:inline-block;padding:0 18px 4px}
+.cert .small{font-size:13px;color:#4A5A66;margin-top:18px}
+footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--soft)}
+@media print{body{background:#fff}header,footer,.noprint,.screen:not(#s-cert){display:none!important}#s-cert{display:flex!important}.wrap{padding:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><a class="logo" href="/">AI <b>GO</b> LONG</a><span id="flag" class="pill">AI instructor</span></header>
+
+  <section class="screen on" id="s-loading"><div class="spin"></div><p class="soft" style="text-align:center" id="loadingMsg">Opening your course…</p></section>
+
+  <section class="screen" id="s-locked">
+    <div class="eyebrow">AIGL AI Academy</div>
+    <h1>1-on-1 Training with the AI Instructor</h1>
+    <p class="lede">A 3-hour, self-paced course built around your job, with an AI instructor that checks your work. Start anytime.</p>
+    <div class="card"><b>What you'll do</b><ul class="clean"><li>6 lessons written for your industry and tasks</li><li>Hands-on exercises with copy-paste prompts</li><li>Build your first mini app and automation</li><li>"Catch the AI" checks, because AI can be wrong</li><li>Your "I automated this" portfolio and a certificate of completion</li></ul></div>
+    <p class="err" id="lockedErr"></p>
+    <a class="btn" id="buyBtn" href="/academy/test-drive/">Get the course: $299</a>
+    <p class="soft" style="font-size:14px">Already paid? Use the link from your payment confirmation, or call (205) 203-8377.</p>
+  </section>
+
+  <section class="screen" id="s-intake">
+    <div class="eyebrow">Before we start</div>
+    <h2>Tell the AI instructor about your job</h2>
+    <p class="lede" style="margin-bottom:0">Every lesson is written for your work. Don't include real customer names or private info.</p>
+    <label class="f" for="industry">Industry</label>
+    <select id="industry"><option value="">Pick one…</option><option>Customer service / call center</option><option>Healthcare office</option><option>Construction or home services</option><option>Restaurant or hospitality</option><option>Retail</option><option>Real estate</option><option>Insurance</option><option>Banking or finance</option><option>Legal</option><option>Government or nonprofit</option><option>Manufacturing</option><option>Education</option><option value="other">Other…</option></select>
+    <input type="text" id="industryOther" placeholder="Type your industry" maxlength="80" style="display:none;margin-top:8px">
+    <label class="f" for="employer">Who you work for <span>(optional, a company type is fine)</span></label>
+    <input type="text" id="employer" maxlength="80" placeholder="e.g. a dental office, a roofing company">
+    <label class="f" for="jobTitle">Job title</label>
+    <input type="text" id="jobTitle" maxlength="80" placeholder="e.g. Customer service rep, Office manager">
+    <label class="f">What you do at work <span>(pick all that fit)</span></label>
+    <div class="chips" id="taskChips"></div>
+    <input type="text" id="taskOther" maxlength="80" placeholder="Anything else you do a lot? (optional)" style="margin-top:10px">
+    <label class="f">How often you use AI now</label>
+    <div class="chips" id="aiUse"></div>
+    <div class="err" id="intakeErr" role="alert"></div>
+    <button class="btn" id="saveIntake" style="margin-top:14px">Start my course →</button>
+  </section>
+
+  <section class="screen" id="s-home">
+    <div class="eyebrow">Your course</div>
+    <h2 id="hello">Welcome!</h2>
+    <p class="soft" id="jobLine"></p>
+    <div class="soft" style="font-size:14px;font-weight:600" id="progText"></div>
+    <div class="bar"><i id="progBar" style="width:0"></i></div>
+    <div class="mods" id="mods"></div>
+    <button class="btn" id="certBtn" style="margin-top:16px;display:none">🎓 Get my certificate</button>
+    <div class="card" style="margin-top:16px"><b>Bookmark your course link</b><p class="soft" style="margin:6px 0">Come back anytime from any device with this link:</p><div class="prompt" id="myLink"></div><button class="btn small" data-copy="myLink">Copy link</button>
+      <p style="margin:12px 0 0"><button class="btn small ghost" id="editJob">Change my job details</button></p></div>
+  </section>
+
+  <section class="screen" id="s-module">
+    <button class="btn small ghost noprint" data-home style="align-self:flex-start;margin-bottom:12px">← All lessons</button>
+    <div class="eyebrow" id="mEyebrow"></div>
+    <h2 id="mTitle"></h2>
+    <div id="mBody"></div>
+  </section>
+
+  <section class="screen" id="s-cert">
+    <button class="btn small ghost noprint" data-home style="align-self:flex-start;margin-bottom:12px">← All lessons</button>
+    <div class="noprint"><label class="f" for="certName">Name for your certificate</label><input type="text" id="certName" maxlength="60"></div>
+    <div class="cert" id="certBox">
+      <div style="font:700 15px 'Space Grotesk',Arial,sans-serif;letter-spacing:3px;color:#1E9F63">AIGL AI ACADEMY · AI GO LONG</div>
+      <h2>Certificate of Completion</h2>
+      <div>This certifies that</div>
+      <div class="name" id="certNameOut">Your Name</div>
+      <div>completed <b>1-on-1 Training with the AI Instructor</b>: AI for your daily work, customer communication, building a mini app, no-code automation, running and checking AI safely, and proving your results.</div>
+      <div style="margin-top:14px" id="certDate"></div>
+      <div class="small">Certificate of completion, not an accredited credential. Training delivered by an AI instructor, AIGL AI Academy, Birmingham, AL.</div>
+    </div>
+    <div class="row noprint"><button class="btn" id="printCert">Print or save as PDF</button></div>
+  </section>
+
+  <footer>AIGL AI Academy · course taught by an AI instructor (it can be wrong, so check its work). <a href="/book/?from=academy-course">Need a human? Book time with Jason</a> · (205) 203-8377. Educational only; we can't promise a job, a raise or a result.</footer>
+</div>
+<script>
+var API = "https://spam-agent.vercel.app/api/academy";
+var PAY_URL = "PASTE_STRIPE_299_LINK";
+var DEMO = /[?&]demo\b/.test(location.search);
+var TASKS = ["Answer phone calls","Answer emails","Schedule appointments","Data entry","Handle complaints","Quotes or invoices","Follow up with customers","Take notes","Reports or spreadsheets","Paperwork and forms","Bookkeeping","Social media posts","Check in customers or patients","Sales calls"];
+var AIUSE = ["Never tried it","Tried it a few times","Use it weekly","Use it daily"];
+var KEY = "aigl-course-v1";
+var st = {sid:null, name:null, done:[], certName:null, intake:null, modules:{}, chats:{}, mod:null, picks:{tasks:[], aiUse:""}};
+function $(id){return document.getElementById(id)}
+function el(tag, cls, text){var e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e}
+function load(){ try { return JSON.parse(localStorage.getItem(KEY)||"{}") } catch(e){ return {} } }
+function save(){ try { localStorage.setItem(KEY, JSON.stringify({sid:st.sid, intake:st.intake, modules:st.modules})) } catch(e){} }
+function show(id){ document.querySelectorAll(".screen").forEach(function(s){s.classList.toggle("on", s.id===id)}); window.scrollTo({top:0,behavior:"smooth"}); }
+function post(path, body){ return fetch(API+path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}).then(function(r){ return r.json().then(function(j){ if(!r.ok){ var e=new Error(j.error||"Something went wrong."); e.status=r.status; throw e; } return j; }) }) }
+
+document.addEventListener("click", function(e){
+  if (e.target.closest("[data-home]")) { renderHome(); show("s-home"); return; }
+  var c = e.target.closest("[data-copy]");
+  if (c){ var t=$(c.getAttribute("data-copy")).textContent, orig=c.textContent; (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){c.textContent="Copied ✓"; setTimeout(function(){c.textContent=orig},1500)}, function(){c.textContent="Select and copy"}); }
+});
+function chips(box, list, multi, onPick){
+  list.forEach(function(name){ var b=el("button","chip",name); b.type="button";
+    b.onclick=function(){ if(!multi) box.querySelectorAll(".chip").forEach(function(x){x.classList.remove("sel")}); var on=multi?!b.classList.contains("sel"):true; b.classList.toggle("sel",on); onPick(name,on); };
+    box.appendChild(b); });
+}
+chips($("taskChips"), TASKS, true, function(n,on){ st.picks.tasks = on ? st.picks.tasks.concat(n) : st.picks.tasks.filter(function(x){return x!==n}) });
+chips($("aiUse"), AIUSE, false, function(n){ st.picks.aiUse=n });
+$("industry").onchange=function(){ $("industryOther").style.display = this.value==="other" ? "block" : "none" };
+
+// ---------- start ----------
+(function start(){
+  if (DEMO){ $("flag").className="demo-flag"; $("flag").textContent="Demo"; }
+  if (!/PASTE/.test(PAY_URL)) $("buyBtn").href = PAY_URL;
+  var saved = load();
+  var urlSid = new URLSearchParams(location.search).get("session_id");
+  st.sid = DEMO ? "demo" : (urlSid || saved.sid || null);
+  if (saved.sid === st.sid){ st.intake = saved.intake||null; st.modules = saved.modules||{}; }
+  if (!st.sid){ show("s-locked"); return; }
+  var go = DEMO ? Promise.resolve({ok:true,name:"Demo Student",done:[],certName:null}) : post("/course",{action:"access",sessionId:st.sid});
+  go.then(function(j){
+    st.name=j.name; st.done=j.done||[]; st.certName=j.certName; save();
+    if (urlSid){ try{ history.replaceState(null,"",location.pathname+"?session_id="+encodeURIComponent(st.sid)) }catch(e){} }
+    if (!st.intake){ show("s-intake"); } else { renderHome(); show("s-home"); }
+  }).catch(function(e){
+    $("lockedErr").textContent = e.status===402 ? (e.message+" If you just paid, wait a minute and refresh, or call (205) 203-8377.") : e.message;
+    show("s-locked");
+  });
+})();
+
+// ---------- intake ----------
+function fillIntake(){
+  var i=st.intake; if(!i) return;
+  var opt=[].some.call($("industry").options,function(o){return o.value===i.industry});
+  $("industry").value = opt ? i.industry : "other"; if(!opt){ $("industryOther").style.display="block"; $("industryOther").value=i.industry; }
+  $("employer").value=i.employer||""; $("jobTitle").value=i.jobTitle||"";
+  st.picks.tasks=[]; $("taskChips").querySelectorAll(".chip").forEach(function(b){ var on=i.tasks.indexOf(b.textContent)>=0; b.classList.toggle("sel",on); if(on) st.picks.tasks.push(b.textContent); });
+  $("aiUse").querySelectorAll(".chip").forEach(function(b){ var on=b.textContent===i.aiUse; b.classList.toggle("sel",on); if(on) st.picks.aiUse=b.textContent; });
+}
+$("editJob").onclick=function(){ fillIntake(); show("s-intake"); };
+$("saveIntake").onclick=function(){
+  var industry = $("industry").value==="other" ? $("industryOther").value.trim() : $("industry").value;
+  var tasks = st.picks.tasks.slice(); if ($("taskOther").value.trim()) tasks.push($("taskOther").value.trim());
+  var intake = {industry:industry, employer:$("employer").value.trim(), jobTitle:$("jobTitle").value.trim(), tasks:tasks, aiUse:st.picks.aiUse||"Not sure"};
+  if (!intake.industry || !intake.jobTitle || !tasks.length){ $("intakeErr").textContent="Please add your industry, job title and at least one thing you do."; return; }
+  var changed = JSON.stringify(intake)!==JSON.stringify(st.intake);
+  st.intake=intake; if (changed) st.modules={}; save(); $("intakeErr").textContent=""; renderHome(); show("s-home");
+};
+
+// ---------- home ----------
+var MODS = [[1,"AI for your daily tasks","The prompt formula, on your real work"],[2,"AI for customer communication","Replies, an FAQ AI answers from, catching made-up answers"],[3,"Build your first mini app","No coding: describe it and AI builds it"],[4,"Automations without code","Templates, filters, reminders, saved instructions"],[5,"Running and checking AI, and spotting scams","Review checklists, voice clones, the call-back rule"],[6,"Human skills and your proof","Your portfolio, resume lines and a pitch to your boss"]];
+function renderHome(){
+  $("hello").textContent = st.name ? "Welcome, "+st.name.split(" ")[0]+"!" : "Welcome!";
+  $("jobLine").textContent = st.intake ? "Built for: "+st.intake.jobTitle+" · "+st.intake.industry : "";
+  var n=st.done.length; $("progText").textContent=n+" of 6 lessons complete · about 30 minutes each"; $("progBar").style.width=(n/6*100)+"%";
+  var box=$("mods"); box.innerHTML="";
+  MODS.forEach(function(m){ var b=el("button","mod"+(st.done.indexOf(m[0])>=0?" done":"")); b.type="button";
+    b.appendChild(el("span","n", st.done.indexOf(m[0])>=0?"✓":String(m[0]))); var t=el("span"); t.appendChild(el("b",null,m[1])); t.appendChild(el("small",null,m[2])); b.appendChild(t);
+    b.onclick=function(){ openModule(m[0]); }; box.appendChild(b); });
+  $("certBtn").style.display = n>=6 ? "flex" : "none";
+  $("myLink").textContent = DEMO ? location.origin+location.pathname+"?demo" : location.origin+location.pathname+"?session_id="+st.sid;
+}
+$("certBtn").onclick=function(){ $("certName").value = st.certName || st.name || ""; updCert(); show("s-cert"); };
+
+// ---------- module ----------
+function openModule(id){
+  st.mod=id; var m=MODS[id-1]; $("mEyebrow").textContent="Lesson "+id+" of 6 · AI instructor"; $("mTitle").textContent=m[1];
+  var body=$("mBody"); body.innerHTML=""; show("s-module");
+  if (st.modules[id]) { renderModule(st.modules[id]); return; }
+  body.appendChild(el("div","spin")); body.appendChild(el("p","soft","Your AI instructor is writing this lesson for your job. About 20 seconds…"));
+  var go = DEMO ? new Promise(function(r){ setTimeout(function(){ r({content:sampleModule(id)}) }, 600) }) : post("/course",{action:"module",sessionId:st.sid,moduleId:id,intake:st.intake});
+  go.then(function(j){ st.modules[id]=j.content; save(); if(st.mod===id) renderModule(j.content); })
+    .catch(function(e){ body.innerHTML=""; body.appendChild(el("p","err",e.message)); var r=el("button","btn","Try again"); r.onclick=function(){ openModule(id) }; body.appendChild(r); });
+}
+function renderModule(c){
+  var id=st.mod, body=$("mBody"); body.innerHTML="";
+  var les=el("div","card"); les.appendChild(el("span","tag","The lesson")); c.lesson.forEach(function(p){ les.appendChild(el("p",null,p)) }); body.appendChild(les);
+  c.exercises.forEach(function(x,i){ var cd=el("div","card"); cd.appendChild(el("span","tag","Exercise "+(i+1))); cd.appendChild(el("h3",null,x.title));
+    var ol=el("ol","clean"); x.steps.forEach(function(s){ ol.appendChild(el("li",null,s)) }); cd.appendChild(ol);
+    var p=el("div","prompt",x.prompt); p.id="ex"+id+"-"+i; cd.appendChild(p); var b=el("button","btn small","Copy prompt"); b.type="button"; b.setAttribute("data-copy",p.id); cd.appendChild(b); body.appendChild(cd); });
+  var k=c.catchTheAi, ct=el("div","card catch"); ct.appendChild(el("span","tag","Catch the AI")); ct.appendChild(el("h3",null,"True or false? Check before you trust it."));
+  ct.appendChild(el("p",null,"“"+k.claim+"”")); var rw=el("div","row");
+  [["True",true],["False",false]].forEach(function(o){ var b=el("button","btn ghost",o[0]); b.type="button"; b.onclick=function(){ rw.querySelectorAll("button").forEach(function(x){x.disabled=true}); var v=el("div","verdict"); v.appendChild(el("b",null,(o[1]===k.isTrue?"Nice catch. ":"Not quite. ")+"It's "+(k.isTrue?"true.":"false."))); v.appendChild(el("p",null,k.explanation)); v.appendChild(el("p","soft","How to check: "+k.howToCheck)); ct.appendChild(v); }; rw.appendChild(b); });
+  ct.appendChild(rw); body.appendChild(ct);
+  var tc=el("div","card"); tc.appendChild(el("span","tag","Ask your AI instructor")); tc.appendChild(el("p","soft","Paste what your AI app gave you, or ask a question. You'll get feedback and a better version to try. Don't paste real customer info."));
+  var chat=el("div","chat"); tc.appendChild(chat); (st.chats[id]||[]).forEach(function(t){ chat.appendChild(el("div","msg "+(t.role==="user"?"me":"ai"),t.text)) });
+  var ta=el("textarea"); ta.placeholder="Type or paste here…"; ta.maxLength=4000; tc.appendChild(ta);
+  var err=el("div","err"); var send=el("button","btn","Send to AI instructor"); send.type="button"; send.style.marginTop="10px";
+  send.onclick=function(){ var msg=ta.value.trim(); if(!msg) return; var hist=(st.chats[id]=st.chats[id]||[]);
+    chat.appendChild(el("div","msg me",msg)); ta.value=""; send.disabled=true; send.textContent="Thinking…"; err.textContent="";
+    var go = DEMO ? new Promise(function(r){ setTimeout(function(){ r({reply:"Good start! Your prompt says what you want. Make it stronger by adding who the AI should be and the format. Try: \"You're a friendly front-desk assistant. Rewrite this message in 3 short sentences, calm and professional: [paste message].\" And always read the result before sending it."}) },700) })
+      : post("/tutor",{sessionId:st.sid,moduleId:id,intake:st.intake,history:hist.slice(-10),message:msg});
+    go.then(function(j){ hist.push({role:"user",text:msg},{role:"assistant",text:j.reply}); chat.appendChild(el("div","msg ai",j.reply)); chat.scrollTop=chat.scrollHeight; })
+      .catch(function(e){ err.textContent=e.message; ta.value=msg; })
+      .then(function(){ send.disabled=false; send.textContent="Send to AI instructor"; });
+  };
+  tc.appendChild(send); tc.appendChild(err); body.appendChild(tc);
+  var done=el("button","btn",st.done.indexOf(id)>=0?"Lesson complete ✓ Back to lessons":"Mark this lesson complete →"); done.type="button";
+  done.onclick=function(){ if (st.done.indexOf(id)<0){ st.done.push(id); if(!DEMO) post("/course",{action:"progress",sessionId:st.sid,done:id}).catch(function(){}); } renderHome(); show("s-home"); };
+  body.appendChild(done);
+}
+
+// ---------- certificate ----------
+function updCert(){ $("certNameOut").textContent=$("certName").value.trim()||"Your Name"; $("certDate").textContent="Completed "+new Date().toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"}); }
+$("certName").oninput=updCert;
+$("printCert").onclick=function(){ var n=$("certName").value.trim(); if(n){ st.certName=n; if(!DEMO) post("/course",{action:"progress",sessionId:st.sid,name:n}).catch(function(){}); } updCert(); window.print(); };
+
+function sampleModule(id){
+  var t=MODS[id-1][1];
+  return {title:t, lesson:["This is a demo of lesson "+id+": "+t+". In the real course, your AI instructor writes this for your exact job.","Start with the prompt formula: tell AI who to be, what you want, the details, and the format. The more specific you are, the more useful the answer.","AI is great with words: drafts, summaries and replies. It can still get facts wrong, so you always check before anything goes to a customer."],
+    exercises:[{title:"Clean up a rushed message",steps:["Open your free AI app.","Paste the prompt and swap the [brackets] for made-up details.","Ask for one change, like shorter or friendlier."],prompt:"You're a friendly front-desk assistant. Turn these rough notes into a clear 3-line message with the callback number and next step: [first name] called about [topic], wants a call before [time], number [555-0100]."},
+      {title:"Make a reply template",steps:["Pick a question customers ask every day.","Use the prompt to draft a reply.","Save it as an email template."],prompt:"You're a customer service rep. Write a short, warm reply to a customer asking [common question]. Keep it under 70 words and end with how to reach us."}],
+    catchTheAi:{claim:"AI apps always look up today's information before they answer.",isTrue:false,howToCheck:"Ask it something that changed this week, then compare with a trusted website.",explanation:"Many AI apps answer from what they learned in training unless they search the web, so recent facts can be out of date."}};
+}
+</script>
+</body>
+</html>

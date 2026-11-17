@@ -118,6 +118,7 @@ fetch(API+"/slots"+(sid?"?session_id="+encodeURIComponent(sid):"")).then(functio
   if (sid && p && p.ok && p.already){ $("intro").classList.add("hide"); $("slotsTitle").classList.add("hide"); $("slotsHelp").classList.add("hide"); $("slots").classList.add("hide"); $("payBox").classList.add("hide"); $("done").classList.remove("hide"); $("when").textContent=fmt(p.already); return; }
   if (sid && p && p.ok){ $("payBox").classList.add("hide"); $("paidHead").classList.remove("hide"); if(p.name) $("paidMsg").textContent="Payment received. Thank you, "+p.name.split(" ")[0]+"!"; $("slotsTitle").textContent="Pick your session"; $("slotsHelp").textContent="Tap a time. All times are Central."; render(j.slots,true); return; }
   if (sid && p && !p.ok){ $("slotsHelp").textContent=(p.error||"We couldn't confirm your payment.")+" If you just paid, refresh in a minute or call (205) 203-8377."; }
+  if (!j.payReady){ $("payBtn").textContent="Booking opens soon. Call (205) 203-8377"; $("payBtn").href="tel:+12052038377"; }
   render(j.slots,false);
 }).catch(function(){ $("slots").innerHTML=""; $("slots").appendChild(el("p","err","Couldn't load open times. Call (205) 203-8377.")); });
 

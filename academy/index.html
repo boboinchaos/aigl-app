@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>AI Go Long Academy | Learn to use AI at work | AIGL</title>
+<meta name="description" content="AI is changing office jobs fast. AI Go Long Academy teaches customer service reps, admins and office staff to use AI in their own job. Start with the free 60-minute class.">
+<meta name="theme-color" content="#0D1117">
+<meta property="og:title" content="AI Go Long Academy: learn to use AI in your job">
+<meta property="og:description" content="Free 60-minute class built around your actual job. Then go deeper 1-on-1, at your own pace, or with your whole team.">
+<meta property="og:url" content="https://app.aigl.dev/academy/">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://app.aigl.dev/academy/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0D1117;--bg2:#161C24;--bg3:#1C242E;--ink:#F2F5F0;--soft:#B4C1B9;--line:#2B3440;--green:#2EE08A;--green-d:#1E9F63;--green-l:#7CF5B8;--yellow:#FFB547;--on-green:#04110A;--r:18px}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Arial,sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Space Grotesk",Inter,Arial,sans-serif;line-height:1.1;margin:0}
+a{color:var(--green)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{font-family:"Space Grotesk",Arial,sans-serif;font-weight:700;font-size:18px;color:var(--ink);text-decoration:none}.logo b{color:var(--green)}
+.pill{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);border:1px solid var(--line);border-radius:99px;padding:5px 10px}
+.hero{padding:40px 0 30px}
+.eyebrow{font-family:"Space Grotesk",Arial,sans-serif;font-weight:700;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin:0 0 12px}
+h1{font-size:clamp(36px,7vw,62px);max-width:16ch}h1 .hl{color:var(--green)}
+h2{font-size:clamp(28px,5vw,40px);margin-bottom:12px}
+h3{font-size:21px;margin:0 0 6px}
+.lede{color:var(--soft);font-size:clamp(18px,2.4vw,21px);margin:16px 0 26px;max-width:58ch}
+.btn{appearance:none;border:0;cursor:pointer;font:700 19px "Space Grotesk",Inter,Arial,sans-serif;border-radius:14px;padding:16px 24px;min-height:58px;background:var(--green);color:var(--on-green);display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center;text-decoration:none}
+.btn:hover{background:var(--green-l)}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}.btn.ghost:hover{border-color:var(--green)}
+.btn:focus-visible{outline:3px solid var(--green-l);outline-offset:3px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.note{font-size:14px;color:var(--soft)}
+section{padding:46px 0;border-top:1px solid var(--line)}
+.grid{display:grid;gap:14px}
+@media(min-width:760px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:22px}
+.card p{margin:6px 0 0;color:var(--soft)}
+.who li{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px 16px;list-style:none}
+.who{padding:0;margin:16px 0 0;display:grid;gap:10px}
+@media(min-width:760px){.who{grid-template-columns:repeat(3,1fr)}}
+.agenda{list-style:none;padding:0;margin:18px 0 22px;display:grid;gap:10px}
+.agenda li{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px 16px;display:flex;gap:14px;align-items:baseline}
+.agenda b{font-family:"Space Grotesk",Arial,sans-serif;color:var(--green);min-width:70px}
+.free{background:linear-gradient(160deg,#12261c,var(--bg2) 60%);border:1px solid var(--green-d);border-radius:22px;padding:26px}
+.tag{display:inline-block;font:700 12px Inter,Arial,sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:var(--on-green);background:var(--green);border-radius:99px;padding:4px 10px;margin-bottom:12px}
+.offer{display:flex;flex-direction:column}
+.offer .price{font:700 34px "Space Grotesk",Arial,sans-serif;margin:8px 0 2px}
+.offer .per{color:var(--soft);font-size:14px}
+.offer ul{padding-left:18px;margin:14px 0 18px;color:var(--soft)}
+.offer ul li{margin:4px 0}
+.offer .btn{margin-top:auto;width:100%}
+.offer.best{border-color:var(--green-d)}
+.best-flag{font-size:12px;font-weight:700;color:var(--on-green);background:var(--yellow);border-radius:99px;padding:3px 9px;align-self:flex-start}
+details{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:10px 0}
+summary{cursor:pointer;font-weight:600}
+details p{color:var(--soft);margin:10px 0 0}
+footer{border-top:1px solid var(--line);padding:30px 0 50px;color:var(--soft);font-size:14px}
+footer a{color:var(--soft)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="logo" href="/academy/">AI <b>Go Long</b> Academy</a>
+    <span class="pill">AIGL</span>
+  </header>
+
+  <div class="hero">
+    <p class="eyebrow">Learn AI or get left behind</p>
+    <h1>AI is coming for office work. <span class="hl">Be the one who runs it.</span></h1>
+    <p class="lede">Customer service, scheduling, data entry, admin work: AI is already doing pieces of these jobs. AI Go Long Academy teaches you to use AI in <em>your</em> job, so you're the person your company can't do without.</p>
+    <div class="cta-row">
+      <a class="btn" href="/academy/test-drive/">Take the free 60-min class</a>
+      <a class="btn ghost" href="#offers">See the training options</a>
+    </div>
+    <p class="note" style="margin-top:12px">Free. No credit card. Built around your actual job.</p>
+  </div>
+
+  <section>
+    <h2>Who it's for</h2>
+    <p class="lede" style="margin-bottom:0">Anyone whose day is screens, phones and paperwork, especially roles AI is changing first.</p>
+    <ul class="who">
+      <li>Customer service reps</li>
+      <li>Admins &amp; office managers</li>
+      <li>Receptionists &amp; schedulers</li>
+      <li>Billing &amp; data entry</li>
+      <li>Sales support &amp; coordinators</li>
+      <li>Small business owners and their teams</li>
+    </ul>
+  </section>
+
+  <section id="free">
+    <div class="free">
+      <span class="tag">Free</span>
+      <h2>The AI Test Drive: a free 60-minute class</h2>
+      <p class="lede" style="margin:8px 0 0">Tell it what you do, and the class builds itself around your job.</p>
+      <ol class="agenda">
+        <li><b>Start</b><span>A few quick questions: your industry, your role, what fills your day.</span></li>
+        <li><b>Quiz</b><span>A custom multiple-choice test about AI in <em>your</em> work: where you stand and what you're missing.</span></li>
+        <li><b>Build</b><span>Step by step, set up a simple AI app or automation for one of your real tasks.</span></li>
+        <li><b>Safety</b><span>What never to paste into AI, how to spot when it's wrong, and how to protect your company's data.</span></li>
+      </ol>
+      <a class="btn" href="/academy/test-drive/">Start the free class</a>
+    </div>
+  </section>
+
+  <section id="offers">
+    <h2>Go deeper</h2>
+    <p class="lede">Liked the test drive? Pick the way you learn best.</p>
+    <div class="grid g3">
+      <div class="card offer best">
+        <span class="best-flag">Most hands-on</span>
+        <h3 style="margin-top:10px">1-on-1 Live with Jason</h3>
+        <div class="price">$1,000</div>
+        <div class="per">3-hour live virtual session</div>
+        <ul>
+          <li>Built around your job and your tools</li>
+          <li>Fridays and weekends; pick your time</li>
+          <li>Guided path to a recognized AI certificate</li>
+          <li>We cover your Google AI Essentials certificate fee</li>
+        </ul>
+        <a class="btn" href="/academy/book/">Book a session</a>
+      </div>
+      <div class="card offer">
+        <h3>AI-Taught Course</h3>
+        <div class="price">$299</div>
+        <div class="per">Same 3-hour training, at your own pace</div>
+        <ul>
+          <li>Taught by Jason's AI instructor</li>
+          <li>Start anytime, no calendar</li>
+          <li>Ask questions as you go</li>
+          <li>Guided path to a recognized AI certificate</li>
+        </ul>
+        <a class="btn ghost" href="/academy/course/">Start the course</a>
+      </div>
+      <div class="card offer">
+        <h3>Team Training</h3>
+        <div class="price">$5,000</div>
+        <div class="per">For a business and its staff</div>
+        <ul>
+          <li>Training built around your company's work</li>
+          <li>Safe-use rules for your whole team</li>
+          <li>Plan for where AI fits in your operation</li>
+          <li>Scheduled directly with Jason</li>
+        </ul>
+        <a class="btn ghost" href="/book/?from=academy&amp;plan=business">Talk to Jason</a>
+      </div>
+    </div>
+    <p class="note" style="margin-top:14px">Certificates such as Google AI Essentials or OpenAI AI Foundations are taken separately on their own platforms; their fees and terms apply. AIGL isn't affiliated with Google or OpenAI.</p>
+  </section>
+
+  <section>
+    <h2>Why AI Go Long</h2>
+    <div class="grid g3">
+      <div class="card"><h3>Your job, not theory</h3><p>Every class starts with what you actually do all day, so you leave with something you can use tomorrow.</p></div>
+      <div class="card"><h3>Safety built in</h3><p>AI gets things wrong and data leaks are real. You'll learn to check its work and keep sensitive information out.</p></div>
+      <div class="card"><h3>"Go long" means stay ahead</h3><p>AI is moving fast. The people who learn it now are the ones who get passed the ball, not passed up.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Questions</h2>
+    <details><summary>Do I need any AI experience?</summary><p>No. The free class asks what you do and starts from where you are.</p></details>
+    <details><summary>Is the free class really free?</summary><p>Yes. No credit card. At the end you can save your results and leave your email to hear about next steps.</p></details>
+    <details><summary>Will this keep me from losing my job?</summary><p>No one can promise that. What the Academy does is give you real, hands-on AI skills for your role, which is what employers are starting to look for.</p></details>
+    <details><summary>What's the difference between the $1,000 and $299 options?</summary><p>Same material. The $1,000 session is live with Jason, shaped around you in real time, and includes the Google AI Essentials certificate fee. The $299 course is taught by his AI instructor at your own pace.</p></details>
+    <details><summary>Can my whole team do this?</summary><p>Yes. Team Training is built for a company and its staff. Use "Talk to Jason" to set it up.</p></details>
+  </section>
+
+  <section style="text-align:center">
+    <h2>Start with the free class</h2>
+    <p class="lede" style="margin:10px auto 22px">60 minutes. Built around your job. See where you stand with AI.</p>
+    <a class="btn" href="/academy/test-drive/">Take the free AI Test Drive</a>
+  </section>
+</div>
+<footer>
+  <div class="wrap">
+    AI Go Long Academy is part of AIGL (AI Go Long), Birmingham, AL · <a href="tel:+12052038377">(205) 203-8377</a> · <a href="mailto:jason@aigl.dev">jason@aigl.dev</a> · <a href="https://aigl.dev">aigl.dev</a>
+  </div>
+</footer>
+</body>
+</html>

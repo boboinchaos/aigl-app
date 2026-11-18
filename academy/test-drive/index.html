@@ -79,6 +79,14 @@ ol.clean,ul.clean{margin:8px 0 0;padding-left:22px}ol.clean li,ul.clean li{margi
 @media print{.screen{display:flex!important;animation:none}#s-welcome,#s-intake,#s-loading,#s-quiz,#s-email,.steps,.btn,.link,.offer,button,#reviewBox,[id^=review]{display:none!important}body,html{background:#fff;color:#000}.card,.prompt{background:#fff;color:#000;border-color:#999}h1,h2,h3,.lede,p,li{color:#000}}
 footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--soft)}
 </style>
+<!-- Meta Pixel (AIGL Website dataset) -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','2107887133449610');fbq('track','PageView');
+window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);fbq('track',ev,data||{},{eventID:id});return id;}catch(e){}};
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2107887133449610&ev=PageView&noscript=1"/></noscript>
+<script>aiglTrack('ViewContent',{content_name:'Free class'});</script>
 </head>
 <body>
 <div class="wrap">
@@ -262,7 +270,7 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-si
     <button class="btn ghost" id="restart" style="margin-top:10px">Start over with a different job</button>
   </section>
 
-  <footer>AIGL AI Academy · AI Go Long, Birmingham, AL. This class is a learning tool, not career, legal or financial advice. We can't promise a job, a raise or a result. We save your name, email and job title so we can follow up and, if you agree, send class offers. We don't save your quiz answers.</footer>
+  <footer>AIGL AI Academy · AI Go Long, Birmingham, AL. This class is a learning tool, not career, legal or financial advice. We can't promise a job, a raise or a result. We save your name, email and job title so we can follow up and, if you agree, send class offers. We don't save your quiz answers. We use the Meta Pixel and cookies to measure our ads.</footer>
 </div>
 <script src="/academy/review.js"></script>
 <script>
@@ -310,7 +318,7 @@ $("buildBtn").onclick=function(){
   if (zip && !/^\d{5}$/.test(zip)){ $("intakeErr").textContent="ZIP code should be 5 digits (or leave it blank)."; return; }
   if (!body.industry || !body.jobTitle || !tasks.length){ $("intakeErr").textContent="Please add your industry, job title and at least one thing you do at work."; return; }
   $("intakeErr").textContent=""; state.intake=body; state.lead={email:email, first_name:body.firstName, job_title:body.jobTitle, industry:body.industry, employer_type:body.employer, ai_use:body.aiUse, age_range:$("age").value, zip:zip, employment_status:$("work").value, heard_from:$("heard").value, pay_range:body.payRange, marketing_ok:$("leadOk").checked, website:$("leadHp").value};
-  saveLead({}); window.AIGL_INTAKE=body; show("s-loading");
+  saveLead({}); window.aiglTrack&&aiglTrack('Lead',{content_name:'Free class intake'}); window.AIGL_INTAKE=body; show("s-loading");
   var msgs=["Reading about your job…","Writing your questions…","Picking your hands-on tasks…","Designing your first mini app…"], m=0;
   var tick=setInterval(function(){ $("loadMsg").textContent=msgs[++m % msgs.length] }, 3500);
   var go = DEMO ? Promise.resolve(SAMPLE) : fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}).then(function(r){return r.json().then(function(j){ if(!r.ok) throw new Error(j.error||"Something went wrong."); return j; })});
@@ -336,7 +344,7 @@ function renderQ(){
     box.appendChild(b);
   });
 }
-$("qNext").onclick=function(){ if (state.i < state.data.questions.length-1){ state.i++; renderQ(); } else { var t=aiType(state.right,state.data.questions.length); saveLead({quiz_score:state.right, ai_type:t[0]}); renderResults(); show("s-results"); } };
+$("qNext").onclick=function(){ if (state.i < state.data.questions.length-1){ state.i++; renderQ(); } else { var t=aiType(state.right,state.data.questions.length); saveLead({quiz_score:state.right, ai_type:t[0]}); window.aiglTrack&&aiglTrack('CompleteRegistration',{content_name:'Free class quiz finished'}); renderResults(); show("s-results"); } };
 function saveLead(extra){
   if (DEMO || !state.lead) return;
   var q=new URLSearchParams(location.search), utm={};

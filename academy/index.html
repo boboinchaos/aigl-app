@@ -71,6 +71,14 @@ details p{color:var(--soft);margin:10px 0 0}
 footer{border-top:1px solid var(--line);padding:30px 0 50px;color:var(--soft);font-size:14px}
 footer a{color:var(--soft)}
 </style>
+<!-- Meta Pixel (AIGL Website dataset) -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','2107887133449610');fbq('track','PageView');
+window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);fbq('track',ev,data||{},{eventID:id});return id;}catch(e){}};
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2107887133449610&ev=PageView&noscript=1"/></noscript>
+<script>aiglTrack('ViewContent',{content_name:'Academy home'});</script>
 </head>
 <body>
 <div class="wrap">
@@ -190,7 +198,7 @@ footer a{color:var(--soft)}
 </div>
 <footer>
   <div class="wrap">
-    <p style="margin:0 0 14px;max-width:80ch">AI Go Long Academy offers non-credit AI skills training. It is not an accredited college or university, does not award academic credit or degrees, and does not guarantee employment, promotion, pay or any specific result. Statistics are from the sources cited and may change. The $299 course is taught by an AI instructor, and AI can make mistakes; check important answers. Third-party certificates (such as Google AI Essentials or OpenAI AI Foundations) are earned separately on those providers' platforms under their fees and terms; AIGL is not affiliated with Google or OpenAI.</p>
+    <p style="margin:0 0 14px;max-width:80ch">AI Go Long Academy offers non-credit AI skills training. It is not an accredited college or university, does not award academic credit or degrees, and does not guarantee employment, promotion, pay or any specific result. Statistics are from the sources cited and may change. The $299 course is taught by an AI instructor, and AI can make mistakes; check important answers. Third-party certificates (such as Google AI Essentials or OpenAI AI Foundations) are earned separately on those providers' platforms under their fees and terms; AIGL is not affiliated with Google or OpenAI. We use the Meta Pixel and cookies to measure our ads.</p>
     AI Go Long Academy is part of AIGL (AI Go Long), Birmingham, AL · <a href="tel:+12052038377">(205) 203-8377</a> · <a href="mailto:jason@aigl.dev">jason@aigl.dev</a> · <a href="https://aigl.dev">aigl.dev</a>
   </div>
 </footer>

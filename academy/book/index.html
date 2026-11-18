@@ -41,6 +41,14 @@ textarea{min-height:90px;resize:vertical}
 .big{font-size:52px;text-align:center}
 footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--soft)}
 </style>
+<!-- Meta Pixel (AIGL Website dataset) -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','2107887133449610');fbq('track','PageView');
+window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);fbq('track',ev,data||{},{eventID:id});return id;}catch(e){}};
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2107887133449610&ev=PageView&noscript=1"/></noscript>
+<script>aiglTrack('ViewContent',{content_name:'1-on-1 Guru',value:1000,currency:'USD'});</script>
 </head>
 <body>
 <div class="wrap">

@@ -109,9 +109,21 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-si
   <section class="screen" id="s-intake">
     <div class="eyebrow">Step 1 · About you</div>
     <h2>Tell us about your job</h2>
-    <p class="lede" style="margin-bottom:4px">We use this to build your quiz and examples. We don't save your quiz answers.</p>
-    <label class="f" for="firstName">First name <span>(optional)</span></label>
+    <p class="lede" style="margin-bottom:4px">We use this to build your quiz and examples, and to send your results.</p>
+    <label class="f" for="firstName">First name</label>
     <input type="text" id="firstName" autocomplete="given-name" maxlength="40">
+    <label class="f" for="leadEmail">Email</label>
+    <input type="text" id="leadEmail" inputmode="email" autocomplete="email" maxlength="120" placeholder="you@example.com">
+    <label class="f" for="age">Age range</label>
+    <select id="age">
+      <option value="">Pick one…</option><option>18-24</option><option>25-34</option><option>35-44</option><option>45-54</option><option>55-64</option><option>65+</option>
+    </select>
+    <label class="f" for="zip">ZIP code <span>(optional)</span></label>
+    <input type="text" id="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="35007">
+    <label class="f" for="work">Work status <span>(optional)</span></label>
+    <select id="work">
+      <option value="">Prefer not to say</option><option>Full-time</option><option>Part-time</option><option>Self-employed / business owner</option><option>Looking for work</option><option>Student</option><option>Retired</option>
+    </select>
     <label class="f" for="industry">What industry are you in?</label>
     <select id="industry">
       <option value="">Pick one…</option>
@@ -135,6 +147,13 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-si
       <option value="">Prefer not to say</option><option>Under $35k a year</option><option>$35k to $50k a year</option>
       <option>$50k to $75k a year</option><option>Over $75k a year</option>
     </select>
+    <label class="f" for="heard">How did you hear about us? <span>(optional)</span></label>
+    <select id="heard">
+      <option value="">Pick one…</option><option>Facebook</option><option>Instagram</option><option>TikTok</option><option>LinkedIn</option><option>YouTube</option><option>Google search</option><option>Friend or coworker</option><option>My employer</option><option>Other</option>
+    </select>
+    <label class="ckline"><input type="checkbox" id="leadOk"> <span>Send me AI tips and class offers from AIGL. Unsubscribe anytime.</span></label>
+    <div style="position:absolute;left:-5000px;width:1px;height:1px;overflow:hidden" aria-hidden="true"><input type="text" id="leadHp" tabindex="-1" autocomplete="off"></div>
+    <p class="note">We save your name, email, job details and these answers so we can send your results, follow up and learn who our classes help. We don't save your quiz answers or sell your info.</p>
     <div class="err" id="intakeErr" role="alert"></div>
     <div class="row"><button class="btn ghost" data-go="s-welcome">Back</button><button class="btn" id="buildBtn">Build my quiz →</button></div>
   </section>
@@ -154,21 +173,6 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-si
     <button class="btn" id="qNext" style="margin-top:16px;display:none">Next →</button>
   </section>
 
-  <!-- 3b. Email -->
-  <section class="screen" id="s-email">
-    <div class="eyebrow">Quiz done!</div>
-    <h2>Your results are ready</h2>
-    <p class="lede" style="margin-top:0">Your results, your 3 hands-on prompts and your first mini app are ready. Enter your email to unlock them.</p>
-    <label class="f" for="leadName">First name</label>
-    <input type="text" id="leadName" autocomplete="given-name" maxlength="40">
-    <label class="f" for="leadEmail">Email</label>
-    <input type="text" id="leadEmail" inputmode="email" autocomplete="email" maxlength="120" placeholder="you@example.com">
-    <label class="ckline"><input type="checkbox" id="leadOk"> <span>Send me AI tips and class offers from AIGL. Unsubscribe anytime.</span></label>
-    <div style="position:absolute;left:-5000px;width:1px;height:1px;overflow:hidden" aria-hidden="true"><input type="text" id="leadHp" tabindex="-1" autocomplete="off"></div>
-    <div class="err" id="leadErr" role="alert"></div>
-    <button class="btn" id="leadBtn" style="margin-top:16px">Show my results →</button>
-    <p class="note">We save your name, email and job title so we can follow up and, if you agree, send class offers. We don't save your quiz answers or sell your info.</p>
-  </section>
 
   <!-- 4. Results -->
   <section class="screen" id="s-results">
@@ -267,7 +271,7 @@ var LEAD_API = "https://spam-agent.vercel.app/api/academy/lead";
 var DEMO = /[?#&]demo\b/.test(location.href);
 var TASKS = ["Answer phone calls","Answer emails","Schedule appointments","Data entry","Handle complaints","Quotes or invoices","Follow up with customers","Take notes","Reports or spreadsheets","Paperwork and forms","Bookkeeping","Social media posts","Check in customers or patients","Sales calls"];
 var AIUSE = ["Never tried it","Tried it a few times","Use it weekly","Use it daily"];
-var ORDER = ["s-welcome","s-intake","s-quiz","s-email","s-results","s-tasks","s-build","s-safety","s-future","s-protect"];
+var ORDER = ["s-welcome","s-intake","s-quiz","s-results","s-tasks","s-build","s-safety","s-future","s-protect"];
 var state = {tasks:[], aiUse:"", data:null, i:0, right:0};
 function $(id){return document.getElementById(id)}
 function el(tag, cls, text){var e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e}
@@ -301,8 +305,12 @@ $("buildBtn").onclick=function(){
   var industry = $("industry").value==="other" ? $("industryOther").value.trim() : $("industry").value;
   var tasks = state.tasks.slice(); if ($("taskOther").value.trim()) tasks.push($("taskOther").value.trim());
   var body = {firstName:$("firstName").value.trim(), industry:industry, employer:$("employer").value.trim(), jobTitle:$("jobTitle").value.trim(), tasks:tasks, aiUse:state.aiUse||"Not sure", payRange:$("pay").value};
+  var email=$("leadEmail").value.trim(), zip=$("zip").value.trim();
+  if (!body.firstName || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) || !$("age").value){ $("intakeErr").textContent="Please add your first name, a valid email and your age range."; return; }
+  if (zip && !/^\d{5}$/.test(zip)){ $("intakeErr").textContent="ZIP code should be 5 digits (or leave it blank)."; return; }
   if (!body.industry || !body.jobTitle || !tasks.length){ $("intakeErr").textContent="Please add your industry, job title and at least one thing you do at work."; return; }
-  $("intakeErr").textContent=""; state.intake=body; window.AIGL_INTAKE=body; show("s-loading");
+  $("intakeErr").textContent=""; state.intake=body; state.lead={email:email, first_name:body.firstName, job_title:body.jobTitle, industry:body.industry, employer_type:body.employer, ai_use:body.aiUse, age_range:$("age").value, zip:zip, employment_status:$("work").value, heard_from:$("heard").value, pay_range:body.payRange, marketing_ok:$("leadOk").checked, website:$("leadHp").value};
+  saveLead({}); window.AIGL_INTAKE=body; show("s-loading");
   var msgs=["Reading about your job…","Writing your questions…","Picking your hands-on tasks…","Designing your first mini app…"], m=0;
   var tick=setInterval(function(){ $("loadMsg").textContent=msgs[++m % msgs.length] }, 3500);
   var go = DEMO ? Promise.resolve(SAMPLE) : fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}).then(function(r){return r.json().then(function(j){ if(!r.ok) throw new Error(j.error||"Something went wrong."); return j; })});
@@ -328,19 +336,14 @@ function renderQ(){
     box.appendChild(b);
   });
 }
-$("qNext").onclick=function(){ if (state.i < state.data.questions.length-1){ state.i++; renderQ(); } else { $("leadName").value = (state.intake && state.intake.firstName) || ""; show("s-email"); $("leadEmail").focus(); } };
-$("leadBtn").onclick=function(){
-  var email=$("leadEmail").value.trim(), err=$("leadErr");
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){ err.textContent="Please enter a valid email to see your results."; return; }
-  err.textContent=""; var b=$("leadBtn"); b.disabled=true; b.textContent="Saving…";
-  var n=state.data.questions.length, t=aiType(state.right,n), q=new URLSearchParams(location.search), utm={};
+$("qNext").onclick=function(){ if (state.i < state.data.questions.length-1){ state.i++; renderQ(); } else { var t=aiType(state.right,state.data.questions.length); saveLead({quiz_score:state.right, ai_type:t[0]}); renderResults(); show("s-results"); } };
+function saveLead(extra){
+  if (DEMO || !state.lead) return;
+  var q=new URLSearchParams(location.search), utm={};
   ["utm_source","utm_medium","utm_campaign","utm_content","from"].forEach(function(k){ if(q.get(k)) utm[k]=q.get(k) });
-  var it=state.intake||{};
-  var body={email:email, first_name:$("leadName").value.trim(), job_title:it.jobTitle, industry:it.industry, employer_type:it.employer, ai_use:it.aiUse, quiz_score:state.right, ai_type:t[0], marketing_ok:$("leadOk").checked, utm:utm, website:$("leadHp").value};
-  var go = DEMO ? Promise.resolve() : fetch(LEAD_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}).then(function(r){return r.json().then(function(j){ if(!r.ok) throw new Error(j.error||"Something went wrong."); })});
-  go.then(function(){ b.disabled=false; b.textContent="Show my results →"; renderResults(); show("s-results"); })
-    .catch(function(e){ b.disabled=false; b.textContent="Show my results →"; err.textContent=e.message+" Please try again."; });
-};
+  var body=Object.assign({}, state.lead, {utm:utm}, extra||{});
+  fetch(LEAD_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body),keepalive:true}).catch(function(){});
+}
 
 function aiType(r,n){ var p=r/n; return p<=.375?["AI Rookie","AI is moving fast around you. Good news: the first steps are easy."]:p<=.625?["AI Explorer","You know enough to be dangerous. A few skills would change your week."]:p<=.875?["AI Operator","You get it. Now make it do the work for you."]:["AI Mastermind","You're ahead of almost everyone. Time to be the AI person at work."]; }
 function renderResults(){

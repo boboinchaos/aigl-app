@@ -222,6 +222,10 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-si
 .brandmark{display:inline-flex;flex-direction:column;align-items:center;line-height:1.05;text-decoration:none;margin-top:6px}
 .brandmark b{font:700 22px "Space Grotesk",Arial,sans-serif;letter-spacing:.5px;color:var(--ink)}
 .brandmark i{font:700 12px "Space Grotesk",Arial,sans-serif;font-style:normal;letter-spacing:2.5px;text-transform:uppercase;color:var(--green)}
+.promo{margin:26px 0 0;padding:22px 18px 6px;border:1px solid rgba(127,211,255,.35);border-radius:16px;background:linear-gradient(180deg,rgba(20,92,156,.18),rgba(10,47,87,.08));text-align:center}
+.promo-q{margin:0 0 6px;font:700 20px "Space Grotesk",Arial,sans-serif;color:var(--ink)}
+.promo .askw{margin:16px 0 14px}
+a.ask{text-decoration:none}
 .entertain{margin:10px 0 0;font-size:12.5px;color:var(--soft);text-align:center}
 
 </style>
@@ -261,6 +265,28 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
 
     <button class="btn" id="startBtn" type="button">Start my free AI IQ Test &rarr;</button>
     <p class="entertain">For entertainment purposes only.</p>
+
+    <div class="promo">
+      <p class="promo-q">Need to train your staff?</p>
+      <p class="promo-q">Want to integrate AI into your business?</p>
+      <div class="askw promo-btn"><a class="ask" id="bookAsk" href="/book/?from=iq" target="_blank" rel="noopener">
+          <span class="runner-trail" aria-hidden="true"><span class="trail-body"></span></span>
+          <span class="runner" aria-hidden="true">
+            <span class="runner-body">
+              <svg viewBox="0 0 40 48">
+                <g class="limb arm-b"><path class="mass" d="M21 15 L14 21 L10 27"/><path class="core" d="M21 15 L14 21 L10 27"/></g>
+                <g class="limb leg-b"><path class="mass" d="M21 28 L15 36 L7 39"/><path class="core" d="M21 28 L15 36 L7 39"/></g>
+                <path class="torso" d="M18.5 13.5 Q25.5 9.5 32.5 13 Q31 19 27 22 Q26 26 25.5 28.5 Q22 30.5 18.5 28 Q19.5 24 18 20 Q17 16 18.5 13.5 Z"/>
+                <path class="core" d="M25 13 L22.5 28"/>
+                <circle class="head" cx="28.5" cy="7" r="4.6"/>
+                <g class="limb leg-a"><path class="mass" d="M22.5 28 L31 31.5 L30 41.5"/><path class="core" d="M22.5 28 L31 31.5 L30 41.5"/></g>
+                <g class="limb arm-a"><path class="mass" d="M29.5 15 L34.5 22 L38.5 17.5"/><path class="core" d="M29.5 15 L34.5 22 L38.5 17.5"/></g>
+              </svg>
+            </span>
+          </span>
+          <span class="ask-label"><span class="ask-full">Book a free 30-minute discovery call. Click here</span><span class="ask-short">Free discovery call &rarr;</span></span>
+        </a></div>
+    </div>
 
   </section>
 
@@ -424,6 +450,7 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
 <script>
 (function(){var b=document.getElementById("askBtn"),p=document.getElementById("askPanel");if(!b||!p)return;
 b.addEventListener("click",function(e){e.stopPropagation();var o=p.hidden;p.hidden=!o;b.setAttribute("aria-expanded",String(o));if(o&&window.gtag)gtag("event","agent_button_open",{page:"iq"});});
+var bk=document.getElementById("bookAsk");if(bk)bk.addEventListener("click",function(){if(window.gtag)gtag("event","discovery_call_click",{page:"iq"});if(window.fbq)fbq("track","Contact",{content_name:"IQ discovery call"});});
 document.addEventListener("click",function(e){if(!p.hidden&&!p.contains(e.target)){p.hidden=true;b.setAttribute("aria-expanded","false");}});
 document.addEventListener("keydown",function(e){if(e.key==="Escape"){p.hidden=true;b.setAttribute("aria-expanded","false");}});})();
 </script>

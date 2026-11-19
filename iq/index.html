@@ -29,8 +29,8 @@ h1,h2,h3,.disp{font-family:"Space Grotesk",Inter,Arial,sans-serif;line-height:1.
 a{color:var(--green)}
 .wrap{max-width:640px;margin:0 auto;padding:20px 18px 48px;min-height:100vh;display:flex;flex-direction:column}
 header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 0 18px}
-body[data-screen="s-quiz"] header.top{justify-content:center}
-body[data-screen="s-quiz"] .toplogo img{position:relative;left:-14px}
+body:is([data-screen="s-quiz"],[data-screen="s-form"],[data-screen="s-result"]) header.top{justify-content:center}
+body:is([data-screen="s-quiz"],[data-screen="s-form"],[data-screen="s-result"]) .toplogo img{position:relative;left:-14px}
 .logo{font-family:"Space Grotesk",Arial,sans-serif;font-weight:700;font-size:18px;letter-spacing:.5px;color:var(--ink);text-decoration:none}
 .logo b{color:var(--green)}
 .pill{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);border:1px solid var(--line);border-radius:99px;padding:5px 10px}

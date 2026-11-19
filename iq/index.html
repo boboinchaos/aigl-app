@@ -92,9 +92,11 @@ h1 .hl{color:var(--green)}
 .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
 .field label{font-weight:600;font-size:15px}
 .field label small{color:var(--soft);font-weight:400}
-input[type=text],input[type=email],input[type=tel]{width:100%;font:400 18px Inter,Arial,sans-serif;color:var(--ink);background:var(--bg2);border:2px solid var(--line);border-radius:12px;padding:15px 14px;min-height:56px}
+input[type=text],input[type=email],input[type=tel],select{width:100%;font:400 18px Inter,Arial,sans-serif;color:var(--ink);background:var(--bg2);border:2px solid var(--line);border-radius:12px;padding:15px 14px;min-height:56px}
+select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--soft) 50%),linear-gradient(135deg,var(--soft) 50%,transparent 50%);background-position:calc(100% - 22px) 50%,calc(100% - 16px) 50%;background-size:6px 6px;background-repeat:no-repeat;padding-right:40px}
+select:invalid,select option[value=""]{color:var(--soft)}
 input::placeholder{color:#6f7d76}
-input.bad{border-color:var(--red)}
+input.bad,select.bad{border-color:var(--red)}
 .err{color:var(--red);font-size:14px;min-height:0}
 .consent{display:flex;gap:12px;align-items:flex-start;background:var(--bg2);border:2px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;margin:6px 0 6px}
 .consent input{width:26px;height:26px;flex:0 0 26px;accent-color:var(--green);margin:0}
@@ -342,10 +344,6 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
     <p class="eyebrow">All done. Nice work.</p>
     <h2 class="q" id="h-form" tabindex="-1">Last step: who's taking the test?</h2>
     <p class="help">Your score and the top 3 things to learn next show on the next screen.</p>
-    <div class="mail" role="note">
-      <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" style="flex:0 0 28px"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="#2EE08A" stroke-width="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5" fill="none" stroke="#2EE08A" stroke-width="2"/></svg>
-      <p><b>Your full results show on the next screen,</b> including what you knew and the top 3 things to learn next.</p>
-    </div>
     <form id="leadForm" novalidate>
       <div class="field">
         <label for="fName">First name</label>
@@ -354,6 +352,10 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
       <div class="field">
         <label for="fBiz">Business name</label>
         <input id="fBiz" name="business" type="text" autocomplete="organization" placeholder="Jamie's Plumbing" required maxlength="120">
+      </div>
+      <div class="field">
+        <label for="fInd">What industry are you in?</label>
+        <select id="fInd" name="industry" required><option value="">Pick one</option></select>
       </div>
       <div class="field">
         <label for="fEmail">Email</label>
@@ -774,7 +776,7 @@ function renderIndustry(){
 function renderQ(){
   var Q = QUESTIONS[state.i], n = QUESTIONS.length, A = state.answers[Q.id];
   $("qCount").textContent = "Question " + (state.i+1) + " of " + n;
-  var left = Math.max(1, Math.round((n - state.i) * 15 / 60));
+  var left = Math.max(1, Math.round((n - state.i) * 30 / 60));
   $("qLeft").textContent = "About " + left + " min left";
   $("barFill").style.width = (state.i / n * 100) + "%";
   $("bar").setAttribute("aria-valuenow", state.i);
@@ -867,6 +869,7 @@ function validate(){
   $("consentBox").classList.remove("bad");
   if (!f.value.trim()){ f.classList.add("bad"); f.setAttribute("aria-invalid","true"); ok=false; }
   if (!b.value.trim()){ b.classList.add("bad"); b.setAttribute("aria-invalid","true"); ok=false; }
+  var si=$("fInd"); si.classList.remove("bad"); if (!si.value){ si.classList.add("bad"); si.setAttribute("aria-invalid","true"); ok=false; } else { si.removeAttribute("aria-invalid"); state.industry = si.value; }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e.value.trim())){ e.classList.add("bad"); e.setAttribute("aria-invalid","true"); ok=false; err="Please check your email address. "; }
   if (!ok && !err) err = "Please fill in the highlighted boxes. ";
   // Tips by email are optional: results show either way
@@ -993,9 +996,9 @@ $("shareBtn").addEventListener("click", function(){
 });
 $("nextBtn").addEventListener("click", function(){ if (!this.disabled && state.onNext) state.onNext(); });
 
-$("startBtn").addEventListener("click", function(){ show("s-industry"); renderIndustry(); });
+$("startBtn").addEventListener("click", function(){ state.i = 0; show("s-quiz"); renderQ(); });
 $("indBack").addEventListener("click", function(){ show("s-hero"); });
-$("backBtn").addEventListener("click", function(){ if (state.i > 0){ state.i--; renderQ(); } else { show("s-industry"); renderIndustry(); } });
+$("backBtn").addEventListener("click", function(){ if (state.i > 0){ state.i--; renderQ(); } else { show("s-hero"); } });
 $("formBack").addEventListener("click", function(){ state.i = QUESTIONS.length - 1; show("s-quiz"); renderQ(); });
 $("restartBtn").addEventListener("click", function(){ state = {i:0, industry:null, answers:{}, payload:null, result:null}; $("leadForm").reset(); $("demoBox").style.display="none"; show("s-hero"); });
 $("retryBtn").addEventListener("click", function(){ send().then(function(j){ if (j.ok) toast("Saved."); }); });
@@ -1018,6 +1021,7 @@ function onLeadSubmit(e){
   };
   send().then(function(){ btn.disabled = false; btn.textContent = "Show my AI IQ →"; showResult(); });
 }
+(function(){ var s=$("fInd"); INDUSTRIES.forEach(function(ind){ var o=document.createElement("option"); o.value=ind.id; o.textContent=ind.label; s.appendChild(o); }); s.addEventListener("change",function(){ state.industry=s.value||null; s.classList.remove("bad"); }); })();
 $("leadForm").addEventListener("submit", onLeadSubmit);
 $("submitBtn").addEventListener("click", onLeadSubmit);
 $("leadForm").addEventListener("keydown", function(e){ if (e.key === "Enter" && e.target.tagName === "INPUT" && e.target.type !== "checkbox") onLeadSubmit(e); });

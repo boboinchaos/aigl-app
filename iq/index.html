@@ -29,6 +29,8 @@ h1,h2,h3,.disp{font-family:"Space Grotesk",Inter,Arial,sans-serif;line-height:1.
 a{color:var(--green)}
 .wrap{max-width:640px;margin:0 auto;padding:20px 18px 48px;min-height:100vh;display:flex;flex-direction:column}
 header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 0 18px}
+body[data-screen="s-quiz"] header.top{justify-content:center}
+body[data-screen="s-quiz"] .toplogo img{position:relative;left:-14px}
 .logo{font-family:"Space Grotesk",Arial,sans-serif;font-weight:700;font-size:18px;letter-spacing:.5px;color:var(--ink);text-decoration:none}
 .logo b{color:var(--green)}
 .pill{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);border:1px solid var(--line);border-radius:99px;padding:5px 10px}
@@ -738,6 +740,7 @@ function show(id){
   var s = document.querySelectorAll(".screen");
   for (var k=0;k<s.length;k++) s[k].classList.remove("on");
   $(id).classList.add("on");
+  document.body.setAttribute("data-screen", id);
   window.scrollTo(0,0);
 }
 function toast(msg){var t=$("toast");t.textContent=msg;t.style.display="block";clearTimeout(t._h);t._h=setTimeout(function(){t.style.display="none";},3200);}

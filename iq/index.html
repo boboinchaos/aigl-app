@@ -461,11 +461,12 @@ var QUESTIONS = [
    title:"AI can copy a voice from a few seconds of audio",
    learn:"AI can make a convincing copy of someone's voice from just a few seconds of audio, like a voicemail greeting or a social media video. Before acting on an urgent call about money, hang up and call back on a number you know, or use a code word your team agrees on."},
   {id:"deepfake_video", area:"Risks & safety", prio:9,
-   q:"Could the person talking in a video online be an AI copy of a real person?",
-   help:"These are often called deepfakes.",
-   opts:[["Yes, AI can make realistic video of a real person from photos and a short voice sample",2],["No, AI video of a real person still has obvious tells like glitchy hands and mouths",0],["Only studios with big budgets and special-effects teams can pull that off convincingly",0],["Not sure",0]],
-   title:"AI video of real people can look real",
-   learn:"AI can now make realistic video of a real person from photos and a voice sample, and the tools to do it are easy to find. Don't trust a video alone for anything involving money, passwords or big decisions; check through another channel first."}
+   q:"Could the person talking in a video online be an AI clone of a real person?",
+   help:"These are often called deepfakes: AI clones of someone's face and voice.",
+   opts:[["Yes, AI can clone a real person's face and voice from a few photos and as little as 3 seconds of audio",2,"yes, a clone"],["No, AI video still has obvious tells like glitchy hands and lips that don't match",0,"obvious tells"],["Only movie studios with big budgets can pull that off",0,"studios only"],["Only if they have hours of video and recordings of that person",0,"needs hours"],["Not sure",0,"not sure"]],
+   title:"AI can clone a real person's face and voice",
+   answer:"Yes, AI can clone a real person's face and voice from a few photos and as little as 3 seconds of audio",
+   learn:"AI can clone a real person's face and voice from a few photos and as little as 3 seconds of audio, from a voicemail, a social video or a short phone call. Don't trust a video or call alone for anything involving money, passwords or big decisions: verify on a number you already have, and set a code word with family and anyone who handles money."}
 ];
 
 /* Used when fewer than 3 answers were missed. */

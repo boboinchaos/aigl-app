@@ -15,15 +15,16 @@
 html{scroll-behavior:smooth}
 body{background:var(--ink);color:var(--cream);font:16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:inherit}
-.demo{background:var(--brass);color:#1b1d17;text-align:center;font:800 12px Inter;letter-spacing:.06em;padding:7px 10px;position:sticky;top:0;z-index:50}
-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 5vw;background:rgba(18,19,16,.92);position:sticky;top:31px;z-index:40;border-bottom:1px solid #2a2d22;backdrop-filter:blur(6px)}
+.top{position:sticky;top:0;z-index:50}.demo{background:var(--brass);color:#1b1d17;text-align:center;font:800 12px Inter;letter-spacing:.06em;padding:7px 10px}
+nav{display:flex;align-items:center;justify-content:space-between;padding:14px 5vw;background:rgba(18,19,16,.92);border-bottom:1px solid #2a2d22;backdrop-filter:blur(6px)}
 .logo{font:24px 'Black Ops One',sans-serif;letter-spacing:.04em;text-decoration:none}
 .logo span{color:var(--brass)}
 nav .links a{margin-left:22px;text-decoration:none;font-weight:600;font-size:14px;color:var(--mute)}
 nav .links a:hover{color:var(--brass2)}
 .callbtn{background:var(--wine);color:#fff!important;padding:9px 16px;border-radius:99px}
-@media(max-width:760px){nav .links a:not(.callbtn){display:none}}
-.hero{position:relative;min-height:88vh;display:flex;align-items:center;padding:80px 5vw;overflow:hidden}
+@media(max-width:760px){nav .links a:not(.callbtn){display:none}.callbtn .full{display:none}.demo{font-size:10px}}
+.callbtn .short{display:none}@media(max-width:760px){.callbtn .short{display:inline}}
+.hero{position:relative;min-height:88vh;padding-bottom:140px!important;display:flex;align-items:center;padding:80px 5vw;overflow:hidden}
 .hero:before{content:"";position:absolute;inset:0;background:url("https://img1.wsimg.com/isteam/ip/b2b2883c-a291-4493-b450-04e88784e145/IMG_7282-1.JPEG/:/rs=w:1800") center/cover;filter:saturate(.9) brightness(.55);transform:scale(1.04)}
 .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,19,16,.95) 0%,rgba(18,19,16,.6) 55%,rgba(18,19,16,.2) 100%)}
 .hero .in{position:relative;max-width:640px}
@@ -106,11 +107,11 @@ footer .logo{color:var(--cream);font-size:22px;display:block;margin-bottom:6px}
 </style>
 </head>
 <body>
-<div class="demo">DEMO · Website concept built by AIGL (aigl.dev) for The Wine Bunker · not the official site</div>
+<div class="top"><div class="demo">DEMO · Website concept built by AIGL (aigl.dev) for The Wine Bunker · not the official site</div>
 <nav>
   <a class="logo" href="#top">THE WINE <span>BUNKER</span></a>
-  <div class="links"><a href="#story">Our Story</a><a href="#menu">Menu</a><a href="#events">Events</a><a href="#visit">Visit</a><a class="callbtn" href="tel:+12053588940">Call (205) 358-8940</a></div>
-</nav>
+  <div class="links"><a href="#story">Our Story</a><a href="#menu">Menu</a><a href="#events">Events</a><a href="#visit">Visit</a><a class="callbtn" href="tel:+12053588940"><span class="full">Call (205) 358-8940</span><span class="short">Call</span></a></div>
+</nav></div>
 
 <header class="hero" id="top">
   <div class="in">

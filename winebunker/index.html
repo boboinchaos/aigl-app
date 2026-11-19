@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Wine Bunker · Whiskey &amp; Wine Bar · Alabaster, AL (AIGL demo)</title>
+<meta name="description" content="Veteran-owned whiskey and wine bar in Alabaster, AL. Live music, wine dinners, craft cocktails, charcuterie and private parties.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="knowledge.js"></script>
+<style>
+:root{--ink:#121310;--bunker:#1b1d17;--olive:#3c4230;--drab:#59603f;--brass:#c9a227;--brass2:#e6c766;--wine:#7b1e2b;--cream:#f2ead8;--mute:#b7b09c}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--cream);font:16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.demo{background:var(--brass);color:#1b1d17;text-align:center;font:800 12px Inter;letter-spacing:.06em;padding:7px 10px;position:sticky;top:0;z-index:50}
+nav{display:flex;align-items:center;justify-content:space-between;padding:14px 5vw;background:rgba(18,19,16,.92);position:sticky;top:31px;z-index:40;border-bottom:1px solid #2a2d22;backdrop-filter:blur(6px)}
+.logo{font:24px 'Black Ops One',sans-serif;letter-spacing:.04em;text-decoration:none}
+.logo span{color:var(--brass)}
+nav .links a{margin-left:22px;text-decoration:none;font-weight:600;font-size:14px;color:var(--mute)}
+nav .links a:hover{color:var(--brass2)}
+.callbtn{background:var(--wine);color:#fff!important;padding:9px 16px;border-radius:99px}
+@media(max-width:760px){nav .links a:not(.callbtn){display:none}}
+.hero{position:relative;min-height:88vh;display:flex;align-items:center;padding:80px 5vw;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:url("https://img1.wsimg.com/isteam/ip/b2b2883c-a291-4493-b450-04e88784e145/IMG_7282-1.JPEG/:/rs=w:1800") center/cover;filter:saturate(.9) brightness(.55);transform:scale(1.04)}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,19,16,.95) 0%,rgba(18,19,16,.6) 55%,rgba(18,19,16,.2) 100%)}
+.hero .in{position:relative;max-width:640px}
+.badge{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--brass);color:var(--brass2);font:700 12px Inter;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border-radius:2px}
+.dot{width:8px;height:8px;border-radius:50%;background:#888}.dot.on{background:#3ddc84;box-shadow:0 0 10px #3ddc84}
+h1{font:clamp(40px,7vw,78px)/1.02 'Black Ops One',sans-serif;margin:18px 0 14px;letter-spacing:.01em}
+h1 em{font-style:normal;color:var(--brass)}
+.lede{font:italic 500 clamp(20px,2.4vw,26px)/1.35 'Cormorant Garamond',serif;color:#e9dfc6;max-width:520px}
+.ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-block;padding:14px 22px;font:800 14px Inter;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;border-radius:3px;cursor:pointer;border:0}
+.btn.b{background:var(--brass);color:#1b1d17}.btn.o{border:1.5px solid var(--cream);color:var(--cream);background:transparent}
+section{padding:90px 5vw}
+.kicker{font:700 12px Inter;letter-spacing:.2em;text-transform:uppercase;color:var(--brass)}
+h2{font:clamp(30px,4.4vw,46px)/1.1 'Black Ops One',sans-serif;margin:10px 0 18px}
+.story{background:var(--bunker);display:grid;grid-template-columns:1.1fr 1fr;gap:50px;align-items:center}
+.story p{color:#d8d0bb;margin-bottom:14px;max-width:560px}
+.pillars{display:grid;gap:14px}
+.pill{border-left:3px solid var(--brass);background:#23261d;padding:18px 20px}
+.pill b{font:20px 'Black Ops One';display:block;margin-bottom:4px;color:var(--brass2)}
+.pill span{color:#cfc7b1;font-size:15px}
+@media(max-width:860px){.story{grid-template-columns:1fr}}
+.menu{background:linear-gradient(180deg,var(--ink),#16110f)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 26px}
+.tab{background:transparent;border:1.5px solid #4b4f3c;color:var(--mute);padding:9px 16px;font:700 13px Inter;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border-radius:2px}
+.tab.on{background:var(--wine);border-color:var(--wine);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:4px 40px}
+.item{display:flex;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px dashed #3a3a30}
+.item .n{font:700 20px 'Cormorant Garamond',serif}.item .d{display:block;font:13px Inter;color:var(--mute)}
+.item .p{font:700 15px Inter;color:var(--brass2);white-space:nowrap}
+.note{color:var(--mute);font-size:13px;margin-top:18px}
+.events{background:var(--bunker)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:20px}
+.card{background:#23261d;border:1px solid #33372a;padding:26px;position:relative;overflow:hidden}
+.card:before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--brass)}
+.card h3{font:22px 'Black Ops One';margin-bottom:8px}.card p{color:#cfc7b1;font-size:15px;margin-bottom:16px}
+.card .when{font:700 12px Inter;letter-spacing:.14em;text-transform:uppercase;color:var(--brass2);margin-bottom:6px}
+.visit{display:grid;grid-template-columns:1fr 1.2fr;gap:40px}
+.hours{width:100%;border-collapse:collapse;margin:12px 0 22px}
+.hours td{padding:10px 0;border-bottom:1px solid #2c2f24}.hours td:last-child{text-align:right;color:var(--brass2);font-weight:600}
+.hours tr.today td{color:#fff;font-weight:800}
+.map{width:100%;height:100%;min-height:340px;border:0;filter:grayscale(.4) contrast(1.05)}
+@media(max-width:860px){.visit{grid-template-columns:1fr}}
+.ai{background:radial-gradient(ellipse at top left,#5a1a24,#2a0e13 60%,#160a0c);border-top:1px solid #5a1a24;border-bottom:1px solid #5a1a24}
+.ai .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+.ai ul{list-style:none;margin:18px 0}.ai li{padding:7px 0 7px 28px;position:relative;color:#ead9d2}
+.ai li:before{content:"★";position:absolute;left:0;color:var(--brass)}
+.phone{background:#0e0f0c;border:1px solid #3b2a2d;border-radius:26px;padding:22px;max-width:360px;margin-left:auto;box-shadow:0 30px 60px rgba(0,0,0,.5)}
+.bub{padding:10px 14px;border-radius:14px;margin:8px 0;font-size:14px;max-width:88%}
+.bub.c{background:#2b2e24;margin-left:auto;border-bottom-right-radius:4px}.bub.a{background:var(--wine);border-bottom-left-radius:4px}
+.ph-h{font:700 12px Inter;letter-spacing:.14em;color:var(--brass2);text-transform:uppercase;text-align:center;margin-bottom:8px}
+@media(max-width:860px){.ai .wrap{grid-template-columns:1fr}.phone{margin:0 auto}}
+footer{padding:50px 5vw 140px;background:#0c0d0a;color:var(--mute);font-size:14px;display:flex;flex-wrap:wrap;gap:30px;justify-content:space-between}
+footer .logo{color:var(--cream);font-size:22px;display:block;margin-bottom:6px}
+/* widgets */
+#wb-chat-btn,#wb-voice-btn{position:fixed;left:50%;transform:translateX(-50%);z-index:60;white-space:nowrap;border:0;cursor:pointer;font:800 14px Inter;letter-spacing:.03em;border-radius:99px;padding:13px 22px;box-shadow:0 10px 30px rgba(0,0,0,.45);display:flex;align-items:center;gap:8px}
+#wb-chat-btn{bottom:16px;background:var(--cream);color:#1b1d17}
+#wb-voice-btn{bottom:72px;background:var(--wine);color:#fff}
+#wb-voice-btn .o{width:10px;height:10px;border-radius:50%;background:#ff8a8a;box-shadow:0 0 0 0 rgba(255,138,138,.7);animation:pp 1.6s infinite}
+@keyframes pp{to{box-shadow:0 0 0 12px rgba(255,138,138,0)}}
+#wb-chat{position:fixed;bottom:128px;left:50%;transform:translateX(-50%);width:min(380px,94vw);height:min(520px,66vh);background:#15160f;border:1px solid #3b3e2e;border-radius:16px;z-index:70;display:none;flex-direction:column;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.6)}
+#wb-chat.on{display:flex}
+.ch{background:var(--olive);padding:12px 14px;display:flex;align-items:center;justify-content:space-between}
+.ch b{font:17px 'Black Ops One'}.ch small{display:block;color:#d9e0c2;font-size:11px}
+.ch button{background:none;border:0;color:#fff;font-size:20px;cursor:pointer}
+#wb-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
+.m{max-width:86%;padding:9px 12px;border-radius:12px;font-size:14px;line-height:1.45}
+.m.bot{background:#2a2d22;align-self:flex-start;border-bottom-left-radius:3px}.m.me{background:var(--wine);align-self:flex-end;border-bottom-right-radius:3px}
+#wb-quick{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px 8px}
+#wb-quick button{background:transparent;border:1px solid var(--brass);color:var(--brass2);border-radius:99px;padding:5px 11px;font:600 12px Inter;cursor:pointer}
+.ci{display:flex;gap:6px;padding:10px;border-top:1px solid #2c2f24}
+.ci input{flex:1;background:#0e0f0c;border:1px solid #3b3e2e;color:var(--cream);border-radius:99px;padding:10px 14px;font:14px Inter}
+.ci button{background:var(--brass);border:0;border-radius:99px;padding:0 16px;font:800 13px Inter;cursor:pointer}
+#wb-call{position:fixed;inset:0;background:rgba(10,10,8,.94);z-index:80;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:20px}
+#wb-call.on{display:flex}
+.vorb{width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 50% 40%,#b23447,#5a1a24);animation:vp 1.6s ease-out infinite}
+.vorb.live{background:radial-gradient(circle at 50% 40%,#e6c766,#a8861c)}
+@keyframes vp{0%{box-shadow:0 0 0 0 rgba(201,162,39,.5)}100%{box-shadow:0 0 0 40px rgba(201,162,39,0)}}
+#vstatus{font:22px 'Black Ops One'}#vhint{color:var(--mute);font-size:14px;max-width:300px}
+#wb-hang{background:var(--wine);color:#fff;border:0;border-radius:99px;padding:13px 30px;font:800 15px Inter;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="demo">DEMO · Website concept built by AIGL (aigl.dev) for The Wine Bunker · not the official site</div>
+<nav>
+  <a class="logo" href="#top">THE WINE <span>BUNKER</span></a>
+  <div class="links"><a href="#story">Our Story</a><a href="#menu">Menu</a><a href="#events">Events</a><a href="#visit">Visit</a><a class="callbtn" href="tel:+12053588940">Call (205) 358-8940</a></div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="in">
+    <span class="badge"><i class="dot" id="opendot"></i><span id="openlbl">Whiskey &amp; Wine Bar · Alabaster</span></span>
+    <h1>Wine with a purpose.<br><em>Whiskey</em> with a story.</h1>
+    <p class="lede">A veteran-owned hideaway in Weatherly Plaza. Curated pours, smoked old fashioneds, charcuterie and live music on our little stage.</p>
+    <div class="ctas"><a class="btn b" href="#menu">See the Menu</a><a class="btn o" href="#events">Plan a Private Party</a></div>
+  </div>
+</header>
+
+<section class="story" id="story">
+  <div>
+    <div class="kicker">Our Story</div>
+    <h2>Built on service. Poured with pride.</h2>
+    <p>The Wine Bunker was founded by Chris and Dave, two friends whose bond was forged serving our country together. They came home wanting a place that felt like that: honest, welcoming and built around the stories people share across a table.</p>
+    <p>So they built a bunker. Not to hide from the world, but to gather in it. Raise a glass with us.</p>
+  </div>
+  <div class="pillars">
+    <div class="pill"><b>Wine with a Purpose</b><span>About two dozen pours by the glass or bottle, from Napa and Willamette to the Loire and Rioja.</span></div>
+    <div class="pill"><b>Whiskey</b><span>A curated shelf of bourbon, scotch and whiskey, and the Smoked Old Fashioned everyone talks about.</span></div>
+    <div class="pill"><b>Service &amp; Sacrifice</b><span>Camaraderie, local live music and small plates made for sharing.</span></div>
+  </div>
+</section>
+
+<section class="menu" id="menu">
+  <div class="kicker">The Menu</div>
+  <h2>Pour. Pair. Repeat.</h2>
+  <div class="tabs" id="tabs"></div>
+  <div class="grid" id="menugrid"></div>
+  <p class="note">Glass / bottle prices as posted on our current menu. Selections and prices change; ask your bartender. 21+ with valid ID.</p>
+</section>
+
+<section class="events" id="events">
+  <div class="kicker">Events</div>
+  <h2>Something's always on deck.</h2>
+  <div class="cards">
+    <div class="card"><div class="when">Fri &amp; Sat nights</div><h3>Live Music</h3><p>Local artists on our intimate stage. The lineup changes every week.</p><a class="btn o" href="#" onclick="openChat('Who is playing live music this week?');return false">Get this week's lineup</a></div>
+    <div class="card"><div class="when">Ticketed · seats are limited</div><h3>Wine Pairing Dinners</h3><p>Chef-prepared courses paired with wines chosen to tell a story of place. Past dinners include "Power of Place."</p><a class="btn o" href="#" onclick="openChat('Tell me about wine dinners');return false">Notify me about the next one</a></div>
+    <div class="card"><div class="when">Book the Bunker</div><h3>Private Parties</h3><p>Birthdays, rehearsal dinners, team nights, tastings. Let's plan something memorable.</p><a class="btn b" href="#" onclick="openChat('I want to book a private party');return false">Start planning</a></div>
+  </div>
+</section>
+
+<section id="visit">
+  <div class="visit">
+    <div>
+      <div class="kicker">Visit</div>
+      <h2>Find the Bunker.</h2>
+      <p>81 Weatherly Club Dr, Alabaster, AL 35007<br><a href="tel:+12053588940">(205) 358-8940</a></p>
+      <table class="hours" id="hours"></table>
+      <a class="btn b" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=The+Wine+Bunker+81+Weatherly+Club+Dr+Alabaster+AL+35007">Get Directions</a>
+    </div>
+    <iframe class="map" loading="lazy" title="Map" src="https://www.google.com/maps?q=The+Wine+Bunker,+81+Weatherly+Club+Dr,+Alabaster,+AL+35007&output=embed"></iframe>
+  </div>
+</section>
+
+<section class="ai" id="ai">
+  <div class="wrap">
+    <div>
+      <div class="kicker">What AIGL adds</div>
+      <h2>Every call answered, even on a slammed Saturday.</h2>
+      <p style="color:#ead9d2">The host in the corner of this page can also answer The Wine Bunker's phone line. When the bar is packed or closed (Sunday through Tuesday), callers still get a friendly answer, and you get a text with their name and number.</p>
+      <ul>
+        <li>Hours, directions, live music and dinner questions answered 24/7</li>
+        <li>Private party and group requests captured with date, headcount and callback number</li>
+        <li>21+ rules built in; never quotes prices it doesn't have</li>
+        <li>Same knowledge powers the website chat, voice and phone</li>
+      </ul>
+      <button class="btn b" onclick="document.getElementById('wb-voice-btn').click()">Try it: talk to the host</button>
+    </div>
+    <div class="phone">
+      <div class="ph-h">Sunday · 7:42 PM · bar closed</div>
+      <div class="bub c">Hey, are y'all open tonight? Want to book a birthday for 12 next month.</div>
+      <div class="bub a">We're closed Sundays, but we'd love to host you! What date are you thinking, and what's the best number for the team to call?</div>
+      <div class="bub c">Saturday the 12th. 205-555-0142, it's Megan.</div>
+      <div class="bub a">Got it, Megan: party of 12 on Saturday the 12th, 205-555-0142. The team will call you Wednesday when we open. Cheers! 🥂</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div><a class="logo" href="#top">THE WINE <span style="color:var(--brass)">BUNKER</span></a>Veteran-owned whiskey &amp; wine bar<br>81 Weatherly Club Dr, Alabaster, AL 35007 · (205) 358-8940<br>Must be 21+ to purchase alcohol. Please drink responsibly.</div>
+  <div>Wed–Thu 3–9 PM · Fri–Sat 3–11 PM · Sun–Tue closed<br><a href="https://www.facebook.com/61559360786426" target="_blank" rel="noopener">Facebook</a><br><small>Demo concept by <a href="https://aigl.dev" target="_blank" rel="noopener">AIGL</a>. Content from The Wine Bunker's public listings.</small></div>
+</footer>
+
+<button id="wb-voice-btn"><i class="o"></i><span id="wb-voice-label">Talk to our host</span></button>
+<button id="wb-chat-btn" onclick="toggleChat()">💬 Chat with us</button>
+
+<div id="wb-chat">
+  <div class="ch"><div><b>Bunker Host</b><small>● AI assistant · usually instant</small></div><button onclick="toggleChat()" aria-label="Close">✕</button></div>
+  <div id="wb-msgs"></div>
+  <div id="wb-quick"></div>
+  <form class="ci" onsubmit="send();return false"><input id="wb-in" placeholder="Ask about hours, music, parties…" autocomplete="off"><button>Send</button></form>
+</div>
+
+<div id="wb-call">
+  <div class="vorb" id="vorb"></div>
+  <div id="vstatus">Connecting…</div>
+  <div id="vhint">Ask about hours, live music, wine dinners or booking a private party.</div>
+  <button id="wb-hang">End call</button>
+</div>
+
+<script>
+const B = KB.business;
+/* menu (from the public menu page, Nov 2026) */
+const MENU = {
+  "Reds":[["Cabernet · Quilt","Napa Valley, CA","18 / 70"],["Cabernet · Angeline","Sonoma, CA","9 / 33"],["Cabernet · Simply Cab","Washington State","9 / 33"],["Pinot Noir · Mathew Fritz","Monterey County, CA","12 / 42"],["Pinot Noir · Fender Blue","Willamette Valley, OR","14 / 49"],["Red Blend · Cline","Contra Costa, CA","11 / 39"],["Zinfandel · McManis","Lodi, CA","9 / 33"],["Malbec · Luigi Bosca","Mendoza, Argentina","13 / 46"],["Tempranillo · Beronia","Rioja, Spain","12 / 53"],["Merlot · Markham","North Coast, CA","12 / 42"],["Sparkling Red · Rosa Regale","","14 / 48"]],
+  "Whites & Rosé":[["Pinot Grigio · Bacaro","Italy","9 / 32"],["Chardonnay · Wente","Livermore Valley, CA","12 / 44"],["Sancerre · Domaine Ducroux","Loire, France","18 / 63"],["Sauvignon Blanc · Vavasour","Marlborough, NZ","12 / 42"],["Albariño · Gotas de Mar","Spain","14 / 45"],["Riesling · Schloss Vollrads","Germany","14 / 49"],["Moscato d'Asti","Italy","16 / 56"],["Rosé · Jean-Luc Colombo","Rhône, France","12 / 42"],["Port · Croft","Portugal","15 / 51"]],
+  "Bubbles":[["Spumante Cuvée","Italy","11 / 43"],["Prosecco · Villa Sandi Il Fresco","Italy","12 / 44"],["Crémant · Gratien & Meyer","Loire, France","23 / 86"],["Champagne · G.H. Mumm","Champagne, France","23 / 86"]],
+  "Cocktails":[["Smoked Old Fashioned","The house favorite","13"],["Kentucky Mule","","13"],["Blackberry Smash","","13"],["Aperol Spritz","","13"],["French Bunker","","13"],["Sidecar","","13"],["Sazerac","","13"],["Bunker Espresso Martini","","13"]],
+  "Bites":[["The Bunker Board","Charcuterie for sharing","47"],["Burrata Salad","","14"],["Bruschetta","","13"],["Caprese","3 per order","12"],["Bunker Jelly","","12"],["Bread & Oil","","10"],["Flatbreads","Quattro Formaggi · Spaniard · Greek · Italian","13"]]
+};
+const tabs=document.getElementById('tabs'), grid=document.getElementById('menugrid');
+function showMenu(k){grid.innerHTML=MENU[k].map(([n,d,p])=>`<div class="item"><div><span class="n">${n}</span>${d?`<span class="d">${d}</span>`:''}</div><span class="p">$${p}</span></div>`).join('');[...tabs.children].forEach(b=>b.classList.toggle('on',b.textContent===k));}
+Object.keys(MENU).forEach(k=>{const b=document.createElement('button');b.className='tab';b.textContent=k;b.onclick=()=>showMenu(k);tabs.appendChild(b)});showMenu('Reds');
+
+/* hours + open now (Central time) */
+const ct=new Date(new Date().toLocaleString('en-US',{timeZone:'America/Chicago'}));
+const day=ct.getDay(), h=ct.getHours()+ct.getMinutes()/60;
+const sched={3:[15,21],4:[15,21],5:[15,23],6:[15,23]};
+const open=sched[day]&&h>=sched[day][0]&&h<sched[day][1];
+document.getElementById('opendot').classList.toggle('on',!!open);
+document.getElementById('openlbl').textContent=open?`Open now · until ${sched[day][1]-12} PM`:'Whiskey & Wine Bar · Alabaster';
+const rows=[["Wednesday",3],["Thursday",4],["Friday",5],["Saturday",6],["Sunday",0],["Monday",1],["Tuesday",2]];
+document.getElementById('hours').innerHTML=rows.map(([n,d])=>`<tr class="${d===day?'today':''}"><td>${n}</td><td>${sched[d]?`3 – ${sched[d][1]-12} PM`:'Closed'}</td></tr>`).join('');
+
+/* chat */
+const chat=document.getElementById('wb-chat'), msgs=document.getElementById('wb-msgs'), quick=document.getElementById('wb-quick'), inp=document.getElementById('wb-in');
+let started=false, lead=null;
+function add(t,who){const d=document.createElement('div');d.className='m '+who;d.textContent=t;msgs.appendChild(d);msgs.scrollTop=1e6;}
+function setQ(arr){quick.innerHTML='';(arr||[]).forEach(q=>{const b=document.createElement('button');b.textContent=q;b.onclick=()=>handle(q);quick.appendChild(b)});}
+function toggleChat(){chat.classList.toggle('on');if(!started){started=true;add(KB.greeting,'bot');setQ(["Hours","Live music?","Private party","Wine list"]);}if(chat.classList.contains('on'))setTimeout(()=>inp.focus(),50);}
+function openChat(q){if(!chat.classList.contains('on'))toggleChat();handle(q);}
+function startLead(reason){lead={step:'name',reason};add("Happy to help. What's your name?",'bot');setQ([]);}
+function handle(t){
+  add(t,'me'); const s=t.toLowerCase();
+  setTimeout(()=>{
+    if(lead){
+      if(lead.step==='name'){lead.name=t.trim();lead.step='phone';add(`Thanks, ${lead.name}! What's the best phone number for the team to call?`,'bot');return;}
+      if(lead.step==='phone'){const dg=t.replace(/\D/g,'');if(dg.length<10){add("Could you double-check that number? I need all 10 digits.",'bot');return;}lead.phone=dg;lead.step='details';add("Got it. Anything the team should know (date, party size, what you're planning)?",'bot');return;}
+      if(lead.step==='details'){lead.details=t;const p=lead.phone.slice(-10);add(`Perfect. ${lead.name}, the team will call you at (${p.slice(0,3)}) ${p.slice(3,6)}-${p.slice(6)}${/sun|mon|tue/.test(['sun','mon','tue','wed','thu','fri','sat'][day])?' when we open Wednesday':' soon'}. Cheers! 🥂 (Demo: in the live version this goes straight to the owners' phones.)`,'bot');lead=null;setQ(["Hours","Wine list"]);return;}
+    }
+    if(s==='open directions'){window.open('https://www.google.com/maps/dir/?api=1&destination=The+Wine+Bunker+81+Weatherly+Club+Dr+Alabaster+AL+35007','_blank');add("Opening directions in a new tab. See you soon!",'bot');return;}
+    if(/request a callback|notify me|private party|book a private|start planning/.test(s)){startLead(s);return;}
+    if(/^(see cocktails|wine list|food)$/.test(s)){const k=s==='see cocktails'?'Cocktails':s==='wine list'?'Reds':'Bites';showMenu(k);document.getElementById('menu').scrollIntoView();}
+    const e=KB.entries.find(x=>x.k.test(s));
+    if(e){add(e.a,'bot');setQ(e.q);if(/private|party|reserv|book the|group|birthday/.test(s)&&!/hour/.test(s)){setQ(["Request a callback"]);}}
+    else{add(KB.fallback,'bot');lead={step:'name'};}
+  },350);
+}
+function send(){const t=inp.value.trim();if(!t)return;inp.value='';handle(t);}
+</script>
+
+<script type="module">
+import Vapi from "https://esm.sh/@vapi-ai/web@2.3.10";
+const PUBLIC_KEY = "8126359c-d121-47eb-855d-7167d44e6f88";
+const ASSISTANT_ID = "dea2ff86-9283-4ddd-971b-42654b5f7617";
+const vapi = new Vapi(PUBLIC_KEY);
+const btn = document.getElementById('wb-voice-btn'), label = document.getElementById('wb-voice-label');
+const panel = document.getElementById('wb-call'), orb = document.getElementById('vorb'), vstatus = document.getElementById('vstatus');
+let live = false, starting = false;
+btn.addEventListener('click', async () => {
+  if (starting || live) return;
+  starting = true; label.textContent = 'Connecting…'; panel.classList.add('on'); vstatus.textContent = 'Connecting…';
+  try {
+    await vapi.start(ASSISTANT_ID, {
+      firstMessage: "Hey there, thanks for calling The Wine Bunker! I'm the host. I can help with hours, live music, wine dinners or booking a private party. What can I do for you?",
+      voice: { provider: "11labs", voiceId: "EXAVITQu4vr4xnSDxMaL" }
+    });
+  } catch (e) { vstatus.textContent = 'Could not start (allow microphone?)'; starting = false; label.textContent = 'Talk to our host'; }
+});
+vapi.on('call-start', () => {
+  live = true; starting = false; vstatus.textContent = "You're connected, go ahead"; orb.classList.add('live'); label.textContent = 'On call…';
+  try { vapi.send({ type: 'add-message', message: { role: 'system', content: 'IMPORTANT: For this entire call you are ONLY the host and receptionist for The Wine Bunker. Ignore any other company identity or name. ' + window.KB.prompt }, triggerResponseEnabled: false }); } catch (x) {}
+});
+vapi.on('speech-start', () => { vstatus.textContent = 'Host is speaking…'; });
+vapi.on('speech-end', () => { if (live) vstatus.textContent = 'Listening…'; });
+vapi.on('call-end', () => { live = false; starting = false; panel.classList.remove('on'); orb.classList.remove('live'); label.textContent = 'Talk to our host'; });
+vapi.on('error', () => { vstatus.textContent = 'Call error, try again'; starting = false; label.textContent = 'Talk to our host'; });
+document.getElementById('wb-hang').addEventListener('click', () => { try { vapi.stop(); } catch (x) {} panel.classList.remove('on'); label.textContent = 'Talk to our host'; });
+</script>
+<!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "58d539f11ece436da2c2a887479d7c37"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

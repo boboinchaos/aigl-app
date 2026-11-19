@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (GA4, AIGL web) -->
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-5DMQ4M3S"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Build Recorder | AIGL</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0D1117;--bg2:#161C24;--line:#2B3440;--ink:#F2F5F0;--soft:#B4C1B9;--green:#2EE08A;--blue:#33B5FF;--red:#E23A34}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,Arial,sans-serif}
+.wrap{max-width:560px;margin:0 auto;padding:24px 18px 40px}
+header{display:flex;justify-content:space-between;align-items:center}
+.logo{display:inline-flex;flex-direction:column;align-items:center;line-height:1.05;text-decoration:none}
+.logo b{font:700 20px "Space Grotesk",Arial,sans-serif;color:var(--ink)}.logo i{font:700 11px "Space Grotesk",Arial;font-style:normal;letter-spacing:2.5px;text-transform:uppercase;color:var(--green)}
+.pill{border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12px;color:var(--green);font-weight:600;letter-spacing:1px;text-transform:uppercase}
+h1{font:700 32px/1.1 "Space Grotesk",Arial,sans-serif;margin:26px 0 6px}
+.lede{color:var(--soft);margin:0 0 20px}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:14px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 0}
+.row label{display:flex;align-items:center;gap:10px;cursor:pointer}
+input[type=checkbox]{width:20px;height:20px;accent-color:var(--green)}
+input[type=text]{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:10px 12px;font:inherit}
+.small{font-size:13px;color:var(--soft)}
+button{font:700 16px Inter,Arial;border:0;border-radius:14px;padding:14px 20px;cursor:pointer}
+.go{background:var(--green);color:#0D1117;width:100%;font-size:18px;padding:18px}
+.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.stop{background:var(--red);color:#fff}
+.btns{display:flex;gap:10px;flex-wrap:wrap}.btns button{flex:1}
+.live{display:none}
+.clock{font:700 54px "Space Grotesk",Arial;text-align:center;letter-spacing:2px}
+.dot{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--red);margin-right:10px;animation:blink 1.2s infinite;vertical-align:middle}
+.paused .dot{animation:none;background:var(--soft)}
+@keyframes blink{50%{opacity:.25}}
+.stat{text-align:center;color:var(--soft);font-size:14px;margin-bottom:14px}
+video{width:100%;border-radius:12px;background:#000;margin-top:6px}
+ul{padding-left:18px;margin:6px 0}li{margin:3px 0}
+.done{display:none;border-color:rgba(46,224,138,.5)}
+.err{color:#FF8A80;font-size:14px;min-height:20px}
+footer{margin-top:24px;text-align:center;font-size:13px;color:var(--soft)}footer a{color:var(--soft)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><a class="logo" href="https://aigl.dev"><b>AIGL</b><i>Go Long</i></a><span class="pill">Build Recorder</span></header>
+
+<h1>Record the build</h1>
+<p class="lede">Records your screen and saves the video straight to a folder on your computer while you work. Nothing is uploaded anywhere.</p>
+
+<div id="setup">
+  <div class="card">
+    <div class="row"><b>Save videos to</b><button class="ghost" id="pickBtn" style="padding:8px 14px;font-size:14px">Choose folder</button></div>
+    <div class="small" id="folderLbl">No folder picked. Pick one so the video saves as you go (safest for long sessions).</div>
+  </div>
+  <div class="card">
+    <div class="row"><label><input type="checkbox" id="optMic" checked> Record my mic (talk while you build)</label></div>
+    <div class="row"><label><input type="checkbox" id="optSys" checked> Record computer sound</label></div>
+    <div class="small">When Chrome asks what to share, pick <b>Entire screen</b> and tick <b>Also share system audio</b>.</div>
+    <div style="margin-top:12px"><input type="text" id="title" placeholder="What are we building? (goes in the file name)"></div>
+  </div>
+  <button class="go" id="startBtn">● Start recording</button>
+  <div class="err" id="err"></div>
+</div>
+
+<div class="live" id="live">
+  <div class="card" id="liveCard">
+    <div class="clock"><span class="dot"></span><span id="clock">00:00:00</span></div>
+    <div class="stat" id="stat">Saving…</div>
+    <div class="btns">
+      <button class="ghost" id="markBtn">★ Mark moment</button>
+      <button class="ghost" id="pauseBtn">Pause</button>
+      <button class="stop" id="stopBtn">■ Stop & save</button>
+    </div>
+    <div class="small" style="margin-top:10px">Hit <b>Mark moment</b> (or press <b>M</b> on this tab) when something good happens. The times save in a notes file next to the video so the edit is easy.</div>
+  </div>
+</div>
+
+<div class="card done" id="done">
+  <b>Saved ✔</b>
+  <div class="small" id="doneLbl"></div>
+  <video id="playback" controls></video>
+  <div id="marksOut"></div>
+  <button class="go" id="againBtn" style="margin-top:12px">Record another</button>
+</div>
+
+<footer>AIGL · <a href="https://aigl.dev">aigl.dev</a> · Works best in Chrome or Edge on a computer.</footer>
+</div>
+
+<script>
+(function(){
+var $=function(id){return document.getElementById(id)};
+var dirHandle=null, writable=null, fileName='', chunks=[], rec=null, streams=[], audioCtx=null;
+var startT=0, pausedMs=0, pauseAt=0, timer=null, bytes=0, marks=[], mime='', ext='webm';
+
+function track(ev,d){try{window.gtag&&gtag('event',ev,d||{})}catch(e){}}
+
+// Remember the folder between visits (Chrome keeps the handle in IndexedDB)
+function idb(){return new Promise(function(res,rej){var r=indexedDB.open('aigl-recorder',1);r.onupgradeneeded=function(){r.result.createObjectStore('kv')};r.onsuccess=function(){res(r.result)};r.onerror=rej})}
+function kvSet(k,v){return idb().then(function(db){return new Promise(function(res){var t=db.transaction('kv','readwrite');t.objectStore('kv').put(v,k);t.oncomplete=res})})}
+function kvGet(k){return idb().then(function(db){return new Promise(function(res){var r=db.transaction('kv').objectStore('kv').get(k);r.onsuccess=function(){res(r.result)};r.onerror=function(){res(null)}})})}
+
+function showFolder(){ $('folderLbl').textContent = dirHandle ? 'Saving to folder: '+dirHandle.name : 'No folder picked. The video will download when you stop.'; }
+
+if(!window.showDirectoryPicker){ $('pickBtn').style.display='none'; $('folderLbl').textContent='This browser can\'t save to a folder directly, so the video downloads when you stop. (Use Chrome or Edge for save-as-you-go.)'; }
+else { kvGet('dir').then(function(h){ if(h){dirHandle=h; showFolder();} }).catch(function(){}); }
+
+$('pickBtn').onclick=function(){
+  window.showDirectoryPicker({id:'aigl-recordings',mode:'readwrite',startIn:'videos'}).then(function(h){dirHandle=h;kvSet('dir',h);showFolder();}).catch(function(){});
+};
+
+function pad(n){return String(n).padStart(2,'0')}
+function stamp(){var d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+' '+pad(d.getHours())+pad(d.getMinutes())}
+function hms(ms){var s=Math.floor(ms/1000);return pad(Math.floor(s/3600))+':'+pad(Math.floor(s%3600/60))+':'+pad(s%60)}
+function elapsed(){return (rec&&rec.state==='paused'?pauseAt:Date.now())-startT-pausedMs}
+function mb(b){return b>1e9?(b/1e9).toFixed(2)+' GB':(b/1e6).toFixed(1)+' MB'}
+function clean(s){return (s||'').replace(/[\\/:*?"<>|]+/g,'').trim().slice(0,60)}
+
+function pickMime(){
+  var list=['video/mp4;codecs=avc1.640028,mp4a.40.2','video/mp4;codecs=avc1,mp4a.40.2','video/mp4','video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'];
+  for(var i=0;i<list.length;i++){ if(MediaRecorder.isTypeSupported(list[i])) return list[i]; }
+  return '';
+}
+
+function start(){
+  $('err').textContent='';
+  var wantMic=$('optMic').checked, wantSys=$('optSys').checked;
+  navigator.mediaDevices.getDisplayMedia({video:{frameRate:30,width:{ideal:1920},height:{ideal:1080}},audio:wantSys,systemAudio:'include',selfBrowserSurface:'exclude',surfaceSwitching:'include'})
+  .then(function(screen){
+    streams.push(screen);
+    var micP = wantMic ? navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}}).catch(function(){ $('err').textContent='Mic blocked, recording without it.'; return null; }) : Promise.resolve(null);
+    return micP.then(function(mic){
+      if(mic) streams.push(mic);
+      var tracks=[screen.getVideoTracks()[0]];
+      var aud=[]; if(screen.getAudioTracks().length) aud.push(screen); if(mic) aud.push(mic);
+      if(aud.length===1){ tracks.push(aud[0].getAudioTracks()[0]); }
+      else if(aud.length>1){
+        audioCtx=new AudioContext(); var dest=audioCtx.createMediaStreamDestination();
+        aud.forEach(function(s){ audioCtx.createMediaStreamSource(s).connect(dest); });
+        tracks.push(dest.stream.getAudioTracks()[0]);
+      }
+      screen.getVideoTracks()[0].onended=function(){ if(rec&&rec.state!=='inactive') stop(); };
+      return begin(new MediaStream(tracks));
+    });
+  })
+  .catch(function(e){ if(e&&e.name!=='NotAllowedError') $('err').textContent='Could not start: '+(e.message||e); });
+}
+
+function begin(stream){
+  mime=pickMime(); ext=mime.indexOf('mp4')>-1?'mp4':'webm';
+  var t=clean($('title').value); fileName='AIGL build '+stamp()+(t?' - '+t:'')+'.'+ext;
+  marks=[]; chunks=[]; bytes=0; pausedMs=0;
+  var open = Promise.resolve();
+  if(dirHandle){
+    open = dirHandle.queryPermission({mode:'readwrite'}).then(function(p){ return p==='granted'?p:dirHandle.requestPermission({mode:'readwrite'}); })
+      .then(function(p){ if(p!=='granted') throw 0; return dirHandle.getFileHandle(fileName,{create:true}); })
+      .then(function(fh){ return fh.createWritable(); }).then(function(w){ writable=w; })
+      .catch(function(){ writable=null; });
+  }
+  return open.then(function(){
+    rec=new MediaRecorder(stream,{mimeType:mime||undefined,videoBitsPerSecond:6000000,audioBitsPerSecond:128000});
+    var q=Promise.resolve();
+    rec.ondataavailable=function(e){
+      if(!e.data||!e.data.size) return;
+      bytes+=e.data.size;
+      if(writable){ var d=e.data; q=q.then(function(){ return writable.write(d); }).catch(function(){ chunks.push(d); }); }
+      else chunks.push(e.data);
+    };
+    rec.onstop=function(){ q.then(finish); };
+    rec.start(2000);
+    startT=Date.now();
+    $('setup').style.display='none'; $('done').style.display='none'; $('live').style.display='block';
+    $('liveCard').classList.remove('paused'); $('pauseBtn').textContent='Pause';
+    timer=setInterval(tick,500); tick();
+    track('recorder_start',{to_folder:!!writable});
+  });
+}
+
+function tick(){
+  $('clock').textContent=hms(elapsed());
+  $('stat').textContent=(rec&&rec.state==='paused'?'Paused · ':'')+mb(bytes)+(writable?' saved to '+dirHandle.name+' as you go':' (saves when you stop)')+(marks.length?' · '+marks.length+' marks':'');
+}
+
+function mark(){ if(!rec||rec.state==='inactive') return; var n=prompt('Note for this moment (optional):','')||''; marks.push(hms(elapsed())+'  '+n); tick(); }
+
+function pause(){
+  if(!rec) return;
+  if(rec.state==='recording'){ rec.pause(); pauseAt=Date.now(); $('pauseBtn').textContent='Resume'; $('liveCard').classList.add('paused'); }
+  else if(rec.state==='paused'){ pausedMs+=Date.now()-pauseAt; rec.resume(); $('pauseBtn').textContent='Pause'; $('liveCard').classList.remove('paused'); }
+  tick();
+}
+
+function stop(){
+  if(!rec||rec.state==='inactive') return;
+  if(rec.state==='paused'){ pausedMs+=Date.now()-pauseAt; }
+  var dur=hms(elapsed()); rec._dur=dur;
+  rec.stop(); clearInterval(timer);
+  streams.forEach(function(s){ s.getTracks().forEach(function(t){t.stop()}) }); streams=[];
+  if(audioCtx){ audioCtx.close(); audioCtx=null; }
+}
+
+function finish(){
+  var dur=rec._dur, notes='AIGL build recording\nFile: '+fileName+'\nLength: '+dur+'\n\nMarked moments:\n'+(marks.length?marks.join('\n'):'(none)')+'\n';
+  var done=Promise.resolve(), where='';
+  if(writable){
+    done = writable.close().then(function(){
+      where='Saved in your "'+dirHandle.name+'" folder';
+      return dirHandle.getFileHandle(fileName,{create:false}).then(function(fh){return fh.getFile()}).then(function(f){ $('playback').src=URL.createObjectURL(f); });
+    }).then(function(){
+      if(!marks.length) return;
+      return dirHandle.getFileHandle(fileName.replace(/\.\w+$/,' - notes.txt'),{create:true}).then(function(h){return h.createWritable()}).then(function(w){return w.write(notes).then(function(){return w.close()})});
+    }).catch(function(){});
+  } else {
+    var blob=new Blob(chunks,{type:mime||'video/webm'}); var url=URL.createObjectURL(blob);
+    $('playback').src=url; dl(url,fileName);
+    if(marks.length) dl(URL.createObjectURL(new Blob([notes],{type:'text/plain'})),fileName.replace(/\.\w+$/,' - notes.txt'));
+    where='Downloaded to your Downloads folder';
+  }
+  done.then(function(){
+    $('live').style.display='none'; $('done').style.display='block';
+    $('doneLbl').textContent=where+': '+fileName+' ('+dur+', '+mb(bytes)+')';
+    $('marksOut').innerHTML = marks.length ? '<div class="small" style="margin-top:10px"><b>Marked moments</b> (also saved as a notes file)</div><ul class="small">'+marks.map(function(m){return '<li>'+m.replace(/</g,'&lt;')+'</li>'}).join('')+'</ul>' : '';
+    writable=null; chunks=[];
+    track('recorder_stop',{seconds:Math.round(elapsed()/1000)});
+  });
+}
+
+function dl(url,name){ var a=document.createElement('a'); a.href=url; a.download=name; document.body.appendChild(a); a.click(); a.remove(); }
+
+$('startBtn').onclick=start; $('stopBtn').onclick=stop; $('pauseBtn').onclick=pause; $('markBtn').onclick=mark;
+$('againBtn').onclick=function(){ $('done').style.display='none'; $('setup').style.display='block'; $('title').value=''; };
+document.addEventListener('keydown',function(e){ if((e.key==='m'||e.key==='M')&&rec&&rec.state!=='inactive'&&document.activeElement.tagName!=='INPUT') mark(); });
+window.addEventListener('beforeunload',function(e){ if(rec&&rec.state!=='inactive'){ e.preventDefault(); e.returnValue=''; } });
+})();
+</script>
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','2107887133449610');fbq('track','PageView');
+</script>
+</body>
+</html>

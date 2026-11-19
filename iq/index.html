@@ -271,7 +271,8 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
     <div class="promo">
       <p class="promo-q">Need to train your staff?</p>
       <p class="promo-q">Want to integrate AI into your business?</p>
-      <div class="askw promo-btn"><a class="ask" id="bookAsk" href="/talk/?from=iq">
+      <div class="askw promo-btn"><div class="ask-wrap">
+<button class="ask" id="askBtn" type="button" aria-expanded="false" aria-controls="askPanel">
           <span class="runner-trail" aria-hidden="true"><span class="trail-body"></span></span>
           <span class="runner" aria-hidden="true">
             <span class="runner-body">
@@ -286,8 +287,15 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
               </svg>
             </span>
           </span>
-          <span class="ask-label"><span class="ask-full">Book a free 30-minute discovery call. Click here</span><span class="ask-short">Free discovery call &rarr;</span></span>
-        </a></div>
+          <span class="ask-label"><span class="ask-full">Click here</span><span class="ask-short">Click here</span></span>
+        </button>
+        <div class="ask-panel" id="askPanel" hidden>
+          <strong>Talk to us right now. It's free.</strong>
+          <a href="/talk/?from=iq" id="bookAsk">&#127897;&#65039; Talk to Morpheus, our AI interviewer (about 20 min)</a>
+          <a href="tel:+12052038377">&#128222; Call (205) 203-8377, answered 24/7</a>
+          <a href="/book/?from=iq" target="_blank" rel="noopener">&#128197; Pick a time with an AIGL Guru</a>
+        </div>
+</div></div>
     </div>
 
   </section>
@@ -421,31 +429,7 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
   </section>
   </main>
 
-<div class="askw"><div class="ask-wrap">
-<button class="ask" id="askBtn" type="button" aria-expanded="false" aria-controls="askPanel">
-          <span class="runner-trail" aria-hidden="true"><span class="trail-body"></span></span>
-          <span class="runner" aria-hidden="true">
-            <span class="runner-body">
-              <svg viewBox="0 0 40 48">
-                <g class="limb arm-b"><path class="mass" d="M21 15 L14 21 L10 27"/><path class="core" d="M21 15 L14 21 L10 27"/></g>
-                <g class="limb leg-b"><path class="mass" d="M21 28 L15 36 L7 39"/><path class="core" d="M21 28 L15 36 L7 39"/></g>
-                <path class="torso" d="M18.5 13.5 Q25.5 9.5 32.5 13 Q31 19 27 22 Q26 26 25.5 28.5 Q22 30.5 18.5 28 Q19.5 24 18 20 Q17 16 18.5 13.5 Z"/>
-                <path class="core" d="M25 13 L22.5 28"/>
-                <circle class="head" cx="28.5" cy="7" r="4.6"/>
-                <g class="limb leg-a"><path class="mass" d="M22.5 28 L31 31.5 L30 41.5"/><path class="core" d="M22.5 28 L31 31.5 L30 41.5"/></g>
-                <g class="limb arm-a"><path class="mass" d="M29.5 15 L34.5 22 L38.5 17.5"/><path class="core" d="M29.5 15 L34.5 22 L38.5 17.5"/></g>
-              </svg>
-            </span>
-          </span>
-          <span class="ask-label"><span class="ask-full">Got a quick question? Click here</span><span class="ask-short">Quick question?</span></span>
-        </button>
-        <div class="ask-panel" id="askPanel" hidden>
-          <strong>Talk to us right now.</strong>
-          Our AI agent answers 24/7 and can connect you with an AIGL Guru.
-          <a href="tel:+12052038377">&#128222; Call (205) 203-8377</a>
-          <a href="/book/?from=iq" target="_blank" rel="noopener">&#128197; Book a free 30-minute discovery call</a>
-        </div>
-</div></div>
+
   <footer style="text-align:center">
     <a class="brandmark" href="https://aigl.dev/" aria-label="AIGL, AI Go Long"><b>AIGL</b><i>Go Long</i></a>
     <div><a class="siteurl" href="https://aigl.dev/">aigl.dev</a></div>

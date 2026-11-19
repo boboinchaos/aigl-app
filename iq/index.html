@@ -146,6 +146,84 @@ footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-si
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--bg3);border:1px solid var(--line);color:var(--ink);padding:12px 16px;border-radius:12px;font-size:15px;display:none;z-index:9;max-width:92vw}
 @media (min-width:700px){.wrap{padding-top:32px}.cta .row{flex-direction:row}}
 [tabindex="-1"]:focus{outline:none}
+
+/* AIGL running-man agent button (same as aigl.dev) */
+.askw{--glow:#33B5FF;--text:#F2F5F0;--muted:#B4C1B9;--bh:58px;display:flex;justify-content:center;margin:34px 0 18px}
+  .ask-short{display:none}
+  @media (max-width:640px){
+
+    .ask{font-size:.8rem;padding:0 1.15rem!important;min-height:var(--bh)!important}
+    .runner,.runner-trail{transform:scale(.78)}
+  }
+  @media (max-width:480px){
+
+    
+    .ask{font-size:.66rem;padding:0 .75rem!important}
+    .ask-full{display:none}.ask-short{display:inline}
+    .runner,.runner-trail{transform:scale(.55)}
+  }
+
+  /* agent button (placeholder for the VAPI agent) */
+  .ask-wrap{position:relative}
+  .ask{position:relative;overflow:hidden;display:inline-flex;align-items:center;font:inherit;font-weight:600;font-size:.92rem;color:#F2FAFF;cursor:pointer;
+    background:linear-gradient(180deg,#145C9C,#0A2F57);border:0;border-radius:999px;padding:1.05rem 1.7rem;min-height:58px;
+    box-shadow:0 0 0 1px rgba(127,211,255,.55) inset,0 0 26px -4px var(--glow);animation:askglow 2.6s ease-in-out infinite}
+  .ask:hover{box-shadow:0 0 0 1px rgba(191,239,255,.85) inset,0 0 36px 0 var(--glow)}
+  .ask-label{position:relative;z-index:2;white-space:nowrap;text-shadow:0 1px 3px rgba(2,16,28,.9),0 0 10px rgba(2,16,28,.6)}
+  @keyframes askglow{0%,100%{box-shadow:0 0 0 1px rgba(127,211,255,.5) inset,0 0 18px -6px var(--glow)}50%{box-shadow:0 0 0 1px rgba(127,211,255,.7) inset,0 0 34px 0 var(--glow)}}
+
+  /* fiber-optic sprinter inside the button */
+  .runner,.runner-trail{position:absolute;top:50%;left:10px;margin-top:-24px;width:40px;height:48px;pointer-events:none;
+    animation:run-x 3.2s linear infinite}
+  .runner{z-index:3}
+  .runner-trail{z-index:1}
+  .runner-body,.trail-body{position:absolute;inset:0;animation:run-flip 3.2s linear infinite}
+  /* speed flash: glow plus streak lines, drawn behind the text */
+  .trail-body::before{content:"";position:absolute;right:45%;top:18%;width:150px;height:64%;border-radius:999px 0 0 999px;
+    background:linear-gradient(to left,rgba(191,239,255,.75),rgba(51,181,255,.4) 25%,rgba(51,181,255,.1) 65%,transparent);filter:blur(4px)}
+  .trail-body::after{content:"";position:absolute;right:40%;top:12%;width:170px;height:76%;
+    background-image:linear-gradient(to left,#F2FCFF,rgba(127,211,255,.6) 40%,transparent),
+      linear-gradient(to left,#F2FCFF,rgba(127,211,255,.5) 35%,transparent),
+      linear-gradient(to left,#F2FCFF,rgba(127,211,255,.6) 45%,transparent),
+      linear-gradient(to left,#BFEFFF,rgba(127,211,255,.4) 30%,transparent);
+    background-size:120px 2px,90px 2px,160px 2px,70px 1.5px;
+    background-position:right 18%,right 42%,right 64%,right 88%;background-repeat:no-repeat;
+    filter:drop-shadow(0 0 3px #33B5FF);animation:flicker .18s steps(2) infinite}
+  @keyframes flicker{50%{opacity:.75}}
+  .runner svg{display:block;width:40px;height:48px;overflow:visible;filter:drop-shadow(0 0 2px #BFEFFF) drop-shadow(0 0 8px #33B5FF)}
+  .runner .mass{fill:none;stroke:rgba(70,190,255,.7);stroke-width:6.6;stroke-linecap:round;stroke-linejoin:round}
+  .runner .core{fill:none;stroke:#E6FAFF;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:2.4 1.8;animation:fiber-flow .45s linear infinite}
+  .runner .torso{fill:rgba(51,181,255,.4);stroke:#BFEFFF;stroke-width:1.6;stroke-linejoin:round}
+  .runner .head{fill:rgba(51,181,255,.4);stroke:#E6FAFF;stroke-width:1.6}
+  .limb{transform-box:view-box}
+  .arm-a{transform-origin:29.5px 15px}
+  .arm-b{transform-origin:21px 15px}
+  .leg-a{transform-origin:22.5px 28px}
+  .leg-b{transform-origin:21px 28px}
+  .arm-a,.leg-b{animation:swing-a .2s ease-in-out infinite alternate}
+  .arm-b,.leg-a{animation:swing-b .2s ease-in-out infinite alternate}
+  @keyframes swing-a{from{transform:rotate(-34deg)}to{transform:rotate(26deg)}}
+  @keyframes swing-b{from{transform:rotate(26deg)}to{transform:rotate(-34deg)}}
+  @keyframes fiber-flow{to{stroke-dashoffset:-4.2}}
+  @keyframes run-x{0%{left:10px}50%{left:calc(100% - 50px)}100%{left:10px}}
+  @keyframes run-flip{0%,49.99%{transform:scaleX(1)}50%,100%{transform:scaleX(-1)}}
+  @media (prefers-reduced-motion:reduce){
+    .ask,.runner,.runner-trail,.runner-body,.trail-body,.runner .core,.limb{animation:none}
+    .runner-trail{display:none}
+  }
+  .ask-panel{position:absolute;left:0;top:calc(100% + .7rem);width:min(300px,86vw);padding:1rem 1.1rem;font-size:.9rem;color:var(--muted);z-index:10;background-color:rgba(8,14,22,.92)}
+  .ask-panel strong{display:block;color:var(--text);margin-bottom:.25rem}
+  @media (max-width:720px){.ask-panel{right:50%;transform:translateX(50%)}}
+.askw .ask-wrap{display:flex;flex-direction:column;align-items:center}
+.askw .ask-panel{position:static;transform:none;margin-top:.8rem;border:1px solid rgba(127,211,255,.35);border-radius:14px;text-align:left}
+.ask-panel a{display:block;margin-top:.55rem;color:#BFEFFF;font-weight:600;text-decoration:none}
+.ask-panel a:hover{text-decoration:underline}
+.brandmark{display:inline-flex;flex-direction:column;align-items:center;line-height:1.05;text-decoration:none;margin-top:6px}
+.brandmark b{font:700 22px "Space Grotesk",Arial,sans-serif;letter-spacing:.5px;color:var(--ink)}
+.brandmark i{font:700 12px "Space Grotesk",Arial,sans-serif;font-style:normal;letter-spacing:2.5px;text-transform:uppercase;color:var(--green)}
+.entertain{margin:10px 0 0;font-size:12.5px;color:var(--soft);text-align:center}
+
 </style>
 <!-- Meta Pixel (AIGL Website dataset) -->
 <script>
@@ -182,6 +260,7 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
     </ul>
 
     <button class="btn" id="startBtn" type="button">Start my free AI IQ Test &rarr;</button>
+    <p class="entertain">For entertainment purposes only.</p>
 
   </section>
 
@@ -314,10 +393,40 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
   </section>
   </main>
 
-  <footer>
-    AI Go Long &middot; <a href="https://aigl.dev/">aigl.dev</a><br>
-    A quick self-check to help you plan, not professional advice.
+<div class="askw"><div class="ask-wrap">
+<button class="ask" id="askBtn" type="button" aria-expanded="false" aria-controls="askPanel">
+          <span class="runner-trail" aria-hidden="true"><span class="trail-body"></span></span>
+          <span class="runner" aria-hidden="true">
+            <span class="runner-body">
+              <svg viewBox="0 0 40 48">
+                <g class="limb arm-b"><path class="mass" d="M21 15 L14 21 L10 27"/><path class="core" d="M21 15 L14 21 L10 27"/></g>
+                <g class="limb leg-b"><path class="mass" d="M21 28 L15 36 L7 39"/><path class="core" d="M21 28 L15 36 L7 39"/></g>
+                <path class="torso" d="M18.5 13.5 Q25.5 9.5 32.5 13 Q31 19 27 22 Q26 26 25.5 28.5 Q22 30.5 18.5 28 Q19.5 24 18 20 Q17 16 18.5 13.5 Z"/>
+                <path class="core" d="M25 13 L22.5 28"/>
+                <circle class="head" cx="28.5" cy="7" r="4.6"/>
+                <g class="limb leg-a"><path class="mass" d="M22.5 28 L31 31.5 L30 41.5"/><path class="core" d="M22.5 28 L31 31.5 L30 41.5"/></g>
+                <g class="limb arm-a"><path class="mass" d="M29.5 15 L34.5 22 L38.5 17.5"/><path class="core" d="M29.5 15 L34.5 22 L38.5 17.5"/></g>
+              </svg>
+            </span>
+          </span>
+          <span class="ask-label"><span class="ask-full">Got a quick question? Click here</span><span class="ask-short">Quick question?</span></span>
+        </button>
+        <div class="ask-panel" id="askPanel" hidden>
+          <strong>Talk to us right now.</strong>
+          Our AI agent answers 24/7 and can connect you with an AIGL Guru.
+          <a href="tel:+12052038377">&#128222; Call (205) 203-8377</a>
+          <a href="/book/?from=iq" target="_blank" rel="noopener">&#128197; Book a free 30-minute discovery call</a>
+        </div>
+</div></div>
+  <footer style="text-align:center">
+    <a class="brandmark" href="https://aigl.dev/" aria-label="AIGL, AI Go Long"><b>AIGL</b><i>Go Long</i></a>
   </footer>
+<script>
+(function(){var b=document.getElementById("askBtn"),p=document.getElementById("askPanel");if(!b||!p)return;
+b.addEventListener("click",function(e){e.stopPropagation();var o=p.hidden;p.hidden=!o;b.setAttribute("aria-expanded",String(o));if(o&&window.gtag)gtag("event","agent_button_open",{page:"iq"});});
+document.addEventListener("click",function(e){if(!p.hidden&&!p.contains(e.target)){p.hidden=true;b.setAttribute("aria-expanded","false");}});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){p.hidden=true;b.setAttribute("aria-expanded","false");}});})();
+</script>
 </div>
 <div class="toast" id="toast" role="status"></div>
 

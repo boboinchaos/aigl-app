@@ -26,7 +26,7 @@ window.KB = {
     { k:/where|address|location|direction|park|find you|weatherly/,
       a:"We're at 81 Weatherly Club Dr in Alabaster (Weatherly Plaza). Want me to open directions?",
       q:["Open directions","Hours"] },
-    { k:/\bage\b|21|minor|kid|child|under ?age|underage|teen|year old|yr old|\b1[0-9]\b|\b20\b|\bid\b|card/,
+    { k:/\bage\b|under 21|21 and|21\+|minor|kid|child|underage|teen|years? old|yr old|\bid\b|carded/,
       a:"We're 21 and up for alcohol, and our team checks ID. I can't approve anyone under 21. Bring a valid ID and you're set!",
       q:["Hours"] },
     { k:/deliver|delivery|ship|to go|takeout|take out|bottle.*home|bottles/,

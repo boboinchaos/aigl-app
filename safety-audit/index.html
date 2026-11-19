@@ -12,7 +12,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Free AI Safety Audit (5-Minute Version) | AI Go Long</title>
-<meta name="description" content="The Free AI Safety Audit, 5-minute version, for small business owners. Answer 20 quick questions and get your AI Safety Score and top fixes by email.">
+<meta name="description" content="The Free AI Safety Audit, 5-minute version, for small business owners. Answer 20 quick questions and get your AI Safety Score and top fixes.">
 <meta name="theme-color" content="#0D1117">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -217,8 +217,8 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
   <section class="screen" id="s-form">
     <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
     <p class="eyebrow">All done. Nice work.</p>
-    <h2 class="q" id="h-form" tabindex="-1">Where should we send your results?</h2>
-    <p class="help">Your score shows on the next screen. Your full results, with your top 3 fixes, come by email.</p>
+    <h2 class="q" id="h-form" tabindex="-1">Last step: who's taking the audit?</h2>
+    <p class="help">Your score and your top 3 fixes show on the next screen.</p>
     <form id="leadForm" novalidate>
       <div class="field">
         <label for="fName">First name</label>
@@ -238,8 +238,8 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
       </div>
       <div class="hp" aria-hidden="true"><label for="fWeb">Website</label><input id="fWeb" name="website" type="text" tabindex="-1" autocomplete="off"></div>
       <label class="consent" id="consentBox" for="fConsent">
-        <input id="fConsent" name="consent" type="checkbox" required>
-        <span id="consentText">Email me my results and occasional AI safety tips. Unsubscribe anytime.</span>
+        <input id="fConsent" name="consent" type="checkbox">
+        <span id="consentText">Email me occasional AI safety tips from AI Go Long. Unsubscribe anytime.</span>
       </label>
       <p class="err" id="formErr" role="alert"></p>
       <p class="fine">We never ask for passwords or customer data. We won't sell or share your info. This free audit is a quick self-review, not legal advice.</p>
@@ -265,7 +265,7 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
 
     <div class="mail">
       <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" style="flex:0 0 28px"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="#2EE08A" stroke-width="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5" fill="none" stroke="#2EE08A" stroke-width="2"/></svg>
-      <p><b>Your full results are on their way.</b> <span id="rMailNote"></span></p>
+      <p><b>Your results are saved.</b> <span id="rMailNote"></span></p>
     </div>
 
     <p class="count" style="margin:0 0 8px">Your top 3 fixes (in your email)</p>
@@ -303,12 +303,12 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
 /* ===================== CONFIG (edit these) ===================== */
 var CONFIG = {
   // Paste the Apps Script web app URL ending in /exec. While this still contains "PASTE", the page runs in demo mode.
-  BACKEND_URL: "PASTE_APPS_SCRIPT_WEB_APP_URL_HERE",
+  BACKEND_URL: "https://spam-agent.vercel.app/api/quiz",
   BOOKING_URL: "https://calendar.google.com/calendar/appointments/schedules/AcZssZ2NimZshA7XqXAeU11KVxC4PWL5CeZWcUv72uRMIWqhXS8qWj9ME8QiVft8FQxKUEoGkWzL0NM8",      // e.g. a Google Calendar booking page or Stripe link for the $497 audit
   SEMINAR_URL: "",      // e.g. the next AI Go Long Academy seminar sign-up page
   AVATAR_VIDEO_URL: "", // HeyGen MP4 URL. Leave blank to show the placeholder.
   AVATAR_POSTER_URL: "",
-  MAIL_NOTE: "Check your inbox in the next day or so (and your spam folder, just in case)."
+  MAIL_NOTE: "Screenshot or share this page to keep them."
 };
 /* =============================================================== */
 
@@ -537,6 +537,7 @@ function pick(idx, btn){
   setTimeout(next, 220);
 }
 function next(){
+  quizProgress_();
   if (state.i < QUESTIONS.length - 1){ state.i++; renderQ(); }
   else { show("s-form"); $("h-form").focus({preventScroll:true}); }
 }
@@ -633,7 +634,7 @@ function validate(){
   if (!b.value.trim()){ b.classList.add("bad"); ok=false; }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e.value.trim())){ e.classList.add("bad"); ok=false; err="Please check your email address. "; }
   if (!ok && !err) err = "Please fill in the highlighted boxes. ";
-  if (!c.checked){ $("consentBox").classList.add("bad"); ok=false; err += "Check the box so we can email your results."; }
+  // Tips by email are optional: results show either way
   $("formErr").textContent = ok ? "" : err.trim();
   return ok;
 }
@@ -644,12 +645,38 @@ function utm(){
   return o;
 }
 
+var QUIZ_ID = "safety";
+function quizSummary_(){
+  var out = {};
+  QUESTIONS.forEach(function(Q, k){
+    var a = state.answers[Q.id]; if (a === undefined || a === null) return;
+    try {
+      if (Q.type === "multi" && (!a.s || !a.s.length)) return;
+      var r = scoreAnswer_(Q, a);
+      var label = Q.type === "multi" ? a.s.map(function(i){ return tag_(Q, i); }).join(", ") : Q.opts[a][0];
+      out[Q.id] = {q: Q.q, label: label, pts: r.pts, n: k + 1};
+    } catch (e) {}
+  });
+  return out;
+}
+var QUIZ_EXTRA_ = null;
+
+/* ===== Results tracking: answers are saved as people go (so we learn from people who stop partway), then score and contact on finish ===== */
+var QUIZ_SESSION = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : (Date.now().toString(36) + Math.random().toString(36).slice(2, 12));
+function quizPost_(extra){
+  if (DEMO) return Promise.resolve({ok:true, demo:true});
+  var summary = quizSummary_(), body = {quiz: QUIZ_ID, session: QUIZ_SESSION, summary: summary, step: Object.keys(summary).length, total: QUESTIONS.length,
+    utm: utm(), page: location.href.split("#")[0], referrer: document.referrer};
+  for (var k in extra) body[k] = extra[k];
+  // text/plain skips the CORS preflight
+  return fetch(CONFIG.BACKEND_URL, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(body), keepalive:true})
+    .then(function(r){ return r.json(); });
+}
+function quizProgress_(){ quizPost_(QUIZ_EXTRA_ ? QUIZ_EXTRA_() : {}).catch(function(){}); }
 function send(){
   $("sendWarn").style.display = "none";
-  if (DEMO) return Promise.resolve({ok:true, demo:true});
-  // text/plain avoids a CORS preflight, which Apps Script web apps don't answer.
-  return fetch(CONFIG.BACKEND_URL, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(state.payload), redirect:"follow"})
-    .then(function(r){ return r.json(); })
+  var extra = {}; for (var k in state.payload) extra[k] = state.payload[k]; extra.done = true;
+  return quizPost_(extra)
     .then(function(j){ if (!j || !j.ok) throw new Error((j && j.error) || "bad response"); return j; })
     .catch(function(){ $("sendWarn").style.display = "block"; return {ok:false}; });
 }
@@ -660,7 +687,7 @@ function showResult(){
   $("rBand").textContent = r.band; $("rBand").style.background = cp.c;
   $("gArc").setAttribute("stroke", cp.c);
   $("rTitle").textContent = cp.t; $("rSub").textContent = cp.s;
-  $("rMailNote").textContent = "We're sending your full score and top 3 fixes to " + state.payload.email + ". " + CONFIG.MAIL_NOTE;
+  $("rMailNote").textContent = "Your score and top 3 fixes are below. " + CONFIG.MAIL_NOTE;
   show("s-result");
   var n = 0, target = r.score, el = $("rScore");
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -700,7 +727,7 @@ $("nextBtn").addEventListener("click", function(){ var Q = QUESTIONS[state.i]; i
 $("backBtn").addEventListener("click", function(){ if (state.i > 0){ state.i--; renderQ(); } else show("s-hero"); });
 $("formBack").addEventListener("click", function(){ state.i = QUESTIONS.length - 1; show("s-quiz"); renderQ(); });
 $("restartBtn").addEventListener("click", function(){ state = {i:0, answers:{}, payload:null, result:null}; $("leadForm").reset(); $("demoBox").style.display="none"; show("s-hero"); });
-$("retryBtn").addEventListener("click", function(){ send().then(function(j){ if (j.ok) toast("Sent. Your results are on the way."); }); });
+$("retryBtn").addEventListener("click", function(){ send().then(function(j){ if (j.ok) toast("Saved."); }); });
 
 function onLeadSubmit(e){
   if (e && e.preventDefault) e.preventDefault();
@@ -717,7 +744,7 @@ function onLeadSubmit(e){
   state.payload = {
     firstName: $("fName").value.trim(), business: $("fBiz").value.trim(),
     email: $("fEmail").value.trim(), phone: $("fPhone").value.trim(),
-    consent: true, consentText: $("consentText").textContent,
+    consent: $("fConsent").checked, consentText: $("consentText").textContent,
     answers: answers, clientScore: state.result.score,
     page: location.href.split("#")[0], referrer: document.referrer, utm: utm(), website: $("fWeb").value
   };

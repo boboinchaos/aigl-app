@@ -227,11 +227,11 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
   <section class="screen" id="s-form">
     <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
     <p class="eyebrow">All done. Nice work.</p>
-    <h2 class="q" id="h-form" tabindex="-1">Where should we send your results?</h2>
+    <h2 class="q" id="h-form" tabindex="-1">Last step: who's taking the test?</h2>
     <p class="help">Your score and the top 3 things to learn next show on the next screen.</p>
     <div class="mail" role="note">
       <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" style="flex:0 0 28px"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="#2EE08A" stroke-width="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5" fill="none" stroke="#2EE08A" stroke-width="2"/></svg>
-      <p><b>Your full results are emailed to you,</b> including what you knew and what to learn in each of the 4 areas, and what AI means for your industry.</p>
+      <p><b>Your full results show on the next screen,</b> including what you knew and the top 3 things to learn next.</p>
     </div>
     <form id="leadForm" novalidate>
       <div class="field">
@@ -252,8 +252,8 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
       </div>
       <div class="hp" aria-hidden="true"><label for="fWeb">Website</label><input id="fWeb" name="website" type="text" tabindex="-1" autocomplete="off"></div>
       <label class="consent" id="consentBox" for="fConsent">
-        <input id="fConsent" name="consent" type="checkbox" required>
-        <span id="consentText">Email me my results and occasional AI tips from AI Go Long. Unsubscribe anytime.</span>
+        <input id="fConsent" name="consent" type="checkbox">
+        <span id="consentText">Email me occasional AI tips from AI Go Long. Unsubscribe anytime.</span>
       </label>
       <p class="err" id="formErr" role="alert"></p>
       <p class="fine">We won't sell or share your info. This test is a quick self-review to help you plan, not professional advice.</p>
@@ -282,7 +282,7 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
       </div>
     </div>
 
-    <div class="warn" id="sendWarn">We couldn't reach our server just now, so your emailed results may be delayed. <button class="link" id="retryBtn" type="button" style="padding:0 4px">Try again</button></div>
+    <div class="warn" id="sendWarn">We couldn't reach our server just now, so your results may not have saved. <button class="link" id="retryBtn" type="button" style="padding:0 4px">Try again</button></div>
 
     <div class="ind" id="rInd"><h3 id="rIndH"></h3><p id="rIndP"></p></div>
 
@@ -291,7 +291,7 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
 
     <div class="mail">
       <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" style="flex:0 0 28px"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="#2EE08A" stroke-width="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5" fill="none" stroke="#2EE08A" stroke-width="2"/></svg>
-      <p><b>Your full results are on their way.</b> <span id="rMailNote"></span></p>
+      <p><b>Your results are saved.</b> <span id="rMailNote"></span></p>
     </div>
 
     <div class="cta" id="academyCta" hidden>
@@ -328,14 +328,14 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
 /* ===================== CONFIG (edit these) ===================== */
 var CONFIG = {
   // Paste the Apps Script web app URL ending in /exec. While this still contains "PASTE", the page runs in demo mode.
-  BACKEND_URL: "PASTE_APPS_SCRIPT_WEB_APP_URL_HERE",
+  BACKEND_URL: "https://spam-agent.vercel.app/api/quiz",
   SAFETY_CHECK_URL: "", // the live Free AI Safety Audit page, e.g. https://check.aigl.dev/
   BOOKING_URL: "https://calendar.google.com/calendar/appointments/schedules/AcZssZ2NimZshA7XqXAeU11KVxC4PWL5CeZWcUv72uRMIWqhXS8qWj9ME8QiVft8FQxKUEoGkWzL0NM8",      // a booking page for a call with Jason
   ACADEMY_URL: "",      // AI Go Long Academy training page (shown to Earthbound, Liftoff and In Orbit)
   SHARE_SITE: "aigl.dev", // where the "Share my rank" text points people
   AVATAR_VIDEO_URL: "", // optional HeyGen MP4. Leave blank and the video block stays hidden.
   AVATAR_POSTER_URL: "",
-  MAIL_NOTE: "Check your inbox in the next day or so (and your spam folder, just in case)."
+  MAIL_NOTE: "Screenshot or share this page to keep them."
 };
 /* =============================================================== */
 
@@ -367,7 +367,7 @@ var INDUSTRIES = [
    Option order is fixed on purpose (answers are sent as option indexes), so never shuffle it.
    Question types:
      (no type)  single choice. opts are [text, points]. Knowledge questions: the one right answer = 2,
-                every other option (ending with "Not sure") = 0. tools_count: None = 0, 1 to 3 = 1, 4 or more = 2.
+                every other option (ending with "Not sure") = 0. tools_count: None = 0, One = 1, 2 to 5 = 1, More than 5 = 2.
      "depth"    multi-select. opts are [text, level, short]. Scored by the deepest level picked:
                 none or only level 1 = 0, any level 2 (no level 3) = 1, any level 3 = 2.
                 "exclusive" is the "None of these" option: it clears every other pick.
@@ -387,7 +387,7 @@ var QUESTIONS = [
   {id:"tools_count", area:"Tools", prio:10,
    q:"Besides ChatGPT, Claude or Gemini, how many AI tools do you use for work?",
    help:"Things like AI notetakers, AI website chat, AI phone answering, Canva or Grammarly AI, AI in your CRM or bookkeeping.",
-   opts:[["None",0],["1 to 3",1],["4 or more",2]],
+   opts:[["None",0],["One",1],["2 to 5",1],["More than 5",2]],
    title:"AI is already built into everyday tools",
    learn:"Beyond chat apps, AI now shows up as meeting notetakers, website chat, phone answering, and features inside Canva, Grammarly, CRMs and bookkeeping software. Pick one task you already do every week and try the AI tool made for it."},
   {id:"ai_depth", area:"Types of AI", prio:5, type:"depth", exclusive:7, minPick:1,
@@ -723,6 +723,7 @@ function pick(idx, btn){
   advance();
 }
 function advance(){
+  quizProgress_();
   $("barFill").style.width = ((state.i+1) / QUESTIONS.length * 100) + "%";
   setTimeout(function(){
     if (state.i < QUESTIONS.length - 1){ state.i++; renderQ(); }
@@ -751,7 +752,7 @@ function validate(){
   if (!b.value.trim()){ b.classList.add("bad"); b.setAttribute("aria-invalid","true"); ok=false; }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e.value.trim())){ e.classList.add("bad"); e.setAttribute("aria-invalid","true"); ok=false; err="Please check your email address. "; }
   if (!ok && !err) err = "Please fill in the highlighted boxes. ";
-  if (!c.checked){ $("consentBox").classList.add("bad"); ok=false; err += "Check the box so we can email your results."; }
+  // Tips by email are optional: results show either way
   $("formErr").textContent = ok ? "" : err.trim();
   return ok;
 }
@@ -762,12 +763,33 @@ function utm(){
   return o;
 }
 
+var QUIZ_ID = "iq";
+function quizSummary_(){
+  var out = {};
+  QUESTIONS.forEach(function(Q, k){
+    var raw = state.answers[Q.id]; if (raw === undefined) return;
+    try { var a = normAnswer_(Q, raw); if (a === null) return; out[Q.id] = {q: Q.q, label: qLabel_(Q, a), pts: qPoints_(Q, a), n: k + 1}; } catch (e) {}
+  });
+  return out;
+}
+var QUIZ_EXTRA_ = function(){ return {industry: state.industry}; };
+
+/* ===== Results tracking: answers are saved as people go (so we learn from people who stop partway), then score and contact on finish ===== */
+var QUIZ_SESSION = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : (Date.now().toString(36) + Math.random().toString(36).slice(2, 12));
+function quizPost_(extra){
+  if (DEMO) return Promise.resolve({ok:true, demo:true});
+  var summary = quizSummary_(), body = {quiz: QUIZ_ID, session: QUIZ_SESSION, summary: summary, step: Object.keys(summary).length, total: QUESTIONS.length,
+    utm: utm(), page: location.href.split("#")[0], referrer: document.referrer};
+  for (var k in extra) body[k] = extra[k];
+  // text/plain skips the CORS preflight
+  return fetch(CONFIG.BACKEND_URL, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(body), keepalive:true})
+    .then(function(r){ return r.json(); });
+}
+function quizProgress_(){ quizPost_(QUIZ_EXTRA_ ? QUIZ_EXTRA_() : {}).catch(function(){}); }
 function send(){
   $("sendWarn").style.display = "none";
-  if (DEMO) return Promise.resolve({ok:true, demo:true});
-  // text/plain avoids a CORS preflight, which Apps Script web apps don't answer.
-  return fetch(CONFIG.BACKEND_URL, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(state.payload), redirect:"follow"})
-    .then(function(r){ return r.json(); })
+  var extra = {}; for (var k in state.payload) extra[k] = state.payload[k]; extra.done = true;
+  return quizPost_(extra)
     .then(function(j){ if (!j || !j.ok) throw new Error((j && j.error) || "bad response"); return j; })
     .catch(function(){ $("sendWarn").style.display = "block"; return {ok:false}; });
 }
@@ -796,7 +818,7 @@ function showResult(){
     li.appendChild(sp); ol.appendChild(li);
   });
   $("academyCta").hidden = !b.academy;
-  $("rMailNote").textContent = "We're sending your full results, with what you knew and what to learn in each area, to " + state.payload.email + ". " + CONFIG.MAIL_NOTE;
+  $("rMailNote").textContent = "Everything you knew and what to learn next is below. " + CONFIG.MAIL_NOTE;
   show("s-result");
   var n = 0, target = r.score, el = $("rScore");
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -859,7 +881,7 @@ $("indBack").addEventListener("click", function(){ show("s-hero"); });
 $("backBtn").addEventListener("click", function(){ if (state.i > 0){ state.i--; renderQ(); } else { show("s-industry"); renderIndustry(); } });
 $("formBack").addEventListener("click", function(){ state.i = QUESTIONS.length - 1; show("s-quiz"); renderQ(); });
 $("restartBtn").addEventListener("click", function(){ state = {i:0, industry:null, answers:{}, payload:null, result:null}; $("leadForm").reset(); $("demoBox").style.display="none"; show("s-hero"); });
-$("retryBtn").addEventListener("click", function(){ send().then(function(j){ if (j.ok) toast("Sent. Your results are on the way."); }); });
+$("retryBtn").addEventListener("click", function(){ send().then(function(j){ if (j.ok) toast("Saved."); }); });
 
 function onLeadSubmit(e){
   if (e && e.preventDefault) e.preventDefault();
@@ -873,7 +895,7 @@ function onLeadSubmit(e){
   state.payload = {
     firstName: $("fName").value.trim(), business: $("fBiz").value.trim(),
     email: $("fEmail").value.trim(), phone: $("fPhone").value.trim(),
-    consent: true, consentText: $("consentText").textContent,
+    consent: $("fConsent").checked, consentText: $("consentText").textContent,
     industry: state.industry, answers: answers, clientScore: state.result.score,
     page: location.href.split("#")[0], referrer: document.referrer, utm: utm(), website: $("fWeb").value
   };

@@ -201,9 +201,9 @@ function ans(k){const v=S[k]||{};let a=v.choice?((k==='design'?'Option ':'')+v.c
 document.getElementById('finish').onclick=async()=>{
   const btn=document.getElementById('finish');btn.disabled=true;btn.textContent='Sending…';
   const done=items.filter(i=>S[i.dataset.k].done).length;
-  for(const i of items){await post({item:i.dataset.label,answer:ans(i.dataset.k),details:(S[i.dataset.k].note||'')})}
-  if(S.notes&&S.notes.note)await post({item:'Notes',answer:'Note',details:S.notes.note});
-  await post({item:'Finished',answer:done+' of '+items.length+' done',details:items.map(i=>i.dataset.label+': '+ans(i.dataset.k)).join('\n'),finished:true});
+  const lines=items.map(i=>{const v=S[i.dataset.k]||{};return i.dataset.label+': '+ans(i.dataset.k)+(v.note?' ('+v.note+')':'')});
+  if(S.notes&&S.notes.note)lines.push('Notes: '+S.notes.note);
+  await post({item:'Finished',answer:done+' of '+items.length+' done',details:lines.join('\n'),finished:true});
   btn.disabled=false;btn.textContent='Send to Jason';toast('Sent to Jason. Thank you! 🥂')};
 
 document.getElementById('files').onchange=async e=>{

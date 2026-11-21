@@ -479,21 +479,40 @@ const FIRST = {
   wine: "Hey, I'm Brianna at The Wine Bunker. I'll add you to the wine dinner list. What's your name? And go ahead and type your email in the box below so I get it exactly right."
 };
 const INTENT = {
-  private: "The guest tapped 'Book a private event'. Collect, one at a time: date, head count, occasion or theme, name, phone number, and email (ask them to type the email in the chat box). Read it all back, then say the team will call to confirm. Do not promise the date is available.",
+  private: "The guest tapped 'Book a private event'. Collect, one at a time: date, head count, occasion or theme, name, phone number, and email (ask them to type the email in the chat box). Once you have their name, call them by first name only (\"Thanks, Jason\"), never the full name. Do not assume the caller is the guest of honor and do not congratulate them; if it fits, ask warmly whose celebration it is. Read it all back briefly, then say the team will call to confirm. Do not promise the date is available.",
   wine: "The guest tapped 'Notify me of wine dinners'. Get their name and email (ask them to type the email in the chat box). Confirm and say they'll hear about the next wine dinner first."
 };
 let curIntent = '', convo = [];
-const VOICES = { rachel: "21m00Tcm4TlvDq8ikWAM", grace: "oWAxZDx7w5VEj9dCyTzz", serena: "pMsXgVXv3BLzUgSXRplE", matilda: "XrExE9yKIg1WjnnlVkGX", lily: "pFZP5JQG7iQjIQuC4Bku", sarah: "EXAVITQu4vr4xnSDxMaL" };
-const vq = (new URLSearchParams(location.search).get('voice') || 'grace').toLowerCase();
-const VOICE = { provider: "11labs", voiceId: VOICES[vq] || VOICES.grace, stability: 0.65, similarityBoost: 0.8, style: 0, useSpeakerBoost: false };
+const VOICES = { jessica: "cgSgspJ2msm6clMCkdW9", laura: "FGY2WhTYpPnrIDTdsKH5", rachel: "21m00Tcm4TlvDq8ikWAM", grace: "oWAxZDx7w5VEj9dCyTzz", serena: "pMsXgVXv3BLzUgSXRplE", matilda: "XrExE9yKIg1WjnnlVkGX", lily: "pFZP5JQG7iQjIQuC4Bku", sarah: "EXAVITQu4vr4xnSDxMaL" };
+const vq = (new URLSearchParams(location.search).get('voice') || 'jessica').toLowerCase();
+const VOICE = { provider: "11labs", model: "eleven_turbo_v2_5", voiceId: VOICES[vq] || VOICES.jessica, stability: 0.5, similarityBoost: 0.75, style: 0, useSpeakerBoost: true };
 function setIntent(i){ curIntent = i || ''; if (live && INTENT[curIntent]) { try { vapi.send({ type: 'add-message', message: { role: 'system', content: INTENT[curIntent] }, triggerResponseEnabled: true }); } catch (x) {} } }
 function saveConvo(){
   const url = window.LEAD_URL_V || '';
   if (!url || !convo.length) { convo = []; return; }
   const text = convo.join('\n'); const hasContact = /\d{3}\D?\d{3}\D?\d{4}|@/.test(text);
   if (!curIntent && !hasContact) { convo = []; return; }
-  fetch(url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ token: 'wb-2026-bunker', kind: 'lead', type: curIntent === 'wine' ? 'wine_dinner_list' : (curIntent === 'private' ? 'private_event' : 'voice_chat'), notes: text.slice(0, 4000), source: 'website-v5-voice' }) }).catch(() => {});
+  const f = pullFields(convo);
+  fetch(url, { method: 'POST', mode: 'no-cors', keepalive: true, headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(Object.assign({ token: 'wb-2026-bunker', kind: 'lead', type: curIntent === 'wine' ? 'wine_dinner_list' : (curIntent === 'private' ? 'private_event' : 'voice_chat'), notes: text.slice(0, 4000), source: 'website-v5-voice' }, f)) }).catch(() => {});
   convo = [];
+}
+function pullFields(lines){
+  // Pair each Brianna question with the guest's next answer.
+  const f = {}, all = lines.join('\n');
+  const em = all.match(/[\w.+-]+@[\w-]+\.[\w.]+/); if (em) f.email = em[0];
+  const ph = all.replace(/[^\d\n]/g, ' ').match(/(?:\d\s*){10,11}/); if (ph) { const d = ph[0].replace(/\D/g, '').slice(-10); f.phone = `(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`; }
+  let ask = '';
+  for (const l of lines) {
+    if (l.startsWith('Brianna:')) { const q = l.toLowerCase();
+      ask = /date|when/.test(q) ? 'date' : /how many|guests|people|head/.test(q) ? 'headcount' : /occasion|theme|celebrat/.test(q) ? 'occasion' : /name/.test(q) ? 'name' : ask; continue; }
+    if (!ask || f[ask]) continue;
+    const a = l.replace(/^Guest( \(typed\))?:\s*/, '').replace(/^(yeah|yes|um|uh|so|sure|okay|ok)[,.]?\s*/i, '').replace(/^(it's|it is|i'm|i am|my name is|probably|about|around|we're looking at|i'm looking at)\s*/i, '').replace(/[.,]+$/, '').trim();
+    if (!a) continue;
+    if (ask === 'headcount') { const n = a.match(/\d+/); if (n) f.headcount = n[0]; else continue; }
+    else f[ask] = a.slice(0, 120);
+    ask = '';
+  }
+  return f;
 }
 async function start(intent){
   if (!vapi) { fallback(); if (intent === 'private' && window.startParty) startParty(); if (intent === 'wine' && window.openSignup) openSignup(); return; }

@@ -265,6 +265,20 @@ footer .logo{margin-bottom:10px}
 @media(max-width:1000px){.story .intel{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:900px){.dossier{grid-template-columns:1fr!important}.tale{padding-left:18px}}
 @media(max-width:560px){.story .intel{grid-template-columns:1fr}}
+
+#dirm{position:fixed;inset:0;background:rgba(8,9,6,.82);z-index:120;display:none;align-items:center;justify-content:center;padding:20px}
+#dirm.on{display:flex}
+#dirm form{background:#e7dcc0;color:#26251d;width:min(420px,100%);padding:30px;border-top:4px solid var(--brass);position:relative;box-shadow:0 30px 60px #000a}
+#dirm h3{font:26px/1.1 'Saira Stencil One';letter-spacing:.04em;text-transform:uppercase;margin:10px 0 8px}
+#dirm p{font-size:15px;margin-bottom:12px}
+#dirm input[type=tel],#signup input[type=tel]{width:100%;padding:12px;margin:6px 0;border:1px solid #b9ab84;background:#fff;font:inherit}
+#dirm .x{position:absolute;right:12px;top:8px;background:none;border:0;font-size:26px;cursor:pointer;color:#26251d}
+#dirm .btn{background:var(--wine);color:#fff;width:100%;justify-content:center;margin-top:8px}
+#dirm .ok,#dok{display:none;font-weight:600;margin-top:8px}
+.consent{display:flex;gap:8px;align-items:flex-start;font-size:11.5px;line-height:1.4;color:#4a4430;margin:8px 0}
+.consent input{margin-top:2px;flex:none}
+.serr{color:#9b1c2c;font-size:13px;min-height:16px}
+.skip{display:block;text-align:center;margin-top:10px;font-size:13px;color:#4a4430}
 </style>
 </head>
 <body>
@@ -333,7 +347,7 @@ footer .logo{margin-bottom:10px}
   <p class="sub">Something's always on deck. Here's what's in the field at the Bunker.</p>
   <div class="board">
     <article class="mission"><span class="no" aria-hidden="true">01</span><div class="when">Fri &amp; Sat nights</div><h3>Live Music</h3><div class="obj">OBJ: Good seats. Better pours.</div><p>Local artists on our intimate stage. The lineup changes every week.</p><ul class="lu" id="lineup"><li>Friday <span>8 – 11 PM · Lineup posted weekly</span></li><li>Saturday <span>8 – 11 PM · Lineup posted weekly</span></li></ul><button type="button" class="btn o" onclick="talkToBrianna()">Ask Brianna what's on</button></article>
-    <article class="mission"><span class="no" aria-hidden="true">02</span><div class="when">Ticketed · limited seats</div><h3>Wine Pairing Dinners</h3><div class="obj">OBJ: Courses paired with wines that tell a story of place.</div><p>Chef-prepared courses paired with wines chosen to tell a story of place. Seats go fast.</p><ul class="lu" id="dinners"><li>Next dinner <span>Date coming soon</span></li></ul><button type="button" class="btn o" onclick="talkAbout('wine')">Notify me of wine dinners</button></article>
+    <article class="mission"><span class="no" aria-hidden="true">02</span><div class="when">Ticketed · limited seats</div><h3>Wine Pairing Dinners</h3><div class="obj">OBJ: Courses paired with wines that tell a story of place.</div><p>Chef-prepared courses paired with wines chosen to tell a story of place. Seats go fast.</p><ul class="lu" id="dinners"><li>Next dinner <span>Date coming soon</span></li></ul><button type="button" class="btn o" onclick="openSignup()">Notify me of wine dinners</button></article>
     <article class="mission"><span class="no" aria-hidden="true">03</span><div class="when">Wed – Sat</div><h3>The Smoked Old Fashioned</h3><div class="obj">OBJ: Order one. Watch the smoke roll.</div><p>The house favorite, and the reason a lot of folks walk in the first time.</p><a class="btn o" href="#menu" onclick="showMenu('Cocktails')">See the cocktails</a></article>
   </div>
 </section>
@@ -364,35 +378,12 @@ footer .logo{margin-bottom:10px}
       <p class="addr">81-E Weatherly Club Dr<br>Alabaster, AL 35007</p>
       <p class="grid10">WEATHERLY PLAZA · <a href="tel:+12053588940">(205) 358-8940</a></p>
       <table class="hours" id="hours" aria-label="Hours"></table>
-      <a class="btn b" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=The+Wine+Bunker+81-E+Weatherly+Club+Dr+Alabaster+AL+35007">Get Directions</a>
+      <button type="button" class="btn b" onclick="openDir()">Get Directions</button>
     </div>
     <div class="mapbox"><iframe loading="lazy" title="Map to The Wine Bunker" src="https://www.google.com/maps?q=The+Wine+Bunker,+81-E+Weatherly+Club+Dr,+Alabaster,+AL+35007&output=embed"></iframe></div>
   </div>
 </section>
 
-<section class="ai" id="ai">
-  <div class="wrap">
-    <div>
-      <div class="kicker">Meet Brianna</div>
-      <h2>Every question <span>answered.</span></h2>
-      <p style="color:#cfc5a8">Brianna is the Bunker's AI host. Talk to her out loud or type, any hour. When the bar is packed or closed (Sunday through Tuesday), she takes your details and the team gets back to you.</p>
-      <ul>
-        <li>Hours, directions, live music and wine dinner questions, 24/7</li>
-        <li>Private event requests passed to the team with your date, headcount and callback number</li>
-        <li>Talk out loud or type, whichever you like</li>
-        <li>21+ with valid ID for all alcohol</li>
-      </ul>
-      <button type="button" class="btn b" onclick="talkToBrianna()">Talk to Brianna</button>
-    </div>
-    <div class="radio mono" aria-label="Example conversation">
-      <div class="hd"><span>Sunday · 19:42</span><span>Bar closed</span></div>
-      <div class="bub c">Hey, are y'all open tonight? Want to book a birthday for 12 next month.</div>
-      <div class="bub a">We're closed Sundays, but we'd love to host you! What date are you thinking, and what's the best number for the team to call?</div>
-      <div class="bub c">Saturday the 12th. 205-555-0142, it's Megan.</div>
-      <div class="bub a">Got it, Megan: party of 12 on Saturday the 12th. The team will call you Wednesday when we open. Cheers!</div>
-    </div>
-  </div>
-</section>
 
 <footer>
   <div><a class="logo" href="#top"><svg class="tagsvg" viewBox="0 0 64 40" aria-hidden="true"><defs><linearGradient id="tgm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f1efe8"/><stop offset=".45" stop-color="#b9b6ab"/><stop offset=".7" stop-color="#dcd9cf"/><stop offset="1" stop-color="#8d8a80"/></linearGradient></defs><rect x="2" y="3" width="58" height="34" rx="9" fill="#2a2b24"/><rect x="4" y="5" width="54" height="30" rx="7.5" fill="url(#tgm)" stroke="#6f6c62" stroke-width=".6"/><circle cx="11" cy="20" r="2.6" fill="#2a2b24"/><text x="38" y="25" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="800" font-size="13" fill="#55534a" stroke="#fff" stroke-opacity=".5" stroke-width=".4">WB</text></svg><b>WINE <span>BUNKER</span></b></a>Veteran-owned whiskey &amp; wine bar<br>81-E Weatherly Club Dr, Alabaster, AL 35007 · <a href="tel:+12053588940">(205) 358-8940</a><br>Must be 21+ to purchase alcohol. Please drink responsibly.</div>
@@ -415,13 +406,23 @@ footer .logo{margin-bottom:10px}
 </div>
 
 <!-- wine dinner signup -->
+<div id="dirm" role="dialog" aria-label="Get directions" onclick="if(event.target===this)closeDir()">
+  <form onsubmit="sendDir();return false">
+    <button type="button" class="x" onclick="closeDir()" aria-label="Close">×</button>
+    <div class="kicker">Rally Point</div>
+    <h3>Get the pin on your phone.</h3>
+    <p>81-E Weatherly Club Dr, Alabaster, AL 35007. Drop your cell and we'll text you the map pin, plus a heads-up when there's live music or a wine dinner.</p>
+    <div id="dform"><input id="dphone" type="tel" placeholder="Your cell number" autocomplete="tel"><label class="consent"><input type="checkbox" id="dsms"> Text me the directions and occasional event news from The Wine Bunker. Msg frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help.</label><div id="derr" class="serr"></div><button class="btn">Text me the pin</button><a class="skip" href="#" onclick="openMaps();return false">No thanks, just open Maps</a></div>
+    <div class="ok" id="dok">Got it! Opening Maps now. See you at the Bunker. 🥂</div>
+  </form>
+</div>
 <div id="signup" role="dialog" aria-label="Wine dinner notifications" onclick="if(event.target===this)closeSignup()">
   <form onsubmit="submitSignup();return false">
     <button type="button" class="x" onclick="closeSignup()" aria-label="Close">×</button>
     <div class="kicker">Wine Pairing Dinners</div>
     <h3>Get first dibs on seats.</h3>
-    <p>Seats are limited. We'll email you when the next dinner is announced.</p>
-    <div id="sform"><input id="sname" placeholder="Your name" required autocomplete="name"><input id="semail" type="email" placeholder="Email address" required autocomplete="email"><button class="btn">Notify me</button></div>
+    <p>Seats are limited. Leave your email, your cell, or both, and we'll let you know when the next dinner is announced.</p>
+    <div id="sform"><input id="sname" placeholder="Your name" required autocomplete="name"><input id="semail" type="email" placeholder="Email address" autocomplete="email"><input id="sphone" type="tel" placeholder="Cell for texts (optional)" autocomplete="tel"><label class="consent"><input type="checkbox" id="ssms"> Text me about wine dinners and events from The Wine Bunker. Msg frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help.</label><div id="serr" class="serr"></div><button class="btn">Notify me</button></div>
     <div class="ok" id="sok">You're on the list. Cheers! 🥂</div>
   </form>
 </div>
@@ -552,10 +553,33 @@ function voiceBtn(){if(window.WBV&&WBV.isLive()){host.classList.add('on');return
 const signup=document.getElementById('signup');
 function openSignup(){signup.classList.add('on');document.getElementById('sform').style.display='';document.getElementById('sok').style.display='none';setTimeout(()=>document.getElementById('sname').focus(),60);}
 function closeSignup(){signup.classList.remove('on');}
+
+/* ===== directions: capture cell + open maps ===== */
+const MAPS_URL='https://www.google.com/maps/dir/?api=1&destination=The+Wine+Bunker+81-E+Weatherly+Club+Dr+Alabaster+AL+35007';
+const dirm=document.getElementById('dirm');
+function openDir(){dirm.classList.add('on');document.getElementById('dform').style.display='';document.getElementById('dok').style.display='none';setTimeout(()=>document.getElementById('dphone').focus(),60);}
+function closeDir(){dirm.classList.remove('on');}
+function openMaps(){window.open(MAPS_URL,'_blank','noopener');closeDir();}
+function sendDir(){
+  const raw=document.getElementById('dphone').value.trim(),ok=document.getElementById('dsms').checked,err=document.getElementById('derr');
+  const dg=raw.replace(/\D/g,'');if(dg.length<10){err.textContent='Please enter all 10 digits.';return;}
+  if(!ok){err.textContent='Check the box so we can text you.';return;}
+  const phone=`(${dg.slice(-10,-7)}) ${dg.slice(-7,-4)}-${dg.slice(-4)}`;
+  fetch(LEAD_URL,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'text/plain'},body:JSON.stringify({token:'wb-2026-bunker',kind:'lead',type:'directions_text',phone,sms_consent:'yes '+new Date().toISOString(),notes:'Asked for the map pin by text · SMS consent: yes '+new Date().toLocaleString(),source:'website-final'})}).catch(()=>{});
+  document.getElementById('dform').style.display='none';document.getElementById('dok').style.display='block';
+  window.open(MAPS_URL,'_blank','noopener');setTimeout(closeDir,2200);
+}
 function submitSignup(){
   const name=document.getElementById('sname').value.trim(), email=document.getElementById('semail').value.trim();
-  if(!name||!/^\S+@\S+\.\S+$/.test(email))return;
-  const payload={token:'wb-2026-bunker',kind:'signup',type:'wine_dinner_signup',name,email,source:'website-final',at:new Date().toISOString()};
+  const phoneRaw=document.getElementById('sphone').value.trim(), sms=document.getElementById('ssms').checked, err=document.getElementById('serr');
+  const dg=phoneRaw.replace(/\D/g,''); const phone=dg.length>=10?`(${dg.slice(-10,-7)}) ${dg.slice(-7,-4)}-${dg.slice(-4)}`:'';
+  if(!name){err.textContent='Please add your name.';return;}
+  if(email&&!/^\S+@\S+\.\S+$/.test(email)){err.textContent='That email doesn\'t look right.';return;}
+  if(phoneRaw&&!phone){err.textContent='Please enter all 10 digits of your cell.';return;}
+  if(!email&&!phone){err.textContent='Add an email or a cell number.';return;}
+  if(phone&&!sms){err.textContent='Check the box so we can text you.';return;}
+  err.textContent='';
+  const payload={token:'wb-2026-bunker',kind:'lead',type:'wine_dinner_list',name,email,phone,notes:'Wine dinner list'+(phone?' · SMS consent: yes '+new Date().toLocaleString():''),source:'website-final',at:new Date().toISOString()};
   document.getElementById('sform').style.display='none';document.getElementById('sok').style.display='block';
   if(SIGNUP_URL){fetch(SIGNUP_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)}).catch(()=>{});setTimeout(closeSignup,1800);}
   else{setTimeout(()=>{closeSignup();toggleHost(true);add(`You're on the wine dinner list, ${name}! We'll email ${email} when the next dinner is announced.`,'bot');},1200);}

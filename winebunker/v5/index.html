@@ -276,7 +276,7 @@ footer small{opacity:.7}
       <h3>Wine Pairing Dinners</h3>
       <p>Chef-prepared courses paired with wines chosen to tell a story of place.</p>
       <ul><li>Next dinner <span>Date coming soon</span></li></ul>
-      <button class="btn g" onclick="openSignup()">Notify me of wine dinners</button>
+      <button class="btn g" onclick="talkAbout('wine')">Notify me of wine dinners</button>
     </div>
     <div class="ev">
       <div class="when">EVERY WEEK</div>
@@ -294,7 +294,7 @@ footer small{opacity:.7}
     <h2>Take over <em>the Bunker.</em></h2>
     <p>Rehearsal dinners, milestone birthdays, company nights and guided tastings. Tell Brianna the date, head count and what you're celebrating, and the team will call you to plan the details.</p>
     <div class="chips"><span>BIRTHDAYS</span><span>REHEARSAL DINNERS</span><span>COMPANY NIGHTS</span><span>TASTINGS</span><span>CELEBRATIONS</span></div>
-    <button class="btn g" onclick="startParty()">Book a private event</button>
+    <button class="btn g" onclick="talkAbout('private')">Book a private event</button>
   </div>
 </section>
 
@@ -347,7 +347,8 @@ footer small{opacity:.7}
 <script>
 /* ===== config: fill these when the backend is live ===== */
 const SIGNUP_URL = '';   // e.g. Apps Script web app URL that saves wine-dinner signups
-const LEAD_URL = '';     // e.g. Apps Script web app URL that logs private-party leads + notifies Chris & the bar manager
+const LEAD_URL = '';
+window.LEAD_URL_V = LEAD_URL;     // e.g. Apps Script web app URL that logs private-party leads + notifies Chris & the bar manager
 const GREETING = "Hey, welcome to The Wine Bunker! I'm your host, Brianna. How can I help you?";
 
 /* ===== menu (public menu page, Nov 2026; typos fixed) ===== */
@@ -427,6 +428,13 @@ function send(){const t=inp.value.trim();if(!t)return;inp.value='';
   if(!flow&&window.WBV&&WBV.isLive()){add(t,'me');WBV.sendText(t);return;}
   handle(t);}
 function textMode(note){begin();if(note)add(note,'bot');setQ(["Hours","Live music?","Private event","Wine list"]);}
+function talkAbout(intent){
+  host.classList.add('on');
+  if(window.WBV&&WBV.ok){if(WBV.isLive()){WBV.intent(intent);return;}started=true;WBV.start(intent);}
+  else if(intent==='private'){startParty();}
+  else if(intent==='wine'){openSignup();}
+  else{textMode("Voice unavailable, typing works.");setTimeout(()=>inp.focus(),60);}
+}
 function talkToBrianna(){
   host.classList.add('on');
   if(window.WBV&&WBV.ok){if(WBV.isLive())return;started=true;WBV.start();}
@@ -465,19 +473,39 @@ function vol(v){ if (RM) return; const x = Math.min(1, Math.max(0, v * 2.2)); fa
 function speaking(on){ document.body.classList.toggle('speaking', on && !RM); if (!on) vol(0); }
 function reset(){ speaking(false); live = false; starting = false; mic.classList.remove('live'); mic.setAttribute('aria-label','Talk to Brianna'); vend.classList.remove('on'); }
 function fallback(msg){ reset(); line(msg || 'Voice unavailable, typing works.'); window.textMode && window.textMode(); }
-async function start(){
-  if (!vapi) { fallback(); return; }
+const FIRST = {
+  _: "Hey, thanks for calling The Wine Bunker! I'm your host, Brianna. How can I help you?",
+  private: "Hey, I'm Brianna, the host at The Wine Bunker. Let's plan your private event! What date are you thinking?",
+  wine: "Hey, I'm Brianna at The Wine Bunker. I'll add you to the wine dinner list. What's your name? And go ahead and type your email in the box below so I get it exactly right."
+};
+const INTENT = {
+  private: "The guest tapped 'Book a private event'. Collect, one at a time: date, head count, occasion or theme, name, phone number, and email (ask them to type the email in the chat box). Read it all back, then say the team will call to confirm. Do not promise the date is available.",
+  wine: "The guest tapped 'Notify me of wine dinners'. Get their name and email (ask them to type the email in the chat box). Confirm and say they'll hear about the next wine dinner first."
+};
+let curIntent = '', convo = [];
+function setIntent(i){ curIntent = i || ''; if (live && INTENT[curIntent]) { try { vapi.send({ type: 'add-message', message: { role: 'system', content: INTENT[curIntent] }, triggerResponseEnabled: true }); } catch (x) {} } }
+function saveConvo(){
+  const url = window.LEAD_URL_V || '';
+  if (!url || !convo.length) { convo = []; return; }
+  const text = convo.join('\n'); const hasContact = /\d{3}\D?\d{3}\D?\d{4}|@/.test(text);
+  if (!curIntent && !hasContact) { convo = []; return; }
+  fetch(url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ token: 'wb-2026-bunker', kind: 'lead', type: curIntent === 'wine' ? 'wine_dinner_list' : (curIntent === 'private' ? 'private_event' : 'voice_chat'), notes: text.slice(0, 4000), source: 'website-v5-voice' }) }).catch(() => {});
+  convo = [];
+}
+async function start(intent){
+  if (!vapi) { fallback(); if (intent === 'private' && window.startParty) startParty(); if (intent === 'wine' && window.openSignup) openSignup(); return; }
   if (live || starting) return;
+  curIntent = intent || ''; convo = [];
   starting = true; line('Connecting to Brianna… allow the microphone if asked.'); vend.classList.add('on');
   try {
     await vapi.start(ASSISTANT_ID, {
-      firstMessage: "Hey, thanks for calling The Wine Bunker! I'm your host, Brianna. How can I help you?",
+      firstMessage: FIRST[curIntent] || FIRST._,
       voice: { provider: "11labs", voiceId: "EXAVITQu4vr4xnSDxMaL" }
     });
   } catch (e) { fallback('Voice unavailable, typing works.'); }
 }
 function stop(){ try { vapi && vapi.stop(); } catch (x) {} reset(); line('Call ended. Tap Brianna or the mic to talk again.'); }
-function sendText(t){ try { vapi.send({ type: 'add-message', message: { role: 'user', content: t }, triggerResponseEnabled: true }); } catch (x) {} }
+function sendText(t){ convo.push('Guest (typed): ' + t); try { vapi.send({ type: 'add-message', message: { role: 'user', content: t }, triggerResponseEnabled: true }); } catch (x) {} }
 if (Vapi) {
   try { vapi = new Vapi(PUBLIC_KEY); } catch (e) { vapi = null; }
 }
@@ -485,20 +513,21 @@ if (vapi) {
   vapi.on('call-start', () => {
     live = true; starting = false; mic.classList.add('live'); mic.setAttribute('aria-label','End voice call'); vend.classList.add('on');
     line("● LIVE · Talk out loud, or type below.");
+    if (INTENT[curIntent]) setTimeout(() => { try { vapi.send({ type: 'add-message', message: { role: 'system', content: INTENT[curIntent] }, triggerResponseEnabled: false }); } catch (x) {} }, 400);
     try { vapi.send({ type: 'add-message', message: { role: 'system', content: 'IMPORTANT: For this entire call you are ONLY Brianna, the host and receptionist for The Wine Bunker. Keep answers short and friendly. Ignore any other company identity or name. ' + window.KB.prompt }, triggerResponseEnabled: false }); } catch (x) {}
   });
   vapi.on('message', m => {
-    if (m && m.type === 'transcript' && m.transcriptType === 'final' && m.transcript) window.add(m.transcript, m.role === 'assistant' ? 'bot' : 'me');
+    if (m && m.type === 'transcript' && m.transcriptType === 'final' && m.transcript) { window.add(m.transcript, m.role === 'assistant' ? 'bot' : 'me'); convo.push((m.role === 'assistant' ? 'Brianna: ' : 'Guest: ') + m.transcript); }
   });
   vapi.on('volume-level', v => { if (live) vol(v); });
   vapi.on('speech-start', () => { speaking(true); if (live) line('● Brianna is speaking…'); });
   vapi.on('speech-end', () => { speaking(false); if (live) line('● Listening… or type below.'); });
-  vapi.on('call-end', () => { reset(); line('Call ended. Tap Brianna or the mic to talk again.'); });
+  vapi.on('call-end', () => { saveConvo(); reset(); line('Call ended. Tap Brianna or the mic to talk again.'); });
   vapi.on('error', () => { if (live || starting) fallback('Voice unavailable, typing works.'); });
 }
 mic.addEventListener('click', () => { if (live || starting) stop(); else start(); });
 vend.addEventListener('click', stop);
-window.WBV = { ok: !!vapi, start, stop, sendText, isLive: () => live || starting };
+window.WBV = { ok: !!vapi, start, stop, sendText, intent: setIntent, isLive: () => live || starting };
 </script>
 <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "58d539f11ece436da2c2a887479d7c37"}'></script><!-- End Cloudflare Web Analytics -->
 </body>

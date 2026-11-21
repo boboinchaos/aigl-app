@@ -57,7 +57,7 @@ window.KB = {
       a:"The prices on our menu section are the latest we have posted, but they can change. For anything not listed, I'll have the team confirm rather than guess.",
       q:["Request a callback"] },
     { k:/veteran|military|owner|chris|dave|story|who/,
-      a:"The Wine Bunker was founded by Chris and Dave, who met serving our country together. They built the bar around the same camaraderie: good wine, good whiskey and good company.",
+      a:"The Wine Bunker was founded by Chris and Dave, two friends whose bond was forged serving our country together. They wanted a place that felt honest, welcoming and built around the stories people share across the table. So they built the Bunker. Not to hide from the world, but to bring it together. Cheers.",
       q:["Hours","Live music?"] },
     { k:/call ?back|callback|talk to|speak|human|manager|someone/,
       a:"Sure! Just tell me your name, phone number and what it's about, and the team will call you back.",

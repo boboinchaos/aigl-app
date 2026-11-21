@@ -163,7 +163,7 @@ footer{color:var(--mute);font-size:12px;text-align:center;margin-top:18px}
 <footer>All access is by invite, so no passwords are needed, and you can remove us anytime. Nothing gets posted, published or changed on your accounts without your OK. · AIGL · jason@aigl.dev · (205) 203-8377</footer>
 </main>
 
-<div class="done-bar"><div><button id="finish">✅ I'm done for now</button></div></div>
+<div class="done-bar"><div style="display:flex;gap:10px"><button id="later" style="flex:1;background:rgba(255,255,255,.08);color:var(--ink);border:1px solid var(--line)">Save for later</button><button id="finish" style="flex:1.3">Send to Jason</button></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -194,7 +194,8 @@ document.querySelectorAll('.item[data-k]').forEach(it=>{
   draw();
 });
 document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=e=>{e.stopPropagation();navigator.clipboard&&navigator.clipboard.writeText(b.dataset.copy);b.textContent='copied';setTimeout(()=>b.textContent='copy',1500)});
-document.getElementById('finish').onclick=()=>{const sum=items.map(i=>i.dataset.label+': '+(S[i.dataset.k].done?'✓':'—')+(S[i.dataset.k].help?' (help)':'')).join(' | ');send('Finished',sum,(S.notes&&S.notes.note)||'',true);toast('Thanks, Chris! We\'ve got it from here. 🥂')};
+document.getElementById('later').onclick=()=>{persist();toast('Saved. Come back to this link anytime.')};
+document.getElementById('finish').onclick=()=>{const sum=items.map(i=>i.dataset.label+': '+(S[i.dataset.k].done?'✓':'—')+(S[i.dataset.k].help?' (help)':'')).join(' | ');send('Finished',sum,(S.notes&&S.notes.note)||'',true);toast('Sent to Jason. Thank you! 🥂')};
 
 document.getElementById('files').onchange=async e=>{
   const box=document.getElementById('flist');

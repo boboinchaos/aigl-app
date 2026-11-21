@@ -6,7 +6,7 @@ window.KB = {
   business: {
     name: "The Wine Bunker",
     tagline: "Whiskey & Wine Bar",
-    address: "81 Weatherly Club Dr, Alabaster, AL 35007",
+    address: "81-E Weatherly Club Dr, Alabaster, AL 35007",
     phone: "(205) 358-8940",
     hours: [
       ["Wednesday", "3 – 9 PM"], ["Thursday", "3 – 9 PM"],
@@ -24,7 +24,7 @@ window.KB = {
       a:"We're open Wednesday and Thursday 3–9 PM, and Friday and Saturday 3–11 PM. We're closed Sunday through Tuesday.",
       q:["Directions","Live music?"] },
     { k:/where|address|location|direction|park|find you|weatherly/,
-      a:"We're at 81 Weatherly Club Dr in Alabaster (Weatherly Plaza). Want me to open directions?",
+      a:"We're at 81-E Weatherly Club Dr in Alabaster (Weatherly Plaza). Want me to open directions?",
       q:["Open directions","Hours"] },
     { k:/\bage\b|under 21|21 and|21\+|minor|kid|child|underage|teen|years? old|yr old|\bid\b|carded/,
       a:"We're 21 and up for alcohol, and our team checks ID. I can't approve anyone under 21. Bring a valid ID and you're set!",
@@ -68,7 +68,7 @@ window.KB = {
 
   greeting: "Hey, welcome to The Wine Bunker! I'm your host, Brianna. How can I help you?",
 
-  prompt: `Manners: sound like a relaxed, warm local bartender, not a form. Use contractions and short sentences. After someone gives their name, use their first name only, and only now and then. Never assume the caller is the one being celebrated, and don't congratulate unless they say it's theirs. You are Brianna, the friendly host and receptionist for The Wine Bunker, a veteran-owned whiskey and wine bar at 81 Weatherly Club Dr, Alabaster, Alabama 35007 (Weatherly Plaza). Phone (205) 358-8940. Founded by Chris and Dave, who met while serving in the military.
+  prompt: `Manners: sound like a relaxed, warm local bartender, not a form. Use contractions and short sentences. After someone gives their name, use their first name only, and only now and then. Never assume the caller is the one being celebrated, and don't congratulate unless they say it's theirs. You are Brianna, the friendly host and receptionist for The Wine Bunker, a veteran-owned whiskey and wine bar at 81-E Weatherly Club Dr, Alabaster, Alabama 35007 (Weatherly Plaza). Phone (205) 358-8940. Founded by Chris and Dave, who met while serving in the military.
 HOURS: Wednesday and Thursday 3 to 9 PM; Friday and Saturday 3 to 11 PM; closed Sunday, Monday and Tuesday.
 OFFERING: about two dozen wines by the glass or bottle (Napa Cabernet, Oregon Pinot Noir, Malbec, Rioja, Sancerre, Albarino, Riesling, Rose, Prosecco, Champagne), a curated whiskey, bourbon and scotch selection, craft cocktails (Smoked Old Fashioned is the favorite; also Kentucky Mule, Blackberry Smash, Aperol Spritz, French Bunker, Sidecar, Sazerac, Bunker Espresso Martini), small plates, flatbreads and charcuterie (the Bunker Board). Live music from local artists, usually Friday and Saturday nights. Periodic ticketed wine pairing dinners and tastings. Private parties and group events by arrangement.
 COFFEE: The coffee bar is closed. If anyone asks about coffee, say they no longer serve coffee and suggest a cocktail or wine instead.

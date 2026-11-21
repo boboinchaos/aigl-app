@@ -168,11 +168,11 @@ footer .logo{color:var(--cream);font-size:22px;display:block;margin-bottom:6px}
     <div>
       <div class="kicker">Visit</div>
       <h2>Find the Bunker.</h2>
-      <p>81 Weatherly Club Dr, Alabaster, AL 35007<br><a href="tel:+12053588940">(205) 358-8940</a></p>
+      <p>81-E Weatherly Club Dr, Alabaster, AL 35007<br><a href="tel:+12053588940">(205) 358-8940</a></p>
       <table class="hours" id="hours"></table>
-      <a class="btn b" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=The+Wine+Bunker+81+Weatherly+Club+Dr+Alabaster+AL+35007">Get Directions</a>
+      <a class="btn b" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=The+Wine+Bunker+81-E+Weatherly+Club+Dr+Alabaster+AL+35007">Get Directions</a>
     </div>
-    <iframe class="map" loading="lazy" title="Map" src="https://www.google.com/maps?q=The+Wine+Bunker,+81+Weatherly+Club+Dr,+Alabaster,+AL+35007&output=embed"></iframe>
+    <iframe class="map" loading="lazy" title="Map" src="https://www.google.com/maps?q=The+Wine+Bunker,+81-E+Weatherly+Club+Dr,+Alabaster,+AL+35007&output=embed"></iframe>
   </div>
 </section>
 
@@ -201,7 +201,7 @@ footer .logo{color:var(--cream);font-size:22px;display:block;margin-bottom:6px}
 </section>
 
 <footer>
-  <div><a class="logo" href="#top">THE WINE <span style="color:var(--brass)">BUNKER</span></a>Veteran-owned whiskey &amp; wine bar<br>81 Weatherly Club Dr, Alabaster, AL 35007 · (205) 358-8940<br>Must be 21+ to purchase alcohol. Please drink responsibly.</div>
+  <div><a class="logo" href="#top">THE WINE <span style="color:var(--brass)">BUNKER</span></a>Veteran-owned whiskey &amp; wine bar<br>81-E Weatherly Club Dr, Alabaster, AL 35007 · (205) 358-8940<br>Must be 21+ to purchase alcohol. Please drink responsibly.</div>
   <div>Wed–Thu 3–9 PM · Fri–Sat 3–11 PM · Sun–Tue closed<br><a href="https://www.facebook.com/61559360786426" target="_blank" rel="noopener">Facebook</a><br><small>Demo concept by <a href="https://aigl.dev" target="_blank" rel="noopener">AIGL</a>. Content from The Wine Bunker's public listings.</small></div>
 </footer>
 
@@ -262,7 +262,7 @@ function handle(t){
       if(lead.step==='phone'){const dg=t.replace(/\D/g,'');if(dg.length<10){add("Could you double-check that number? I need all 10 digits.",'bot');return;}lead.phone=dg;lead.step='details';add("Got it. Anything the team should know (date, party size, what you're planning)?",'bot');return;}
       if(lead.step==='details'){lead.details=t;const p=lead.phone.slice(-10);add(`Perfect. ${lead.name}, the team will call you at (${p.slice(0,3)}) ${p.slice(3,6)}-${p.slice(6)}${/sun|mon|tue/.test(['sun','mon','tue','wed','thu','fri','sat'][day])?' when we open Wednesday':' soon'}. Cheers! 🥂 (Demo: in the live version this goes straight to the owners' phones.)`,'bot');lead=null;setQ(["Hours","Wine list"]);return;}
     }
-    if(s==='open directions'){window.open('https://www.google.com/maps/dir/?api=1&destination=The+Wine+Bunker+81+Weatherly+Club+Dr+Alabaster+AL+35007','_blank');add("Opening directions in a new tab. See you soon!",'bot');return;}
+    if(s==='open directions'){window.open('https://www.google.com/maps/dir/?api=1&destination=The+Wine+Bunker+81-E+Weatherly+Club+Dr+Alabaster+AL+35007','_blank');add("Opening directions in a new tab. See you soon!",'bot');return;}
     if(/request a callback|notify me|private party|book a private|start planning/.test(s)){startLead(s);return;}
     if(/^(see cocktails|wine list|food)$/.test(s)){const k=s==='see cocktails'?'Cocktails':s==='wine list'?'Reds':'Bites';showMenu(k);document.getElementById('menu').scrollIntoView();}
     const e=KB.entries.find(x=>x.k.test(s));

@@ -32,9 +32,9 @@ window.KB = {
     { k:/deliver|delivery|ship|to go|takeout|take out|bottle.*home|bottles/,
       a:"I can't set up delivery from here. For bottles to take home or anything to-go, give the team a quick call at (205) 358-8940 and they'll tell you what's available.",
       q:["Request a callback"] },
-    { k:/music|band|live|tonight.*play|entertain|trivia/,
-      a:"We host live music from local artists, usually on Friday and Saturday nights on our little stage. Lineups change week to week. Want me to have someone text you this week's schedule?",
-      q:["Request a callback","Hours"] },
+    { k:/music|band|live |playing|entertain|trivia|lineup|on deck|what.?s (going on|happening|on)|who.?s (on|up)|this weekend|happening tonight/,
+      get a(){ return window.KB.eventsAnswer(); },
+      q:["Hours","Private event"] },
     { k:/dinner|pairing|tasting|event|class|power of place|chef/,
       a:"We host wine pairing dinners and tastings. Past dinners have been chef-prepared, multi-course pairings, ticketed at the bar or online. I can take your name and number so the team lets you know about the next one.",
       q:["Notify me of events","Private party"] },
@@ -72,5 +72,34 @@ window.KB = {
 HOURS: Wednesday and Thursday 3 to 9 PM; Friday and Saturday 3 to 11 PM; closed Sunday, Monday and Tuesday.
 OFFERING: about two dozen wines by the glass or bottle (Napa Cabernet, Oregon Pinot Noir, Malbec, Rioja, Sancerre, Albarino, Riesling, Rose, Prosecco, Champagne), a curated whiskey, bourbon and scotch selection, craft cocktails (Smoked Old Fashioned is the favorite; also Kentucky Mule, Blackberry Smash, Aperol Spritz, French Bunker, Sidecar, Sazerac, Bunker Espresso Martini), small plates, flatbreads and charcuterie (the Bunker Board). Live music from local artists, usually Friday and Saturday nights. Periodic ticketed wine pairing dinners and tastings. Private parties and group events by arrangement.
 COFFEE: The coffee bar is closed. If anyone asks about coffee, say they no longer serve coffee and suggest a cocktail or wine instead.
-RULES: Alcohol is 21 and up with ID; never confirm or arrange a sale to anyone under 21. Never quote a price you were not given; offer to have staff confirm. Never promise delivery or shipping; refer to-go and bottle questions to staff. Don't promise a specific band or bottle is available; schedules and stock rotate. For private parties, events, reservations or anything you can't answer, collect name, phone number, date, party size and what they need, read the phone number back, and say the team will call back. If asked, say you're an AI assistant. Keep answers short, warm and conversational, with a little patriotic pride.`
+RULES: Alcohol is 21 and up with ID; never confirm or arrange a sale to anyone under 21. Never quote a price you were not given; offer to have staff confirm. Never promise delivery or shipping; refer to-go and bottle questions to staff. Use UPCOMING EVENTS below to answer what's happening, who's playing, tonight or this week, with specific names, dates and times. If nothing is listed for the day asked, say the lineup for that night isn't posted yet and suggest checking Instagram @thewinebunkeralabaster or the Facebook page; do NOT offer a callback for simple questions. Offer a callback only for private events, bookings, or when the caller asks for a person. Don't promise a bottle is in stock; schedules and stock rotate. For private parties, events, reservations or anything you can't answer, collect name, phone number, date, party size and what they need, read the phone number back, and say the team will call back. If asked, say you're an AI assistant. Keep answers short, warm and conversational, with a little patriotic pride.`
 };
+
+/* ---- Live events: one list feeds chat, voice and the website ---- */
+(function(){
+  const KB=window.KB, BASE=KB.prompt;
+  {const i=KB.entries.findIndex(e=>e.k.test('lineup'));if(i>0)KB.entries.unshift(KB.entries.splice(i,1)[0]);}
+  const tz='America/Chicago';
+  const today=()=>new Date(new Date().toLocaleString('en-US',{timeZone:tz}));
+  const ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  const nice=s=>{const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d).toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})};
+  KB.events=[];KB.weekly=[];
+  KB.upcoming=function(days){const t=today(),start=ymd(t),end=ymd(new Date(t.getTime()+days*864e5));
+    return KB.events.filter(e=>e.date>=start&&e.date<=end).sort((a,b)=>a.date.localeCompare(b.date));};
+  KB.eventsText=function(){const t=today();let out='Today is '+t.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})+'.\n';
+    const up=KB.upcoming(21);
+    out+=up.length?up.map(e=>'- '+nice(e.date)+(e.time?', '+e.time:'')+': '+e.title+(e.details?' ('+e.details+')':'')).join('\n'):'- No dated events posted yet.';
+    if(KB.weekly.length)out+='\nEVERY WEEK:\n'+KB.weekly.map(w=>'- '+w.day+(w.time?', '+w.time:'')+': '+w.title).join('\n');
+    return out;};
+  KB.eventsAnswer=function(){const up=KB.upcoming(10);const t=ymd(today());
+    if(up.length){const tonight=up.filter(e=>e.date===t);
+      const list=(tonight.length?tonight:up.slice(0,3)).map(e=>(e.date===t?'Tonight':nice(e.date))+(e.time?' at '+e.time:'')+': '+e.title).join('. ');
+      return list+'. Anything else I can help with?';}
+    const wk=KB.weekly.length?' Every week: '+KB.weekly.map(w=>w.day+' '+w.title).join(', ')+'.':'';
+    return "This week's lineup isn't posted yet."+wk+" Check our Instagram @thewinebunkeralabaster or Facebook for the latest, and Friday and Saturday nights usually have live music.";};
+  KB.prompt=BASE+'\nUPCOMING EVENTS:\n'+KB.eventsText();
+  const url='/winebunker/events.json?v='+Date.now();
+  KB.eventsReady=fetch(url).then(r=>r.json()).then(j=>{KB.events=j.events||[];KB.weekly=j.weekly||[];KB.prompt=BASE+'\nUPCOMING EVENTS:\n'+KB.eventsText();
+    document.dispatchEvent(new CustomEvent('wb-events',{detail:j}));}).catch(()=>{});
+})();
+

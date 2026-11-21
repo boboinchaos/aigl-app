@@ -500,13 +500,15 @@ function pullFields(lines){
   // Pair each Brianna question with the guest's next answer.
   const f = {}, all = lines.join('\n');
   const em = all.match(/[\w.+-]+@[\w-]+\.[\w.]+/); if (em) f.email = em[0];
-  const ph = all.replace(/[^\d\n]/g, ' ').match(/(?:\d\s*){10,11}/); if (ph) { const d = ph[0].replace(/\D/g, '').slice(-10); f.phone = `(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`; }
+  for (const l of lines) { if (!l.startsWith('Guest')) continue; const d = l.replace(/\D/g, ''); if (d.length >= 10 && d.length <= 11) { const x = d.slice(-10); f.phone = `(${x.slice(0,3)}) ${x.slice(3,6)}-${x.slice(6)}`; } }
   let ask = '';
   for (const l of lines) {
     if (l.startsWith('Brianna:')) { const q = l.toLowerCase();
       ask = /date|when/.test(q) ? 'date' : /how many|guests|people|head/.test(q) ? 'headcount' : /occasion|theme|celebrat/.test(q) ? 'occasion' : /name/.test(q) ? 'name' : ask; continue; }
     if (!ask || f[ask]) continue;
-    const a = l.replace(/^Guest( \(typed\))?:\s*/, '').replace(/^(yeah|yes|um|uh|so|sure|okay|ok)[,.]?\s*/i, '').replace(/^(it's|it is|i'm|i am|my name is|probably|about|around|we're looking at|i'm looking at)\s*/i, '').replace(/[.,]+$/, '').trim();
+    let a = l.replace(/^Guest( \(typed\))?:\s*/, ''), b;
+    do { b = a; a = a.replace(/^(yeah|yes|um|uh|so|sure|okay|ok|well)[,.]?\s*/i, '').replace(/^(it's|it is|it'll be|i'm|i am|we're|we are|my name is|this is|probably|about|around|looking at|thinking|maybe)\s*/i, ''); } while (a !== b);
+    a = a.replace(/[,\s]+(uh|um)\b.*$/i, '').replace(/[.,!]+$/, '').trim();
     if (!a) continue;
     if (ask === 'headcount') { const n = a.match(/\d+/); if (n) f.headcount = n[0]; else continue; }
     else f[ask] = a.slice(0, 120);

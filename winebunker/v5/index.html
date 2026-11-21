@@ -405,7 +405,7 @@ function partyStep(t){
   const s=document.createElement('div');s.className='m bot sum';
   s.textContent=`Here's your request:\nDate: ${d.date}\nGuests: ${d.guests}\nOccasion: ${d.occasion}\nName: ${d.name}\nPhone: ${d.phone}\nEmail: ${d.email}`;
   msgs.appendChild(s);msgs.scrollTop=1e6;
-  const payload={type:'private_party',...d,source:'website-v5',at:new Date().toISOString()};
+  const payload={token:'wb-2026-bunker',kind:'lead',type:'private_event',...d,headcount:d.guests,source:'website-v5',at:new Date().toISOString()};
   if(LEAD_URL){fetch(LEAD_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)}).catch(()=>{});}
   add(`Thanks, ${d.name}! The team will call you to plan the details. Cheers! 🥂`,'bot');
   flow=null;setQ(["Hours","See the menu"]);
@@ -443,7 +443,7 @@ function closeSignup(){signup.classList.remove('on');}
 function submitSignup(){
   const name=document.getElementById('sname').value.trim(), email=document.getElementById('semail').value.trim();
   if(!name||!/^\S+@\S+\.\S+$/.test(email))return;
-  const payload={type:'wine_dinner_signup',name,email,source:'website-v5',at:new Date().toISOString()};
+  const payload={token:'wb-2026-bunker',kind:'signup',type:'wine_dinner_signup',name,email,source:'website-v5',at:new Date().toISOString()};
   document.getElementById('sform').style.display='none';document.getElementById('sok').style.display='block';
   if(SIGNUP_URL){fetch(SIGNUP_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)}).catch(()=>{});setTimeout(closeSignup,1800);}
   else{setTimeout(()=>{closeSignup();toggleHost(true);add(`You're on the wine dinner list, ${name}! We'll email ${email} when the next dinner is announced.`,'bot');},1200);}

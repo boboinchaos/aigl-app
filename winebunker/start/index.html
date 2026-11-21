@@ -2,138 +2,212 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Wine Bunker Refresh · Quick decisions</title>
+<title>The Wine Bunker Refresh · Quick start</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,600;1,500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#14110f;--card:#1f1a16;--line:#3a302a;--ink:#f3ece4;--mute:#b3a597;--gold:#c9a45c;--wine:#8e2c3e;--ok:#5fbf86}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
-main{max-width:640px;margin:0 auto;padding:20px 16px 120px}
-.hero{display:flex;gap:14px;align-items:center;margin:6px 0 14px}
-.logo{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--wine),#4a1420);display:grid;place-items:center;font-weight:800;color:var(--gold);flex:none}
-h1{font-size:22px;margin:0}.sub{color:var(--mute);font-size:14px;margin:3px 0 0}
-.bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin:14px 0 4px}.bar i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
-.count{font-size:13px;color:var(--mute)}
-section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:14px}
-h2{font-size:17px;margin:0 0 4px}.why{color:var(--mute);font-size:14px;margin:0 0 10px}
-.q{padding:12px 0;border-top:1px solid var(--line)}.q:first-of-type{border-top:0}
-.q b{display:block;margin-bottom:8px}.q .d{color:var(--mute);font-size:13px;margin:-4px 0 8px}
-.ch{display:flex;flex-wrap:wrap;gap:8px}
-.ch button{flex:1 1 auto;min-width:90px;border:1px solid var(--line);background:#171310;color:var(--ink);border-radius:12px;padding:12px;font:inherit;font-weight:600;cursor:pointer}
-.ch button.on{background:var(--gold);color:#14110f;border-color:var(--gold)}
-.ch button.no.on{background:#a8404f;color:#fff;border-color:#a8404f}
-input,textarea{width:100%;background:#171310;border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:11px;font:inherit;margin-top:8px}
-textarea{min-height:70px}
-.designs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.designs a{display:block;text-align:center;border:1px solid var(--line);border-radius:12px;padding:10px;color:var(--ink);text-decoration:none;font-size:14px}
-.designs a small{display:block;color:var(--mute);font-size:12px}
-.steps{margin:6px 0 8px;padding-left:20px;color:var(--mute);font-size:14px}.steps li{margin:3px 0}
-code{background:#2a221c;padding:1px 6px;border-radius:6px;color:var(--gold)}
-.warn{background:#2a1a1d;border:1px solid #6e2a36;border-radius:12px;padding:10px 12px;font-size:14px;margin-top:14px}
-.send{position:fixed;left:0;right:0;bottom:0;background:rgba(20,17,15,.96);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
-.send div{max-width:640px;margin:0 auto;display:flex;gap:8px}
-.send button{flex:1;border:0;border-radius:12px;padding:14px;font:inherit;font-weight:700;cursor:pointer}
-.b1{background:var(--gold);color:#14110f}.b2{background:#2a221c;color:var(--ink);border:1px solid var(--line)!important}
-.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#2e6b47;color:#fff;padding:10px 16px;border-radius:10px;font-weight:600;display:none}
+:root{--bg:#12090d;--card:rgba(255,255,255,.06);--line:rgba(255,255,255,.12);--ink:#f7efe6;--mute:#c9b8a8;--gold:#ffb547;--amber:#ff7a3d;--berry:#ff3d7f;--teal:#2de0c4;--wine:#8e2c3e}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);font:16px/1.5 Inter,system-ui,sans-serif;background:radial-gradient(120% 60% at 0% 0%,#4a1030 0%,transparent 60%),radial-gradient(100% 60% at 100% 10%,#2a0f3a 0%,transparent 55%),var(--bg);min-height:100vh}
+main{max-width:660px;margin:0 auto;padding:22px 16px 140px}
+.hero{border-radius:22px;padding:22px;background:linear-gradient(135deg,rgba(142,44,62,.9),rgba(74,16,48,.9) 55%,rgba(27,15,46,.9));border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.45)}
+.hero small{letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;font-size:11px}
+h1{font:600 30px/1.1 'Bodoni Moda',serif;margin:6px 0}h1 i{color:var(--gold)}
+.hero p{margin:6px 0 0;color:#f0dfd2}
+.prog{margin-top:16px;display:flex;align-items:center;gap:12px}
+.bar{flex:1;height:10px;background:rgba(255,255,255,.12);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--berry));transition:width .4s}
+.prog b{font-size:14px;white-space:nowrap}
+.saved{font-size:12px;color:var(--teal);margin-top:6px;min-height:16px}
+.note{margin-top:14px;border-radius:14px;padding:11px 14px;background:rgba(45,224,196,.1);border:1px solid rgba(45,224,196,.35);font-size:14px}
+section{margin-top:16px;border-radius:20px;padding:16px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(8px)}
+h2{font:600 21px 'Bodoni Moda',serif;margin:0 0 2px}.why{color:var(--mute);font-size:14px;margin:0 0 8px}
+.item{border-top:1px solid var(--line);padding:12px 0}.item:first-of-type{border-top:0}
+.row{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
+.box{flex:none;width:30px;height:30px;border-radius:9px;border:2px solid rgba(255,255,255,.35);display:grid;place-items:center;font-weight:800;transition:.2s}
+.item.done .box{background:linear-gradient(135deg,var(--teal),#1fa28f);border-color:transparent;color:#06221d}
+.item.done .box:after{content:'✓'}
+.t{font-weight:700}.d{color:var(--mute);font-size:14px}
+.item.done .t{color:var(--teal)}
+details{margin:8px 0 0 42px}summary{cursor:pointer;color:var(--gold);font-weight:600;font-size:14px}
+ol{margin:8px 0 4px;padding-left:20px;font-size:14px;color:#eadbcf}ol li{margin:4px 0}
+code{background:rgba(255,181,71,.15);color:var(--gold);padding:1px 6px;border-radius:6px}
+.copy{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:8px;padding:2px 8px;font-size:12px;cursor:pointer;margin-left:4px}
+.help{margin:8px 0 0 42px;display:flex;gap:8px;flex-wrap:wrap}
+.help button{border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--mute);border-radius:10px;padding:7px 10px;font:inherit;font-size:13px;cursor:pointer}
+.help button.on{border-color:var(--berry);color:#fff;background:rgba(255,61,127,.25)}
+.designs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:6px 0 2px}
+.designs a{display:block;text-align:center;border:1px solid var(--line);border-radius:12px;padding:8px 4px;color:var(--ink);text-decoration:none;font-size:13px;background:rgba(255,255,255,.04)}
+.designs a.pick{border-color:var(--gold);background:rgba(255,181,71,.12)}
+.choice{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0 42px}
+.choice button{min-width:52px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--ink);border-radius:10px;padding:9px 12px;font:inherit;font-weight:700;cursor:pointer}
+.choice button.on{background:linear-gradient(135deg,var(--gold),var(--amber));color:#1b0f0a;border-color:transparent}
+input,textarea{width:calc(100% - 42px);margin:8px 0 0 42px;background:rgba(0,0,0,.25);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:10px;font:inherit}
+textarea{width:100%;margin-left:0;min-height:80px}
+.done-bar{position:fixed;left:0;right:0;bottom:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(18,9,13,.92);border-top:1px solid var(--line);backdrop-filter:blur(10px)}
+.done-bar div{max-width:660px;margin:0 auto}
+.done-bar button{width:100%;border:0;border-radius:14px;padding:15px;font:inherit;font-weight:800;font-size:16px;cursor:pointer;background:linear-gradient(135deg,var(--gold),var(--berry));color:#1b0f0a}
+.toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);background:#14463e;border:1px solid var(--teal);color:#fff;padding:10px 16px;border-radius:12px;font-weight:600;display:none;z-index:9}
+.upl{display:block;border:2px dashed rgba(255,181,71,.5);border-radius:14px;padding:18px;text-align:center;cursor:pointer;background:rgba(255,181,71,.06)}
+.upl input{display:none}.upl span{font-weight:700;color:var(--gold)}
+.flist div{font-size:14px;padding:6px 0;border-top:1px solid var(--line)}.flist .ok{color:var(--teal)}.flist .bad{color:#ff8a8a}
+footer{color:var(--mute);font-size:12px;text-align:center;margin-top:18px}
 </style></head><body><main>
 
-<div class="hero"><div class="logo">WB</div><div><h1>The Wine Bunker Refresh</h1><p class="sub">A few quick taps. About 5 minutes. Your answers save on this phone as you go.</p></div></div>
-<div class="bar"><i id="bar"></i></div><div class="count" id="count"></div>
+<div class="hero">
+  <small>The Wine Bunker · Refresh</small>
+  <h1>Let's get the Bunker <i>back on deck.</i></h1>
+  <p>Check things off as you go. Every tap saves to us automatically. No emailing back and forth.</p>
+  <div class="prog"><div class="bar"><i id="bar"></i></div><b id="count"></b></div>
+  <div class="saved" id="saved"></div>
+</div>
 
-<div class="warn">🔒 <b>Please don't type passwords here.</b> Everything below uses invites, so you stay the owner and can remove us anytime.</div>
+<div class="note">🔒 <b>No passwords, ever.</b> Every step is an invite, so you stay the owner and can remove us anytime.</div>
 
 <section>
-  <h2>1 · Pick a website design</h2>
-  <p class="why">Tap to look. Each one has Brianna, our AI host, who answers questions and takes party requests.</p>
+  <h2>1 · Pick your website</h2>
+  <p class="why">Tap to look at each one. All five have Brianna, our AI host, who answers questions and takes private event requests.</p>
   <div class="designs">
-    <a href="../v5/" target="_blank"><b>5 · Combined ⭐</b><small>Our pick</small></a>
-    <a href="../v2/" target="_blank"><b>2 · Speakeasy</b><small>Dark & gold</small></a>
-    <a href="../v4/" target="_blank"><b>4 · Modern</b><small>Bright & warm</small></a>
-    <a href="../v3/" target="_blank"><b>3 · Bunker HQ</b><small>Military bold</small></a>
-    <a href="../" target="_blank"><b>1 · Original</b><small>First draft</small></a>
+    <a class="pick" href="../v5/" target="_blank"><b>5 ⭐</b><br>Combined</a>
+    <a href="../v2/" target="_blank"><b>2</b><br>Speakeasy</a>
+    <a href="../v4/" target="_blank"><b>4</b><br>Modern</a>
+    <a href="../v3/" target="_blank"><b>3</b><br>Bunker HQ</a>
+    <a href="../" target="_blank"><b>1</b><br>Original</a>
   </div>
-  <div class="q" data-k="design"><b>Which one do you like?</b>
-    <div class="ch"><button>5</button><button>2</button><button>4</button><button>3</button><button>1</button></div>
-    <input data-t="design_notes" placeholder="Anything to change? (optional)">
+  <div class="item" data-k="design" data-label="Website design">
+    <div class="row"><div class="box"></div><div><div class="t">My pick is…</div><div class="d">Tap a number below.</div></div></div>
+    <div class="choice" data-choice><button>5</button><button>2</button><button>4</button><button>3</button><button>1</button></div>
+    <input data-note placeholder="Anything to change on it? (optional)">
   </div>
 </section>
 
 <section>
   <h2>2 · Confirm the basics</h2>
-  <p class="why">These go on the website, Google, Facebook, Instagram, Yelp and everywhere else, so they all match.</p>
-  <div class="q" data-k="name"><b>Name: "The Wine Bunker" (dropping "Coffee")</b>
-    <div class="ch"><button>Yes</button><button class="no">Change it</button></div><input data-t="name_fix" placeholder="If changing, type it here"></div>
-  <div class="q" data-k="phone"><b>Phone: (205) 358-8940</b>
-    <div class="ch"><button>Yes</button><button class="no">Change it</button></div><input data-t="phone_fix" placeholder="If changing, type it here"></div>
-  <div class="q" data-k="address"><b>Address: 81 Weatherly Club Dr, Alabaster, AL 35007</b>
-    <div class="ch"><button>Yes</button><button class="no">Change it</button></div><input data-t="address_fix" placeholder="Suite letter? (e.g. 81-E) or fix"></div>
-  <div class="q" data-k="hours"><b>Hours: Wed–Thu 3–9 PM · Fri–Sat 3–11 PM · Closed Sun–Tue</b>
-    <div class="ch"><button>Yes</button><button class="no">Change it</button></div><input data-t="hours_fix" placeholder="If changing, type the new hours"></div>
-  <div class="q" data-k="owners"><b>OK to say "veteran-owned, founded by Chris and Dave"?</b>
-    <div class="ch"><button>Yes</button><button class="no">No</button></div><input data-t="owners_fix" placeholder="How you'd like it said (optional)"></div>
+  <p class="why">These go on the website, Google, Facebook, Instagram and Yelp so everything matches. Check it if it's right, or type the fix.</p>
+  <div class="item" data-k="name" data-label="Name"><div class="row"><div class="box"></div><div><div class="t">The Wine Bunker</div><div class="d">Dropping "Coffee" everywhere.</div></div></div><input data-note placeholder="Different? Type it here"></div>
+  <div class="item" data-k="phone" data-label="Phone"><div class="row"><div class="box"></div><div><div class="t">(205) 358-8940</div></div></div><input data-note placeholder="Different? Type it here"></div>
+  <div class="item" data-k="address" data-label="Address"><div class="row"><div class="box"></div><div><div class="t">81 Weatherly Club Dr, Alabaster, AL 35007</div></div></div><input data-note placeholder="Suite letter (like 81-E) or a fix"></div>
+  <div class="item" data-k="hours" data-label="Hours"><div class="row"><div class="box"></div><div><div class="t">Wed–Thu 3–9 PM · Fri–Sat 3–11 PM · Closed Sun–Tue</div></div></div><input data-note placeholder="Different? Type the new hours"></div>
 </section>
 
 <section>
-  <h2>3 · Give us access (no passwords)</h2>
-  <p class="why">Tap "Done" after each one. Our email for invites: <code>jason@aigl.dev</code></p>
-  <div class="q" data-k="godaddy"><b>GoDaddy (website + domain)</b>
-    <ol class="steps"><li>Sign in to GoDaddy → your name (top right) → <b>Account Settings</b> → <b>Delegate Access</b>.</li><li>Invite <code>jason@aigl.dev</code> with <b>Products, Domains & Purchase</b> access.</li></ol>
-    <div class="ch"><button>Done</button><button class="no">Need help</button></div></div>
-  <div class="q" data-k="google"><b>Google Business Profile</b>
-    <ol class="steps"><li>Google "The Wine Bunker Alabaster" while signed in → <b>⋮</b> → <b>Business Profile settings</b> → <b>People and access</b>.</li><li>Add <code>jason@aigl.dev</code> as <b>Manager</b>.</li></ol>
-    <div class="ch"><button>Done</button><button class="no">Need help</button></div></div>
-  <div class="q" data-k="facebook"><b>Facebook page</b>
-    <ol class="steps"><li>Open the page → <b>Settings</b> → <b>Page setup / Page access</b> → <b>Add New</b>.</li><li>Add <b>Jason Bourbeau</b> with full control.</li></ol>
-    <div class="ch"><button>Done</button><button class="no">Need help</button></div></div>
-  <div class="q" data-k="instagram"><b>Instagram @thewinebunkeralabaster</b>
-    <ol class="steps"><li>If it's linked to the Facebook page, step above covers it.</li><li>If not: we'll set up a 2-minute call to link it. No password needed.</li></ol>
-    <div class="ch"><button>Linked</button><button class="no">Not sure</button></div></div>
-  <div class="q" data-k="toast"><b>Toast (menu, online ordering, sales reports)</b>
-    <ol class="steps"><li>Toast Web → <b>Employees</b> → <b>Add employee</b>.</li><li>Name: Jason Bourbeau · Email: <code>jason@aigl.dev</code> · Job: Manager (view menus & reports).</li></ol>
-    <div class="ch"><button>Done</button><button class="no">Need help</button></div></div>
+  <h2>3 · Give us access</h2>
+  <p class="why">About 2 minutes each. Tap "Show me how" for the steps, then check the box when it's done.</p>
+
+  <div class="item" data-k="godaddy" data-label="GoDaddy access">
+    <div class="row"><div class="box"></div><div><div class="t">GoDaddy (website + domain)</div><div class="d">Lets us point thewinebunker.com at the new site. Your email keeps working.</div></div></div>
+    <details><summary>Show me how</summary><ol>
+      <li>Sign in at <b>godaddy.com</b>.</li>
+      <li>Click your name (top right) → <b>Account Settings</b> → <b>Delegate Access</b>.</li>
+      <li>Click <b>Invite to Access</b>. Name: Jason Bourbeau. Email: <code>jason@aigl.dev</code> <button class="copy" data-copy="jason@aigl.dev">copy</button></li>
+      <li>Choose <b>Products, Domains &amp; Purchase</b> → <b>Invite</b>.</li></ol></details>
+    <div class="help"><button data-help>I need help with this</button></div>
+    <input data-note placeholder="Add a note (optional)">
+  </div>
+
+  <div class="item" data-k="google" data-label="Google Business Profile access">
+    <div class="row"><div class="box"></div><div><div class="t">Google Business Profile</div><div class="d">Fixes the name, hours, photos and events on Google Maps and Search.</div></div></div>
+    <details><summary>Show me how</summary><ol>
+      <li>On your phone or computer, sign in to the Google account that manages the Bunker.</li>
+      <li>Search Google for <b>The Wine Bunker Alabaster</b>. Your business panel shows up.</li>
+      <li>Tap <b>⋮</b> (three dots) → <b>Business Profile settings</b> → <b>People and access</b>.</li>
+      <li>Tap <b>Add</b>, enter <code>jason@aigl.dev</code> <button class="copy" data-copy="jason@aigl.dev">copy</button>, choose <b>Manager</b> → <b>Invite</b>.</li></ol></details>
+    <div class="help"><button data-help>I need help with this</button></div>
+    <input data-note placeholder="Add a note (optional)">
+  </div>
+
+  <div class="item" data-k="facebook" data-label="Facebook + Instagram access">
+    <div class="row"><div class="box"></div><div><div class="t">Facebook page + Instagram (@thewinebunkeralabaster)</div><div class="d">Lets us post, fix the page info and answer messages.</div></div></div>
+    <details><summary>Show me how</summary><ol>
+      <li>On Facebook, switch into <b>The Wine Bunker</b> page.</li>
+      <li>Go to <b>Settings</b> → <b>Page access</b> (or <b>Page setup</b> → <b>Page access</b>).</li>
+      <li>Next to "People with Facebook access," tap <b>Add New</b> → search <b>Jason Bourbeau</b> → turn on <b>full control</b> → <b>Give access</b>.</li>
+      <li>If Instagram is connected to the page, that covers it. If not, check "Not sure" below and we'll do a 2-minute call.</li></ol></details>
+    <div class="help"><button data-help>I need help with this</button><button data-help="ig">Not sure if Instagram is connected</button></div>
+    <input data-note placeholder="Add a note (optional)">
+  </div>
+
+  <div class="item" data-k="toast_user" data-label="Toast access">
+    <div class="row"><div class="box"></div><div><div class="t">Toast (menu + online ordering)</div><div class="d">So we can clean up the menu and online ordering. We can see, not spend.</div></div></div>
+    <details><summary>Show me how</summary><ol>
+      <li>Sign in at <b>toasttab.com/login</b> (Toast Web).</li>
+      <li>Go to <b>Employees</b> → <b>Employees</b> → <b>Add employee</b>.</li>
+      <li>Name: Jason Bourbeau. Email: <code>jason@aigl.dev</code> <button class="copy" data-copy="jason@aigl.dev">copy</button>.</li>
+      <li>Job/role: a manager-level role that can view menus and reports → <b>Save</b>.</li></ol></details>
+    <div class="help"><button data-help>I need help with this</button></div>
+    <input data-note placeholder="Add a note (optional)">
+  </div>
+
+  <div class="item" data-k="toast_api" data-label="Toast API access (for Yes Chef)">
+    <div class="row"><div class="box"></div><div><div class="t">Toast reports connection (for Yes Chef)</div><div class="d">Read-only sales data for your weekly numbers. Optional for now.</div></div></div>
+    <details><summary>Show me how</summary><ol>
+      <li>In Toast Web, open the <b>Toast Shop</b> and add <b>Standard API access</b> (read-only).</li>
+      <li>Then go to <b>Integrations</b> → <b>Toast API access</b> → <b>Manage credentials</b> → create credentials.</li>
+      <li>Don't send us the keys here. Check "I need help" and we'll set it up together on a quick call.</li></ol></details>
+    <div class="help"><button data-help>I need help with this</button><button data-help="later">Do this later</button></div>
+    <input data-note placeholder="Add a note (optional)">
+  </div>
 </section>
 
 <section>
-  <h2>4 · Quick decisions</h2>
-  <div class="q" data-k="brianna_phone"><b>Should Brianna also answer the bar's phone when nobody can (closed days, slammed nights)?</b>
-    <div class="d">She answers questions and takes party requests and callback info. Your team gets every message.</div>
-    <div class="ch"><button>Yes</button><button class="no">Not yet</button><button>Let's talk</button></div></div>
-  <div class="q" data-k="party_leads"><b>Who gets private party requests?</b>
-    <div class="ch"><button>Chris</button><button>Bar manager</button><button>Both</button></div>
-    <input data-t="party_contacts" placeholder="Their emails / cell numbers"></div>
-  <div class="q" data-k="bar_app"><b>Give the bar manager our Bar App?</b>
-    <div class="d">Two buttons: send photos, and "What's going on this week?" by voice. We turn it into posts.</div>
-    <div class="ch"><button>Yes</button><button class="no">No</button></div>
-    <input data-t="point_person" placeholder="Bar manager's name + cell"></div>
-  <div class="q" data-k="post_approval"><b>How do you want to approve social posts?</b>
-    <div class="ch"><button>Text me</button><button>Email me</button><button>Bar manager approves</button><button>Just post</button></div></div>
-  <div class="q" data-k="wine_list"><b>Start a "wine dinner" email list on the website?</b>
-    <div class="ch"><button>Yes</button><button class="no">No</button></div></div>
-  <div class="q" data-k="yes_chef"><b>Set up Yes Chef (sales + inventory reports from Toast)?</b>
-    <div class="ch"><button>Yes</button><button class="no">Later</button></div></div>
-  <div class="q" data-k="checkin"><b>Best time for a weekly 15-minute check-in?</b>
-    <div class="ch"><button>Mon</button><button>Tue</button><button>Wed</button><button>Text only</button></div></div>
-  <div class="q"><b>Anything else we should know?</b><textarea data-t="notes" placeholder="Events coming up, specials, things you love or hate…"></textarea></div>
+  <h2>4 · Send us files</h2>
+  <p class="why">Got a list of all your social accounts, logos, photos, menus, event flyers? Drop them here. Photos, PDFs, Word, Excel, anything.</p>
+  <label class="upl"><input id="files" type="file" multiple><span>📎 Choose files</span></label>
+  <div id="flist" class="flist"></div>
 </section>
 
-<p class="sub" style="margin-top:16px">Nothing gets posted, published or changed on your accounts without your OK.</p>
+<section>
+  <h2>5 · Anything else?</h2>
+  <p class="why">Upcoming events, specials, things you love or hate about the current site. Optional.</p>
+  <div class="item" data-k="notes" data-label="Notes" style="border:0;padding-top:0"><textarea data-note placeholder="Type anything here…"></textarea></div>
+</section>
+
+<footer>Nothing gets posted, published or changed on your accounts without your OK. · AIGL · jason@aigl.dev · (205) 203-8377</footer>
 </main>
 
-<div class="send"><div><button class="b1" onclick="sendText()">📱 Text my answers to Jason</button><button class="b2" onclick="sendMail()">✉️ Email</button></div></div>
+<div class="done-bar"><div><button id="finish">✅ I'm done for now</button></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
-const KEY='wb_owner_answers_v1';let A={};try{A=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(A))}catch(e){};progress()};
-document.querySelectorAll('.q[data-k]').forEach(q=>{const k=q.dataset.k;q.querySelectorAll('.ch button').forEach(b=>{
-  if(A[k]===b.textContent)b.classList.add('on');
-  b.onclick=()=>{q.querySelectorAll('.ch button').forEach(x=>x.classList.remove('on'));if(A[k]===b.textContent){delete A[k]}else{A[k]=b.textContent;b.classList.add('on')}save()}})});
-document.querySelectorAll('[data-t]').forEach(i=>{const k=i.dataset.t;if(A[k])i.value=A[k];i.oninput=()=>{A[k]=i.value;save()}});
-function progress(){const qs=[...document.querySelectorAll('.q[data-k]')];const d=qs.filter(q=>A[q.dataset.k]).length;document.getElementById('bar').style.width=(100*d/qs.length)+'%';document.getElementById('count').textContent=d+' of '+qs.length+' answered'}
+const ENDPOINT = ''; // Apps Script web app URL (set after deploy)
+const TOKEN = 'wb-2026-bunker';
+const KEY='wb_onboard_v2';let S={};try{S=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+function send(item,answer,details,finished){
+  if(!ENDPOINT){flash('Saved on this phone');return;}
+  fetch(ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({token:TOKEN,kind:'onboarding',item,answer,details:details||'',finished:!!finished})})
+    .then(()=>flash('✓ Saved. Jason sees it.')).catch(()=>flash('Saved on this phone; will retry'));
+}
+function flash(m){const s=document.getElementById('saved');s.textContent=m;clearTimeout(s._t);s._t=setTimeout(()=>s.textContent='',2500)}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',2600)}
+const items=[...document.querySelectorAll('.item[data-k]')].filter(i=>i.dataset.k!=='notes');
+function progress(){const d=items.filter(i=>S[i.dataset.k]&&S[i.dataset.k].done).length;document.getElementById('bar').style.width=(100*d/items.length)+'%';document.getElementById('count').textContent=d+' of '+items.length+' done'}
+document.querySelectorAll('.item[data-k]').forEach(it=>{
+  const k=it.dataset.k,label=it.dataset.label;S[k]=S[k]||{};
+  const note=it.querySelector('[data-note]');
+  const draw=()=>{it.classList.toggle('done',!!S[k].done);it.querySelectorAll('[data-choice] button').forEach(b=>b.classList.toggle('on',S[k].choice===b.textContent));it.querySelectorAll('[data-help]').forEach(b=>b.classList.toggle('on',(S[k].help||'')===(b.dataset.help||'help')))};
+  if(note&&S[k].note)note.value=S[k].note;
+  const row=it.querySelector('.row');
+  if(row&&!it.querySelector('[data-choice]'))row.onclick=()=>{S[k].done=!S[k].done;persist();draw();progress();send(label,S[k].done?'Done':'Not done',S[k].note)};
+  it.querySelectorAll('[data-choice] button').forEach(b=>b.onclick=()=>{S[k].choice=b.textContent;S[k].done=true;persist();draw();progress();send(label,'Option '+b.textContent,S[k].note)});
+  it.querySelectorAll('[data-help]').forEach(b=>b.onclick=()=>{const v=b.dataset.help||'help';S[k].help=S[k].help===v?'':v;persist();draw();
+    const msg={help:'Needs help',ig:'Not sure if Instagram is connected',later:'Do later'}[v];send(label,S[k].help?msg:'Help cleared',S[k].note);if(S[k].help)toast('Got it. Jason will reach out.')});
+  if(note){let t;note.oninput=()=>{S[k].note=note.value;persist();clearTimeout(t);t=setTimeout(()=>{if(['name','phone','address','hours'].includes(k)&&note.value&&!S[k].done){S[k].done=true;draw();progress()}send(label,k==='notes'?'Note':(S[k].choice?'Option '+S[k].choice:(S[k].done?'Done + note':'Note')),note.value)},900)}}
+  draw();
+});
+document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=e=>{e.stopPropagation();navigator.clipboard&&navigator.clipboard.writeText(b.dataset.copy);b.textContent='copied';setTimeout(()=>b.textContent='copy',1500)});
+document.getElementById('finish').onclick=()=>{const sum=items.map(i=>i.dataset.label+': '+(S[i.dataset.k].done?'✓':'—')+(S[i.dataset.k].help?' (help)':'')).join(' | ');send('Finished',sum,(S.notes&&S.notes.note)||'',true);toast('Thanks, Chris! We\'ve got it from here. 🥂')};
+
+document.getElementById('files').onchange=async e=>{
+  const box=document.getElementById('flist');
+  for(const f of e.target.files){
+    const row=document.createElement('div');row.textContent='⏳ '+f.name;box.appendChild(row);
+    if(f.size>20e6){row.textContent='✗ '+f.name+' is over 20 MB. Email it to jason@aigl.dev instead.';row.className='bad';continue}
+    const data=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(f)});
+    if(!ENDPOINT){row.textContent='✓ '+f.name+' (ready; uploads once we go live)';row.className='ok';continue}
+    try{await fetch(ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({token:TOKEN,kind:'upload',name:f.name,mime:f.type||'application/octet-stream',data})});row.textContent='✓ '+f.name+' sent';row.className='ok';send('File uploaded',f.name,'')}
+    catch(x){row.textContent='✗ '+f.name+' didn\'t send. Try again.';row.className='bad'}
+  }
+  e.target.value='';
+};
 progress();
-const LABEL={design:'Design',name:'Name',phone:'Phone',address:'Address',hours:'Hours',owners:'Veteran-owned wording',godaddy:'GoDaddy access',google:'Google access',facebook:'Facebook access',instagram:'Instagram',toast:'Toast access',brianna_phone:'Brianna answers phone',party_leads:'Party requests go to',bar_app:'Bar App',post_approval:'Post approval',wine_list:'Wine dinner list',yes_chef:'Yes Chef',checkin:'Check-in',design_notes:'Design notes',name_fix:'Name fix',phone_fix:'Phone fix',address_fix:'Address fix',hours_fix:'Hours fix',owners_fix:'Owner wording',party_contacts:'Party contacts',point_person:'Bar manager',notes:'Notes'};
-function summary(){return 'Wine Bunker answers:\n'+Object.keys(LABEL).filter(k=>A[k]).map(k=>LABEL[k]+': '+A[k]).join('\n')}
-function toast(m){const t=document.getElementById('toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',3000)}
-function sendText(){const body=encodeURIComponent(summary());const ios=/iP(hone|ad|od)/.test(navigator.userAgent);location.href='sms:+17862094537'+(ios?'&':'?')+'body='+body}
-function sendMail(){location.href='mailto:jason@aigl.dev?subject='+encodeURIComponent('Wine Bunker refresh: my answers')+'&body='+encodeURIComponent(summary())}
 </script>
 <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "58d539f11ece436da2c2a887479d7c37"}'></script><!-- End Cloudflare Web Analytics -->
 </body></html>

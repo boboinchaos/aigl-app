@@ -429,7 +429,7 @@ btn.addEventListener('click', async () => {
   try {
     await vapi.start(ASSISTANT_ID, {
       firstMessage: "Hey, thanks for calling The Wine Bunker! I'm your host, Brianna. How can I help you?",
-      voice: { provider: "11labs", voiceId: "oWAxZDx7w5VEj9dCyTzz", stability: 0.65, similarityBoost: 0.8, style: 0, useSpeakerBoost: false }
+      voice: { provider: "11labs", voiceId: "XrExE9yKIg1WjnnlVkGX", stability: 0.6, similarityBoost: 0.75, style: 0, useSpeakerBoost: false }
     });
   } catch (e) { vstatus.textContent = 'Could not start (allow microphone?)'; starting = false; label.textContent = 'Talk to our host'; }
 });

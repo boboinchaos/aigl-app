@@ -484,8 +484,8 @@ const INTENT = {
 };
 let curIntent = '', convo = [];
 const VOICES = { jessica: "cgSgspJ2msm6clMCkdW9", laura: "FGY2WhTYpPnrIDTdsKH5", rachel: "21m00Tcm4TlvDq8ikWAM", grace: "oWAxZDx7w5VEj9dCyTzz", serena: "pMsXgVXv3BLzUgSXRplE", matilda: "XrExE9yKIg1WjnnlVkGX", lily: "pFZP5JQG7iQjIQuC4Bku", sarah: "EXAVITQu4vr4xnSDxMaL" };
-const vq = (new URLSearchParams(location.search).get('voice') || 'grace').toLowerCase();
-const VOICE = { provider: "11labs", voiceId: VOICES[vq] || VOICES.grace, stability: 0.65, similarityBoost: 0.8, style: 0, useSpeakerBoost: false };
+const vq = 'matilda'; // locked: Jason picked Matilda
+const VOICE = { provider: "11labs", voiceId: VOICES.matilda, stability: 0.6, similarityBoost: 0.75, style: 0, useSpeakerBoost: false };
 function setIntent(i){ curIntent = i || ''; if (live && INTENT[curIntent]) { try { vapi.send({ type: 'add-message', message: { role: 'system', content: INTENT[curIntent] }, triggerResponseEnabled: true }); } catch (x) {} } }
 function saveConvo(){
   const url = window.LEAD_URL_V || '';

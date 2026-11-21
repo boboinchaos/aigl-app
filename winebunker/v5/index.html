@@ -483,6 +483,9 @@ const INTENT = {
   wine: "The guest tapped 'Notify me of wine dinners'. Get their name and email (ask them to type the email in the chat box). Confirm and say they'll hear about the next wine dinner first."
 };
 let curIntent = '', convo = [];
+const VOICES = { matilda: "XrExE9yKIg1WjnnlVkGX", lily: "pFZP5JQG7iQjIQuC4Bku", sarah: "EXAVITQu4vr4xnSDxMaL" };
+const vq = (new URLSearchParams(location.search).get('voice') || 'matilda').toLowerCase();
+const VOICE = { provider: "11labs", voiceId: VOICES[vq] || VOICES.matilda, stability: 0.6, similarityBoost: 0.75, style: 0, useSpeakerBoost: false };
 function setIntent(i){ curIntent = i || ''; if (live && INTENT[curIntent]) { try { vapi.send({ type: 'add-message', message: { role: 'system', content: INTENT[curIntent] }, triggerResponseEnabled: true }); } catch (x) {} } }
 function saveConvo(){
   const url = window.LEAD_URL_V || '';
@@ -500,7 +503,7 @@ async function start(intent){
   try {
     await vapi.start(ASSISTANT_ID, {
       firstMessage: FIRST[curIntent] || FIRST._,
-      voice: { provider: "11labs", voiceId: "EXAVITQu4vr4xnSDxMaL" }
+      voice: VOICE
     });
   } catch (e) { fallback('Voice unavailable, typing works.'); }
 }

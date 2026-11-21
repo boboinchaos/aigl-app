@@ -25,10 +25,16 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:200;op
 .top{position:sticky;top:0;z-index:50}
 nav{display:flex;align-items:center;justify-content:space-between;padding:12px 5vw;background:rgba(15,16,12,.92);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo .tag{width:34px;height:24px;border-radius:12px 12px 12px 12px/12px;background:linear-gradient(145deg,#d7d2c3,#8d8a7d);position:relative;box-shadow:inset 0 1px 0 #fff8,0 2px 6px #0008}
+.logo .tagsvg{width:46px;height:30px;transform:rotate(-8deg);filter:drop-shadow(0 2px 4px #0009)}
+.logo .tag-old{width:34px;height:24px;border-radius:12px 12px 12px 12px/12px;background:linear-gradient(145deg,#d7d2c3,#8d8a7d);position:relative;box-shadow:inset 0 1px 0 #fff8,0 2px 6px #0008}
 .logo .tag:after{content:"";position:absolute;left:5px;top:9px;width:5px;height:5px;border-radius:50%;background:#2a2b24}
 .logo b{font:22px 'Saira Stencil One';letter-spacing:.06em}
 .logo b span{color:var(--brass)}
+.navl{display:flex;align-items:center;gap:18px}
+.navhost{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--brass);background:rgba(15,16,12,.6);color:var(--brass2);font:600 12px Oswald;letter-spacing:.14em;text-transform:uppercase;padding:3px 12px 3px 3px;border-radius:999px;cursor:pointer}
+.navhost img{width:28px;height:28px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 1.5px var(--brass)}
+.navhost:hover{background:var(--brass);color:#16170f}.navhost .short{display:none}
+@media(max-width:560px){.navl{gap:10px}.navhost .full{display:none}.navhost .short{display:inline}.logo b{font-size:18px}.logo .tagsvg{width:38px;height:25px}}
 nav .links{display:flex;align-items:center;gap:22px}
 nav .links a{text-decoration:none;font:600 13px Oswald;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
 nav .links a:hover{color:var(--brass2)}
@@ -79,6 +85,11 @@ nav .links a:hover{color:var(--brass2)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto}}
 
 /* tape strip */
+.wirebar{height:22px;background:#0f100c url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='22' viewBox='0 0 60 22'%3E%3Cpath d='M0 9 C10 5 20 13 30 9 S50 5 60 9' stroke='%23a9a69b' stroke-width='1.6' fill='none'/%3E%3Cpath d='M0 13 C10 17 20 9 30 13 S50 17 60 13' stroke='%23716e65' stroke-width='1.6' fill='none'/%3E%3Cg stroke='%23c9c6bb' stroke-width='1.4' stroke-linecap='round'%3E%3Cpath d='M24 4 L36 18'/%3E%3Cpath d='M36 4 L24 18'/%3E%3Cpath d='M27 11 L33 11'/%3E%3C/g%3E%3C/svg%3E") repeat-x center/60px 22px}
+.ticker{background:linear-gradient(180deg,#e6e4dc 0%,#b7b4a9 45%,#d4d1c7 55%,#9b988d 100%)!important;border-top:1px solid #fff6!important;border-bottom:1px solid #5a584f!important;position:relative}
+.ticker:after{content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0 1px,transparent 1px 3px)}
+.ticker div{color:#2f2e28!important;text-shadow:0 1px 0 rgba(255,255,255,.55),0 -1px 0 rgba(0,0,0,.25)}
+.ticker b{color:#6b5a1f!important}
 .tape{background:repeating-linear-gradient(-45deg,var(--brass) 0 22px,#16170f 22px 44px);height:14px;opacity:.85}
 .ticker{background:var(--od);border-top:1px solid #4e5636;border-bottom:1px solid #22261a;overflow:hidden;white-space:nowrap}
 .ticker div{display:inline-block;padding:12px 0;font:600 14px Oswald;letter-spacing:.2em;text-transform:uppercase;color:var(--sand);animation:tick 40s linear infinite}
@@ -239,12 +250,27 @@ footer .logo{margin-bottom:10px}
 #signup .x{position:absolute;right:12px;top:8px;background:none;border:0;font-size:22px;cursor:pointer;color:#5d5640}
 #signup .ok{display:none;font:600 15px Inter;color:var(--wine)}
 #signup .btn{width:100%;justify-content:center;background:var(--wine);color:#fff}
+
+/* STORY v2 */
+.dossier{grid-template-columns:1.1fr .9fr!important;align-items:center!important}
+.tale{border-left:3px solid var(--brass);padding:6px 0 6px 28px;max-width:640px}
+.tale p{font-size:18px;line-height:1.7;color:#d9cfb2;margin-bottom:16px}
+.tale .lead{font:500 clamp(22px,2.4vw,28px)/1.45 Oswald;color:var(--sand);letter-spacing:.01em}
+.tale blockquote{font:clamp(24px,2.8vw,34px)/1.25 'Saira Stencil One';color:var(--brass2);margin:26px 0 10px;text-transform:uppercase;letter-spacing:.02em}
+.tale .cheers{font:600 16px 'JetBrains Mono';letter-spacing:.3em;text-transform:uppercase;color:var(--brass);margin-top:6px}
+.tale .seal{display:inline-block;margin-top:18px;font:15px 'Saira Stencil One';color:#b3343f;border:3px solid #b3343f;padding:6px 14px;transform:rotate(-4deg);letter-spacing:.12em;opacity:.9}
+.tagwrap{display:flex;justify-content:center}
+.tagpair{width:min(420px,100%);height:auto;filter:drop-shadow(0 18px 28px #000c)}
+.story .intel{grid-template-columns:repeat(4,1fr);margin-top:56px}
+@media(max-width:1000px){.story .intel{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.dossier{grid-template-columns:1fr!important}.tale{padding-left:18px}}
+@media(max-width:560px){.story .intel{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="top">
 <nav aria-label="Main">
-  <a class="logo" href="#top" aria-label="The Wine Bunker home"><i class="tag" aria-hidden="true"></i><b>WINE <span>BUNKER</span></b></a>
+  <div class="navl"><a class="logo" href="#top" aria-label="The Wine Bunker home"><svg class="tagsvg" viewBox="0 0 64 40" aria-hidden="true"><defs><linearGradient id="tgm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f1efe8"/><stop offset=".45" stop-color="#b9b6ab"/><stop offset=".7" stop-color="#dcd9cf"/><stop offset="1" stop-color="#8d8a80"/></linearGradient></defs><rect x="2" y="3" width="58" height="34" rx="9" fill="#2a2b24"/><rect x="4" y="5" width="54" height="30" rx="7.5" fill="url(#tgm)" stroke="#6f6c62" stroke-width=".6"/><circle cx="11" cy="20" r="2.6" fill="#2a2b24"/><text x="38" y="25" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="800" font-size="13" fill="#55534a" stroke="#fff" stroke-opacity=".5" stroke-width=".4">WB</text></svg><b>WINE <span>BUNKER</span></b></a><button type="button" class="navhost" onclick="voiceBtn()" aria-label="Talk to Brianna, our host"><img src="../brianna-160.jpg" alt=""><span><span class="full">Talk to our host</span><span class="short">Host</span></span></button></div>
   <div class="links"><a href="#story">The Unit</a><a href="#menu">Rations</a><a href="#events">Missions</a><a href="#visit">Rally Point</a><a class="callbtn" href="tel:+12053588940"><span class="full">Call (205) 358-8940</span><span class="short">Call</span></a></div>
 </nav></div>
 
@@ -255,7 +281,7 @@ footer .logo{margin-bottom:10px}
     <div class="coords"><span><i class="dot" id="opendot"></i><span id="openlbl">STATUS: STANDBY</span></span><span>33.259° N · 86.795° W</span><span>ALABASTER, AL</span></div>
     <h1>Report to<em>the Bunker.</em></h1>
     <p class="lede">A veteran-owned whiskey &amp; wine bar in Weatherly Plaza. Curated pours, smoked old fashioneds, charcuterie boards and live music. Built on service, poured with pride.</p>
-    <div class="ctas"><a class="btn b" href="#menu">See the Menu</a><button type="button" class="btn o" onclick="talkAbout('private')">Book the Bunker</button></div>
+    <div class="ctas"><a class="btn b" href="#menu">See the Menu</a><a class="btn o" href="#events">Live Music</a></div>
   </div>
   <div class="radar">
     <div class="sweep" aria-hidden="true"></div>
@@ -265,34 +291,31 @@ footer .logo{margin-bottom:10px}
   </div>
 </header>
 
-<div class="tape" aria-hidden="true"></div>
+<div class="wirebar" aria-hidden="true"></div>
 <div class="ticker" aria-hidden="true"><div>
-  Whiskey <b>✦</b> Wine <b>✦</b> Craft Cocktails <b>✦</b> Live Music Fri &amp; Sat <b>✦</b> Wine Pairing Dinners <b>✦</b> Private Parties <b>✦</b> Veteran Owned <b>✦</b>
-  Whiskey <b>✦</b> Wine <b>✦</b> Craft Cocktails <b>✦</b> Live Music Fri &amp; Sat <b>✦</b> Wine Pairing Dinners <b>✦</b> Private Parties <b>✦</b> Veteran Owned <b>✦</b>
+  Whiskey <b>✦</b> Wine <b>✦</b> Craft Cocktails <b>✦</b> Live Music <b>✦</b> Wine Pairing Dinners <b>✦</b> Private Parties <b>✦</b> Veteran Owned <b>✦</b>
+  Whiskey <b>✦</b> Wine <b>✦</b> Craft Cocktails <b>✦</b> Live Music <b>✦</b> Wine Pairing Dinners <b>✦</b> Private Parties <b>✦</b> Veteran Owned <b>✦</b>
 </div></div>
+<div class="wirebar bot" aria-hidden="true"></div>
 
 <section class="story" id="story">
   <div class="kicker">The Unit</div>
   <h2>Built on <span>service.</span> Poured with pride.</h2>
   <div class="dossier">
-    <article class="file">
-      <span class="tab">FILE 01 · ORIGIN</span>
-      <span class="stamp" aria-hidden="true">VETERAN OWNED</span>
-      <h3>THE WINE BUNKER</h3>
-      <div class="meta">EST. ALABASTER, AL · OWNERS: CHRIS &amp; DAVE</div>
-      <p>The Wine Bunker was founded by Chris and Dave, two friends whose bond was forged serving our country together. They wanted a place that felt honest, welcoming and built around the stories people share across the table.</p>
-      <p>So they built the Bunker. Not to hide from the world, but to bring it together. Cheers.</p>
-      <div class="tags" aria-hidden="true">
-        <div class="dog"><b>CHRIS</b>CO-FOUNDER<br>WHISKEY · WINE</div>
-        <div class="dog"><b>DAVE</b>CO-FOUNDER<br>SERVICE · PRIDE</div>
-      </div>
-    </article>
-    <div class="intel">
+    <div class="tale">
+      <p class="lead">The Wine Bunker was founded by Chris and Dave, two friends whose bond was forged serving our country together.</p>
+      <p>They wanted a place that felt honest, welcoming and built around the stories people share across the table.</p>
+      <blockquote>So they built the Bunker. Not to hide from the world, but to bring it together.</blockquote>
+      <p class="cheers">Cheers.</p>
+      <div class="seal" aria-hidden="true">★ Veteran Owned ★</div>
+    </div>
+    <div class="tagwrap"><svg class="tagpair" viewBox="0 0 420 380" role="img" aria-label="Dog tags for founders Chris and Dave"><defs><linearGradient id="steel1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f2ec"/><stop offset=".35" stop-color="#c2bfb4"/><stop offset=".55" stop-color="#e2dfd6"/><stop offset="1" stop-color="#8f8c82"/></linearGradient><linearGradient id="steel2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f2ec"/><stop offset=".35" stop-color="#c2bfb4"/><stop offset=".55" stop-color="#e2dfd6"/><stop offset="1" stop-color="#8f8c82"/></linearGradient></defs><path d="M150 0 C140 60 120 110 112 150" fill="none" stroke="#9c998e" stroke-width="5" stroke-linecap="round" stroke-dasharray="0.1 8"/><path d="M270 0 C280 70 270 150 262 205" fill="none" stroke="#9c998e" stroke-width="5" stroke-linecap="round" stroke-dasharray="0.1 8"/><g transform="translate(40 150) rotate(-8)"><rect x="-4" y="-4" width="228" height="140" rx="30" fill="#1f201b"/><rect x="0" y="0" width="220" height="132" rx="26" fill="url(#steel1)" stroke="#6d6a61" stroke-width="1.2"/><rect x="6" y="6" width="208" height="120" rx="22" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1"/><circle cx="24" cy="66" r="8" fill="#1f201b"/><circle cx="24" cy="66" r="8" fill="none" stroke="#8d8a80"/><g font-family="JetBrains Mono,monospace" font-weight="800" letter-spacing="1.5"><text x="46.8" y="40.8" font-size="20" fill="#fff" fill-opacity=".55">CHRIS</text><text x="46" y="40" font-size="20" fill="#4a4840">CHRIS</text><text x="46.8" y="66.8" font-size="12" fill="#fff" fill-opacity=".55">CO-FOUNDER</text><text x="46" y="66" font-size="12" fill="#4a4840">CO-FOUNDER</text><text x="46.8" y="88.8" font-size="12" fill="#fff" fill-opacity=".55">THE WINE BUNKER</text><text x="46" y="88" font-size="12" fill="#4a4840">THE WINE BUNKER</text><text x="46.8" y="110.8" font-size="12" fill="#fff" fill-opacity=".55">ALABASTER AL</text><text x="46" y="110" font-size="12" fill="#4a4840">ALABASTER AL</text></g></g><g transform="translate(170 205) rotate(6)"><rect x="-4" y="-4" width="228" height="140" rx="30" fill="#1f201b"/><rect x="0" y="0" width="220" height="132" rx="26" fill="url(#steel2)" stroke="#6d6a61" stroke-width="1.2"/><rect x="6" y="6" width="208" height="120" rx="22" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1"/><circle cx="24" cy="66" r="8" fill="#1f201b"/><circle cx="24" cy="66" r="8" fill="none" stroke="#8d8a80"/><g font-family="JetBrains Mono,monospace" font-weight="800" letter-spacing="1.5"><text x="46.8" y="40.8" font-size="20" fill="#fff" fill-opacity=".55">DAVE</text><text x="46" y="40" font-size="20" fill="#4a4840">DAVE</text><text x="46.8" y="66.8" font-size="12" fill="#fff" fill-opacity=".55">CO-FOUNDER</text><text x="46" y="66" font-size="12" fill="#4a4840">CO-FOUNDER</text><text x="46.8" y="88.8" font-size="12" fill="#fff" fill-opacity=".55">THE WINE BUNKER</text><text x="46" y="88" font-size="12" fill="#4a4840">THE WINE BUNKER</text><text x="46.8" y="110.8" font-size="12" fill="#fff" fill-opacity=".55">ALABASTER AL</text><text x="46" y="110" font-size="12" fill="#4a4840">ALABASTER AL</text></g></g></svg></div>
+  </div>
+  <div class="intel">
       <div class="row"><div class="ico">01</div><div><b>Wine with a Purpose</b><span>About two dozen pours by the glass or bottle, from Napa and Willamette to the Loire and Rioja.</span></div></div>
       <div class="row"><div class="ico">02</div><div><b>Whiskey with a Story</b><span>A curated shelf of bourbon, scotch and whiskey, and the Smoked Old Fashioned everyone talks about.</span></div></div>
       <div class="row"><div class="ico">03</div><div><b>Service &amp; Sacrifice</b><span>Camaraderie, local live music and small plates made for sharing.</span></div></div>
       <div class="row"><div class="ico">04</div><div><b>21+ Hideaway</b><span>An intimate room in Weatherly Plaza, made for date nights, regulars and good conversation.</span></div></div>
-    </div>
   </div>
 </section>
 
@@ -372,12 +395,12 @@ footer .logo{margin-bottom:10px}
 </section>
 
 <footer>
-  <div><a class="logo" href="#top"><i class="tag" aria-hidden="true"></i><b>WINE <span>BUNKER</span></b></a>Veteran-owned whiskey &amp; wine bar<br>81-E Weatherly Club Dr, Alabaster, AL 35007 · <a href="tel:+12053588940">(205) 358-8940</a><br>Must be 21+ to purchase alcohol. Please drink responsibly.</div>
+  <div><a class="logo" href="#top"><svg class="tagsvg" viewBox="0 0 64 40" aria-hidden="true"><defs><linearGradient id="tgm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f1efe8"/><stop offset=".45" stop-color="#b9b6ab"/><stop offset=".7" stop-color="#dcd9cf"/><stop offset="1" stop-color="#8d8a80"/></linearGradient></defs><rect x="2" y="3" width="58" height="34" rx="9" fill="#2a2b24"/><rect x="4" y="5" width="54" height="30" rx="7.5" fill="url(#tgm)" stroke="#6f6c62" stroke-width=".6"/><circle cx="11" cy="20" r="2.6" fill="#2a2b24"/><text x="38" y="25" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="800" font-size="13" fill="#55534a" stroke="#fff" stroke-opacity=".5" stroke-width=".4">WB</text></svg><b>WINE <span>BUNKER</span></b></a>Veteran-owned whiskey &amp; wine bar<br>81-E Weatherly Club Dr, Alabaster, AL 35007 · <a href="tel:+12053588940">(205) 358-8940</a><br>Must be 21+ to purchase alcohol. Please drink responsibly.</div>
   <div class="mono" style="font-size:13px">WED–THU 3–9 PM · FRI–SAT 3–11 PM · SUN–TUE CLOSED<br><a href="https://www.instagram.com/thewinebunkeralabaster/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/61559360786426" target="_blank" rel="noopener">Facebook</a></div>
 </footer>
 
 <button id="wb-voice-btn" type="button" aria-label="Talk to Brianna, our host" onclick="voiceBtn()"><img class="host" src="../brianna-160.jpg" alt=""><i class="o"></i><span class="vl"><span id="wb-voice-label">Talk to our host</span><small>Ask me anything, out loud</small></span></button>
-<button id="wb-chat-btn" type="button" onclick="toggleHost()">💬 Chat with us</button>
+
 
 <div id="wb-chat" role="dialog" aria-label="Brianna, Bunker Host">
   <div class="ch"><img src="../brianna-160.jpg" alt=""><div><b>BRIANNA · BUNKER HOST</b><small id="hsub">● Talk out loud, or just type</small></div><button type="button" onclick="toggleHost()" aria-label="Close">✕</button></div>

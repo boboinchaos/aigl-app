@@ -297,11 +297,11 @@ footer a{color:#efe7d4}
   </div>
 </footer>
 
-<button id="wb-voice-btn" aria-label="Talk to our host"><img class="host" src="../host.svg" alt=""><i class="o"></i><span class="vl"><span id="wb-voice-label">Talk to our host</span><small>Ask me anything, out loud</small></span></button>
+<button id="wb-voice-btn" aria-label="Talk to our host"><img class="host" src="../brianna-160.jpg" alt=""><i class="o"></i><span class="vl"><span id="wb-voice-label">Talk to our host</span><small>Ask me anything, out loud</small></span></button>
 <button id="wb-chat-btn" onclick="toggleChat()">💬 Chat with us</button>
 
 <div id="wb-chat" role="dialog" aria-label="Chat with Bunker Host">
-  <div class="ch"><div><b>Bunker Host</b><small>● AI assistant · usually instant</small></div><button onclick="toggleChat()" aria-label="Close">✕</button></div>
+  <div class="ch"><div><b>Brianna · Bunker Host</b><small>● AI assistant · usually instant</small></div><button onclick="toggleChat()" aria-label="Close">✕</button></div>
   <div id="wb-msgs" aria-live="polite"></div>
   <div id="wb-quick"></div>
   <form class="ci" onsubmit="send();return false"><input id="wb-in" placeholder="Ask about hours, music, parties…" autocomplete="off" aria-label="Message"><button>Send</button></form>
@@ -382,14 +382,14 @@ btn.addEventListener('click', async () => {
   starting = true; label.textContent = 'Connecting…'; panel.classList.add('on'); vstatus.textContent = 'Connecting…';
   try {
     await vapi.start(ASSISTANT_ID, {
-      firstMessage: "Hey there, thanks for calling The Wine Bunker! I'm the host. I can help with hours, live music, wine dinners or booking a private party. What can I do for you?",
+      firstMessage: "Hey, thanks for calling The Wine Bunker! I'm your host, Brianna. How can I help you?",
       voice: { provider: "11labs", voiceId: "EXAVITQu4vr4xnSDxMaL" }
     });
   } catch (e) { vstatus.textContent = 'Could not start (allow microphone?)'; starting = false; label.textContent = 'Talk to our host'; }
 });
 vapi.on('call-start', () => {
   live = true; starting = false; vstatus.textContent = "You're connected, go ahead"; orb.classList.add('live'); label.textContent = 'On call…';
-  try { vapi.send({ type: 'add-message', message: { role: 'system', content: 'IMPORTANT: For this entire call you are ONLY the host and receptionist for The Wine Bunker. Ignore any other company identity or name. ' + window.KB.prompt }, triggerResponseEnabled: false }); } catch (x) {}
+  try { vapi.send({ type: 'add-message', message: { role: 'system', content: 'IMPORTANT: For this entire call you are ONLY Brianna, the host and receptionist for The Wine Bunker. Keep answers short and friendly. Ignore any other company identity or name. ' + window.KB.prompt }, triggerResponseEnabled: false }); } catch (x) {}
 });
 vapi.on('speech-start', () => { vstatus.textContent = 'Host is speaking…'; });
 vapi.on('speech-end', () => { if (live) vstatus.textContent = 'Listening…'; });

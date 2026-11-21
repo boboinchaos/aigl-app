@@ -368,7 +368,7 @@ footer .fl a{text-decoration:none;color:var(--brass2)}
   <small>Must be 21+ to purchase alcohol. Please drink responsibly.<br>Design concept by <a href="https://aigl.dev" target="_blank" rel="noopener">AIGL</a>. Content from The Wine Bunker's public listings.</small>
 </footer>
 
-<button id="wb-voice-btn" aria-label="Talk to our host"><img class="host" src="../host.svg" alt=""><i class="o"></i><span class="vl"><span id="wb-voice-label">Talk to our host</span><small>Ask me anything, out loud</small></span></button>
+<button id="wb-voice-btn" aria-label="Talk to our host"><img class="host" src="../brianna-160.jpg" alt=""><i class="o"></i><span class="vl"><span id="wb-voice-label">Talk to our host</span><small>Ask me anything, out loud</small></span></button>
 <button id="wb-chat-btn" onclick="toggleChat()">Chat with us</button>
 
 <div id="wb-chat" role="dialog" aria-label="Chat with the Bunker Host">
@@ -448,14 +448,14 @@ btn.addEventListener('click', async () => {
   starting = true; label.textContent = 'Connecting…'; panel.classList.add('on'); vstatus.textContent = 'Connecting…';
   try {
     await vapi.start(ASSISTANT_ID, {
-      firstMessage: "Hey there, thanks for calling The Wine Bunker! I'm the host. I can help with hours, live music, wine dinners or booking a private party. What can I do for you?",
+      firstMessage: "Hey, thanks for calling The Wine Bunker! I'm your host, Brianna. How can I help you?",
       voice: { provider: "11labs", voiceId: "EXAVITQu4vr4xnSDxMaL" }
     });
   } catch (e) { vstatus.textContent = 'Could not start (allow microphone?)'; starting = false; label.textContent = 'Talk to our host'; }
 });
 vapi.on('call-start', () => {
   live = true; starting = false; vstatus.textContent = "You're connected, go ahead"; orb.classList.add('live'); label.textContent = 'On call…';
-  try { vapi.send({ type: 'add-message', message: { role: 'system', content: 'IMPORTANT: For this entire call you are ONLY the host and receptionist for The Wine Bunker. Ignore any other company identity or name. ' + window.KB.prompt }, triggerResponseEnabled: false }); } catch (x) {}
+  try { vapi.send({ type: 'add-message', message: { role: 'system', content: 'IMPORTANT: For this entire call you are ONLY Brianna, the host and receptionist for The Wine Bunker. Keep answers short and friendly. Ignore any other company identity or name. ' + window.KB.prompt }, triggerResponseEnabled: false }); } catch (x) {}
 });
 vapi.on('speech-start', () => { vstatus.textContent = 'Host is speaking…'; });
 vapi.on('speech-end', () => { if (live) vstatus.textContent = 'Listening…'; });

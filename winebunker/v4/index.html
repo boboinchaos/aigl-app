@@ -179,6 +179,15 @@ footer a{color:#efe7d4}
 @keyframes vp{0%{box-shadow:0 0 0 0 rgba(110,21,39,.35)}100%{box-shadow:0 0 0 44px rgba(110,21,39,0)}}
 #vstatus{font:400 28px Fraunces,serif}#vhint{color:var(--mute);font-size:14px;max-width:300px}
 #wb-hang{background:var(--wine);color:#fff;border:0;border-radius:99px;padding:14px 32px;font:600 14px Inter;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+
+/* host avatar on voice button (AIGL) */
+#wb-voice-btn{padding:6px 20px 6px 6px!important}
+#wb-voice-btn .host{width:48px;height:48px;border-radius:50%;flex:none;box-shadow:0 0 0 2px rgba(201,164,92,.8);background:#1c1210}
+#wb-voice-btn .o{position:absolute;left:44px;top:8px;width:11px!important;height:11px!important;border:2px solid #fff}
+#wb-voice-btn .vl{display:flex;flex-direction:column;align-items:flex-start;line-height:1.15;text-align:left}
+#wb-voice-btn .vl small{font-size:10px;opacity:.8;letter-spacing:.04em;text-transform:none;font-weight:500}
+@media (min-width:900px){#wb-voice-btn,#wb-chat-btn{left:auto!important;right:22px;transform:none!important}#wb-chat-btn{bottom:84px!important}#wb-voice-btn{bottom:140px!important}}
+@media (max-width:899px){#wb-voice-btn{bottom:70px!important}}
 </style>
 </head>
 <body>
@@ -288,7 +297,7 @@ footer a{color:#efe7d4}
   </div>
 </footer>
 
-<button id="wb-voice-btn"><i class="o"></i><span id="wb-voice-label">Talk to our host</span></button>
+<button id="wb-voice-btn" aria-label="Talk to our host"><img class="host" src="../host.svg" alt=""><i class="o"></i><span class="vl"><span id="wb-voice-label">Talk to our host</span><small>Ask me anything, out loud</small></span></button>
 <button id="wb-chat-btn" onclick="toggleChat()">💬 Chat with us</button>
 
 <div id="wb-chat" role="dialog" aria-label="Chat with Bunker Host">

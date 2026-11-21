@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Bunker Host, the Wine Bunker's AI host">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="35%" r="75%"><stop offset="0" stop-color="#5a1a28"/><stop offset="1" stop-color="#1c1210"/></radialGradient>
+    <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9b896"/><stop offset="1" stop-color="#d49b78"/></linearGradient>
+    <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a2418"/><stop offset="1" stop-color="#1e120c"/></linearGradient>
+    <linearGradient id="vest" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2422"/><stop offset="1" stop-color="#121010"/></linearGradient>
+    <clipPath id="c"><circle cx="100" cy="100" r="100"/></clipPath>
+  </defs>
+  <g clip-path="url(#c)">
+    <rect width="200" height="200" fill="url(#bg)"/>
+    <!-- warm bokeh -->
+    <circle cx="30" cy="40" r="10" fill="#c9a45c" opacity=".18"/><circle cx="170" cy="55" r="14" fill="#c9a45c" opacity=".14"/><circle cx="155" cy="22" r="6" fill="#f3d9a0" opacity=".25"/>
+    <!-- hair back -->
+    <path d="M58 92c-6-40 18-66 44-66s50 22 44 64c-2 20-6 40-4 62H62c2-22-2-40-4-60z" fill="url(#hair)"/>
+    <!-- neck -->
+    <path d="M88 128h24v22H88z" fill="#cf9572"/>
+    <!-- shirt + vest -->
+    <path d="M30 200c4-34 26-52 58-56l12 14 12-14c32 4 54 22 58 56z" fill="#f6f1ea"/>
+    <path d="M30 200c4-34 26-52 54-56l16 56zM170 200c-4-34-26-52-54-56l-16 56z" fill="url(#vest)"/>
+    <path d="M100 158v42" stroke="#0c0a09" stroke-width="1.5"/>
+    <circle cx="100" cy="172" r="2.2" fill="#c9a45c"/><circle cx="100" cy="186" r="2.2" fill="#c9a45c"/>
+    <!-- bow tie -->
+    <path d="M100 150l-15-8v16zM100 150l15-8v16z" fill="#8e2c3e"/><circle cx="100" cy="150" r="4" fill="#6e1f2e"/>
+    <!-- lapel pin: gold glass -->
+    <path d="M132 166h8l-4 6zM136 172v5M133 177h6" stroke="#c9a45c" stroke-width="1.6" fill="#c9a45c"/>
+    <!-- face -->
+    <ellipse cx="100" cy="94" rx="30" ry="36" fill="url(#skin)"/>
+    <!-- hair front -->
+    <path d="M70 88c0-30 16-46 34-46 20 0 30 16 28 40-10-14-26-22-44-20-8 8-14 16-18 26z" fill="url(#hair)"/>
+    <!-- eyes -->
+    <path d="M84 96q5-4 10 0M106 96q5-4 10 0" stroke="#2a1a12" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    <!-- brows -->
+    <path d="M82 87q6-4 12-1M106 86q6-3 12 1" stroke="#2a1a12" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <!-- cheeks -->
+    <circle cx="82" cy="108" r="5" fill="#e88f86" opacity=".35"/><circle cx="118" cy="108" r="5" fill="#e88f86" opacity=".35"/>
+    <!-- smile -->
+    <path d="M89 113q11 10 22 0" stroke="#7a2f2a" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <!-- earrings -->
+    <circle cx="70" cy="104" r="2.2" fill="#c9a45c"/><circle cx="130" cy="104" r="2.2" fill="#c9a45c"/>
+  </g>
+  <circle cx="100" cy="100" r="97" fill="none" stroke="#c9a45c" stroke-width="4"/>
+</svg>

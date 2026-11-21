@@ -34,7 +34,7 @@ code{background:rgba(255,181,71,.15);color:var(--gold);padding:1px 6px;border-ra
 .help button{border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--mute);border-radius:10px;padding:7px 10px;font:inherit;font-size:13px;cursor:pointer}
 .help button.on{border-color:var(--berry);color:#fff;background:rgba(255,61,127,.25)}
 .designs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:6px 0 2px}
-.designs a{display:block;text-align:center;border:1px solid var(--line);border-radius:12px;padding:8px 4px;color:var(--ink);text-decoration:none;font-size:13px;background:rgba(255,255,255,.04)}
+.designs a{font-size:20px;padding:14px 4px!important;display:block;text-align:center;border:1px solid var(--line);border-radius:12px;padding:8px 4px;color:var(--ink);text-decoration:none;font-size:13px;background:rgba(255,255,255,.04)}
 .designs a.pick{border-color:var(--gold);background:rgba(255,181,71,.12)}
 .choice{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0 42px}
 .choice button{min-width:52px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--ink);border-radius:10px;padding:9px 12px;font:inherit;font-weight:700;cursor:pointer}
@@ -53,8 +53,7 @@ footer{color:var(--mute);font-size:12px;text-align:center;margin-top:18px}
 
 <div class="hero">
   <small>The Wine Bunker · Refresh</small>
-  <h1>Let's get the Bunker <i>back on deck.</i></h1>
-  <p>Check things off as you go. Every tap saves to us automatically. No emailing back and forth.</p>
+  <p style="font-size:17px;margin-top:8px">Check things off as you go. We don't have to email back and forth.</p>
   <div class="prog"><div class="bar"><i id="bar"></i></div><b id="count"></b></div>
   <div class="saved" id="saved"></div>
 </div>
@@ -62,29 +61,32 @@ footer{color:var(--mute);font-size:12px;text-align:center;margin-top:18px}
 <div class="note">🔒 <b>No passwords, ever.</b> Every step is an invite, so you stay the owner and can remove us anytime.</div>
 
 <section>
-  <h2>1 · Pick your website</h2>
-  <p class="why">Tap to look at each one. All five have Brianna, our AI host, who answers questions and takes private event requests.</p>
+  <h2>1 · Here are some ideas on a website refresh</h2>
+  <p class="why">Tap each one and see which one you like better. All five have Brianna, our AI host, who answers questions and books private events.</p>
   <div class="designs">
-    <a class="pick" href="../v5/" target="_blank"><b>5 ⭐</b><br>Combined</a>
-    <a href="../v2/" target="_blank"><b>2</b><br>Speakeasy</a>
-    <a href="../v4/" target="_blank"><b>4</b><br>Modern</a>
-    <a href="../v3/" target="_blank"><b>3</b><br>Bunker HQ</a>
-    <a href="../" target="_blank"><b>1</b><br>Original</a>
+    <a href="../" target="_blank"><b>1</b></a>
+    <a href="../v2/" target="_blank"><b>2</b></a>
+    <a href="../v3/" target="_blank"><b>3</b></a>
+    <a href="../v4/" target="_blank"><b>4</b></a>
+    <a href="../v5/" target="_blank"><b>5</b></a>
   </div>
-  <div class="item" data-k="design" data-label="Website design">
-    <div class="row"><div class="box"></div><div><div class="t">My pick is…</div><div class="d">Tap a number below.</div></div></div>
-    <div class="choice" data-choice><button>5</button><button>2</button><button>4</button><button>3</button><button>1</button></div>
-    <input data-note placeholder="Anything to change on it? (optional)">
+  <div class="item" data-k="design" data-label="Website pick">
+    <div class="row"><div class="box"></div><div><div class="t">Your pick</div></div></div>
+    <div class="choice" data-choice><button>1</button><button>2</button><button>3</button><button>4</button><button>5</button></div>
+    <input data-note placeholder="Anything you'd change? (optional)">
   </div>
 </section>
 
 <section>
   <h2>2 · Confirm the basics</h2>
-  <p class="why">These go on the website, Google, Facebook, Instagram and Yelp so everything matches. Check it if it's right, or type the fix.</p>
-  <div class="item" data-k="name" data-label="Name"><div class="row"><div class="box"></div><div><div class="t">The Wine Bunker</div><div class="d">Dropping "Coffee" everywhere.</div></div></div><input data-note placeholder="Different? Type it here"></div>
+  <p class="why">Check it if it's right, or type the fix.</p>
   <div class="item" data-k="phone" data-label="Phone"><div class="row"><div class="box"></div><div><div class="t">(205) 358-8940</div></div></div><input data-note placeholder="Different? Type it here"></div>
   <div class="item" data-k="address" data-label="Address"><div class="row"><div class="box"></div><div><div class="t">81 Weatherly Club Dr, Alabaster, AL 35007</div></div></div><input data-note placeholder="Suite letter (like 81-E) or a fix"></div>
   <div class="item" data-k="hours" data-label="Hours"><div class="row"><div class="box"></div><div><div class="t">Wed–Thu 3–9 PM · Fri–Sat 3–11 PM · Closed Sun–Tue</div></div></div><input data-note placeholder="Different? Type the new hours"></div>
+  <div class="item" data-k="music_booker" data-label="Who books the music"><div class="row"><div class="box"></div><div><div class="t">Who books the music?</div></div></div><input data-note placeholder="Name and phone or email"></div>
+  <div class="item" data-k="music_booked" data-label="Music booked now?"><div class="row"><div class="box"></div><div><div class="t">Do you have music booked right now?</div></div></div>
+    <div class="choice" data-choice><button>Yes</button><button>No</button></div></div>
+  <div class="item" data-k="music_calendar" data-label="Music calendar"><div class="row"><div class="box"></div><div><div class="t">Where's the music calendar?</div><div class="d">A link, where it's kept, or upload it below.</div></div></div><input data-note placeholder="Link or where it lives"></div>
 </section>
 
 <section>
@@ -189,7 +191,7 @@ document.querySelectorAll('.item[data-k]').forEach(it=>{
   it.querySelectorAll('[data-choice] button').forEach(b=>b.onclick=()=>{S[k].choice=b.textContent;S[k].done=true;persist();draw();progress();send(label,'Option '+b.textContent,S[k].note)});
   it.querySelectorAll('[data-help]').forEach(b=>b.onclick=()=>{const v=b.dataset.help||'help';S[k].help=S[k].help===v?'':v;persist();draw();
     const msg={help:'Needs help',ig:'Not sure if Instagram is connected',later:'Do later'}[v];send(label,S[k].help?msg:'Help cleared',S[k].note);if(S[k].help)toast('Got it. Jason will reach out.')});
-  if(note){let t;note.oninput=()=>{S[k].note=note.value;persist();clearTimeout(t);t=setTimeout(()=>{if(['name','phone','address','hours'].includes(k)&&note.value&&!S[k].done){S[k].done=true;draw();progress()}send(label,k==='notes'?'Note':(S[k].choice?'Option '+S[k].choice:(S[k].done?'Done + note':'Note')),note.value)},900)}}
+  if(note){let t;note.oninput=()=>{S[k].note=note.value;persist();clearTimeout(t);t=setTimeout(()=>{if(['phone','address','hours','music_booker','music_calendar'].includes(k)&&note.value&&!S[k].done){S[k].done=true;draw();progress()}send(label,k==='notes'?'Note':(S[k].choice?'Option '+S[k].choice:(S[k].done?'Done + note':'Note')),note.value)},900)}}
   draw();
 });
 document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=e=>{e.stopPropagation();navigator.clipboard&&navigator.clipboard.writeText(b.dataset.copy);b.textContent='copied';setTimeout(()=>b.textContent='copy',1500)});

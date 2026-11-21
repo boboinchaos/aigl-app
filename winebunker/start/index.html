@@ -90,7 +90,22 @@ footer{color:var(--mute);font-size:12px;text-align:center;margin-top:18px}
 </section>
 
 <section>
-  <h2>3 · Give us access</h2>
+  <h2>3 · Phone, staff &amp; private events</h2>
+  <p class="why">So Brianna, our AI host, can answer the bar line and book events the right way.</p>
+  <div class="item" data-k="brianna_ok" data-label="Brianna answers the bar line"><div class="row"><div class="box"></div><div><div class="t">OK for Brianna to answer the bar line when no one picks up?</div></div></div>
+    <div class="choice" data-choice><button>Yes</button><button>No</button><button>Let's talk</button></div></div>
+  <div class="item" data-k="transfer" data-label="Transfer calls to"><div class="row"><div class="box"></div><div><div class="t">When a caller needs a real person, whose cell should she send them to?</div></div></div><input data-note placeholder="Name and cell number"></div>
+  <div class="item" data-k="carrier" data-label="Phone company"><div class="row"><div class="box"></div><div><div class="t">Who is the bar phone with?</div></div></div><input data-note placeholder="Spectrum? Someone else?"></div>
+  <div class="item" data-k="manager" data-label="Bar manager"><div class="row"><div class="box"></div><div><div class="t">Who's running the bar day to day now?</div></div></div><input data-note placeholder="Name, phone and email"></div>
+  <div class="item" data-k="approver" data-label="Who approves posts"><div class="row"><div class="box"></div><div><div class="t">Who approves social posts before they go up?</div></div></div>
+    <div class="choice" data-choice><button>Me (Chris)</button><button>The manager</button><button>Either</button></div></div>
+  <div class="item" data-k="capacity" data-label="Private event capacity"><div class="row"><div class="box"></div><div><div class="t">How many people fit for a private event?</div></div></div><input data-note placeholder="Seated and standing"></div>
+  <div class="item" data-k="event_rules" data-label="Private event rules"><div class="row"><div class="box"></div><div><div class="t">Any minimum spend, deposit, or days you don't book?</div></div></div><input data-note placeholder="Type it in, or "none""></div>
+  <div class="item" data-k="event_contact" data-label="Who confirms events"><div class="row"><div class="box"></div><div><div class="t">Who calls people back to confirm a private event?</div></div></div><input data-note placeholder="Name and phone"></div>
+</section>
+
+<section>
+  <h2>4 · Give us access</h2>
   <p class="why">About 2 minutes each. Tap "Show me how" for the steps, then check the box when it's done.</p>
 
   <div class="item" data-k="godaddy" data-label="GoDaddy access">
@@ -149,14 +164,14 @@ footer{color:var(--mute);font-size:12px;text-align:center;margin-top:18px}
 </section>
 
 <section>
-  <h2>4 · Send us files</h2>
+  <h2>5 · Send us files</h2>
   <p class="why">Got a list of all your social accounts, logos, photos, menus, event flyers? Drop them here. Photos, PDFs, Word, Excel, anything.</p>
   <label class="upl"><input id="files" type="file" multiple><span>📎 Choose files</span></label>
   <div id="flist" class="flist"></div>
 </section>
 
 <section>
-  <h2>5 · Anything else?</h2>
+  <h2>6 · Anything else?</h2>
   <p class="why">Upcoming events, specials, things you love or hate about the current site. Optional.</p>
   <div class="item" data-k="notes" data-label="Notes" style="border:0;padding-top:0"><textarea data-note placeholder="Type anything here…"></textarea></div>
 </section>
@@ -191,7 +206,7 @@ document.querySelectorAll('.item[data-k]').forEach(it=>{
   it.querySelectorAll('[data-choice] button').forEach(b=>b.onclick=()=>{if(S[k].choice===b.textContent){S[k].choice='';S[k].done=false;persist();draw();progress();send(label,'Cleared',S[k].note);return;}S[k].choice=b.textContent;S[k].done=true;persist();draw();progress();send(label,(k==='design'?'Option ':'')+b.textContent,S[k].note)});
   it.querySelectorAll('[data-help]').forEach(b=>b.onclick=()=>{const v=b.dataset.help||'help';S[k].help=S[k].help===v?'':v;persist();draw();
     const msg={help:'Needs help',ig:'Not sure if Instagram is connected',later:'Do later'}[v];send(label,S[k].help?msg:'Help cleared',S[k].note);if(S[k].help)toast('Got it. Jason will reach out.')});
-  if(note){let t;note.oninput=()=>{S[k].note=note.value;persist();clearTimeout(t);t=setTimeout(()=>{if(['phone','address','hours','music_booker','music_calendar'].includes(k)&&note.value&&!S[k].done){S[k].done=true;draw();progress()}send(label,k==='notes'?'Note':(S[k].choice?'Option '+S[k].choice:(S[k].done?'Done + note':'Note')),note.value)},900)}}
+  if(note){let t;note.oninput=()=>{S[k].note=note.value;persist();clearTimeout(t);t=setTimeout(()=>{if(['phone','address','hours','music_booker','music_calendar','transfer','carrier','manager','capacity','event_rules','event_contact'].includes(k)&&note.value&&!S[k].done){S[k].done=true;draw();progress()}send(label,k==='notes'?'Note':(S[k].choice?'Option '+S[k].choice:(S[k].done?'Done + note':'Note')),note.value)},900)}}
   draw();
 });
 document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=e=>{e.stopPropagation();navigator.clipboard&&navigator.clipboard.writeText(b.dataset.copy);b.textContent='copied';setTimeout(()=>b.textContent='copy',1500)});

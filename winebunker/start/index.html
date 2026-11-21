@@ -58,7 +58,6 @@ footer{color:var(--mute);font-size:12px;text-align:center;margin-top:18px}
   <div class="saved" id="saved"></div>
 </div>
 
-<div class="note">🔒 <b>No passwords, ever.</b> Every step is an invite, so you stay the owner and can remove us anytime.</div>
 
 <section>
   <h2>1 · Here are some ideas on a website refresh</h2>
@@ -161,7 +160,7 @@ footer{color:var(--mute);font-size:12px;text-align:center;margin-top:18px}
   <div class="item" data-k="notes" data-label="Notes" style="border:0;padding-top:0"><textarea data-note placeholder="Type anything here…"></textarea></div>
 </section>
 
-<footer>Nothing gets posted, published or changed on your accounts without your OK. · AIGL · jason@aigl.dev · (205) 203-8377</footer>
+<footer>All access is by invite, so no passwords are needed, and you can remove us anytime. Nothing gets posted, published or changed on your accounts without your OK. · AIGL · jason@aigl.dev · (205) 203-8377</footer>
 </main>
 
 <div class="done-bar"><div><button id="finish">✅ I'm done for now</button></div></div>
@@ -187,8 +186,8 @@ document.querySelectorAll('.item[data-k]').forEach(it=>{
   const draw=()=>{it.classList.toggle('done',!!S[k].done);it.querySelectorAll('[data-choice] button').forEach(b=>b.classList.toggle('on',S[k].choice===b.textContent));it.querySelectorAll('[data-help]').forEach(b=>b.classList.toggle('on',(S[k].help||'')===(b.dataset.help||'help')))};
   if(note&&S[k].note)note.value=S[k].note;
   const row=it.querySelector('.row');
-  if(row&&!it.querySelector('[data-choice]'))row.onclick=()=>{S[k].done=!S[k].done;persist();draw();progress();send(label,S[k].done?'Done':'Not done',S[k].note)};
-  it.querySelectorAll('[data-choice] button').forEach(b=>b.onclick=()=>{S[k].choice=b.textContent;S[k].done=true;persist();draw();progress();send(label,'Option '+b.textContent,S[k].note)});
+  if(row)row.onclick=()=>{if(it.querySelector('[data-choice]')){if(!S[k].done)return;S[k].done=false;S[k].choice='';persist();draw();progress();send(label,'Cleared',S[k].note);return;}S[k].done=!S[k].done;persist();draw();progress();send(label,S[k].done?'Done':'Not done',S[k].note)};
+  it.querySelectorAll('[data-choice] button').forEach(b=>b.onclick=()=>{if(S[k].choice===b.textContent){S[k].choice='';S[k].done=false;persist();draw();progress();send(label,'Cleared',S[k].note);return;}S[k].choice=b.textContent;S[k].done=true;persist();draw();progress();send(label,(k==='design'?'Option ':'')+b.textContent,S[k].note)});
   it.querySelectorAll('[data-help]').forEach(b=>b.onclick=()=>{const v=b.dataset.help||'help';S[k].help=S[k].help===v?'':v;persist();draw();
     const msg={help:'Needs help',ig:'Not sure if Instagram is connected',later:'Do later'}[v];send(label,S[k].help?msg:'Help cleared',S[k].note);if(S[k].help)toast('Got it. Jason will reach out.')});
   if(note){let t;note.oninput=()=>{S[k].note=note.value;persist();clearTimeout(t);t=setTimeout(()=>{if(['phone','address','hours','music_booker','music_calendar'].includes(k)&&note.value&&!S[k].done){S[k].done=true;draw();progress()}send(label,k==='notes'?'Note':(S[k].choice?'Option '+S[k].choice:(S[k].done?'Done + note':'Note')),note.value)},900)}}

@@ -91,6 +91,24 @@ dialog::backdrop{background:rgba(4,6,10,.7);backdrop-filter:blur(4px)}
 .dlg h3{font:700 20px 'Space Grotesk',Inter,sans-serif}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(34,197,139,.2)}
 @media(max-width:700px){header{flex-direction:column;align-items:flex-start}.hbtns{justify-content:flex-start}.mono{width:40px;height:40px}}
+
+/* résumé polish */
+.paper{position:relative;padding:40px 40px 36px;line-height:1.6;color:#2a2f37;overflow:hidden}
+.paper::before{content:"";position:absolute;left:0;right:0;top:0;height:5px;background:linear-gradient(90deg,#22c58b,#3878ff 55%,#8c5aff)}
+.paper h2{font-size:30px;font-weight:700;letter-spacing:-.02em;color:#0d1117}
+.paper .sub{font-size:13px;color:#5b6472;line-height:1.7;margin:6px 0 4px;padding-bottom:16px;border-bottom:1px solid #eceff3}
+.paper h3{display:flex;align-items:center;gap:10px;font:600 11.5px 'Space Grotesk',Inter,sans-serif;letter-spacing:.16em;color:#0f7a54;border:0;padding:0;margin:26px 0 10px}
+.paper h3::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,#d8e9e1,transparent)}
+.paper .job{margin:16px 0 4px;font:600 1.07em 'Space Grotesk',Inter,sans-serif;color:#0d1117}
+.paper .job span{display:block;font:500 .82em Inter,sans-serif;color:#6b7482;letter-spacing:.01em;margin-top:1px}
+.paper ul{padding-left:0;list-style:none}
+.paper li{position:relative;padding-left:16px;color:#2a2f37}
+.paper li::before{content:"";position:absolute;left:2px;top:.68em;width:5px;height:5px;border-radius:50%;background:#22c58b}
+.paper p,.paper li{color:#2a2f37}.paper b{color:#0d1117}
+.paper>*{animation:rise .5s ease both}
+.paper>*:nth-child(n+4){animation-delay:.08s}.paper>*:nth-child(n+8){animation-delay:.16s}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.paper>*{animation:none}}
 </style>
 <!-- Meta Pixel (AIGL Website dataset) -->
 <script>

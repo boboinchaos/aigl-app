@@ -109,6 +109,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);
 .paper>*:nth-child(n+4){animation-delay:.08s}.paper>*:nth-child(n+8){animation-delay:.16s}
 @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.paper>*{animation:none}}
+dialog{position:relative}.dx{position:absolute;top:12px;right:12px;z-index:2;width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:var(--ink);font-size:15px;cursor:pointer}.dx:hover{background:rgba(255,255,255,.14)}
 </style>
 <!-- Meta Pixel (AIGL Website dataset) -->
 <script>
@@ -272,7 +273,7 @@ document.getElementById('emailForm').addEventListener('submit', e => {
 document.getElementById('callBtn').addEventListener('click',()=>log('call_clicked'));
 const callDlg=document.getElementById('callDlg');
 const isPhone = matchMedia('(pointer:coarse)').matches;
-document.getElementById('callBtn').addEventListener('click',e=>{ if(!isPhone){ e.preventDefault(); callDlg.showModal(); } });
+
 const schedDlg=document.getElementById('schedDlg');
 document.getElementById('bookBtn').onclick=()=>{ document.getElementById('sc').value=company; schedDlg.showModal(); log('schedule_opened'); };
 document.getElementById('schedCancel').onclick=()=>schedDlg.close();
@@ -289,6 +290,14 @@ document.getElementById('schedForm').addEventListener('submit',e=>{
 });
 document.getElementById('closeCall').onclick=()=>callDlg.close();
 callDlg.addEventListener('click',e=>{ if(e.target===callDlg) callDlg.close(); });
+// every popup: an X in the corner, tap outside to close, and the browser Back button closes it instead of leaving the page
+document.querySelectorAll('dialog').forEach(d=>{
+  if(!d.classList.contains('full')){ const x=document.createElement('button'); x.type='button'; x.className='dx'; x.setAttribute('aria-label','Close'); x.textContent='✕'; x.onclick=()=>d.close(); d.prepend(x); }
+  d.addEventListener('click',e=>{ if(e.target===d) d.close(); });
+  const show=d.showModal.bind(d); d.showModal=()=>{ show(); history.pushState({dlg:d.id},''); };
+  d.addEventListener('close',()=>{ if(history.state&&history.state.dlg===d.id) history.back(); });
+});
+addEventListener('popstate',()=>document.querySelectorAll('dialog[open]').forEach(d=>d.close()));
 document.getElementById('copyNum').onclick=e=>{ navigator.clipboard.writeText('(205) 955-7174').then(()=>{ e.target.textContent='Copied'; }); };
 
 }

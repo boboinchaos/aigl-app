@@ -210,6 +210,9 @@ if (EMBED_URL) {
   const f = document.createElement('iframe');
   f.src = EMBED_URL; f.allow = "microphone; camera; autoplay; fullscreen"; f.title = "Ryan, Jason's AI interactive resume";
   document.getElementById('stage').appendChild(f);
+  const st=document.getElementById('stage');
+  const fit=()=>{ const W=st.clientWidth,H=st.clientHeight; let w=W,h=W*9/16; if(h<H){h=H;w=H*16/9;} Object.assign(f.style,{width:w+'px',height:h+'px',left:((W-w)/2)+'px',top:((H-h)/2)+'px',inset:'auto'}); };
+  fit(); new ResizeObserver(fit).observe(st);
   document.getElementById('ph').remove();
 }
 

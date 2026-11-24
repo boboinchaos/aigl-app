@@ -65,7 +65,7 @@ fbq('init','2107887133449610');fbq('track','PageView');
     <p>AI Automation &amp; Operations · Calera, AL · Remote, on-site as needed</p>
     <p id="forCo" style="display:none;font-weight:600"></p>
   </div>
-  <div class="row"><a class="btn" id="bookBtn" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ21BxFQcHwYsIjdVhGzGu2-RZBAMlNgPXM2LUJdtrZ7NYzjo4v1FjkXtdEIH_mkl-YiUmy2M9Qq?gv=true" target="_blank" rel="noopener">📅 Book a time</a> <a class="btn call" id="callBtn" href="tel:+12059557174">📞 Talk to Jason Now</a></div>
+  <div class="row"><a class="btn" id="bookBtn" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ21BxFQcHwYsIjdVhGzGu2-RZBAMlNgPXM2LUJdtrZ7NYzjo4v1FjkXtdEIH_mkl-YiUmy2M9Qq?gv=true" target="_blank" rel="noopener">📅 Schedule interview</a> <a class="btn call" id="callBtn" href="tel:+12059557174">📞 Talk to Jason Now</a></div>
 </header>
 
 <main>
@@ -75,8 +75,7 @@ fbq('init','2107887133449610');fbq('track','PageView');
     </div>
     <div class="under">
       <button class="btn" id="emailBtn" type="button">⬇️ Get a copy (PDF or Word)</button>
-      <button class="btn" id="fullBtn" type="button">📄 View resume full size</button>
-      <a class="btn" id="bookBtn2" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ21BxFQcHwYsIjdVhGzGu2-RZBAMlNgPXM2LUJdtrZ7NYzjo4v1FjkXtdEIH_mkl-YiUmy2M9Qq?gv=true" target="_blank" rel="noopener">📅 Book a time with Jason</a>
+      <a class="btn" id="bookBtn2" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ21BxFQcHwYsIjdVhGzGu2-RZBAMlNgPXM2LUJdtrZ7NYzjo4v1FjkXtdEIH_mkl-YiUmy2M9Qq?gv=true" target="_blank" rel="noopener">📅 Schedule interview with Jason</a>
       <a class="btn call" href="tel:+12059557174" id="callBtn2">📞 Talk to Jason Now</a>
     </div>
     <p class="hint">Tap the video to start. Ryan is an AI that Jason built himself. Ask him anything, in any language.</p>
@@ -186,7 +185,6 @@ document.getElementById('zoomOut').onclick = () => setZ(z-.1);
 
 const full = document.getElementById('fullDlg');
 const openFull = () => { const b = document.getElementById('fullBody'); b.innerHTML = ''; const c = paper.cloneNode(true); c.removeAttribute('id'); c.style.fontSize='15px'; b.appendChild(c); full.showModal(); log('viewed_resume'); };
-document.getElementById('fullBtn').onclick = openFull;
 document.getElementById('fullBtn2').onclick = openFull;
 document.getElementById('closeFull').onclick = () => full.close();
 full.addEventListener('click', e => { if (e.target === full) full.close(); });

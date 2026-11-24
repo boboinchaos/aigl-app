@@ -63,6 +63,7 @@ fbq('init','2107887133449610');fbq('track','PageView');
   <div>
     <h1>Jason Bourbeau</h1>
     <p>AI Automation &amp; Operations · Calera, AL · Remote, on-site as needed</p>
+    <p id="forCo" style="display:none;font-weight:600"></p>
   </div>
   <div class="row"><a class="btn" id="bookBtn" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ21BxFQcHwYsIjdVhGzGu2-RZBAMlNgPXM2LUJdtrZ7NYzjo4v1FjkXtdEIH_mkl-YiUmy2M9Qq?gv=true" target="_blank" rel="noopener">📅 Book a time</a> <a class="btn call" id="callBtn" href="tel:+12059557174">📞 Talk to Jason Now</a></div>
 </header>
@@ -161,7 +162,8 @@ const EMBED_URL = "https://embed.liveavatar.com/v1/78b65e95-8131-43fb-b050-65652
 const LEAD_WEBHOOK = "";       // Make.com webhook: emails the resume + texts Jason
 // ==========================================
 const q = new URLSearchParams(location.search);
-const company = q.get('c') || '';
+const company = (q.get('c') || '').slice(0,60);
+if(company){const fc=document.getElementById('forCo'); fc.textContent='Prepared for '+company; fc.style.display='block';}
 
 if (EMBED_URL) {
   const f = document.createElement('iframe');

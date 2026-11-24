@@ -1,0 +1,137 @@
+{
+ "name": "Jason Bourbeau",
+ "role": "AI Solutions & Implementation | Operations Innovator",
+ "contact": [
+  "Calera, AL, Birmingham area (remote; on-site travel as needed)",
+  "(786) 209-4537",
+  "jason@aigl.dev"
+ ],
+ "qr_url": "https://app.aigl.dev/jasonbourbeauresume/?src=resume",
+ "summary": "An innovative operations specialist with more than 30 years of real-world hands-on operational experience in hospitality, sales, and construction using cutting edge technology to dial in systems. I created AIGL to figure out how to put AI to work for businesses, answer security questions and develop workflows to eliminate highly administrative tasks. Using AI to streamline training, communication, speed of access to pertinent information and analytics to help decision making will reduce costs not necessarily by eliminating jobs but by making positions more productive because of the advances in AI technology.",
+ "ai_label": "My working AI “Knowledge base”:",
+ "ai_skills": [
+  "Interactive AI applications",
+  "AI voice and chat agents",
+  "website",
+  "media generation",
+  "SEO",
+  "marketing",
+  "prompt and knowledge-base design",
+  "workflow automation",
+  "AI safety and risk assessment",
+  "navigating BAA and HIPAA for protected information with AI",
+  "Claude and Claude Code",
+  "ChatGPT/OpenAI",
+  "Grok",
+  "Vapi",
+  "Twilio",
+  "Make",
+  "GoHighLevel",
+  "Airtable",
+  "Supabase",
+  "Notion",
+  "GitHub and GitHub Actions",
+  "Cloudflare Pages",
+  "Google Workspace and Apps Script",
+  "Stripe",
+  "Toast",
+  "HeyGen",
+  "Higgsfield",
+  "Figma",
+  "Firecrawl",
+  "Apify"
+ ],
+ "ops_label": "Operations & business:",
+ "ops_skills": [
+  "Hospitality",
+  "federal grant compliance (HUD)",
+  "project coordination",
+  "P&L management",
+  "team development",
+  "sales",
+  "entrepreneur"
+ ],
+ "jobs": [
+  {
+   "title": "Founder",
+   "org": "AIGL / AI Go Long (aigl.dev), Remote",
+   "dates": "2024–Present",
+   "bullets": [
+    "Business training and implementation to streamline efficiency with AI driven workflows.",
+    "Implemented custom working AI builds.",
+    "Created an AI Safety Audit that checks small businesses for data-privacy gaps and AI scam exposure. Run live AI agents daily: monitor workflows to funnel CRM information gathering in real time, and create usable media for sales and marketing."
+   ]
+  },
+  {
+   "title": "Project Coordinator, HUD Healthy Homes Program",
+   "org": "Disability Rights and Resources, Birmingham, AL",
+   "dates": "Jan 2026–Present",
+   "bullets": [
+    "Completed 35 home-repair projects and 37 healthy-home assessments in 2026 under HUD Healthy Homes standards, owning scope, budgets, timelines and a “Green” (best) compliance score.",
+    "Manage $2 million budget, coordinate contractors, inspections, safety-hazard remediation, and successfully completed the state Lead Inspector certification course.",
+    "Implemented AI systems into the workflow to quickly streamline the administrative tasks from one single intake point to create all the organization, communications, and compliance parts for each job cutting admin time in half. Built a Resource Navigator directory that DRR advocates now use on live calls to find assistance programs fast: an in-house version of the kind of tool vendors charge heavily for, built in days."
+   ]
+  },
+  {
+   "title": "Founding Partner",
+   "org": "The Wine Bunker, Alabaster, AL",
+   "dates": "Sep 2023–Jan 2026",
+   "bullets": [
+    "Partner from concept through launch; ran full P&L, staffing, pricing, events, vendors and inventory.",
+    "Put operating systems in place to raise efficiency and cut costs."
+   ]
+  },
+  {
+   "title": "General Manager",
+   "org": "Square Grouper, Islamorada, FL",
+   "dates": "Jul 2021–Feb 2023",
+   "bullets": [
+    "Ran an $8M-a-year, multi-area hospitality operation with 60+ employees.",
+    "Built training systems and performance standards that raised team output and accountability."
+   ]
+  },
+  {
+   "title": "Regional Manager",
+   "org": "McAlister's Deli, Florida",
+   "dates": "Dec 2016–Feb 2020",
+   "bullets": [
+    "Oversaw multiple units across Florida; found and fixed P&L leaks to improve cost control.",
+    "Trained and developed managers across locations."
+   ]
+  },
+  {
+   "title": "Senior Manager",
+   "org": "Bloomin' Brands (Carrabba's Italian Grill), Miami, FL",
+   "dates": "Dec 2006–Sep 2016",
+   "bullets": [
+    "Ran high-volume operations: sales performance, hiring, training and brand standards."
+   ]
+  },
+  {
+   "title": "Sales Manager & CTO",
+   "org": "USA",
+   "dates": "Sep 1996–2006",
+   "bullets": [
+    "Led regional sales teams of 20–40 reps in direct sales and business development, including call-center management. As CTO, automated lead sorting and built early bots that uploaded lead dispositions to client portals such as AT&T's."
+   ]
+  },
+  {
+   "title": "Residential Construction Coordinator",
+   "org": "Self-employed, Southeast US",
+   "dates": "2000–Present",
+   "bullets": [
+    "Run renovation and repair projects end to end: budgets, scheduling, electrical, plumbing and carpentry trades, quality control."
+   ]
+  }
+ ],
+ "education": [
+  {
+   "name": "Marketing coursework",
+   "detail": "UNC Pembroke and UNC Wilmington, 1991–1995; college baseball scholarship"
+  },
+  {
+   "name": "Alabama Lead Inspector",
+   "detail": "Passed state exam, Nov 2026 (University of Alabama course)"
+  }
+ ]
+}

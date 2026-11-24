@@ -47,7 +47,8 @@ input,select{width:100%;font:16px Inter,sans-serif;padding:11px 12px;border-radi
 .row{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
 .full .paper{max-width:860px;margin:0 auto}
 dialog.full{max-width:min(960px,96vw);max-height:92vh}
-dialog.full .dlg{max-height:88vh;overflow:auto;background:#0b0e12}
+dialog.full .dlg{max-height:80vh;overflow:auto;background:#0b0e12}
+.fullbar{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;background:var(--panel);border-bottom:1px solid var(--line);font-weight:600}
 .ok{color:#7fd6ad}
 </style>
 <!-- Meta Pixel (AIGL Website dataset) -->
@@ -71,7 +72,7 @@ fbq('init','2107887133449610');fbq('track','PageView');
       <div class="placeholder" id="ph">Ryan, Jason's AI interactive resume, loads here.</div>
     </div>
     <div class="under">
-      <button class="btn" id="emailBtn" type="button">✉️ Email me a copy</button>
+      <button class="btn" id="emailBtn" type="button">⬇️ Get a copy (PDF or Word)</button>
       <button class="btn" id="fullBtn" type="button">📄 View resume full size</button>
       <a class="btn call" href="tel:+17862094537" id="callBtn2">📞 Talk to Jason Now</a>
     </div>
@@ -133,17 +134,16 @@ fbq('init','2107887133449610');fbq('track','PageView');
 
 <dialog id="emailDlg"><form class="dlg" id="emailForm">
   <h3>Get Jason's resume</h3>
-  <p>We'll send it straight to your inbox.</p>
+  <p>Pick a format to download it now, and let Jason know you'd like to talk.</p>
   <label for="n">Your name</label><input id="n" required autocomplete="name">
   <label for="c">Company</label><input id="c" autocomplete="organization">
-  <label for="e">Email</label><input id="e" type="email" required autocomplete="email">
+  <label for="e">Email</label><input id="e" type="email" autocomplete="email" placeholder="optional">
   <label for="f">Format</label><select id="f"><option>PDF</option><option>Word (.docx)</option></select>
-  <p class="ok" id="sent" hidden>Got it. Jason's resume is on its way.</p>
-  <div class="row"><button class="btn" type="button" id="cancel">Cancel</button><button class="btn call" type="submit">Send it</button></div>
+  <p class="ok" id="sent" hidden>Your download has started. Want to reach Jason? <a id="mailJason" href="mailto:jason@aigl.dev">Email him</a> or call (786) 209-4537.</p>
+  <div class="row"><button class="btn" type="button" id="cancel">Close</button><button class="btn call" type="submit">Download resume</button></div>
 </form></dialog>
 
-<dialog id="fullDlg" class="full"><div class="dlg full" id="fullBody"></div>
-  <div class="row" style="padding:0 22px 18px"><button class="btn" id="closeFull" type="button">Close</button></div>
+<dialog id="fullDlg" class="full"><div class="fullbar"><span>Jason Bourbeau · Resume</span><button class="btn" id="closeFull" type="button" aria-label="Close full size">✕ Close</button></div><div class="dlg full" id="fullBody"></div>
 </dialog>
 
 <script>
@@ -163,7 +163,7 @@ if (EMBED_URL) {
 }
 
 function log(event, extra){
-  try{ if(window.gtag) gtag('event','resume_'+event,{company:company||'direct',...(extra||{})}); if(window.fbq) fbq('trackCustom','Resume_'+event,{company:company||'direct'}); }catch(e){}
+  try{ if(window.gtag) gtag('event','resume_'+event,{company:company||'direct',format:(extra&&extra.format)||''}); if(window.fbq) fbq('trackCustom','Resume_'+event,{company:company||'direct'}); }catch(e){}
   if(!LEAD_WEBHOOK) return;
   fetch(LEAD_WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event,company,page:location.href,time:new Date().toISOString(),...extra})}).catch(()=>{});
 }
@@ -179,6 +179,7 @@ const openFull = () => { const b = document.getElementById('fullBody'); b.innerH
 document.getElementById('fullBtn').onclick = openFull;
 document.getElementById('fullBtn2').onclick = openFull;
 document.getElementById('closeFull').onclick = () => full.close();
+full.addEventListener('click', e => { if (e.target === full) full.close(); });
 
 const dlg = document.getElementById('emailDlg');
 document.getElementById('emailBtn').onclick = () => { document.getElementById('c').value = company; dlg.showModal(); };
@@ -187,8 +188,9 @@ document.getElementById('emailForm').addEventListener('submit', e => {
   e.preventDefault();
   const v = id => document.getElementById(id).value;
   log('resume_request',{name:v('n'),company_name:v('c'),email:v('e'),format:v('f')});
+  const a=document.createElement('a'); a.href = v('f').startsWith('Word') ? 'Jason-Bourbeau-Resume.docx' : 'Jason-Bourbeau-Resume.pdf'; a.download=''; document.body.appendChild(a); a.click(); a.remove();
+  document.getElementById('mailJason').href = 'mailto:jason@aigl.dev?subject=' + encodeURIComponent('Interested in talking' + (v('c') ? ' - ' + v('c') : '')) + '&body=' + encodeURIComponent('Hi Jason, this is ' + v('n') + (v('c') ? ' from ' + v('c') : '') + '. ');
   document.getElementById('sent').hidden = false;
-  setTimeout(()=>dlg.close(),1800);
 });
 ['callBtn','callBtn2'].forEach(id=>document.getElementById(id).addEventListener('click',()=>log('call_clicked')));
 }

@@ -64,7 +64,7 @@ fbq('init','2107887133449610');fbq('track','PageView');
     <h1>Jason Bourbeau</h1>
     <p>AI Automation &amp; Operations · Calera, AL · Remote, on-site as needed</p>
   </div>
-  <a class="btn call" id="callBtn" href="tel:+17862094537">📞 Talk to Jason Now</a>
+  <a class="btn call" id="callBtn" href="tel:+12059557174">📞 Talk to Jason Now</a>
 </header>
 
 <main>
@@ -75,7 +75,7 @@ fbq('init','2107887133449610');fbq('track','PageView');
     <div class="under">
       <button class="btn" id="emailBtn" type="button">⬇️ Get a copy (PDF or Word)</button>
       <button class="btn" id="fullBtn" type="button">📄 View resume full size</button>
-      <a class="btn call" href="tel:+17862094537" id="callBtn2">📞 Talk to Jason Now</a>
+      <a class="btn call" href="tel:+12059557174" id="callBtn2">📞 Talk to Jason Now</a>
     </div>
     <p class="hint">Tap the video to start. Ryan is an AI that Jason built himself. Ask him anything, in any language.</p>
   </section>
@@ -140,13 +140,19 @@ fbq('init','2107887133449610');fbq('track','PageView');
   <label for="c">Company</label><input id="c" autocomplete="organization">
   <label for="e">Email</label><input id="e" type="email" autocomplete="email" placeholder="optional">
   <label for="f">Format</label><select id="f"><option>PDF</option><option>Word (.docx)</option></select>
-  <p class="ok" id="sent" hidden>Your download has started. Want to reach Jason? <a id="mailJason" href="mailto:jason@aigl.dev">Email him</a> or call (786) 209-4537.</p>
+  <p class="ok" id="sent" hidden>Your download has started. Want to reach Jason? <a id="mailJason" href="mailto:jason@aigl.dev">Email him</a> or call (205) 955-7174.</p>
   <div class="row"><button class="btn" type="button" id="cancel">Close</button><button class="btn call" type="submit">Download resume</button></div>
 </form></dialog>
 
 <dialog id="fullDlg" class="full"><div class="fullbar"><span>Jason Bourbeau · Resume</span><button class="btn" id="closeFull" type="button" aria-label="Close full size">✕ Close</button></div><div class="dlg full" id="fullBody"></div>
 </dialog>
 
+<dialog id="callDlg"><div class="dlg">
+  <h3>Talk to Jason now</h3>
+  <p>Call his interview line from your phone. It rings straight through to Jason.</p>
+  <p style="font-size:28px;font-weight:700;margin:8px 0"><a href="tel:+12059557174" style="color:inherit;text-decoration:none">(205) 955-7174</a></p>
+  <div class="row"><button class="btn" type="button" id="copyNum">Copy number</button><button class="btn call" type="button" id="closeCall">Close</button></div>
+</div></dialog>
 <script>
 {
 // ===== CONFIG: fill these in at deploy =====
@@ -194,6 +200,13 @@ document.getElementById('emailForm').addEventListener('submit', e => {
   document.getElementById('sent').hidden = false;
 });
 ['callBtn','callBtn2'].forEach(id=>document.getElementById(id).addEventListener('click',()=>log('call_clicked')));
+const callDlg=document.getElementById('callDlg');
+const isPhone = matchMedia('(pointer:coarse)').matches;
+['callBtn','callBtn2'].forEach(id=>document.getElementById(id).addEventListener('click',e=>{ if(!isPhone){ e.preventDefault(); callDlg.showModal(); } }));
+document.getElementById('closeCall').onclick=()=>callDlg.close();
+callDlg.addEventListener('click',e=>{ if(e.target===callDlg) callDlg.close(); });
+document.getElementById('copyNum').onclick=e=>{ navigator.clipboard.writeText('(205) 955-7174').then(()=>{ e.target.textContent='Copied'; }); };
+
 }
 </script>
 <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "58d539f11ece436da2c2a887479d7c37"}'></script>

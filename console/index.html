@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-5DMQ4M3S"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());</script>
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','2107887133449610');fbq('track','PageView');</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#07090D">
+<meta name="robots" content="noindex, nofollow">
+<title>AIGL Console: Hot, Leads, Articles</title>
+<link rel="icon" href="/icons/favicon-32.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+<style>
+:root{--bg:#07090D;--card:#10141C;--line:#232A36;--mute:#8B95A7;--txt:#EEF1F6;--green:#3BE38F;--hot:#FF7A45;--violet:#A98BFF}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.45 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding-bottom:calc(74px + env(safe-area-inset-bottom,0px))}
+header{position:sticky;top:0;z-index:5;background:rgba(7,9,13,.95);backdrop-filter:blur(8px);padding:calc(12px + env(safe-area-inset-top,0px)) 16px 10px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+header h1{font:800 18px "Space Grotesk",Inter,sans-serif;margin:0;flex:1}
+header a{color:var(--mute);text-decoration:none;font-size:13px}
+main{max-width:760px;margin:0 auto;padding:14px}
+nav{position:fixed;bottom:0;left:0;right:0;z-index:6;background:#0B0E14;border-top:1px solid var(--line);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+nav button{flex:1;background:none;border:0;color:var(--mute);font:700 13px Inter,sans-serif;padding:8px 4px;border-radius:12px;cursor:pointer;position:relative}
+nav button.on{color:var(--txt);background:#151A24}
+nav button b{display:block;font-size:20px;line-height:1.2}
+.badge{position:absolute;top:2px;right:calc(50% - 22px);background:var(--hot);color:#fff;border-radius:9px;font-size:11px;padding:0 6px;line-height:17px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px}
+.card.hot{border-color:rgba(255,122,69,.55)}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.t{font-weight:700;font-size:16px}
+.s{color:var(--mute);font-size:13.5px}
+.pill{font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px;background:#1B2130;color:#C8D0DD}
+.pill.g{background:rgba(59,227,143,.14);color:var(--green)}
+.pill.h{background:rgba(255,122,69,.16);color:var(--hot)}
+.pill.v{background:rgba(169,139,255,.16);color:var(--violet)}
+button.b,a.b{border:1px solid var(--line);background:#151A24;color:var(--txt);border-radius:12px;padding:9px 13px;font:700 14px Inter,sans-serif;cursor:pointer;text-decoration:none;display:inline-block}
+button.p{background:var(--green);color:#04110A;border-color:var(--green)}
+button.w{background:transparent;color:var(--mute)}
+select,input,textarea{width:100%;background:#0B0E14;color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:9px 10px;font:15px Inter,sans-serif}
+textarea{min-height:90px;resize:vertical;line-height:1.5}
+textarea.big{min-height:62vh;font:15px/1.6 ui-monospace,Menlo,Consolas,monospace}
+label{display:block;font-size:12px;font-weight:700;color:var(--mute);margin:10px 0 4px;text-transform:uppercase;letter-spacing:.06em}
+.seg{display:flex;gap:6px;margin:4px 0 12px;overflow-x:auto}
+.seg button{flex:none;border:1px solid var(--line);background:none;color:var(--mute);border-radius:999px;padding:6px 13px;font:700 13px Inter,sans-serif;cursor:pointer}
+.seg button.on{background:#1B2130;color:var(--txt)}
+.read{background:#FBFAF7;color:#1b1f24;border-radius:14px;padding:18px 18px 24px;font:17px/1.7 Georgia,serif}
+.read h1,.read h2,.read h3{font-family:Inter,sans-serif;line-height:1.25}.read h2{margin-top:1.8em}
+.read table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}.read td,.read th{border:1px solid #d8dde3;padding:6px}
+.read a{color:#0b6e4f}
+.empty{color:var(--mute);text-align:center;padding:30px 10px}
+#toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#1B2130;border:1px solid var(--line);padding:10px 16px;border-radius:12px;font-weight:700;display:none;z-index:9}
+.gap{height:8px}
+details summary{cursor:pointer;color:var(--mute);font-weight:700;font-size:13px;margin-top:8px}
+</style>
+</head>
+<body>
+<header><h1 id="h">Hot</h1><a href="/">Command Center</a></header>
+<main id="m"><div class="empty">Loading…</div></main>
+<nav>
+  <button data-v="hot" class="on"><b>🔥</b>Hot<span class="badge" id="bh" hidden></span></button>
+  <button data-v="leads"><b>🎯</b>Leads<span class="badge" id="bl" hidden></span></button>
+  <button data-v="articles"><b>📝</b>Articles<span class="badge" id="ba" hidden></span></button>
+</nav>
+<div id="toast"></div>
+<script>
+(function(){
+var API='https://tznmjoeovqvnwcjxrohq.supabase.co/functions/v1/cc';
+var KK='aigl_cc_key',key='';
+try{var q=new URLSearchParams(location.search);if(q.get('k')){localStorage.setItem(KK,q.get('k'));}key=localStorage.getItem(KK)||'';}catch(e){}
+if(location.search)history.replaceState(null,'',location.pathname+location.hash);
+var D={leads:[],articles:[],hot:[]},view=(location.hash.slice(1)||'hot').split('/')[0],open=null,aTab='read',lf='all';
+var M=document.getElementById('m');
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function toast(t){var e=document.getElementById('toast');e.textContent=t;e.style.display='block';clearTimeout(e._t);e._t=setTimeout(function(){e.style.display='none'},1800)}
+function md(s){try{return DOMPurify.sanitize(marked.parse(s||''))}catch(e){return '<pre>'+esc(s)+'</pre>'}}
+function call(action,body){body=body||{};body.action=action;return fetch(API,{method:'POST',headers:{'content-type':'application/json','x-cc-key':key},body:JSON.stringify(body)}).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.error||r.status);return j})})}
+function load(){if(!key){M.innerHTML='<div class="empty">This phone isn\'t signed in yet. Open your one-time console link once and it stays signed in.</div>';return}
+  call('data').then(function(j){D=j;badges();render()}).catch(function(e){M.innerHTML='<div class="empty">Could not load: '+esc(e.message)+'</div>'})}
+function badges(){var h=D.hot.length+D.leads.filter(function(l){return l.status==='Waiting on Jason'}).length,a=D.articles.filter(function(x){return x.status!=='approved'}).length,l=D.leads.filter(function(x){return x.hot}).length;
+  [['bh',h],['ba',a],['bl',l]].forEach(function(p){var e=document.getElementById(p[0]);e.hidden=!p[1];e.textContent=p[1]})}
+function go(v){view=v;open=null;location.hash=v;document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('on',b.dataset.v===v)});render();scrollTo(0,0)}
+document.querySelectorAll('nav button').forEach(function(b){b.onclick=function(){go(b.dataset.v)}});
+function stPill(s){var c=/Waiting/.test(s)?'h':/Interview|Offer|Won|Replied|Viewed/.test(s)?'g':'';return '<span class="pill '+c+'">'+esc(s)+'</span>'}
+function render(){document.getElementById('h').textContent={hot:'Hot right now',leads:'Leads',articles:'Articles'}[view];
+  if(view==='hot')return rHot(); if(view==='leads')return rLeads(); if(open!=null)return rArticle(); rArticles()}
+function rHot(){var h='',w=D.leads.filter(function(l){return l.status==='Waiting on Jason'});
+  D.hot.forEach(function(x){h+='<div class="card hot"><div class="t">'+esc(x.title)+'</div><div class="s" style="margin:4px 0 10px">'+esc(x.detail)+'</div><div class="row">'+(x.link?'<a class="b" href="'+esc(x.link)+'" target="_blank" rel="noopener">Open</a>':'')+'<button class="b w" data-done="'+x.id+'">Done ✓</button></div></div>'});
+  var dr=D.articles.filter(function(a){return a.status!=='approved'});
+  if(dr.length)h+='<div class="card"><div class="t">📝 '+dr.length+' article'+(dr.length>1?'s':'')+' waiting for your OK</div><div class="s" style="margin:4px 0 10px">'+dr.map(function(a){return esc(a.title)}).join('<br>')+'</div><button class="b p" data-go="articles">Review articles</button></div>';
+  if(w.length)h+='<div class="card"><div class="t">🎯 Leads waiting on you</div>'+w.map(function(l){return '<div class="s" style="margin-top:6px"><b style="color:#EEF1F6">'+esc(l.company)+'</b>: '+esc(l.next_step||'')+'</div>'}).join('')+'<div class="gap"></div><button class="b" data-go="leads">Open leads</button></div>';
+  M.innerHTML=h||'<div class="empty">Nothing hot. Nice.</div>';
+  M.querySelectorAll('[data-done]').forEach(function(b){b.onclick=function(){call('hotDone',{id:+b.dataset.done}).then(function(){D.hot=D.hot.filter(function(x){return x.id!=b.dataset.done});badges();render();toast('Done')})}});
+  M.querySelectorAll('[data-go]').forEach(function(b){b.onclick=function(){go(b.dataset.go)}})}
+var STAT=['Applied','Viewed','Interview','Offer','Rejected','Waiting on Jason','Pitched','Replied','Won','Lost'];
+function rLeads(){var L=D.leads.filter(function(l){return lf==='all'||(lf==='hot'?l.hot:l.kind===lf)});
+  var h='<div class="seg">'+[['all','All '+D.leads.length],['hot','🔥 Hot'],['job','Job apps'],['outreach','AIGL outreach']].map(function(p){return '<button data-f="'+p[0]+'" class="'+(lf===p[0]?'on':'')+'">'+p[1]+'</button>'}).join('')+'</div>';
+  var ap=D.articles.filter(function(a){return a.status==='approved'});
+  L.forEach(function(l){h+='<div class="card'+(l.hot?' hot':'')+'"><div class="row"><div class="t" style="flex:1">'+esc(l.company)+'</div>'+stPill(l.status)+'</div><div class="s">'+esc(l.role||'')+(l.pay?' · '+esc(l.pay):'')+'</div>'+
+   (l.next_step?'<div style="margin-top:8px"><b>Next:</b> '+esc(l.next_step)+'</div>':'')+
+   '<details><summary>Edit / follow up</summary><label>Status</label><select data-k="status" data-id="'+l.id+'">'+STAT.map(function(s){return '<option'+(s===l.status?' selected':'')+'>'+s+'</option>'}).join('')+'</select>'+
+   '<label>Next step</label><input data-k="next_step" data-id="'+l.id+'" value="'+esc(l.next_step)+'"><label>Notes</label><textarea data-k="notes" data-id="'+l.id+'">'+esc(l.notes)+'</textarea>'+
+   '<div class="row" style="margin-top:10px"><button class="b p" data-save="'+l.id+'">Save</button><button class="b" data-hot="'+l.id+'">'+(l.hot?'Un-hot':'🔥 Mark hot')+'</button>'+(l.link?'<a class="b" href="'+esc(l.link)+'" target="_blank" rel="noopener">Open link</a>':'')+'</div>'+
+   (ap.length?'<label>Follow up with an article</label><div class="row">'+ap.map(function(a){return '<button class="b" data-fu="'+l.id+'" data-slug="'+esc(a.slug)+'">✉️ '+esc(a.title.split(':')[0].split('?')[0])+'</button>'}).join('')+'</div><div class="s" style="margin-top:4px">Opens a ready-to-send email in your mail app. You hit send.</div>':'<div class="s" style="margin-top:10px">Approve an article to use it as a follow-up here.</div>')+
+   '</details></div>'});
+  M.innerHTML=h+(L.length?'':'<div class="empty">No leads here.</div>');
+  M.querySelectorAll('[data-f]').forEach(function(b){b.onclick=function(){lf=b.dataset.f;rLeads()}});
+  M.querySelectorAll('[data-save]').forEach(function(b){b.onclick=function(){var id=+b.dataset.save,o={id:id};M.querySelectorAll('[data-id="'+id+'"]').forEach(function(e){o[e.dataset.k]=e.value});
+    call('saveLead',o).then(function(){var l=D.leads.find(function(x){return x.id===id});Object.assign(l,o);badges();rLeads();toast('Saved')})}});
+  M.querySelectorAll('[data-hot]').forEach(function(b){b.onclick=function(){var id=+b.dataset.hot,l=D.leads.find(function(x){return x.id===id});call('saveLead',{id:id,hot:!l.hot}).then(function(){l.hot=!l.hot;badges();rLeads()})}});
+  M.querySelectorAll('[data-fu]').forEach(function(b){b.onclick=function(){var l=D.leads.find(function(x){return x.id===+b.dataset.fu}),a=D.articles.find(function(x){return x.slug===b.dataset.slug});
+    var url='https://app.aigl.dev/articles/?a='+a.slug, job=l.kind==='job';
+    var sub=job?('Following up: '+(l.role||'the role')):('Thought you\'d find this useful');
+    var txt='Hi,\n\n'+(job?('I wanted to follow up on my application for the '+(l.role||'')+' role at '+l.company+'. I recently wrote a piece that shows how I think about this work:'):('Following up on my last note. I wrote a short piece I think is relevant for '+l.company+':'))+'\n\n'+a.title+'\n'+url+'\n\n'+(job?'You can also ask my AI résumé anything about my background: https://app.aigl.dev/jasonbourbeauresume/?c='+encodeURIComponent(l.company)+'\n\n':'')+'Happy to talk any time.\n\nJason Bourbeau\n(205) 955-7174';
+    location.href='mailto:?subject='+encodeURIComponent(sub)+'&body='+encodeURIComponent(txt);
+    call('saveLead',{id:l.id,next_step:'Sent article follow-up: '+a.title.split(':')[0]+' ('+new Date().toLocaleDateString()+')'}).then(function(){load()})}})}
+function rArticles(){var h='';D.articles.forEach(function(a,i){var ok=a.status==='approved';
+  h+='<div class="card'+(ok?'':' hot')+'" data-open="'+i+'" style="cursor:pointer"><div class="row"><div class="t" style="flex:1">'+esc(a.title)+'</div><span class="pill '+(ok?'g':'h')+'">'+(ok?'Live':'Needs your OK')+'</span></div><div class="s" style="margin-top:4px">'+esc(a.description||'')+'</div></div>'});
+  M.innerHTML=(h||'<div class="empty">No articles yet.</div>')+'<div class="s" style="text-align:center;margin-top:14px">Approved articles go live at <a style="color:#3BE38F" href="/articles/" target="_blank">app.aigl.dev/articles</a></div>';
+  M.querySelectorAll('[data-open]').forEach(function(c){c.onclick=function(){open=+c.dataset.open;aTab='read';rArticle();scrollTo(0,0)}})}
+function rArticle(){var a=D.articles[open],ok=a.status==='approved';
+  var h='<div class="row" style="margin-bottom:8px"><button class="b w" id="back">‹ All articles</button><span style="flex:1"></span><span class="pill '+(ok?'g':'h')+'">'+(ok?'Live':'Draft')+'</span></div>'+
+   '<div class="seg">'+[['read','Read'],['edit','Edit'],['posts','Social posts']].map(function(p){return '<button data-t="'+p[0]+'" class="'+(aTab===p[0]?'on':'')+'">'+p[1]+'</button>'}).join('')+'</div>';
+  if(aTab==='read')h+='<div class="read"><h1>'+esc(a.title)+'</h1>'+md(a.body_md)+'</div>';
+  if(aTab==='edit')h+='<label>Title</label><input id="et" value="'+esc(a.title)+'"><label>Short description</label><input id="ed" value="'+esc(a.description)+'"><label>Article (type right in here)</label><textarea class="big" id="eb">'+esc(a.body_md)+'</textarea><div class="s">**bold**, *italic*, ## heading, - bullet</div>';
+  if(aTab==='posts')h+='<label>LinkedIn</label><textarea id="pl" style="min-height:220px">'+esc(a.linkedin)+'</textarea><label>Facebook</label><textarea id="pf" style="min-height:150px">'+esc(a.facebook)+'</textarea><label>Google Business</label><textarea id="pg">'+esc(a.google)+'</textarea><div class="s">Posting to socials still waits for your OK on each one.</div>';
+  h+='<div class="row" style="margin-top:14px;position:sticky;bottom:calc(80px + env(safe-area-inset-bottom,0px))">'+(aTab!=='read'?'<button class="b" id="sv">Save changes</button>':'')+
+   (ok?'<button class="b" id="un">Take down</button><a class="b" href="/articles/?a='+esc(a.slug)+'" target="_blank">View live</a>':'<button class="b p" id="ap">✓ Approve &amp; publish</button>')+'</div>';
+  M.innerHTML=h;
+  document.getElementById('back').onclick=function(){open=null;rArticles()};
+  M.querySelectorAll('[data-t]').forEach(function(b){b.onclick=function(){collect();aTab=b.dataset.t;rArticle()}});
+  function collect(){var g=function(i){var e=document.getElementById(i);return e?e.value:null};var o={};
+    if(g('et')!=null){o.title=g('et');o.description=g('ed');o.body_md=g('eb')} if(g('pl')!=null){o.linkedin=g('pl');o.facebook=g('pf');o.google=g('pg')}
+    var ch=Object.keys(o).some(function(k){return o[k]!==a[k]}); if(ch){Object.assign(a,o);a._dirty=true} return ch}
+  function save(){collect();if(!a._dirty)return Promise.resolve();return call('saveArticle',{id:a.id,title:a.title,description:a.description,body_md:a.body_md,linkedin:a.linkedin,facebook:a.facebook,google:a.google}).then(function(){a._dirty=false;toast('Saved')})}
+  var sv=document.getElementById('sv');if(sv)sv.onclick=function(){save()};
+  var ap=document.getElementById('ap');if(ap)ap.onclick=function(){if(!confirm('Publish "'+a.title+'" live on app.aigl.dev/articles?'))return;save().then(function(){return call('approveArticle',{id:a.id})}).then(function(){a.status='approved';badges();rArticle();toast('Approved. It\'s live.')})};
+  var un=document.getElementById('un');if(un)un.onclick=function(){call('unapproveArticle',{id:a.id}).then(function(){a.status='draft';badges();rArticle();toast('Taken down')})}}
+load();
+})();
+</script>
+</body>
+</html>

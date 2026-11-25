@@ -249,7 +249,9 @@ const q = new URLSearchParams(location.search);
 const company = (q.get('c') || '').slice(0,60);
 if(company){const fc=document.getElementById('forCo'); fc.textContent='Prepared for '+company; fc.style.display='block';
   // Heads-up to Jason that this company is on the page (emails him once an hour at most).
-  try{ new Image().src='https://ryan-actions-5563.twil.io/open?k=visit&t='+encodeURIComponent(company); }catch(e){} }
+  // Jason's own browsers are marked once with ?me=1 (or ?me=0 to unmark) so his own visits don't trigger alerts.
+  let isMe=false; try{ if(q.get('me')==='1')localStorage.setItem('aigl_me','1'); if(q.get('me')==='0')localStorage.removeItem('aigl_me'); isMe=localStorage.getItem('aigl_me')==='1'; }catch(e){}
+  if(!isMe){ try{ new Image().src='https://ryan-actions-5563.twil.io/open?k=visit&t='+encodeURIComponent(company); }catch(e){} } }
 
 if (EMBED_URL) {
   const f = document.createElement('iframe');

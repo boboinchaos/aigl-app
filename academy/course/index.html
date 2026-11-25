@@ -81,7 +81,7 @@ fbq('init','2107887133449610');fbq('track','PageView');
 window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);fbq('track',ev,data||{},{eventID:id});if(window.gtag){gtag('event',{Lead:'generate_lead',CompleteRegistration:'sign_up',ViewContent:'view_item'}[ev]||ev,data||{});}return id;}catch(e){}};
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2107887133449610&ev=PageView&noscript=1"/></noscript>
-<script>aiglTrack('ViewContent',{content_name:'AI-Taught Course',value:299,currency:'USD'});</script>
+<script>aiglTrack('ViewContent',{content_name:'AI-Taught Course'});</script>
 </head>
 <body>
 <div class="wrap">
@@ -92,10 +92,10 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
   <section class="screen" id="s-locked">
     <div class="eyebrow">AIGL AI Academy</div>
     <h1>1-on-1 Training with the AI Instructor</h1>
-    <p class="lede">A 3-hour, self-paced course built around your job, with an AI instructor that checks your work. Start anytime.</p>
+    <p class="lede">A self-paced course built around your job, with an AI instructor that checks your work. Start anytime.</p>
     <div class="card"><b>What you'll do</b><ul class="clean"><li>6 lessons written for your industry and tasks</li><li>Hands-on exercises with copy-paste prompts</li><li>Build your first mini app and automation</li><li>"Catch the AI" checks, because AI can be wrong</li><li>Your "I automated this" portfolio and a certificate of completion</li></ul></div>
     <p class="err" id="lockedErr"></p>
-    <a class="btn" id="buyBtn" href="/academy/test-drive/">Get the course: $299</a>
+    <a class="btn" id="buyBtn" href="tel:+12052038377">Start the course</a>
     <p class="soft" style="font-size:14px">Already paid? Use the link from your payment confirmation, or call (205) 203-8377.</p>
   </section>
 
@@ -213,8 +213,8 @@ $("industry").onchange=function(){ $("industryOther").style.display = this.value
 (function start(){
   if (DEMO){ $("flag").className="demo-flag"; $("flag").textContent="Demo"; }
   // Only sell once payment checks are switched on (AIGL_STRIPE_KEY in Vercel); until then point to a call.
-  $("buyBtn").textContent = "Coming soon: book a call"; $("buyBtn").href = "/book/?from=academy-course";
-  fetch(API+"/slots").then(function(r){return r.json()}).then(function(j){ if (j && j.payReady && !/PASTE/.test(PAY_URL)){ $("buyBtn").textContent = "Get the course: $299"; $("buyBtn").href = PAY_URL; } }).catch(function(){});
+  $("buyBtn").textContent = "Start the course: call (205) 203-8377"; $("buyBtn").href = "tel:+12052038377";
+  fetch(API+"/slots").then(function(r){return r.json()}).then(function(j){ if (j && j.payReady && !/PASTE/.test(PAY_URL)){ $("buyBtn").textContent = "Start the course"; $("buyBtn").href = PAY_URL; } }).catch(function(){});
   var saved = load();
   var urlSid = new URLSearchParams(location.search).get("session_id");
   st.sid = DEMO ? "demo" : (urlSid || saved.sid || null);

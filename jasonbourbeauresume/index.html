@@ -124,7 +124,7 @@ fbq('init','2107887133449610');fbq('track','PageView');
     <p>AI Automation &amp; Operations · Calera, AL · Remote, on-site as needed</p>
     <p id="forCo" style="display:none;font-weight:600"></p>
   </div></div>
-  <div class="row hbtns"><button class="btn" id="emailBtn" type="button">⬇️ Get a copy</button> <button class="btn sched" id="bookBtn" type="button">📅 Schedule interview</button> <a class="btn call" id="callBtn" href="tel:+12059557174">📞 Talk to Jason Now</a></div>
+  <div class="row hbtns"><button class="btn call" id="emailBtn" type="button">⬇️ Get a copy of my resume</button></div>
 </header>
 
 <main>
@@ -270,12 +270,10 @@ document.getElementById('emailForm').addEventListener('submit', e => {
   document.getElementById('mailJason').href = 'mailto:jason@aigl.dev?subject=' + encodeURIComponent('Interested in talking' + (v('c') ? ' - ' + v('c') : '')) + '&body=' + encodeURIComponent('Hi Jason, this is ' + v('n') + (v('c') ? ' from ' + v('c') : '') + '. ');
   document.getElementById('sent').hidden = false;
 });
-document.getElementById('callBtn').addEventListener('click',()=>log('call_clicked'));
 const callDlg=document.getElementById('callDlg');
 const isPhone = matchMedia('(pointer:coarse)').matches;
 
 const schedDlg=document.getElementById('schedDlg');
-document.getElementById('bookBtn').onclick=()=>{ document.getElementById('sc').value=company; schedDlg.showModal(); log('schedule_opened'); };
 document.getElementById('schedCancel').onclick=()=>schedDlg.close();
 schedDlg.addEventListener('click',e=>{ if(e.target===schedDlg) schedDlg.close(); });
 document.getElementById('schedForm').addEventListener('submit',e=>{

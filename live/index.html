@@ -5,10 +5,11 @@
 <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-5DMQ4M3S"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());</script>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#05070b">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#04060a">
 <title>Live demo · Jason Bourbeau · AIGL</title>
-<meta name="description" content="Talk to Jason's AI twin, then watch it run a real AI receptionist: CRM, booking, texts and review requests, live.">
+<meta name="description" content="Meet Jason, then watch his AI run a real receptionist: CRM, calendar, texts and review requests updating live.">
+<meta property="og:image" content="https://app.aigl.dev/live/jason.jpg">
 <link rel="icon" href="../icons/favicon-32.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -18,72 +19,113 @@
 fbq('init','2107887133449610');fbq('track','PageView');
 </script>
 <style>
-:root{--bg:#05070b;--panel:#0b1018;--card:#0f1520;--line:#1c2634;--ink:#eef3f9;--soft:#93a4b8;--green:#2EE08A;--blue:#4C8DFF;--amber:#ffb547;--pink:#ff5fa2;--mono:"JetBrains Mono",ui-monospace,monospace}
-*{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(900px 500px at 15% -10%,rgba(46,224,138,.13),transparent 60%),radial-gradient(800px 600px at 100% 110%,rgba(76,141,255,.14),transparent 60%)}
-.wrap{max-width:1280px;margin:0 auto;padding:18px 20px 40px}
+:root{--bg:#04060a;--p:#0a0f17;--c:#0f1622;--c2:#131c2b;--line:#1d2838;--ink:#eef3f9;--soft:#91a3b8;--g:#2EE08A;--b:#4C8DFF;--a:#ffb547;--r:#ff5a6a;--mono:"JetBrains Mono",ui-monospace,monospace}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(900px 600px at 10% -10%,rgba(46,224,138,.16),transparent 60%),radial-gradient(900px 700px at 105% 105%,rgba(76,141,255,.18),transparent 60%)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse at 50% 30%,#000 30%,transparent 75%);animation:grid 30s linear infinite}
+@keyframes grid{to{background-position:44px 44px}}
+.wrap{max-width:1320px;margin:0 auto;padding:16px 20px 36px}
 header{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--green),#15c773);display:grid;place-items:center;color:#04110a;font-weight:900;box-shadow:0 0 24px rgba(46,224,138,.45)}
+.mark{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--g),#15c773);display:grid;place-items:center;color:#04110a;font-weight:900;box-shadow:0 0 24px rgba(46,224,138,.5)}
 header b{font-size:15px}header small{display:block;color:var(--soft);font-size:12px}
-.for{margin-left:auto;padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-size:13px;color:var(--green);background:rgba(46,224,138,.06)}
-.ai{padding:6px 10px;border-radius:999px;font-size:12px;color:var(--soft);border:1px dashed var(--line)}
-h1{font-size:clamp(26px,3.6vw,44px);line-height:1.05;letter-spacing:-.02em;margin:22px 0 6px;font-weight:800}
-h1 em{font-style:normal;background:linear-gradient(90deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
-.sub{color:var(--soft);margin:0 0 18px;font-size:16px;max-width:760px}
-.grid{display:grid;grid-template-columns:1.15fr 1fr;gap:18px}
-@media(max-width:920px){.grid{grid-template-columns:1fr}}
-/* stage */
-.stage{position:relative;border-radius:22px;overflow:hidden;background:#000;border:1px solid var(--line);aspect-ratio:16/11;box-shadow:0 30px 80px rgba(0,0,0,.6)}
-.stage video{width:100%;height:100%;object-fit:cover;display:block;background:#000}
-.cover{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:24px;background:radial-gradient(500px 300px at 50% 40%,rgba(46,224,138,.18),transparent 70%),linear-gradient(180deg,#07101a,#03050a)}
-.orb{width:150px;height:150px;border-radius:50%;background:conic-gradient(from 0deg,var(--green),var(--blue),var(--pink),var(--green));filter:blur(.5px);animation:spin 6s linear infinite;position:relative;box-shadow:0 0 80px rgba(46,224,138,.35)}
-.orb::after{content:"JB";position:absolute;inset:8px;border-radius:50%;background:#070b12;display:grid;place-items:center;font-weight:800;font-size:38px;letter-spacing:.02em}
-.orb.talk{animation:spin 2s linear infinite,pulse 1s ease-in-out infinite}
-@keyframes spin{to{transform:rotate(360deg)}}@keyframes pulse{50%{box-shadow:0 0 120px rgba(46,224,138,.7)}}
-.go{border:0;border-radius:999px;padding:16px 26px;font:700 17px Inter;color:#04110a;background:linear-gradient(135deg,var(--green),#15c773);cursor:pointer;box-shadow:0 10px 40px rgba(46,224,138,.35)}
-.go:hover{transform:translateY(-1px)}
-.cover small{color:var(--soft);font-size:13px;max-width:380px}
-.live{position:absolute;top:14px;left:14px;display:none;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(0,0,0,.6);font-size:12px;font-weight:600}
-.live i{width:8px;height:8px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 10px #ff3b3b;animation:pulse 1s infinite}
-.cap{position:absolute;left:0;right:0;bottom:0;padding:16px 18px;background:linear-gradient(transparent,rgba(0,0,0,.85));font-size:16px;line-height:1.4;min-height:70px}
-.cap .u{color:var(--amber)}
-.ctrl{position:absolute;top:14px;right:14px;display:none;gap:8px}
-.ctrl button{border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.55);color:#fff;border-radius:999px;padding:8px 13px;font:600 13px Inter;cursor:pointer}
-.ask{display:flex;gap:8px;margin-top:10px}
-.ask input{flex:1;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--ink);font:15px Inter}
-.ask button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:0 16px;font:600 14px Inter;cursor:pointer}
-/* panel */
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:10px}
-.ph{display:flex;align-items:center;justify-content:space-between}
-.ph b{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
-.ph span{font:12px var(--mono);color:var(--green)}
-.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;opacity:.45;transition:all .5s;position:relative;overflow:hidden}
-.tile.on{opacity:1;border-color:rgba(46,224,138,.5);box-shadow:0 0 0 1px rgba(46,224,138,.15),0 10px 30px rgba(46,224,138,.08)}
-.tile.on::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(46,224,138,.12),transparent);animation:sweep 1.2s ease-out 1}
-@keyframes sweep{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
-.tile h3{margin:0 0 4px;font-size:13px;display:flex;align-items:center;gap:8px;color:var(--soft);font-weight:600}
-.tile h3 .st{margin-left:auto;font:11px var(--mono);color:var(--soft)}
-.tile.on h3 .st{color:var(--green)}
-.tile .v{font-size:15px;line-height:1.4;min-height:21px}
-.tile .v small{display:block;color:var(--soft);font-size:12.5px}
-.bubble{background:#1d2b3f;border-radius:14px 14px 14px 4px;padding:9px 12px;font-size:14px;margin-top:4px}
-.log{background:#03060a;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:12px/1.55 var(--mono);color:#8fb3a1;height:120px;overflow:auto}
-.log .t{color:#4f6476}.log .ok{color:var(--green)}.log .warn{color:var(--amber)}
-/* asks */
-.asks{margin-top:18px;background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:18px}
-.asks h2{margin:0 0 12px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
+.for{margin-left:auto;padding:6px 12px;border:1px solid rgba(46,224,138,.35);border-radius:999px;font-size:13px;color:var(--g);background:rgba(46,224,138,.07)}
+h1{font-size:clamp(28px,3.8vw,48px);line-height:1.04;letter-spacing:-.025em;margin:18px 0 6px;font-weight:800;text-wrap:balance}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--g),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--soft);margin:0 0 16px;font-size:16.5px;max-width:780px}
+.grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.25fr);gap:18px;align-items:start}
+@media(max-width:960px){.grid{grid-template-columns:minmax(0,1fr)}}
+/* ---------- stage ---------- */
+.stage{position:relative;border-radius:24px;overflow:hidden;background:#000;aspect-ratio:4/5;max-height:78vh;width:100%;border:1px solid var(--line);box-shadow:0 40px 100px rgba(0,0,0,.65),0 0 0 1px rgba(46,224,138,.08)}
+.bgblur{position:absolute;inset:-40px;background:url(jason.jpg) center/cover;filter:blur(30px) brightness(.45) saturate(1.2)}
+.still{position:absolute;inset:0;background:url(jason.jpg) center 20%/cover;animation:kb 22s ease-in-out infinite alternate}
+@keyframes kb{to{transform:scale(1.08) translateY(-1%)}}
+.stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:transparent}
+#hello{display:none}#vid{display:none}
+.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),transparent 25%,transparent 55%,rgba(0,0,0,.9))}
+.badge{position:absolute;top:14px;left:14px;display:flex;gap:8px;z-index:3}
+.badge span{padding:6px 11px;border-radius:999px;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,.12)}
+.badge .lv{display:none;align-items:center;gap:7px}.badge .lv i{width:8px;height:8px;border-radius:50%;background:var(--r);box-shadow:0 0 10px var(--r);animation:bl 1s infinite}
+@keyframes bl{50%{opacity:.3}}
+.who{position:absolute;left:18px;right:18px;bottom:18px;z-index:3}
+.cap{font-size:clamp(16px,1.6vw,19px);line-height:1.4;font-weight:500;text-shadow:0 2px 12px #000;min-height:52px}
+.cap .u{color:var(--a);font-weight:700}
+.wave{display:flex;gap:4px;align-items:flex-end;height:26px;margin-top:10px;opacity:.25;transition:opacity .3s}
+.wave i{width:5px;border-radius:3px;background:var(--g);height:20%;transition:height .12s}
+.wave.on{opacity:1}.wave.user i{background:var(--a)}
+.start{position:absolute;inset:auto 0 22%;display:flex;flex-direction:column;align-items:center;gap:10px;z-index:4;text-align:center;padding:0 16px}
+.go{border:0;border-radius:999px;padding:16px 24px;font:700 17px Inter;color:#04110a;background:linear-gradient(135deg,var(--g),#15c773);cursor:pointer;box-shadow:0 12px 40px rgba(46,224,138,.45);display:flex;align-items:center;gap:12px}
+.go b{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#04110a;color:var(--g);font-size:14px}
+.go:disabled{opacity:.7;cursor:wait}
+.start small{color:#d5dde7;font-size:13px;text-shadow:0 1px 8px #000}
+.ctrl{position:absolute;top:14px;right:14px;display:none;gap:8px;z-index:3}
+.ctrl button{border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.6);color:#fff;border-radius:999px;padding:8px 13px;font:600 13px Inter;cursor:pointer}
+.ask{display:none;gap:8px;margin-top:10px}
+.ask input{flex:1;background:var(--c);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--ink);font:16px Inter}
+.ask button{border:1px solid var(--line);background:var(--c);color:var(--ink);border-radius:12px;padding:0 16px;font:600 14px Inter;cursor:pointer}
+/* ---------- app panel ---------- */
+.app{background:var(--p);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.bar{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0e1520,#0a0f17)}
+.dots{display:flex;gap:6px}.dots i{width:10px;height:10px;border-radius:50%;background:#2a3445}.dots i:nth-child(1){background:#ff5f57}.dots i:nth-child(2){background:#febc2e}.dots i:nth-child(3){background:#28c840}
+.bar b{font-size:13.5px}.bar span{margin-left:auto;font:12px var(--mono);color:var(--soft)}
+.bar span.on{color:var(--g)}
+.body{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:12px;padding:14px}
+@media(max-width:620px){.body{grid-template-columns:minmax(0,1fr)}}
+.sec{background:var(--c);border:1px solid var(--line);border-radius:14px;padding:12px;transition:border-color .5s,box-shadow .5s}
+.sec.hit{border-color:rgba(46,224,138,.6);box-shadow:0 0 0 3px rgba(46,224,138,.1)}
+.sec h3{margin:0 0 8px;font-size:12px;color:var(--soft);font-weight:600;display:flex;align-items:center;gap:8px;letter-spacing:.02em}
+.sec h3 em{font-style:normal;margin-left:auto;font:11px var(--mono);color:var(--soft)}
+.sec.hit h3 em{color:var(--g)}
+.col{display:flex;flex-direction:column;gap:12px}
+/* transcript */
+.chat{height:150px;overflow:auto;display:flex;flex-direction:column;gap:6px;scroll-behavior:smooth}
+.msg{max-width:86%;padding:7px 11px;border-radius:12px;font-size:13.5px;line-height:1.35;animation:pop .35s ease-out}
+.msg.a{background:var(--c2);border-bottom-left-radius:3px}
+.msg.u{align-self:flex-end;background:rgba(255,181,71,.14);border:1px solid rgba(255,181,71,.3);border-bottom-right-radius:3px}
+.msg.sys{align-self:center;max-width:100%;font:11.5px var(--mono);color:var(--g);background:transparent;padding:2px}
+.empty{color:#56677b;font-size:13px;margin:auto}
+@keyframes pop{from{opacity:0;transform:translateY(6px) scale(.98)}}
+/* crm */
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:#6c7e93;font-weight:600;font-size:11.5px;padding:4px 6px;border-bottom:1px solid var(--line)}
+td{padding:7px 6px;border-bottom:1px solid #162030;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px}
+tr.new{animation:rowin .8s ease-out}tr.new td{background:rgba(46,224,138,.08)}
+@keyframes rowin{from{opacity:0;transform:translateX(-12px)}}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11.5px;font-weight:600}
+.pill.urgent{background:rgba(255,90,106,.15);color:#ff8a95}.pill.normal{background:rgba(76,141,255,.15);color:#8fb6ff}.pill.lead{background:rgba(46,224,138,.15);color:var(--g)}.pill.booked{background:var(--g);color:#04110a}
+/* calendar */
+.cal{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.day{font-size:11.5px;color:#6c7e93;text-align:center;font-weight:600}
+.slot{height:30px;border-radius:8px;border:1px dashed #223044;font:11px var(--mono);color:#4f6074;display:grid;place-items:center;transition:all .4s;overflow:hidden;white-space:nowrap}
+.slot.open{border:1px solid rgba(76,141,255,.55);color:#9cc0ff;background:rgba(76,141,255,.08)}
+.slot.bk{border:0;background:linear-gradient(135deg,var(--g),#15c773);color:#04110a;font-weight:700;animation:pop .5s}
+/* phone */
+.phone{width:100%;max-width:210px;margin:0 auto;aspect-ratio:9/16;max-height:330px;border-radius:26px;border:2px solid #2a3547;background:#05080d;padding:22px 9px 9px;position:relative;display:flex;flex-direction:column;gap:6px}
+.phone::before{content:"";position:absolute;top:8px;left:50%;transform:translateX(-50%);width:54px;height:6px;border-radius:4px;background:#1c2433}
+.ph-h{font-size:11px;color:#7b8ca1;text-align:center;border-bottom:1px solid #141c28;padding-bottom:6px}
+.sms{align-self:flex-start;background:#1f2a3a;border-radius:14px 14px 14px 4px;padding:8px 10px;font-size:11.5px;line-height:1.35;animation:pop .4s}
+.typing{align-self:flex-start;background:#1f2a3a;border-radius:14px;padding:8px 12px;display:none;gap:4px}
+.typing i{width:6px;height:6px;border-radius:50%;background:#8193a8;animation:bl 1s infinite}.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+.sms-st{font:10.5px var(--mono);color:#6c7e93;text-align:center;margin-top:auto}
+/* review + summary */
+.stars{color:#ffcf4a;letter-spacing:2px;font-size:15px}
+.small{font-size:13px;color:#c7d2df}
+.log{background:#02050a;border-top:1px solid var(--line);padding:10px 16px;font:11.5px/1.6 var(--mono);color:#7fae96;height:96px;overflow:auto}
+.log .t{color:#465a6e}.log .ok{color:var(--g)}.log .warn{color:var(--a)}
+/* checklist + strip */
+.asks{margin-top:18px;background:var(--p);border:1px solid var(--line);border-radius:22px;padding:16px 18px}
+.asks h2{margin:0 0 10px;font-size:14px;color:var(--soft);font-weight:600}
 .chk{display:flex;flex-wrap:wrap;gap:8px}
 .chk span{border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:13.5px;color:var(--soft);transition:all .4s}
-.chk span.done{color:#04110a;background:var(--green);border-color:var(--green);font-weight:600}
+.chk span.done{color:#04110a;background:var(--g);border-color:var(--g);font-weight:700;transform:scale(1.03)}
 .chk span.done::before{content:"✓ "}
-.strip{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:16px 18px}
-.strip p{margin:0;color:var(--soft);font-size:14px;max-width:560px}.strip p b{color:var(--ink)}
+.strip{margin-top:14px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between;background:var(--p);border:1px solid var(--line);border-radius:22px;padding:14px 18px}
+.strip p{margin:0;color:var(--soft);font-size:14.5px;max-width:600px}.strip p b{color:var(--ink)}
 .btns{display:flex;gap:10px;flex-wrap:wrap}
-.btns a{text-decoration:none;color:var(--ink);border:1px solid var(--line);background:var(--card);border-radius:12px;padding:12px 16px;font-weight:600;font-size:14px}
-.btns a.p{background:linear-gradient(135deg,var(--green),#15c773);color:#04110a;border:0}
-.stack{margin-top:14px;text-align:center;color:#5d6e82;font:12px var(--mono)}
-.pv{display:none;margin-top:6px;font:12px var(--mono);color:var(--amber)}
+.btns a{text-decoration:none;color:var(--ink);border:1px solid var(--line);background:var(--c);border-radius:12px;padding:12px 16px;font-weight:600;font-size:14px}
+.btns a.p{background:linear-gradient(135deg,var(--g),#15c773);color:#04110a;border:0}
+.foot{margin-top:12px;text-align:center;color:#536479;font:12px var(--mono)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
 </head>
 <body>
@@ -92,47 +134,57 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--green),var(--blue
     <div class="mark">JB</div>
     <div><b>Jason Bourbeau · AIGL</b><small>AI receptionists &amp; automations · Birmingham, AL</small></div>
     <span class="for" id="forCo" style="display:none"></span>
-    <span class="ai">🤖 AI twin, clearly labeled</span>
   </header>
 
-  <h1 id="h1">Don't read about it.<br><em>Talk to it.</em></h1>
-  <p class="sub" id="sub">My AI twin will walk you through what I build, then turn into a live receptionist. You play the caller and watch the system run for real on the right.</p>
+  <h1 id="h1">Don't read about it.<br><em>Watch it work.</em></h1>
+  <p class="sub">A quick hello from me, then my AI twin turns into a live receptionist. Play the caller and watch the CRM, calendar and texts update for real on the right.</p>
 
   <div class="grid">
     <div>
       <div class="stage" id="stage">
+        <div class="bgblur"></div>
+        <div class="still" id="still"></div>
+        <video id="hello" playsinline preload="auto" src="hello.mp4" poster="jason.jpg"></video>
         <video id="vid" autoplay playsinline></video>
-        <div class="cover" id="cover">
-          <div class="orb" id="orb"></div>
-          <button class="go" id="goBtn">▶ Talk to Jason's AI twin</button>
-          <small id="coverNote">Uses your mic. About 3–5 minutes. Say "show me" any time to jump into the demo.</small>
-          <div class="pv" id="pvNote"></div>
-        </div>
-        <div class="live" id="liveTag"><i></i>LIVE</div>
+        <div class="shade"></div>
+        <div class="badge"><span id="tag">👋 Jason Bourbeau</span><span class="lv" id="lv"><i></i>LIVE</span></div>
         <div class="ctrl" id="ctrl"><button id="muteBtn">🎙 Mute</button><button id="endBtn">■ End</button></div>
-        <div class="cap" id="cap"></div>
+        <div class="start" id="start">
+          <button class="go" id="goBtn"><b>▶</b>Meet Jason &amp; try the live demo</button>
+          <small>Sound on · about 3 minutes · nothing to install</small>
+        </div>
+        <div class="who"><div class="cap" id="cap"></div><div class="wave" id="wave"></div></div>
       </div>
-      <form class="ask" id="askForm" style="display:none"><input id="askIn" placeholder="Rather type? Ask anything, or type “show me”"><button>Send</button></form>
+      <form class="ask" id="askForm"><input id="askIn" placeholder="Rather type? Ask anything, or type “show me”"><button>Send</button></form>
     </div>
 
-    <div class="panel">
-      <div class="ph"><b>Behind the scenes · live</b><span id="clock">waiting for a caller</span></div>
-      <div class="tile" id="t-contact"><h3>📇 CRM <span class="st">no lead yet</span></h3><div class="v">—</div></div>
-      <div class="tile" id="t-booking"><h3>📅 Calendar <span class="st">open</span></h3><div class="v">—</div></div>
-      <div class="tile" id="t-text"><h3>💬 Text to caller <span class="st">not sent</span></h3><div class="v">—</div></div>
-      <div class="tile" id="t-review"><h3>⭐ Review request <span class="st">not scheduled</span></h3><div class="v">—</div></div>
-      <div class="tile" id="t-summary"><h3>📝 Call summary <span class="st">after the call</span></h3><div class="v">—</div></div>
-      <div class="log" id="log"><div class="t">// system log: every tool call the AI makes shows up here</div></div>
+    <div class="app">
+      <div class="bar"><div class="dots"><i></i><i></i><i></i></div><b id="appName">Summit Home Services · Front desk</b><span id="clock">● waiting for a call</span></div>
+      <div class="body">
+        <div class="col">
+          <div class="sec" id="s-chat"><h3>📞 Live call <em id="callSt">idle</em></h3><div class="chat" id="chat"><div class="empty">The conversation shows up here as it happens.</div></div></div>
+          <div class="sec" id="s-crm"><h3>📇 CRM · Leads <em id="crmSt">0 new</em></h3>
+            <table><thead><tr><th>Name</th><th>Need</th><th>Priority</th><th>Stage</th></tr></thead>
+            <tbody id="crm"><tr><td>Maria Lopez</td><td>Estimate</td><td><span class="pill normal">normal</span></td><td><span class="pill booked">Booked</span></td></tr><tr><td>Tom Reeves</td><td>Follow-up</td><td><span class="pill normal">normal</span></td><td><span class="pill lead">Lead</span></td></tr></tbody></table></div>
+          <div class="sec" id="s-cal"><h3>📅 Calendar <em id="calSt">this week</em></h3><div class="cal" id="cal"></div></div>
+        </div>
+        <div class="col">
+          <div class="sec" id="s-sms"><h3>💬 Text to caller <em id="smsSt">—</em></h3>
+            <div class="phone"><div class="ph-h" id="phH">Messages</div><div class="typing" id="typing"><i></i><i></i><i></i></div><div class="sms-st" id="smsNote">waiting for a booking</div></div></div>
+          <div class="sec" id="s-rev"><h3>⭐ Review request <em id="revSt">—</em></h3><div class="small" id="rev">Goes out automatically after the visit.</div></div>
+          <div class="sec" id="s-sum"><h3>📝 Call summary <em id="sumSt">—</em></h3><div class="small" id="sum">Written by the AI when the call ends.</div></div>
+        </div>
+      </div>
+      <div class="log" id="log"><div class="t">// system log · every action the AI takes, with real response times</div></div>
     </div>
   </div>
 
   <div class="asks"><h2 id="asksH">What a receptionist like this needs to do</h2><div class="chk" id="chk"></div></div>
-
   <div class="strip">
-    <p><b>You keep the client. I build and run it.</b> White-label or behind the scenes, US-based, Central time. Standard receptionist in about a week, per build or hourly.</p>
-    <div class="btns"><a class="p" id="mailBtn" href="mailto:jason@aigl.dev?subject=AI%20build">✉️ Email Jason</a><a href="tel:+12052038377">📞 (205) 203-8377 (AI, 24/7)</a></div>
+    <p><b>You keep the client. I build and run it.</b> White-label or behind the scenes · US-based, Central time · standard receptionist in about a week, per build or hourly.</p>
+    <div class="btns"><a class="p" id="mailBtn" href="mailto:jason@aigl.dev?subject=AI%20build">✉️ jason@aigl.dev</a><a href="tel:+12052038377">📞 (205) 203-8377 · AI answers 24/7</a></div>
   </div>
-  <div class="stack">built with LiveAvatar · ElevenLabs · Vapi/Retell · Twilio · Make · Supabase</div>
+  <div class="foot">built with LiveAvatar · ElevenLabs · Vapi/Retell · Twilio · Make · Supabase · the AI twin is labeled as AI</div>
 </div>
 
 <script type="module">
@@ -140,113 +192,125 @@ const API='https://tznmjoeovqvnwcjxrohq.supabase.co/functions/v1/live';
 const $=id=>document.getElementById(id);
 const q=new URLSearchParams(location.search);
 const gigSlug=(q.get('g')||'').toLowerCase().slice(0,40);
-let gig={contact_name:'there',company:'',biz_name:'Summit Home Services',industry:'home services',asks:'an AI phone receptionist that answers, books and follows up'};
-let sid=null, session=null, t0=0, clockT=null;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let gig={contact_name:'there',company:'',biz_name:'Summit Home Services',industry:'home services',asks:''};
+let sid=null, session=null, t0=0, clockT=null, waveT=null;
 
-// ----- personalize -----
 try{ gig=await (await fetch(API+'?gig='+encodeURIComponent(gigSlug))).json(); }catch(e){}
 const company=gig.company||q.get('c')||'';
-if(company){ $('forCo').textContent='Prepared for '+company; $('forCo').style.display='inline-block';
-  $('mailBtn').href='mailto:jason@aigl.dev?subject='+encodeURIComponent('AI build: '+company); }
-if(gig.contact_name && gig.contact_name!=='there'){ $('h1').innerHTML=`Hey ${esc(gig.contact_name)}, don't read about it.<br><em>Talk to it.</em>`; }
-$('asksH').textContent = company ? `What your post asked for` : 'What a receptionist like this needs to do';
-// checklist from their asks (each item lights up when the demo does it)
-const RULES=[['answer','Answers instantly',['start']],['voice','Natural voice',['start']],['book','Books appointments',['booking']],['crm','Puts leads in the CRM',['contact']],['sms','Text follow-ups',['text']],['remind','Reminders',['text']],['review','Review requests',['review']],['faq','Answers FAQs',['start']],['qualif','Qualifies leads',['contact']],['transcript','Transcripts & summary',['summary']],['dashboard','Live dashboard',['contact']],['follow','Follow-up',['text','review']]];
-const asks=(gig.asks||'').toLowerCase();
-let items=RULES.filter(r=>asks.includes(r[0]));
-if(items.length<4) items=RULES.filter(r=>['answer','book','crm','sms','review','transcript'].includes(r[0]));
-$('chk').innerHTML=items.map(r=>`<span data-k="${r[2].join(' ')}">${r[1]}</span>`).join('');
-const tick=k=>document.querySelectorAll('#chk span').forEach(s=>{ if(s.dataset.k.split(' ').includes(k)) s.classList.add('done'); });
+if(company){ $('forCo').textContent='Prepared for '+company; $('forCo').style.display='inline-block'; $('mailBtn').href='mailto:jason@aigl.dev?subject='+encodeURIComponent('AI build: '+company); }
+if(gig.contact_name&&gig.contact_name!=='there') $('h1').innerHTML=`Hey ${esc(gig.contact_name)}, don't read about it.<br><em>Watch it work.</em>`;
+$('appName').textContent=`${gig.biz_name} · Front desk`;
+if(company) $('asksH').textContent='What your post asked for';
 
-// ----- tracking -----
+// checklist from their post
+const RULES=[['answer','Answers instantly',['call']],['voice','Natural voice',['call']],['book','Books appointments',['booking']],['crm','Leads into the CRM',['contact']],['sms','Text confirmations',['text']],['remind','Reminders',['text']],['review','Review requests',['review']],['faq','Answers FAQs',['call']],['qualif','Qualifies leads',['contact']],['transcript','Transcripts & summary',['summary']],['dashboard','Live dashboard',['contact']],['follow','Follow-up',['text','review']]];
+const asks=(gig.asks||'').toLowerCase();
+let items=RULES.filter(r=>asks.includes(r[0])); if(items.length<4) items=RULES.filter(r=>['answer','book','crm','sms','review','transcript'].includes(r[0]));
+$('chk').innerHTML=items.map(r=>`<span data-k="${r[2].join(' ')}">${r[1]}</span>`).join('');
+const tick=k=>document.querySelectorAll('#chk span').forEach(s=>{if(s.dataset.k.split(' ').includes(k))s.classList.add('done')});
+
+// calendar grid (next 3 business days, skipping holidays)
+const HOL=['11-26','11-27','12-24','12-25','12-31','01-01','07-04'];
+const days=[];{const d=new Date();d.setDate(d.getDate()+1);while(days.length<3){const md=String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(d.getDay()%6&&!HOL.includes(md))days.push(new Date(d));d.setDate(d.getDate()+1);}}
+const HRS=[9,11,14,16], lbl=(d,h)=>d.toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric'})+' at '+(h>12?h-12:h)+(h>=12?':00 PM':':00 AM');
+$('cal').innerHTML=days.map(d=>`<div class="day">${d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}</div>`).join('')+HRS.map(h=>days.map(d=>`<div class="slot" data-s="${lbl(d,h)}">${h>12?h-12:h}${h>=12?'p':'a'}</div>`).join('')).join('');
+// a couple of existing bookings so it looks like a real calendar
+document.querySelectorAll('.slot')[1].classList.add('bk');document.querySelectorAll('.slot')[1].textContent='M. Lopez';
+
+// tracking
 let isMe=false;try{if(q.get('me')==='1')localStorage.setItem('aigl_me','1');if(q.get('me')==='0')localStorage.removeItem('aigl_me');isMe=localStorage.getItem('aigl_me')==='1';}catch(e){}
-const ping=(t)=>{ if(!isMe&&company){ try{new Image().src='https://ryan-actions-5563.twil.io/open?k=visit&t='+encodeURIComponent(t+': '+company);}catch(e){} } };
+const ping=t=>{if(!isMe&&company){try{new Image().src='https://ryan-actions-5563.twil.io/open?k=visit&t='+encodeURIComponent(t+': '+company)}catch(e){}}};
 try{fetch('https://tznmjoeovqvnwcjxrohq.supabase.co/functions/v1/cc',{method:'POST',headers:{'content-type':'application/json'},keepalive:true,body:JSON.stringify({action:'view',slug:'live'+(gigSlug?':'+gigSlug:''),src:q.get('src')||q.get('utm_source')||'',ref:document.referrer||''})})}catch(e){}
 ping('Live demo page opened');
 
-// ----- UI helpers -----
-function esc(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
-function cap(who,text){ $('cap').innerHTML = who==='u' ? `<span class="u">You:</span> ${esc(text)}` : esc(text); }
-function logLine(html,cls=''){ const d=document.createElement('div'); d.className=cls; d.innerHTML=`<span class="t">${new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'})}</span> ${html}`; $('log').appendChild(d); $('log').scrollTop=1e9; }
-function tile(id,st,html){ const t=$('t-'+id); t.classList.remove('on'); void t.offsetWidth; t.classList.add('on'); t.querySelector('.st').textContent=st; t.querySelector('.v').innerHTML=html; }
+// ---------- UI ----------
+$('wave').innerHTML='<i></i>'.repeat(28);
+function speaking(who){ clearInterval(waveT); const w=$('wave'); w.className='wave'+(who?' on':'')+(who==='u'?' user':''); if(!who){[...w.children].forEach(i=>i.style.height='20%');return;} waveT=setInterval(()=>[...w.children].forEach(i=>i.style.height=(15+Math.random()*85)+'%'),110); }
+function cap(who,text){ $('cap').innerHTML= who==='u'?`<span class="u">Caller:</span> ${esc(text)}`:esc(text); }
+function chat(who,text){ const c=$('chat'); c.querySelector('.empty')?.remove(); const m=document.createElement('div'); m.className='msg '+who; m.textContent=text; c.appendChild(m); c.scrollTop=1e9; }
+function hit(id){ const s=$(id); s.classList.remove('hit'); void s.offsetWidth; s.classList.add('hit'); }
+function logLine(html,cls=''){ const d=document.createElement('div'); d.className=cls; d.innerHTML=`<span class="t">${new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'})}</span> ${html}`; $('log').appendChild(d); $('log').scrollTop=1e9; }
+let newLeads=0;
 function render(ev){
   if(!ev) return; const d=ev.data||{};
-  if(ev.kind==='contact'){ tile('contact','new lead · '+(d.urgency||'normal'),`<b>${esc(d.name)}</b><small>${esc(d.reason)}${d.phone?' · '+esc(d.phone):''} · Stage: ${esc(d.stage)}</small>`); tick('contact'); }
-  if(ev.kind==='availability'){ tile('booking','checking',`<small>Open: ${esc((d.slots||[]).slice(0,4).join(' · '))}</small>`); }
-  if(ev.kind==='booking'){ tile('booking','✓ confirmed',`<b>${esc(d.slot)}</b><small>${esc(d.service)} · ${esc(d.name)} · ${esc(d.business)}</small>`); tick('booking'); }
-  if(ev.kind==='text'){ const sent=/^Sent/.test(d.status); tile('text',sent?'✓ delivered to '+esc(d.to):esc(d.status),`<div class="bubble">${esc(d.body)}</div>`); if(sent) tick('text'); }
-  if(ev.kind==='review'){ tile('review','✓ scheduled · '+esc(d.when),`<small>${esc(d.channel)}</small><div class="bubble">${esc(d.message)}</div>`); tick('review'); }
-  if(ev.kind==='summary'){ tile('summary','✓ ready',esc(d.summary)); tick('summary'); }
+  if(ev.kind==='contact'){ newLeads++; const tr=document.createElement('tr'); tr.className='new'; tr.innerHTML=`<td><b>${esc(d.name)}</b></td><td>${esc(d.reason)}</td><td><span class="pill ${d.urgency==='urgent'?'urgent':'normal'}">${esc(d.urgency||'normal')}</span></td><td><span class="pill lead" id="stage-${ev.id}">New lead</span></td>`; $('crm').prepend(tr); window._lastLead=tr; $('crmSt').textContent=newLeads+' new'; hit('s-crm'); tick('contact'); chat('sys','✓ added to CRM'); }
+  if(ev.kind==='availability'){ (d.slots||[]).forEach(s=>document.querySelector(`.slot[data-s="${CSS.escape(s)}"]`)?.classList.add('open')); $('calSt').textContent='finding times'; hit('s-cal'); }
+  if(ev.kind==='booking'){ document.querySelectorAll('.slot.open').forEach(x=>x.classList.remove('open')); const s=document.querySelector(`.slot[data-s="${CSS.escape(d.slot)}"]`); if(s){s.className='slot bk';s.textContent=(d.name||'').split(' ')[0];} $('calSt').textContent='✓ '+d.slot; hit('s-cal'); tick('booking'); const st=window._lastLead?.querySelector('.pill.lead'); if(st){st.className='pill booked';st.textContent='Booked';} chat('sys','✓ appointment booked'); }
+  if(ev.kind==='text'){ const sent=/^Sent/.test(d.status); $('phH').textContent=gig.biz_name; $('typing').style.display='flex'; hit('s-sms'); setTimeout(()=>{ $('typing').style.display='none'; const b=document.createElement('div'); b.className='sms'; b.textContent=d.body; $('typing').after(b); $('smsNote').textContent=sent?'✓ delivered to '+d.to:d.status; $('smsSt').textContent=sent?'✓ sent':'preview'; },1300); if(sent) tick('text'); else tick('text'); chat('sys',sent?'✓ text sent':'✓ text prepared'); }
+  if(ev.kind==='review'){ $('rev').innerHTML=`<div class="stars">★★★★★</div>${esc(d.message)}<div style="color:#6c7e93;font-size:12px;margin-top:4px">${esc(d.channel)} · ${esc(d.when)}</div>`; $('revSt').textContent='✓ scheduled'; hit('s-rev'); tick('review'); }
+  if(ev.kind==='summary'){ $('sum').textContent=d.summary; $('sumSt').textContent='✓ ready'; hit('s-sum'); tick('summary'); }
 }
 async function runTool(name,params){
-  const t=performance.now();
-  logLine(`→ <b>${name}</b>(${esc(JSON.stringify(params)).slice(0,140)})`);
-  try{
-    const r=await (await fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'tool',session_id:sid,name,params})})).json();
-    logLine(`✓ ${esc(r.result)} <span class="t">${Math.round(performance.now()-t)}ms</span>`,'ok'); render(r.event); return r.result;
-  }catch(e){ logLine('✗ '+esc(e.message),'warn'); return 'Tool failed.'; }
+  const t=performance.now(); logLine(`→ <b>${name}</b>(${esc(JSON.stringify(params)).slice(0,120)})`);
+  try{ const r=await (await fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'tool',session_id:sid,name,params})})).json();
+    logLine(`✓ ${esc(r.result)} <span class="t">${Math.round(performance.now()-t)}ms</span>`,'ok'); render(r.event); return r.result; }
+  catch(e){ logLine('✗ '+esc(e.message),'warn'); return 'Tool failed.'; }
 }
-function startClock(){ t0=Date.now(); clockT=setInterval(()=>{const s=Math.floor((Date.now()-t0)/1000); $('clock').textContent=`● on a call · ${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;},1000); }
-function stopUi(){ clearInterval(clockT); $('clock').textContent='call ended'; $('liveTag').style.display='none'; $('ctrl').style.display='none'; $('orb').classList.remove('talk'); if(sid) fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'end',session_id:sid})}); }
+function startClock(){ t0=Date.now(); $('clock').className='on'; clockT=setInterval(()=>{const s=Math.floor((Date.now()-t0)/1000);$('clock').textContent=`● on a call · ${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`},1000); $('callSt').textContent='connected'; hit('s-chat'); tick('call'); }
+function stopUi(){ clearInterval(clockT); speaking(null); $('clock').textContent='● call ended'; $('callSt').textContent='ended'; $('lv').style.display='none'; $('ctrl').style.display='none'; if(sid) fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'end',session_id:sid})}); }
 
-// ----- start -----
+// ---------- 1) hello from Jason, 2) demo ----------
+const HELLO=[[0,'Hi, I\'m Jason, just popping in for a quick hello!'],[3.0,'And I wanted to try and stand out.']];
 $('goBtn').onclick=async()=>{
-  $('goBtn').disabled=true; $('goBtn').textContent='Connecting…';
-  ping('Live demo started'); try{gtag('event','live_demo_start',{gig:gigSlug});fbq('trackCustom','LiveDemoStart',{gig:gigSlug});}catch(e){}
-  const r=await (await fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'start',gig:gigSlug,ref:document.referrer||'',preview:q.get('preview')==='1'})})).json().catch(()=>({}));
-  sid=r.session_id; startClock(); tick('start');
+  $('start').style.display='none'; ping('Live demo started'); try{gtag('event','live_demo_start',{gig:gigSlug});fbq('trackCustom','LiveDemoStart',{gig:gigSlug});}catch(e){}
+  const v=$('hello'); v.style.display='block'; $('still').style.display='none';
+  const startP=fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'start',gig:gigSlug,ref:document.referrer||'',preview:q.get('preview')==='1'})}).then(r=>r.json()).catch(()=>({}));
+  speaking('a'); v.ontimeupdate=()=>{const l=[...HELLO].reverse().find(h=>v.currentTime>=h[0]); if(l) cap('a',l[1]);};
+  await new Promise(res=>{ v.onended=res; v.play().catch(res); setTimeout(res,7000); });
+  v.style.display='none'; $('still').style.display='block'; speaking(null);
+  const r=await startP; sid=r.session_id; startClock();
+  $('tag').textContent='🤖 Jason\'s AI twin'; $('lv').style.display='flex';
   logLine(`session ${esc((sid||'').slice(0,8))} opened · gig "${esc(gigSlug||'general')}"`,'ok');
   if(r.token) return goLive(r.token);
-  return goPreview();
+  goPreview();
 };
 
 async function goLive(token){
-  const sdk=await import('https://esm.sh/@heygen/liveavatar-web-sdk@0.0.20');
-  const {ElevenLabsAgentSession,AgentEventsEnum,SessionEvent,SessionState}=sdk;
+  const {ElevenLabsAgentSession,AgentEventsEnum,SessionEvent,SessionState}=await import('https://esm.sh/@heygen/liveavatar-web-sdk@0.0.20');
   session=new ElevenLabsAgentSession(token,{voiceChat:{},autoKeepAlive:true});
-  session.on(SessionEvent.SESSION_STREAM_READY,()=>{ session.attach($('vid')); $('cover').style.display='none'; $('liveTag').style.display='flex'; $('ctrl').style.display='flex'; $('askForm').style.display='flex'; });
-  session.on(SessionEvent.SESSION_STATE_CHANGED,s=>{ if(s===SessionState.DISCONNECTED){ stopUi(); $('cover').style.display='flex'; $('goBtn').disabled=false; $('goBtn').textContent='▶ Talk again'; } });
+  session.on(SessionEvent.SESSION_STREAM_READY,()=>{ const v=$('vid'); session.attach(v); v.style.display='block'; $('still').style.display='none'; $('ctrl').style.display='flex'; $('askForm').style.display='flex'; });
+  session.on(SessionEvent.SESSION_STATE_CHANGED,s=>{ if(s===SessionState.DISCONNECTED) stopUi(); });
+  session.on(AgentEventsEnum.USER_SPEAK_STARTED,()=>speaking('u')); session.on(AgentEventsEnum.USER_SPEAK_ENDED,()=>speaking(null));
+  session.on(AgentEventsEnum.AVATAR_SPEAK_STARTED,()=>speaking('a')); session.on(AgentEventsEnum.AVATAR_SPEAK_ENDED,()=>speaking(null));
   session.on(AgentEventsEnum.ELEVENLABS_AGENT_EVENT,async ev=>{
     const d=ev.data||{}, type=ev.elevenlabs_event_type;
-    if(type==='user_transcript'){ const t=d.user_transcription_event?.user_transcript||d.user_transcript; if(t) cap('u',t); }
-    if(type==='agent_response'){ const t=d.agent_response_event?.agent_response||d.agent_response; if(t) cap('a',t); }
-    if(type==='client_tool_call'){
-      const c=d.client_tool_call||d; const result=await runTool(c.tool_name,c.parameters||{});
-      session.sendClientToolResult({toolCallId:c.tool_call_id,result:String(result),sourceEventId:ev.event_id});
-    }
+    if(type==='user_transcript'){ const t=d.user_transcription_event?.user_transcript||d.user_transcript; if(t){cap('u',t);chat('u',t);} }
+    if(type==='agent_response'){ const t=d.agent_response_event?.agent_response||d.agent_response; if(t){cap('a',t);chat('a',t);} }
+    if(type==='client_tool_call'){ const c=d.client_tool_call||d; const result=await runTool(c.tool_name,c.parameters||{}); session.sendClientToolResult({toolCallId:c.tool_call_id,result:String(result),sourceEventId:ev.event_id}); }
   });
-  $('muteBtn').onclick=()=>{ const v=session.voiceChat; if(v.isMuted){v.unmute();$('muteBtn').textContent='🎙 Mute';}else{v.mute();$('muteBtn').textContent='🔇 Unmute';} };
+  $('muteBtn').onclick=()=>{const v=session.voiceChat; if(v.isMuted){v.unmute();$('muteBtn').textContent='🎙 Mute';}else{v.mute();$('muteBtn').textContent='🔇 Unmute';}};
   $('endBtn').onclick=()=>session.stop();
-  $('askForm').onsubmit=e=>{ e.preventDefault(); const t=$('askIn').value.trim(); if(!t) return; session.sendUserMessage(t); cap('u',t); $('askIn').value=''; };
+  $('askForm').onsubmit=e=>{e.preventDefault();const t=$('askIn').value.trim();if(!t)return;session.sendUserMessage(t);cap('u',t);chat('u',t);$('askIn').value='';};
   try{ await session.start(); }catch(e){ logLine('✗ avatar could not start: '+esc(e.message),'warn'); goPreview(); }
 }
 
-// Preview: same real backend, scripted voice. Used until the avatar keys are connected (or with ?preview=1).
+// Preview: real backend, scripted conversation (until the avatar keys are connected, or ?preview=1)
 async function goPreview(){
-  $('goBtn').style.display='none'; $('coverNote').textContent='Preview: the twin\'s video goes here. This run uses the real backend with a scripted caller.';
-  $('pvNote').style.display='block'; $('pvNote').textContent='PREVIEW MODE · real tool calls, scripted conversation';
-  $('orb').classList.add('talk'); $('liveTag').style.display='flex';
   const biz=gig.biz_name, name='Dana Mills', wait=ms=>new Promise(r=>setTimeout(r,ms));
-  const say=async(who,t,ms=2600)=>{ cap(who,t); await wait(ms); };
+  const say=async(who,t,ms)=>{ speaking(who); cap(who,t); chat(who,t); await wait(ms||Math.max(1600,t.length*55)); speaking(null); await wait(250); };
+  const ind=gig.industry, need=ind==='HVAC'?["My AC quit and it's 90 degrees in here.",'AC not cooling','AC repair visit']:ind==='medical clinic'?['I need to get my daughter in for a sick visit.','Sick visit for child','Sick visit']:['I need someone to look at a leak under my kitchen sink.','Kitchen sink leak','Leak repair visit'];
   await say('a',`Hey ${gig.contact_name||'there'}, I'm Jason's AI twin. Want me to tell you how I'd build it, or just show you?`);
-  await say('u','Show me.',1400);
-  await say('a',`Okay, I'm now the receptionist for ${biz}. Call me like a customer.`);
-  await say('a',`Thanks for calling ${biz}, this is the virtual assistant. How can I help?`);
-  await say('u',gig.industry==='HVAC'?"My AC quit and it's 90 degrees in here.":gig.industry==='medical clinic'?'I need to get my daughter in for a sick visit.':'I need someone to look at a leak under my kitchen sink.');
-  await say('a','I can get you scheduled. Can I get your name?',2000);
-  await say('u',name,1200);
-  await runTool('save_contact',{name,reason:gig.industry==='HVAC'?'AC not cooling':gig.industry==='medical clinic'?'Sick visit for child':'Kitchen sink leak',urgency:'urgent'});
-  const r=await runTool('check_availability',{day:'tomorrow'}); const first=(r.split(': ')[1]||'').split('; ')[0];
-  await say('a',`Thanks ${name.split(' ')[0]}. I have ${first} or later that afternoon. Which works?`);
-  await say('u','The first one.',1200);
-  await runTool('book_appointment',{name,service:gig.industry==='HVAC'?'AC repair visit':gig.industry==='medical clinic'?'Sick visit':'Leak repair visit',slot:first});
-  await say('a',"You're booked. Want a confirmation text? Just say your number.",2200);
-  await say('u','(In the live version, say your real cell and it really texts you.)',2200);
-  await runTool('send_text',{phone:'none',message:'confirmation'});
+  await say('u','Show me.');
+  await say('a',`Okay. I'm now the receptionist for ${biz}. Call me like a customer.`);
+  await say('a',`Thanks for calling ${biz}! How can I help you today?`);
+  await say('u',need[0]);
+  await say('a','Oh no, let\'s get that taken care of. Can I get your name?');
+  await say('u',name);
+  await runTool('save_contact',{name,reason:need[1],urgency:'urgent'});
+  const r=await runTool('check_availability',{day:'tomorrow'}); const opts=(r.split(': ')[1]||'').split('; ');
+  await say('a',`Thanks, Dana. I can get someone out ${opts[0]}, or ${opts[1]?.split(' at ')[1]||'later that day'}. Which works better?`);
+  await say('u','The first one.');
+  await runTool('book_appointment',{name,service:need[2],slot:opts[0]});
+  await say('a',"You're all set. Want me to text you a confirmation?");
+  await say('u','Sure.');
+  await runTool('send_text',{phone:'preview',message:'confirmation'});
   await runTool('schedule_review_request',{name,when:'Evening after the visit'});
-  await runTool('show_summary',{summary:`${name} called ${biz} about an urgent issue. Added to the CRM, booked ${first}, confirmation prepared, and a review request scheduled for after the visit.`});
-  await say('a',"That's the demo. Everything on the right happened for real in the database while we talked.",3000);
-  stopUi(); $('orb').classList.remove('talk');
+  await say('a',`Done. You'll get a reminder before we arrive. Thanks for calling ${biz}!`);
+  await runTool('show_summary',{summary:`${name} called about an urgent issue (${need[1].toLowerCase()}). Added to the CRM, booked ${opts[0]}, confirmation text prepared, and a review request scheduled for after the visit.`});
+  await say('a',"That's the demo. Everything on the right just happened for real in the database while we talked.",3400);
+  $('cap').innerHTML='Want this for your clients? Email <b>jason@aigl.dev</b>';
+  stopUi();
 }
 </script>
 <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "58d539f11ece436da2c2a887479d7c37"}'></script>

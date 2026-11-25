@@ -112,6 +112,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);
 dialog{position:relative}.dx{position:absolute;top:12px;right:12px;z-index:2;width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:var(--ink);font-size:15px;cursor:pointer}.dx:hover{background:rgba(255,255,255,.14)}
 .fs{position:absolute;top:12px;right:12px;z-index:3;width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(0,0,0,.55);backdrop-filter:blur(8px);color:#fff;font-size:20px;line-height:1;cursor:pointer}.fs:hover{background:rgba(0,0,0,.75)}
 .stage:fullscreen{border-radius:0;aspect-ratio:auto;width:100vw;height:100vh}
+.rbar .dl{margin-right:auto;min-height:38px;padding:0 14px;font-size:14px}
 </style>
 <!-- Meta Pixel (AIGL Website dataset) -->
 <script>
@@ -126,7 +127,6 @@ fbq('init','2107887133449610');fbq('track','PageView');
     <p>AI Automation &amp; Operations · Calera, AL · Remote, on-site as needed</p>
     <p id="forCo" style="display:none;font-weight:600"></p>
   </div></div>
-  <div class="row hbtns"><button class="btn call" id="emailBtn" type="button">⬇️ Get a copy</button></div>
 </header>
 
 <main>
@@ -140,7 +140,7 @@ fbq('init','2107887133449610');fbq('track','PageView');
 
   <aside class="resume" aria-label="Jason's resume">
     <div class="rbar">
-      <b>Resume</b>
+      <button class="btn call dl" id="emailBtn" type="button">⬇️ Download resume</button>
       <button class="btn" id="zoomOut" type="button" aria-label="Zoom out">−</button>
       <button class="btn" id="zoomIn" type="button" aria-label="Zoom in">+</button>
       <button class="btn" id="fullBtn2" type="button" aria-label="Full size">⤢</button>

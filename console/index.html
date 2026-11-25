@@ -81,26 +81,34 @@ function load(){if(!key){M.innerHTML='<div class="card"><div class="t">Sign in t
   call('data').then(function(j){D=j;badges();render()}).catch(function(e){if(/signed in/.test(e.message)){key='';try{localStorage.removeItem(KK)}catch(x){}return load()}M.innerHTML='<div class="empty">Could not load: '+esc(e.message)+'</div>'})}
 function badges(){var h=D.hot.length+D.leads.filter(function(l){return l.status==='Waiting on Jason'&&!l.done}).length,a=D.articles.filter(function(x){return x.status!=='approved'}).length,l=D.leads.filter(function(x){return x.hot&&!x.done}).length;
   [['bh',h],['ba',a],['bl',l]].forEach(function(p){var e=document.getElementById(p[0]);e.hidden=!p[1];e.textContent=p[1]})}
-function go(v){view=v;open=null;location.hash=v;document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('on',b.dataset.v===v)});render();scrollTo(0,0)}
+function go(v){view=v;open=null;focusLead=null;location.hash=v;document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('on',b.dataset.v===v)});render();scrollTo(0,0)}
 document.querySelectorAll('nav button').forEach(function(b){b.onclick=function(){go(b.dataset.v)}});
 function stPill(s){var c=/Waiting/.test(s)?'h':/Interview|Offer|Won|Replied|Viewed/.test(s)?'g':'';return '<span class="pill '+c+'">'+esc(s)+'</span>'}
 function render(){document.getElementById('h').textContent={hot:'Hot right now',leads:'Leads',articles:'Articles'}[view];
   if(view==='hot')return rHot(); if(view==='leads')return rLeads(); if(open!=null)return rArticle(); rArticles()}
-function rHot(){var h='',w=D.leads.filter(function(l){return l.status==='Waiting on Jason'&&!l.done});
-  D.hot.forEach(function(x){h+='<div class="card hot"><div class="t">'+esc(x.title)+'</div><div class="s" style="margin:4px 0 10px">'+esc(x.detail)+'</div><div class="row">'+(x.link?'<a class="b" href="'+esc(x.link)+'" target="_blank" rel="noopener">Open</a>':'')+'<button class="b w" data-done="'+x.id+'">Done ✓</button></div></div>'});
-  var dr=D.articles.filter(function(a){return a.status!=='approved'});
-  if(dr.length)h+='<div class="card"><div class="t">📝 '+dr.length+' article'+(dr.length>1?'s':'')+' waiting for your OK</div><div class="s" style="margin:4px 0 10px">'+dr.map(function(a){return esc(a.title)}).join('<br>')+'</div><button class="b p" data-go="articles">Review articles</button></div>';
-  if(w.length)h+='<div class="card"><div class="t">🎯 Leads waiting on you</div>'+w.map(function(l){return '<div class="s" style="margin-top:6px"><b style="color:#EEF1F6">'+esc(l.company)+'</b>: '+esc(l.next_step||'')+'</div>'}).join('')+'<div class="gap"></div><button class="b" data-go="leads">Open leads</button></div>';
-  M.innerHTML=h||'<div class="empty">Nothing hot. Nice.</div>';
-  M.querySelectorAll('[data-done]').forEach(function(b){b.onclick=function(){call('hotDone',{id:+b.dataset.done}).then(function(){D.hot=D.hot.filter(function(x){return x.id!=b.dataset.done});badges();render();toast('Done')})}});
-  M.querySelectorAll('[data-go]').forEach(function(b){b.onclick=function(){go(b.dataset.go)}})}
+function rHot(){var cards=[];
+  D.articles.filter(function(a){return a.status!=='approved'}).forEach(function(a){cards.push({icon:'📝',kind:'Read & approve',title:a.title,detail:a.note||a.description,go:function(){openArticle(a.id)}})});
+  D.leads.filter(function(l){return l.status==='Waiting on Jason'&&!l.done}).forEach(function(l){cards.push({icon:'🎯',kind:'Your move',title:l.company,detail:l.next_step,go:function(){openLead(l.id)}})});
+  D.hot.forEach(function(x){cards.push({icon:'🔥',kind:'Heads up',title:x.title,detail:x.detail,hotId:x.id,go:x.target_type==='lead'?function(){openLead(+x.target_ref)}:x.target_type==='article'?function(){openArticle(+x.target_ref)}:x.link?function(){window.open(x.link,'_blank')}:null})});
+  var h='';cards.forEach(function(c,i){h+='<div class="card hot" data-c="'+i+'" style="'+(c.go?'cursor:pointer':'')+'"><div class="row"><span class="pill h">'+c.icon+' '+c.kind+'</span><span style="flex:1"></span>'+(c.go?'<span style="color:#8B95A7;font-size:20px">›</span>':'')+'</div><div class="t" style="margin-top:6px">'+esc(c.title)+'</div>'+(c.detail?'<div class="s" style="margin-top:4px">'+esc(c.detail)+'</div>':'')+(c.hotId?'<div class="row" style="margin-top:10px"><button class="b w" data-done="'+c.hotId+'">Dismiss</button></div>':'')+'</div>'});
+  M.innerHTML=h?'<div class="s" style="margin:0 2px 10px">Tap any card to open it.</div>'+h:'<div class="empty">Nothing needs you right now. 🙌</div>';
+  M.querySelectorAll('[data-c]').forEach(function(el){el.onclick=function(ev){if(ev.target.closest('[data-done]'))return;var c=cards[+el.dataset.c];if(c.go)c.go()}});
+  M.querySelectorAll('[data-done]').forEach(function(b){b.onclick=function(){var id=+b.dataset.done,x=D.hot.find(function(y){return y.id===id});
+    call('hotDone',{id:id}).then(function(){D.hot=D.hot.filter(function(y){return y.id!==id});badges();rHot();undo('Dismissed',function(){return call('hotUndo',{id:id}).then(function(){D.hot.unshift(x);badges();rHot()})})})}})}
+function openArticle(id){var i=D.articles.findIndex(function(a){return a.id===id});view='articles';location.hash='articles';navOn();open=i;aTab='read';rArticle();scrollTo(0,0)}
+var focusLead=null;
+function openLead(id){view='leads';location.hash='leads';navOn();var l=D.leads.find(function(x){return x.id===id});lf=l&&l.done?'done':'all';focusLead=id;render();
+  var el=M.querySelector('[data-lead="'+id+'"]');if(el){el.scrollIntoView({block:'start'});scrollBy(0,-70)}}
+function navOn(){document.getElementById('h').textContent={hot:'Hot right now',leads:'Leads',articles:'Articles'}[view];document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('on',b.dataset.v===view)})}
+function undo(msg,fn){var e=document.getElementById('toast');e.innerHTML=esc(msg)+' · <a href="#" id="undo" style="color:#3BE38F">Undo</a>';e.style.display='block';clearTimeout(e._t);
+  document.getElementById('undo').onclick=function(ev){ev.preventDefault();e.style.display='none';fn()};e._t=setTimeout(function(){e.style.display='none'},6000)}
 var STAT=['Applied','Viewed','Interview','Offer','Rejected','Waiting on Jason','Pitched','Replied','Won','Lost'];
 function rLeads(){var L=D.leads.filter(function(l){if(lf==='done')return l.done;if(l.done)return false;return lf==='all'||(lf==='hot'?l.hot:l.kind===lf)});
   var h='<div class="seg">'+[['all','Open '+D.leads.filter(function(l){return !l.done}).length],['hot','🔥 Hot'],['job','Job apps'],['outreach','AIGL outreach'],['done','✓ Done '+D.leads.filter(function(l){return l.done}).length]].map(function(p){return '<button data-f="'+p[0]+'" class="'+(lf===p[0]?'on':'')+'">'+p[1]+'</button>'}).join('')+'</div>';
   var ap=D.articles.filter(function(a){return a.status==='approved'});
-  L.forEach(function(l){h+='<div class="card'+(l.hot?' hot':'')+'"><div class="row"><div class="t" style="flex:1">'+esc(l.company)+'</div>'+stPill(l.status)+'<button class="b" style="padding:6px 11px" data-dn="'+l.id+'">'+(l.done?'↩ Reopen':'Done ✓')+'</button></div><div class="s">'+esc(l.role||'')+(l.pay?' · '+esc(l.pay):'')+'</div>'+
+  L.forEach(function(l){h+='<div class="card'+(l.hot?' hot':'')+'" data-lead="'+l.id+'"'+(focusLead===l.id?' style="border-color:#3BE38F"':'')+'><div class="row"><div class="t" style="flex:1">'+esc(l.company)+'</div>'+stPill(l.status)+'<button class="b" style="padding:6px 11px" data-dn="'+l.id+'">'+(l.done?'↩ Reopen':'Done ✓')+'</button></div><div class="s">'+esc(l.role||'')+(l.pay?' · '+esc(l.pay):'')+'</div>'+
    (l.next_step?'<div style="margin-top:8px"><b>Next:</b> '+esc(l.next_step)+'</div>':'')+
-   '<details><summary>Edit / follow up</summary><label>Status</label><select data-k="status" data-id="'+l.id+'">'+STAT.map(function(s){return '<option'+(s===l.status?' selected':'')+'>'+s+'</option>'}).join('')+'</select>'+
+   '<details'+(focusLead===l.id?' open':'')+'><summary>Edit / follow up</summary><label>Status</label><select data-k="status" data-id="'+l.id+'">'+STAT.map(function(s){return '<option'+(s===l.status?' selected':'')+'>'+s+'</option>'}).join('')+'</select>'+
    '<label>Next step</label><input data-k="next_step" data-id="'+l.id+'" value="'+esc(l.next_step)+'"><label>Notes</label><textarea data-k="notes" data-id="'+l.id+'">'+esc(l.notes)+'</textarea>'+
    '<div class="row" style="margin-top:10px"><button class="b p" data-save="'+l.id+'">Save</button><button class="b" data-hot="'+l.id+'">'+(l.hot?'Un-hot':'🔥 Mark hot')+'</button>'+(l.link?'<a class="b" href="'+esc(l.link)+'" target="_blank" rel="noopener">Open link</a>':'')+'</div>'+
    (ap.length?'<label>Follow up with an article</label><div class="row">'+ap.map(function(a){return '<button class="b" data-fu="'+l.id+'" data-slug="'+esc(a.slug)+'">✉️ '+esc(a.title.split(':')[0].split('?')[0])+'</button>'}).join('')+'</div><div class="s" style="margin-top:4px">Opens a ready-to-send email in your mail app. You hit send.</div>':'<div class="s" style="margin-top:10px">Approve an article to use it as a follow-up here.</div>')+
@@ -111,7 +119,7 @@ function rLeads(){var L=D.leads.filter(function(l){if(lf==='done')return l.done;
     call('saveLead',o).then(function(){var l=D.leads.find(function(x){return x.id===id});Object.assign(l,o);badges();rLeads();toast('Saved')})}});
   M.querySelectorAll('[data-dn]').forEach(function(b){b.onclick=function(){var id=+b.dataset.dn,l=D.leads.find(function(x){return x.id===id}),o={id:id,done:!l.done};
     if(!l.done){o.hot=false;if(l.status==='Waiting on Jason')o.status=l.kind==='job'?'Applied':'Pitched';}
-    call('saveLead',o).then(function(){Object.assign(l,o);badges();rLeads();toast(o.done?'Done. Moved to ✓ Done':'Reopened')})}});
+    var prev={id:id,done:l.done,hot:l.hot,status:l.status};call('saveLead',o).then(function(){Object.assign(l,o);badges();rLeads();undo(o.done?'Marked done':'Reopened',function(){return call('saveLead',prev).then(function(){Object.assign(l,prev);badges();rLeads()})})})}});
   M.querySelectorAll('[data-hot]').forEach(function(b){b.onclick=function(){var id=+b.dataset.hot,l=D.leads.find(function(x){return x.id===id});call('saveLead',{id:id,hot:!l.hot}).then(function(){l.hot=!l.hot;badges();rLeads()})}});
   M.querySelectorAll('[data-fu]').forEach(function(b){b.onclick=function(){var l=D.leads.find(function(x){return x.id===+b.dataset.fu}),a=D.articles.find(function(x){return x.slug===b.dataset.slug});
     var url='https://app.aigl.dev/articles/?a='+a.slug, job=l.kind==='job';
@@ -126,6 +134,7 @@ function rArticles(){var h='';D.articles.forEach(function(a,i){var ok=a.status==
 function rArticle(){var a=D.articles[open],ok=a.status==='approved';
   var h='<div class="row" style="margin-bottom:8px"><button class="b w" id="back">‹ All articles</button><span style="flex:1"></span><span class="pill '+(ok?'g':'h')+'">'+(ok?'Live':'Draft')+'</span></div>'+
    '<div class="seg">'+[['read','Read'],['edit','Edit'],['posts','Social posts']].map(function(p){return '<button data-t="'+p[0]+'" class="'+(aTab===p[0]?'on':'')+'">'+p[1]+'</button>'}).join('')+'</div>';
+  if(a.note)h+='<div class="card hot" style="font-size:14px">📌 '+esc(a.note)+'</div>';
   if(aTab==='read')h+='<div class="read"><h1>'+esc(a.title)+'</h1>'+md(a.body_md)+'</div>';
   if(aTab==='edit')h+='<label>Title</label><input id="et" value="'+esc(a.title)+'"><label>Short description</label><input id="ed" value="'+esc(a.description)+'"><label>Article (type right in here)</label><textarea class="big" id="eb">'+esc(a.body_md)+'</textarea><div class="s">**bold**, *italic*, ## heading, - bullet</div>';
   if(aTab==='posts')h+='<label>LinkedIn</label><textarea id="pl" style="min-height:220px">'+esc(a.linkedin)+'</textarea><label>Facebook</label><textarea id="pf" style="min-height:150px">'+esc(a.facebook)+'</textarea><label>Google Business</label><textarea id="pg">'+esc(a.google)+'</textarea><div class="s">Posting to socials still waits for your OK on each one.</div>';

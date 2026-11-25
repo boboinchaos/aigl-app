@@ -111,6 +111,16 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);
 @media(prefers-reduced-motion:reduce){.paper>*{animation:none}}
 dialog{position:relative}.dx{position:absolute;top:12px;right:12px;z-index:2;width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:var(--ink);font-size:15px;cursor:pointer}.dx:hover{background:rgba(255,255,255,.14)}
 .fs{position:absolute;top:12px;right:12px;z-index:3;width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(0,0,0,.55);backdrop-filter:blur(8px);color:#fff;font-size:20px;line-height:1;cursor:pointer}.fs:hover{background:rgba(0,0,0,.75)}
+.intro{position:absolute;inset:0;z-index:5;background:#05080c;overflow:hidden;transition:opacity .5s}
+.intro::before{content:"";position:absolute;inset:-40px;background:url(intro-poster.jpg) center/cover;filter:blur(28px) brightness(.45) saturate(1.1)}
+.intro.gone{opacity:0;pointer-events:none}
+.intro video{position:relative;width:100%;height:100%;object-fit:contain;display:block}
+.intro video::cue{font-size:.95em;background:rgba(0,0,0,.65)}
+.intro .ip{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:rgba(10,14,20,.72);backdrop-filter:blur(8px);color:#fff;font:600 16px/1.2 inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.intro .ip span{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#22c58b;color:#04120c;font-size:15px}
+.intro .ip small{opacity:.65;font-weight:500;margin-left:4px}
+.intro.playing .ip{display:none}
+.intro .isk{position:absolute;right:14px;bottom:14px;padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.55);color:#fff;font:500 13px inherit;cursor:pointer}
 .stage:fullscreen{border-radius:0;aspect-ratio:auto;width:100vw;height:100vh}
 .rbar .dl{margin-right:auto;min-height:38px;padding:0 14px;font-size:14px}
 </style>
@@ -244,6 +254,21 @@ if (EMBED_URL) {
   document.getElementById('stage').appendChild(f);
 
   document.getElementById('ph').remove();
+}
+
+// Jason's intro video: plays over Ryan first, then gets out of the way.
+{
+  const stg = document.getElementById('stage');
+  const ov = document.createElement('div'); ov.className = 'intro';
+  ov.innerHTML = '<video id="introV" playsinline preload="metadata" poster="intro-poster.jpg"><source src="jason-intro.mp4" type="video/mp4"><track kind="captions" src="jason-intro.vtt" srclang="en" label="English" default></video>'
+    + '<button class="ip" id="introPlay" type="button"><span>▶</span>A quick hello from Jason <small>20 sec</small></button>'
+    + '<button class="isk" id="introSkip" type="button">Skip, talk to Ryan →</button>';
+  stg.appendChild(ov);
+  const v = ov.querySelector('video'), done = () => { ov.classList.add('gone'); v.pause(); setTimeout(() => ov.remove(), 600); };
+  document.getElementById('introPlay').onclick = () => { ov.classList.add('playing'); v.play(); log('intro_play'); };
+  v.onclick = () => v.paused ? v.play() : v.pause();
+  v.onended = () => { log('intro_done'); done(); };
+  document.getElementById('introSkip').onclick = () => { log('intro_skip'); done(); };
 }
 
 function log(event, extra){

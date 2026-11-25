@@ -110,6 +110,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);
 @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.paper>*{animation:none}}
 dialog{position:relative}.dx{position:absolute;top:12px;right:12px;z-index:2;width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:var(--ink);font-size:15px;cursor:pointer}.dx:hover{background:rgba(255,255,255,.14)}
+.fs{position:absolute;top:12px;right:12px;z-index:3;width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(0,0,0,.55);backdrop-filter:blur(8px);color:#fff;font-size:20px;line-height:1;cursor:pointer}.fs:hover{background:rgba(0,0,0,.75)}
+.stage:fullscreen{border-radius:0;aspect-ratio:auto;width:100vw;height:100vh}
 </style>
 <!-- Meta Pixel (AIGL Website dataset) -->
 <script>
@@ -131,6 +133,7 @@ fbq('init','2107887133449610');fbq('track','PageView');
   <section>
     <div class="stage" id="stage">
       <div class="live"><i></i>Ryan · AI interview assistant</div>
+      <button class="fs" id="fsBtn" type="button" aria-label="Full screen" title="Full screen">⛶</button>
       <div class="placeholder" id="ph">Ryan, Jason's AI interactive resume, loads here.</div>
     </div>
   </section>
@@ -296,6 +299,10 @@ document.querySelectorAll('dialog').forEach(d=>{
   d.addEventListener('close',()=>{ if(history.state&&history.state.dlg===d.id) history.back(); });
 });
 addEventListener('popstate',()=>document.querySelectorAll('dialog[open]').forEach(d=>d.close()));
+const fsBtn=document.getElementById('fsBtn'), stg=document.getElementById('stage');
+if(!(stg.requestFullscreen||stg.webkitRequestFullscreen)) fsBtn.hidden=true;
+fsBtn.onclick=()=>{ const d=document; if(d.fullscreenElement||d.webkitFullscreenElement){ (d.exitFullscreen||d.webkitExitFullscreen).call(d); } else { (stg.requestFullscreen||stg.webkitRequestFullscreen).call(stg); log('fullscreen'); } };
+document.addEventListener('fullscreenchange',()=>{ fsBtn.textContent=document.fullscreenElement?'✕':'⛶'; fsBtn.title=document.fullscreenElement?'Exit full screen':'Full screen'; });
 document.getElementById('copyNum').onclick=e=>{ navigator.clipboard.writeText('(205) 955-7174').then(()=>{ e.target.textContent='Copied'; }); };
 
 }

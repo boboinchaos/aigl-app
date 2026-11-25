@@ -34,6 +34,7 @@ var API='https://tznmjoeovqvnwcjxrohq.supabase.co/functions/v1/cc',M=document.ge
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 var cta='<div class="cta">Want help bringing AI into your business safely? Call <a href="tel:+12052038377">(205) 203-8377</a> (our AI answers 24/7) or email <a href="mailto:jason@aigl.dev">jason@aigl.dev</a>.</div>';
 var slug=new URLSearchParams(location.search).get('a');
+try{var q=new URLSearchParams(location.search);fetch(API,{method:'POST',headers:{'content-type':'application/json'},keepalive:true,body:JSON.stringify({action:'view',slug:slug||'index',src:q.get('src')||q.get('utm_source')||'',ref:document.referrer||''})})}catch(e){}
 if(slug){fetch(API+'?article='+encodeURIComponent(slug)).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(a){
   document.title=a.title+' | AI Go Long';var d=document.querySelector('meta[name=description]');if(d)d.content=a.description||'';
   M.innerHTML='<h1>'+esc(a.title)+'</h1>'+DOMPurify.sanitize(marked.parse(a.body_md))+cta;

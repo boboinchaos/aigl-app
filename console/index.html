@@ -62,6 +62,7 @@ details summary{cursor:pointer;color:var(--mute);font-weight:700;font-size:13px;
   <button data-v="hot" class="on"><b>🔥</b>Hot<span class="badge" id="bh" hidden></span></button>
   <button data-v="leads"><b>🎯</b>Leads<span class="badge" id="bl" hidden></span></button>
   <button data-v="articles"><b>📝</b>Articles<span class="badge" id="ba" hidden></span></button>
+  <button data-v="insights"><b>📈</b>Insights</button>
 </nav>
 <div id="toast"></div>
 <script>
@@ -84,8 +85,20 @@ function badges(){var h=D.hot.length+D.leads.filter(function(l){return l.status=
 function go(v){view=v;open=null;focusLead=null;location.hash=v;document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('on',b.dataset.v===v)});render();scrollTo(0,0)}
 document.querySelectorAll('nav button').forEach(function(b){b.onclick=function(){go(b.dataset.v)}});
 function stPill(s){var c=/Waiting/.test(s)?'h':/Interview|Offer|Won|Replied|Viewed/.test(s)?'g':'';return '<span class="pill '+c+'">'+esc(s)+'</span>'}
-function render(){document.getElementById('h').textContent={hot:'Hot right now',leads:'Leads',articles:'Articles'}[view];
-  if(view==='hot')return rHot(); if(view==='leads')return rLeads(); if(open!=null)return rArticle(); rArticles()}
+function render(){document.getElementById('h').textContent={hot:'Hot right now',leads:'Leads',articles:'Articles',insights:'Who\'s paying attention'}[view];
+  if(view==='hot')return rHot(); if(view==='leads')return rLeads(); if(view==='insights')return rIns(); if(open!=null)return rArticle(); rArticles()}
+function rIns(){var V=D.views||[],S=D.social||[],wk=Date.now()-7*864e5;
+  function cnt(arr,f){var o={};arr.forEach(function(x){var k=f(x);o[k]=(o[k]||0)+1});return Object.keys(o).map(function(k){return [k,o[k]]}).sort(function(a,b){return b[1]-a[1]})}
+  var title={};(D.articles||[]).forEach(function(a){title[a.slug]=a.title});title.index='Articles home page';
+  var w=V.filter(function(v){return new Date(v.at)>wk}).length;
+  var h='<div class="row" style="gap:10px"><div class="card" style="flex:1;text-align:center"><div class="s">Article views · 7 days</div><div class="t" style="font-size:28px">'+w+'</div></div><div class="card" style="flex:1;text-align:center"><div class="s">30 days</div><div class="t" style="font-size:28px">'+V.length+'</div></div></div>';
+  function bars(lbl,rows){if(!rows.length)return '';var m=rows[0][1];return '<div class="card"><div class="t" style="margin-bottom:8px">'+lbl+'</div>'+rows.map(function(r){return '<div style="margin:6px 0"><div class="row"><span style="flex:1">'+esc(r[0])+'</span><b>'+r[1]+'</b></div><div style="height:6px;border-radius:3px;background:#1E2738"><div style="height:6px;border-radius:3px;background:#3BE38F;width:'+Math.max(4,100*r[1]/m)+'%"></div></div></div>'}).join('')+'</div>'}
+  h+=bars('Where readers come from',cnt(V,function(v){return v.src||'direct'}));
+  h+=bars('Most-read articles',cnt(V,function(v){return title[v.slug]||v.slug}));
+  var latest={};S.forEach(function(x){var k=x.platform+'|'+x.post;if(!latest[k])latest[k]=x});
+  var L=Object.keys(latest).map(function(k){return latest[k]});
+  h+='<div class="card"><div class="t" style="margin-bottom:6px">Social posts</div>'+(L.length?L.map(function(x){return '<div style="padding:8px 0;border-top:1px solid #1E2738"><div class="row"><span class="pill">'+esc(x.platform)+'</span><span style="flex:1;margin-left:8px">'+esc(x.post)+'</span></div><div class="s" style="margin-top:4px">'+[['👁',x.impressions],['👍',x.reactions],['💬',x.comments],['🔁',x.reposts],['🔗',x.clicks]].filter(function(p){return p[1]!=null}).map(function(p){return p[0]+' '+p[1]}).join(' · ')+(x.note?'<br>'+esc(x.note):'')+'<br>Checked '+new Date(x.captured_at).toLocaleString()+'</div></div>'}).join(''):'<div class="s">First numbers land after the daily check.</div>')+'</div>';
+  M.innerHTML=h}
 function rHot(){var cards=[];
   D.articles.filter(function(a){return a.status!=='approved'}).forEach(function(a){cards.push({icon:'📝',kind:'Read & approve',title:a.title,detail:a.note||a.description,go:function(){openArticle(a.id)}})});
   D.leads.filter(function(l){return l.status==='Waiting on Jason'&&!l.done}).forEach(function(l){cards.push({icon:'🎯',kind:'Your move',title:l.company,detail:l.next_step,go:function(){openLead(l.id)}})});
@@ -99,7 +112,7 @@ function openArticle(id){var i=D.articles.findIndex(function(a){return a.id===id
 var focusLead=null;
 function openLead(id){view='leads';location.hash='leads';navOn();var l=D.leads.find(function(x){return x.id===id});lf=l&&l.done?'done':'all';focusLead=id;render();
   var el=M.querySelector('[data-lead="'+id+'"]');if(el){el.scrollIntoView({block:'start'});scrollBy(0,-70)}}
-function navOn(){document.getElementById('h').textContent={hot:'Hot right now',leads:'Leads',articles:'Articles'}[view];document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('on',b.dataset.v===view)})}
+function navOn(){document.getElementById('h').textContent={hot:'Hot right now',leads:'Leads',articles:'Articles',insights:'Who\'s paying attention'}[view];document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('on',b.dataset.v===view)})}
 function undo(msg,fn){var e=document.getElementById('toast');e.innerHTML=esc(msg)+' · <a href="#" id="undo" style="color:#3BE38F">Undo</a>';e.style.display='block';clearTimeout(e._t);
   document.getElementById('undo').onclick=function(ev){ev.preventDefault();e.style.display='none';fn()};e._t=setTimeout(function(){e.style.display='none'},6000)}
 var STAT=['Applied','Viewed','Interview','Offer','Rejected','Waiting on Jason','Pitched','Replied','Won','Lost'];

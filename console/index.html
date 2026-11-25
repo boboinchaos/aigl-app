@@ -79,14 +79,14 @@ function call(action,body){body=body||{};body.action=action;return fetch(API,{me
 function load(){if(!key){M.innerHTML='<div class="card"><div class="t">Sign in this device</div><div class="s" style="margin:4px 0 10px">Paste your console link (or just the key) once. It stays signed in after that.</div><input id="kin" placeholder="https://app.aigl.dev/console/?k=…" autocomplete="off"><div class="gap"></div><button class="b p" id="kgo">Sign in</button></div>';
   document.getElementById('kgo').onclick=function(){var v=document.getElementById('kin').value.trim(),m=v.match(/[?&]k=([a-f0-9]+)/i);v=m?m[1]:v;if(!/^[a-f0-9]{32,}$/i.test(v)){toast('That doesn\'t look like the key');return}key=v;try{localStorage.setItem(KK,v)}catch(e){}load()};return}
   call('data').then(function(j){D=j;badges();render()}).catch(function(e){if(/signed in/.test(e.message)){key='';try{localStorage.removeItem(KK)}catch(x){}return load()}M.innerHTML='<div class="empty">Could not load: '+esc(e.message)+'</div>'})}
-function badges(){var h=D.hot.length+D.leads.filter(function(l){return l.status==='Waiting on Jason'}).length,a=D.articles.filter(function(x){return x.status!=='approved'}).length,l=D.leads.filter(function(x){return x.hot}).length;
+function badges(){var h=D.hot.length+D.leads.filter(function(l){return l.status==='Waiting on Jason'&&!l.done}).length,a=D.articles.filter(function(x){return x.status!=='approved'}).length,l=D.leads.filter(function(x){return x.hot&&!x.done}).length;
   [['bh',h],['ba',a],['bl',l]].forEach(function(p){var e=document.getElementById(p[0]);e.hidden=!p[1];e.textContent=p[1]})}
 function go(v){view=v;open=null;location.hash=v;document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('on',b.dataset.v===v)});render();scrollTo(0,0)}
 document.querySelectorAll('nav button').forEach(function(b){b.onclick=function(){go(b.dataset.v)}});
 function stPill(s){var c=/Waiting/.test(s)?'h':/Interview|Offer|Won|Replied|Viewed/.test(s)?'g':'';return '<span class="pill '+c+'">'+esc(s)+'</span>'}
 function render(){document.getElementById('h').textContent={hot:'Hot right now',leads:'Leads',articles:'Articles'}[view];
   if(view==='hot')return rHot(); if(view==='leads')return rLeads(); if(open!=null)return rArticle(); rArticles()}
-function rHot(){var h='',w=D.leads.filter(function(l){return l.status==='Waiting on Jason'});
+function rHot(){var h='',w=D.leads.filter(function(l){return l.status==='Waiting on Jason'&&!l.done});
   D.hot.forEach(function(x){h+='<div class="card hot"><div class="t">'+esc(x.title)+'</div><div class="s" style="margin:4px 0 10px">'+esc(x.detail)+'</div><div class="row">'+(x.link?'<a class="b" href="'+esc(x.link)+'" target="_blank" rel="noopener">Open</a>':'')+'<button class="b w" data-done="'+x.id+'">Done ✓</button></div></div>'});
   var dr=D.articles.filter(function(a){return a.status!=='approved'});
   if(dr.length)h+='<div class="card"><div class="t">📝 '+dr.length+' article'+(dr.length>1?'s':'')+' waiting for your OK</div><div class="s" style="margin:4px 0 10px">'+dr.map(function(a){return esc(a.title)}).join('<br>')+'</div><button class="b p" data-go="articles">Review articles</button></div>';
@@ -95,10 +95,10 @@ function rHot(){var h='',w=D.leads.filter(function(l){return l.status==='Waiting
   M.querySelectorAll('[data-done]').forEach(function(b){b.onclick=function(){call('hotDone',{id:+b.dataset.done}).then(function(){D.hot=D.hot.filter(function(x){return x.id!=b.dataset.done});badges();render();toast('Done')})}});
   M.querySelectorAll('[data-go]').forEach(function(b){b.onclick=function(){go(b.dataset.go)}})}
 var STAT=['Applied','Viewed','Interview','Offer','Rejected','Waiting on Jason','Pitched','Replied','Won','Lost'];
-function rLeads(){var L=D.leads.filter(function(l){return lf==='all'||(lf==='hot'?l.hot:l.kind===lf)});
-  var h='<div class="seg">'+[['all','All '+D.leads.length],['hot','🔥 Hot'],['job','Job apps'],['outreach','AIGL outreach']].map(function(p){return '<button data-f="'+p[0]+'" class="'+(lf===p[0]?'on':'')+'">'+p[1]+'</button>'}).join('')+'</div>';
+function rLeads(){var L=D.leads.filter(function(l){if(lf==='done')return l.done;if(l.done)return false;return lf==='all'||(lf==='hot'?l.hot:l.kind===lf)});
+  var h='<div class="seg">'+[['all','Open '+D.leads.filter(function(l){return !l.done}).length],['hot','🔥 Hot'],['job','Job apps'],['outreach','AIGL outreach'],['done','✓ Done '+D.leads.filter(function(l){return l.done}).length]].map(function(p){return '<button data-f="'+p[0]+'" class="'+(lf===p[0]?'on':'')+'">'+p[1]+'</button>'}).join('')+'</div>';
   var ap=D.articles.filter(function(a){return a.status==='approved'});
-  L.forEach(function(l){h+='<div class="card'+(l.hot?' hot':'')+'"><div class="row"><div class="t" style="flex:1">'+esc(l.company)+'</div>'+stPill(l.status)+'</div><div class="s">'+esc(l.role||'')+(l.pay?' · '+esc(l.pay):'')+'</div>'+
+  L.forEach(function(l){h+='<div class="card'+(l.hot?' hot':'')+'"><div class="row"><div class="t" style="flex:1">'+esc(l.company)+'</div>'+stPill(l.status)+'<button class="b" style="padding:6px 11px" data-dn="'+l.id+'">'+(l.done?'↩ Reopen':'Done ✓')+'</button></div><div class="s">'+esc(l.role||'')+(l.pay?' · '+esc(l.pay):'')+'</div>'+
    (l.next_step?'<div style="margin-top:8px"><b>Next:</b> '+esc(l.next_step)+'</div>':'')+
    '<details><summary>Edit / follow up</summary><label>Status</label><select data-k="status" data-id="'+l.id+'">'+STAT.map(function(s){return '<option'+(s===l.status?' selected':'')+'>'+s+'</option>'}).join('')+'</select>'+
    '<label>Next step</label><input data-k="next_step" data-id="'+l.id+'" value="'+esc(l.next_step)+'"><label>Notes</label><textarea data-k="notes" data-id="'+l.id+'">'+esc(l.notes)+'</textarea>'+
@@ -109,6 +109,9 @@ function rLeads(){var L=D.leads.filter(function(l){return lf==='all'||(lf==='hot
   M.querySelectorAll('[data-f]').forEach(function(b){b.onclick=function(){lf=b.dataset.f;rLeads()}});
   M.querySelectorAll('[data-save]').forEach(function(b){b.onclick=function(){var id=+b.dataset.save,o={id:id};M.querySelectorAll('[data-id="'+id+'"]').forEach(function(e){o[e.dataset.k]=e.value});
     call('saveLead',o).then(function(){var l=D.leads.find(function(x){return x.id===id});Object.assign(l,o);badges();rLeads();toast('Saved')})}});
+  M.querySelectorAll('[data-dn]').forEach(function(b){b.onclick=function(){var id=+b.dataset.dn,l=D.leads.find(function(x){return x.id===id}),o={id:id,done:!l.done};
+    if(!l.done){o.hot=false;if(l.status==='Waiting on Jason')o.status=l.kind==='job'?'Applied':'Pitched';}
+    call('saveLead',o).then(function(){Object.assign(l,o);badges();rLeads();toast(o.done?'Done. Moved to ✓ Done':'Reopened')})}});
   M.querySelectorAll('[data-hot]').forEach(function(b){b.onclick=function(){var id=+b.dataset.hot,l=D.leads.find(function(x){return x.id===id});call('saveLead',{id:id,hot:!l.hot}).then(function(){l.hot=!l.hot;badges();rLeads()})}});
   M.querySelectorAll('[data-fu]').forEach(function(b){b.onclick=function(){var l=D.leads.find(function(x){return x.id===+b.dataset.fu}),a=D.articles.find(function(x){return x.slug===b.dataset.slug});
     var url='https://app.aigl.dev/articles/?a='+a.slug, job=l.kind==='job';

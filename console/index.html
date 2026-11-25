@@ -115,7 +115,7 @@ function openLead(id){view='leads';location.hash='leads';navOn();var l=D.leads.f
 function navOn(){document.getElementById('h').textContent={hot:'Hot right now',leads:'Leads',articles:'Articles',insights:'Who\'s paying attention'}[view];document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('on',b.dataset.v===view)})}
 function undo(msg,fn){var e=document.getElementById('toast');e.innerHTML=esc(msg)+' · <a href="#" id="undo" style="color:#3BE38F">Undo</a>';e.style.display='block';clearTimeout(e._t);
   document.getElementById('undo').onclick=function(ev){ev.preventDefault();e.style.display='none';fn()};e._t=setTimeout(function(){e.style.display='none'},6000)}
-var STAT=['Applied','Viewed','Interview','Offer','Rejected','Waiting on Jason','Pitched','Replied','Won','Lost'];
+var STAT=['Prospect','Applied','Viewed','Interview','Offer','Rejected','Waiting on Jason','Pitched','Replied','Won','Lost'];
 function rLeads(){var L=D.leads.filter(function(l){if(lf==='done')return l.done;if(l.done)return false;return lf==='all'||(lf==='hot'?l.hot:l.kind===lf)});
   var h='<div class="seg">'+[['all','Open '+D.leads.filter(function(l){return !l.done}).length],['hot','🔥 Hot'],['job','Job apps'],['outreach','AIGL outreach'],['done','✓ Done '+D.leads.filter(function(l){return l.done}).length]].map(function(p){return '<button data-f="'+p[0]+'" class="'+(lf===p[0]?'on':'')+'">'+p[1]+'</button>'}).join('')+'</div>';
   var ap=D.articles.filter(function(a){return a.status==='approved'});

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (GA4, AIGL web) -->
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-5DMQ4M3S"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#05070b">
+<title>Live demo · Jason Bourbeau · AIGL</title>
+<meta name="description" content="Talk to Jason's AI twin, then watch it run a real AI receptionist: CRM, booking, texts and review requests, live.">
+<link rel="icon" href="../icons/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<!-- Meta Pixel (AIGL Website dataset) -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','2107887133449610');fbq('track','PageView');
+</script>
+<style>
+:root{--bg:#05070b;--panel:#0b1018;--card:#0f1520;--line:#1c2634;--ink:#eef3f9;--soft:#93a4b8;--green:#2EE08A;--blue:#4C8DFF;--amber:#ffb547;--pink:#ff5fa2;--mono:"JetBrains Mono",ui-monospace,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(900px 500px at 15% -10%,rgba(46,224,138,.13),transparent 60%),radial-gradient(800px 600px at 100% 110%,rgba(76,141,255,.14),transparent 60%)}
+.wrap{max-width:1280px;margin:0 auto;padding:18px 20px 40px}
+header{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--green),#15c773);display:grid;place-items:center;color:#04110a;font-weight:900;box-shadow:0 0 24px rgba(46,224,138,.45)}
+header b{font-size:15px}header small{display:block;color:var(--soft);font-size:12px}
+.for{margin-left:auto;padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-size:13px;color:var(--green);background:rgba(46,224,138,.06)}
+.ai{padding:6px 10px;border-radius:999px;font-size:12px;color:var(--soft);border:1px dashed var(--line)}
+h1{font-size:clamp(26px,3.6vw,44px);line-height:1.05;letter-spacing:-.02em;margin:22px 0 6px;font-weight:800}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--soft);margin:0 0 18px;font-size:16px;max-width:760px}
+.grid{display:grid;grid-template-columns:1.15fr 1fr;gap:18px}
+@media(max-width:920px){.grid{grid-template-columns:1fr}}
+/* stage */
+.stage{position:relative;border-radius:22px;overflow:hidden;background:#000;border:1px solid var(--line);aspect-ratio:16/11;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.stage video{width:100%;height:100%;object-fit:cover;display:block;background:#000}
+.cover{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:24px;background:radial-gradient(500px 300px at 50% 40%,rgba(46,224,138,.18),transparent 70%),linear-gradient(180deg,#07101a,#03050a)}
+.orb{width:150px;height:150px;border-radius:50%;background:conic-gradient(from 0deg,var(--green),var(--blue),var(--pink),var(--green));filter:blur(.5px);animation:spin 6s linear infinite;position:relative;box-shadow:0 0 80px rgba(46,224,138,.35)}
+.orb::after{content:"JB";position:absolute;inset:8px;border-radius:50%;background:#070b12;display:grid;place-items:center;font-weight:800;font-size:38px;letter-spacing:.02em}
+.orb.talk{animation:spin 2s linear infinite,pulse 1s ease-in-out infinite}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes pulse{50%{box-shadow:0 0 120px rgba(46,224,138,.7)}}
+.go{border:0;border-radius:999px;padding:16px 26px;font:700 17px Inter;color:#04110a;background:linear-gradient(135deg,var(--green),#15c773);cursor:pointer;box-shadow:0 10px 40px rgba(46,224,138,.35)}
+.go:hover{transform:translateY(-1px)}
+.cover small{color:var(--soft);font-size:13px;max-width:380px}
+.live{position:absolute;top:14px;left:14px;display:none;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(0,0,0,.6);font-size:12px;font-weight:600}
+.live i{width:8px;height:8px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 10px #ff3b3b;animation:pulse 1s infinite}
+.cap{position:absolute;left:0;right:0;bottom:0;padding:16px 18px;background:linear-gradient(transparent,rgba(0,0,0,.85));font-size:16px;line-height:1.4;min-height:70px}
+.cap .u{color:var(--amber)}
+.ctrl{position:absolute;top:14px;right:14px;display:none;gap:8px}
+.ctrl button{border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.55);color:#fff;border-radius:999px;padding:8px 13px;font:600 13px Inter;cursor:pointer}
+.ask{display:flex;gap:8px;margin-top:10px}
+.ask input{flex:1;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--ink);font:15px Inter}
+.ask button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:0 16px;font:600 14px Inter;cursor:pointer}
+/* panel */
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.ph{display:flex;align-items:center;justify-content:space-between}
+.ph b{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
+.ph span{font:12px var(--mono);color:var(--green)}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;opacity:.45;transition:all .5s;position:relative;overflow:hidden}
+.tile.on{opacity:1;border-color:rgba(46,224,138,.5);box-shadow:0 0 0 1px rgba(46,224,138,.15),0 10px 30px rgba(46,224,138,.08)}
+.tile.on::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(46,224,138,.12),transparent);animation:sweep 1.2s ease-out 1}
+@keyframes sweep{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+.tile h3{margin:0 0 4px;font-size:13px;display:flex;align-items:center;gap:8px;color:var(--soft);font-weight:600}
+.tile h3 .st{margin-left:auto;font:11px var(--mono);color:var(--soft)}
+.tile.on h3 .st{color:var(--green)}
+.tile .v{font-size:15px;line-height:1.4;min-height:21px}
+.tile .v small{display:block;color:var(--soft);font-size:12.5px}
+.bubble{background:#1d2b3f;border-radius:14px 14px 14px 4px;padding:9px 12px;font-size:14px;margin-top:4px}
+.log{background:#03060a;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:12px/1.55 var(--mono);color:#8fb3a1;height:120px;overflow:auto}
+.log .t{color:#4f6476}.log .ok{color:var(--green)}.log .warn{color:var(--amber)}
+/* asks */
+.asks{margin-top:18px;background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:18px}
+.asks h2{margin:0 0 12px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
+.chk{display:flex;flex-wrap:wrap;gap:8px}
+.chk span{border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:13.5px;color:var(--soft);transition:all .4s}
+.chk span.done{color:#04110a;background:var(--green);border-color:var(--green);font-weight:600}
+.chk span.done::before{content:"✓ "}
+.strip{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:16px 18px}
+.strip p{margin:0;color:var(--soft);font-size:14px;max-width:560px}.strip p b{color:var(--ink)}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.btns a{text-decoration:none;color:var(--ink);border:1px solid var(--line);background:var(--card);border-radius:12px;padding:12px 16px;font-weight:600;font-size:14px}
+.btns a.p{background:linear-gradient(135deg,var(--green),#15c773);color:#04110a;border:0}
+.stack{margin-top:14px;text-align:center;color:#5d6e82;font:12px var(--mono)}
+.pv{display:none;margin-top:6px;font:12px var(--mono);color:var(--amber)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="mark">JB</div>
+    <div><b>Jason Bourbeau · AIGL</b><small>AI receptionists &amp; automations · Birmingham, AL</small></div>
+    <span class="for" id="forCo" style="display:none"></span>
+    <span class="ai">🤖 AI twin, clearly labeled</span>
+  </header>
+
+  <h1 id="h1">Don't read about it.<br><em>Talk to it.</em></h1>
+  <p class="sub" id="sub">My AI twin will walk you through what I build, then turn into a live receptionist. You play the caller and watch the system run for real on the right.</p>
+
+  <div class="grid">
+    <div>
+      <div class="stage" id="stage">
+        <video id="vid" autoplay playsinline></video>
+        <div class="cover" id="cover">
+          <div class="orb" id="orb"></div>
+          <button class="go" id="goBtn">▶ Talk to Jason's AI twin</button>
+          <small id="coverNote">Uses your mic. About 3–5 minutes. Say "show me" any time to jump into the demo.</small>
+          <div class="pv" id="pvNote"></div>
+        </div>
+        <div class="live" id="liveTag"><i></i>LIVE</div>
+        <div class="ctrl" id="ctrl"><button id="muteBtn">🎙 Mute</button><button id="endBtn">■ End</button></div>
+        <div class="cap" id="cap"></div>
+      </div>
+      <form class="ask" id="askForm" style="display:none"><input id="askIn" placeholder="Rather type? Ask anything, or type “show me”"><button>Send</button></form>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><b>Behind the scenes · live</b><span id="clock">waiting for a caller</span></div>
+      <div class="tile" id="t-contact"><h3>📇 CRM <span class="st">no lead yet</span></h3><div class="v">—</div></div>
+      <div class="tile" id="t-booking"><h3>📅 Calendar <span class="st">open</span></h3><div class="v">—</div></div>
+      <div class="tile" id="t-text"><h3>💬 Text to caller <span class="st">not sent</span></h3><div class="v">—</div></div>
+      <div class="tile" id="t-review"><h3>⭐ Review request <span class="st">not scheduled</span></h3><div class="v">—</div></div>
+      <div class="tile" id="t-summary"><h3>📝 Call summary <span class="st">after the call</span></h3><div class="v">—</div></div>
+      <div class="log" id="log"><div class="t">// system log: every tool call the AI makes shows up here</div></div>
+    </div>
+  </div>
+
+  <div class="asks"><h2 id="asksH">What a receptionist like this needs to do</h2><div class="chk" id="chk"></div></div>
+
+  <div class="strip">
+    <p><b>You keep the client. I build and run it.</b> White-label or behind the scenes, US-based, Central time. Standard receptionist in about a week, per build or hourly.</p>
+    <div class="btns"><a class="p" id="mailBtn" href="mailto:jason@aigl.dev?subject=AI%20build">✉️ Email Jason</a><a href="tel:+12052038377">📞 (205) 203-8377 (AI, 24/7)</a></div>
+  </div>
+  <div class="stack">built with LiveAvatar · ElevenLabs · Vapi/Retell · Twilio · Make · Supabase</div>
+</div>
+
+<script type="module">
+const API='https://tznmjoeovqvnwcjxrohq.supabase.co/functions/v1/live';
+const $=id=>document.getElementById(id);
+const q=new URLSearchParams(location.search);
+const gigSlug=(q.get('g')||'').toLowerCase().slice(0,40);
+let gig={contact_name:'there',company:'',biz_name:'Summit Home Services',industry:'home services',asks:'an AI phone receptionist that answers, books and follows up'};
+let sid=null, session=null, t0=0, clockT=null;
+
+// ----- personalize -----
+try{ gig=await (await fetch(API+'?gig='+encodeURIComponent(gigSlug))).json(); }catch(e){}
+const company=gig.company||q.get('c')||'';
+if(company){ $('forCo').textContent='Prepared for '+company; $('forCo').style.display='inline-block';
+  $('mailBtn').href='mailto:jason@aigl.dev?subject='+encodeURIComponent('AI build: '+company); }
+if(gig.contact_name && gig.contact_name!=='there'){ $('h1').innerHTML=`Hey ${esc(gig.contact_name)}, don't read about it.<br><em>Talk to it.</em>`; }
+$('asksH').textContent = company ? `What your post asked for` : 'What a receptionist like this needs to do';
+// checklist from their asks (each item lights up when the demo does it)
+const RULES=[['answer','Answers instantly',['start']],['voice','Natural voice',['start']],['book','Books appointments',['booking']],['crm','Puts leads in the CRM',['contact']],['sms','Text follow-ups',['text']],['remind','Reminders',['text']],['review','Review requests',['review']],['faq','Answers FAQs',['start']],['qualif','Qualifies leads',['contact']],['transcript','Transcripts & summary',['summary']],['dashboard','Live dashboard',['contact']],['follow','Follow-up',['text','review']]];
+const asks=(gig.asks||'').toLowerCase();
+let items=RULES.filter(r=>asks.includes(r[0]));
+if(items.length<4) items=RULES.filter(r=>['answer','book','crm','sms','review','transcript'].includes(r[0]));
+$('chk').innerHTML=items.map(r=>`<span data-k="${r[2].join(' ')}">${r[1]}</span>`).join('');
+const tick=k=>document.querySelectorAll('#chk span').forEach(s=>{ if(s.dataset.k.split(' ').includes(k)) s.classList.add('done'); });
+
+// ----- tracking -----
+let isMe=false;try{if(q.get('me')==='1')localStorage.setItem('aigl_me','1');if(q.get('me')==='0')localStorage.removeItem('aigl_me');isMe=localStorage.getItem('aigl_me')==='1';}catch(e){}
+const ping=(t)=>{ if(!isMe&&company){ try{new Image().src='https://ryan-actions-5563.twil.io/open?k=visit&t='+encodeURIComponent(t+': '+company);}catch(e){} } };
+try{fetch('https://tznmjoeovqvnwcjxrohq.supabase.co/functions/v1/cc',{method:'POST',headers:{'content-type':'application/json'},keepalive:true,body:JSON.stringify({action:'view',slug:'live'+(gigSlug?':'+gigSlug:''),src:q.get('src')||q.get('utm_source')||'',ref:document.referrer||''})})}catch(e){}
+ping('Live demo page opened');
+
+// ----- UI helpers -----
+function esc(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function cap(who,text){ $('cap').innerHTML = who==='u' ? `<span class="u">You:</span> ${esc(text)}` : esc(text); }
+function logLine(html,cls=''){ const d=document.createElement('div'); d.className=cls; d.innerHTML=`<span class="t">${new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'})}</span> ${html}`; $('log').appendChild(d); $('log').scrollTop=1e9; }
+function tile(id,st,html){ const t=$('t-'+id); t.classList.remove('on'); void t.offsetWidth; t.classList.add('on'); t.querySelector('.st').textContent=st; t.querySelector('.v').innerHTML=html; }
+function render(ev){
+  if(!ev) return; const d=ev.data||{};
+  if(ev.kind==='contact'){ tile('contact','new lead · '+(d.urgency||'normal'),`<b>${esc(d.name)}</b><small>${esc(d.reason)}${d.phone?' · '+esc(d.phone):''} · Stage: ${esc(d.stage)}</small>`); tick('contact'); }
+  if(ev.kind==='availability'){ tile('booking','checking',`<small>Open: ${esc((d.slots||[]).slice(0,4).join(' · '))}</small>`); }
+  if(ev.kind==='booking'){ tile('booking','✓ confirmed',`<b>${esc(d.slot)}</b><small>${esc(d.service)} · ${esc(d.name)} · ${esc(d.business)}</small>`); tick('booking'); }
+  if(ev.kind==='text'){ const sent=/^Sent/.test(d.status); tile('text',sent?'✓ delivered to '+esc(d.to):esc(d.status),`<div class="bubble">${esc(d.body)}</div>`); if(sent) tick('text'); }
+  if(ev.kind==='review'){ tile('review','✓ scheduled · '+esc(d.when),`<small>${esc(d.channel)}</small><div class="bubble">${esc(d.message)}</div>`); tick('review'); }
+  if(ev.kind==='summary'){ tile('summary','✓ ready',esc(d.summary)); tick('summary'); }
+}
+async function runTool(name,params){
+  const t=performance.now();
+  logLine(`→ <b>${name}</b>(${esc(JSON.stringify(params)).slice(0,140)})`);
+  try{
+    const r=await (await fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'tool',session_id:sid,name,params})})).json();
+    logLine(`✓ ${esc(r.result)} <span class="t">${Math.round(performance.now()-t)}ms</span>`,'ok'); render(r.event); return r.result;
+  }catch(e){ logLine('✗ '+esc(e.message),'warn'); return 'Tool failed.'; }
+}
+function startClock(){ t0=Date.now(); clockT=setInterval(()=>{const s=Math.floor((Date.now()-t0)/1000); $('clock').textContent=`● on a call · ${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;},1000); }
+function stopUi(){ clearInterval(clockT); $('clock').textContent='call ended'; $('liveTag').style.display='none'; $('ctrl').style.display='none'; $('orb').classList.remove('talk'); if(sid) fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'end',session_id:sid})}); }
+
+// ----- start -----
+$('goBtn').onclick=async()=>{
+  $('goBtn').disabled=true; $('goBtn').textContent='Connecting…';
+  ping('Live demo started'); try{gtag('event','live_demo_start',{gig:gigSlug});fbq('trackCustom','LiveDemoStart',{gig:gigSlug});}catch(e){}
+  const r=await (await fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'start',gig:gigSlug,ref:document.referrer||'',preview:q.get('preview')==='1'})})).json().catch(()=>({}));
+  sid=r.session_id; startClock(); tick('start');
+  logLine(`session ${esc((sid||'').slice(0,8))} opened · gig "${esc(gigSlug||'general')}"`,'ok');
+  if(r.token) return goLive(r.token);
+  return goPreview();
+};
+
+async function goLive(token){
+  const sdk=await import('https://esm.sh/@heygen/liveavatar-web-sdk@0.0.20');
+  const {ElevenLabsAgentSession,AgentEventsEnum,SessionEvent,SessionState}=sdk;
+  session=new ElevenLabsAgentSession(token,{voiceChat:{},autoKeepAlive:true});
+  session.on(SessionEvent.SESSION_STREAM_READY,()=>{ session.attach($('vid')); $('cover').style.display='none'; $('liveTag').style.display='flex'; $('ctrl').style.display='flex'; $('askForm').style.display='flex'; });
+  session.on(SessionEvent.SESSION_STATE_CHANGED,s=>{ if(s===SessionState.DISCONNECTED){ stopUi(); $('cover').style.display='flex'; $('goBtn').disabled=false; $('goBtn').textContent='▶ Talk again'; } });
+  session.on(AgentEventsEnum.ELEVENLABS_AGENT_EVENT,async ev=>{
+    const d=ev.data||{}, type=ev.elevenlabs_event_type;
+    if(type==='user_transcript'){ const t=d.user_transcription_event?.user_transcript||d.user_transcript; if(t) cap('u',t); }
+    if(type==='agent_response'){ const t=d.agent_response_event?.agent_response||d.agent_response; if(t) cap('a',t); }
+    if(type==='client_tool_call'){
+      const c=d.client_tool_call||d; const result=await runTool(c.tool_name,c.parameters||{});
+      session.sendClientToolResult({toolCallId:c.tool_call_id,result:String(result),sourceEventId:ev.event_id});
+    }
+  });
+  $('muteBtn').onclick=()=>{ const v=session.voiceChat; if(v.isMuted){v.unmute();$('muteBtn').textContent='🎙 Mute';}else{v.mute();$('muteBtn').textContent='🔇 Unmute';} };
+  $('endBtn').onclick=()=>session.stop();
+  $('askForm').onsubmit=e=>{ e.preventDefault(); const t=$('askIn').value.trim(); if(!t) return; session.sendUserMessage(t); cap('u',t); $('askIn').value=''; };
+  try{ await session.start(); }catch(e){ logLine('✗ avatar could not start: '+esc(e.message),'warn'); goPreview(); }
+}
+
+// Preview: same real backend, scripted voice. Used until the avatar keys are connected (or with ?preview=1).
+async function goPreview(){
+  $('goBtn').style.display='none'; $('coverNote').textContent='Preview: the twin\'s video goes here. This run uses the real backend with a scripted caller.';
+  $('pvNote').style.display='block'; $('pvNote').textContent='PREVIEW MODE · real tool calls, scripted conversation';
+  $('orb').classList.add('talk'); $('liveTag').style.display='flex';
+  const biz=gig.biz_name, name='Dana Mills', wait=ms=>new Promise(r=>setTimeout(r,ms));
+  const say=async(who,t,ms=2600)=>{ cap(who,t); await wait(ms); };
+  await say('a',`Hey ${gig.contact_name||'there'}, I'm Jason's AI twin. Want me to tell you how I'd build it, or just show you?`);
+  await say('u','Show me.',1400);
+  await say('a',`Okay, I'm now the receptionist for ${biz}. Call me like a customer.`);
+  await say('a',`Thanks for calling ${biz}, this is the virtual assistant. How can I help?`);
+  await say('u',gig.industry==='HVAC'?"My AC quit and it's 90 degrees in here.":gig.industry==='medical clinic'?'I need to get my daughter in for a sick visit.':'I need someone to look at a leak under my kitchen sink.');
+  await say('a','I can get you scheduled. Can I get your name?',2000);
+  await say('u',name,1200);
+  await runTool('save_contact',{name,reason:gig.industry==='HVAC'?'AC not cooling':gig.industry==='medical clinic'?'Sick visit for child':'Kitchen sink leak',urgency:'urgent'});
+  const r=await runTool('check_availability',{day:'tomorrow'}); const first=(r.split(': ')[1]||'').split('; ')[0];
+  await say('a',`Thanks ${name.split(' ')[0]}. I have ${first} or later that afternoon. Which works?`);
+  await say('u','The first one.',1200);
+  await runTool('book_appointment',{name,service:gig.industry==='HVAC'?'AC repair visit':gig.industry==='medical clinic'?'Sick visit':'Leak repair visit',slot:first});
+  await say('a',"You're booked. Want a confirmation text? Just say your number.",2200);
+  await say('u','(In the live version, say your real cell and it really texts you.)',2200);
+  await runTool('send_text',{phone:'none',message:'confirmation'});
+  await runTool('schedule_review_request',{name,when:'Evening after the visit'});
+  await runTool('show_summary',{summary:`${name} called ${biz} about an urgent issue. Added to the CRM, booked ${first}, confirmation prepared, and a review request scheduled for after the visit.`});
+  await say('a',"That's the demo. Everything on the right happened for real in the database while we talked.",3000);
+  stopUi(); $('orb').classList.remove('talk');
+}
+</script>
+<!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "58d539f11ece436da2c2a887479d7c37"}'></script>
+</body>
+</html>

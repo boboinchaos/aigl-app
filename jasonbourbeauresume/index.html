@@ -225,7 +225,13 @@ fbq('init','2107887133449610');fbq('track','PageView');
 <script>
 {
 // ===== CONFIG: fill these in at deploy =====
-const EMBED_URL = "https://embed.liveavatar.com/v1/faab609e-2a28-4f6d-903c-1f9bd854e232?orientation=horizontal";          // LiveAvatar embed URL for Silas + Ryan's ElevenLabs brain
+const EMBED_DEFAULT = "https://embed.liveavatar.com/v1/faab609e-2a28-4f6d-903c-1f9bd854e232?orientation=horizontal";
+// Company-specific copies of Ryan (each already knows that company's job). Match on the ?c= link.
+const COMPANY_EMBEDS = [
+  { match: /lavi|tenants law/i, url: "https://embed.liveavatar.com/v1/3918758f-f9c2-4c6b-b573-6b61aab22977?orientation=horizontal" },
+];
+const _c = new URLSearchParams(location.search).get('c') || '';
+const EMBED_URL = (COMPANY_EMBEDS.find(x => x.match.test(_c)) || {}).url || EMBED_DEFAULT;          // LiveAvatar embed URL for Silas + Ryan's ElevenLabs brain
 const LEAD_WEBHOOK = "";       // Make.com webhook: emails the resume + texts Jason
 // ==========================================
 const q = new URLSearchParams(location.search);

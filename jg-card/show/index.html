@@ -69,6 +69,7 @@ body::after{background:radial-gradient(1200px 700px at 50% -10%,#10203c,transpar
 #vstatus{font:800 20px system-ui}#vhint{color:#a7adc4;font-size:14px;max-width:300px}
 #aigl-hang{margin-top:8px;background:#FF3EA5;color:#fff;border:0;border-radius:99px;padding:13px 30px;font:800 15px system-ui;cursor:pointer}
 .open{border:0;cursor:pointer;font-family:inherit}
+.back{position:fixed;top:calc(env(safe-area-inset-top) + 12px);left:14px;z-index:5;color:#fff;text-decoration:none;font-weight:700;font-size:15px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:99px;padding:8px 14px;backdrop-filter:blur(6px)}
 </style><!-- Meta Pixel (AIGL Website dataset) -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
@@ -78,10 +79,11 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2107887133449610&ev=PageView&noscript=1"/></noscript>
 </head>
 <body>
+<a class="back" href="../">&lsaquo; Back to card</a>
 <div class="stage">
   <div class="brand"><span class="mark" style="background:url(../avatar.jpg) center/cover;border-radius:50%"></span><b>MIAMI'S <span>HOTTEST</span> RIDES</b></div>
   <div class="cta"><h1>Scan to connect</h1><p>Point your camera here — no app needed</p></div>
-  <div class="qrbox"><img src="../qr.png" alt="Scan to open James's card"></div>
+  <a href="../" aria-label="Back to James's card"><div class="qrbox"><img src="../qr.png" alt="Scan to open James's card"></div></a>
   <div class="who"><div class="n">James Gault</div><div class="r">Co-Founder · Miami's Hottest Rides</div></div>
   <button class="open" id="aigl-voice" type="button">🎤 <span id="aigl-voice-label">Talk to James's AI</span></button>
   <div class="hint">app.aigl.dev/jg-card</div>

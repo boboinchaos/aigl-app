@@ -157,7 +157,7 @@ var KB=[
  {k:/contact|email|reach|call|phone|text|talk/,a:"Call or text James at <a href='tel:+13058782275'>(305) 878-2275</a>, email <a href='mailto:"+EMAIL+"'>"+EMAIL+"</a> or a DM on <a href='"+IG+"' target='_blank' rel='noopener'>Instagram</a>. I can write the email for you too.",c:['Write James an email']}
 ];
 function open(){P.classList.add('on');L.style.display='none';tr('ViewContent',{content_name:'jg-card ai open'});if(!started){started=true;say("Hey! 👋 I'm the Miami's Hottest Rides AI. I can tell you what James does, get your car in front of him, or set up a shoot or collab. What brings you here?",function(){chips(MAIN);});}}
-L.onclick=open;document.getElementById('aix').onclick=function(){P.classList.remove('on');L.style.display='flex';};
+L.onclick=open;if(/[?&]ai=1/.test(location.search))setTimeout(open,500);document.getElementById('aix').onclick=function(){P.classList.remove('on');L.style.display='flex';};
 document.getElementById('aif').addEventListener('submit',function(e){e.preventDefault();var i=document.getElementById('ain'),v=i.value.trim();if(!v)return;i.value='';h(v);});
 function startFlow(kind){flow={s:1,kind:kind};lead={kind:kind};say("Easy. What's your name?");}
 function step(x){

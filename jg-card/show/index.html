@@ -56,9 +56,10 @@ body::after{background:radial-gradient(1200px 700px at 50% -10%,#10203c,transpar
 .stage{gap:clamp(12px,2.6svh,22px)}
 .brand{flex-wrap:nowrap}.brand .mark{flex:0 0 auto;width:40px;height:40px}
 .brand b{white-space:nowrap;font-size:clamp(13px,4vw,18px);letter-spacing:clamp(1.5px,.6vw,4px)}
-.qrbox{padding:20px}.qrbox img{width:min(70vw,340px,44svh)}
+.qrbox{padding:16px}.qrbox img{width:min(54vw,250px,34svh)}
 .hint{position:static;margin-top:2px}
-.open{display:inline-block;background:linear-gradient(135deg,#19E3D3,#0fb4a8);color:#04131a;text-decoration:none;font-weight:800;font-size:15px;border-radius:99px;padding:12px 22px;box-shadow:0 10px 30px rgba(25,227,211,.3)}
+.open{display:inline-block;background:linear-gradient(135deg,#19E3D3,#0fb4a8);color:#04131a;text-decoration:none;font-weight:800;font-size:18px;border-radius:99px;padding:16px 30px;animation:glow 2.4s ease-in-out infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(25,227,211,.55),0 10px 28px rgba(25,227,211,.25)}50%{box-shadow:0 0 0 9px rgba(25,227,211,0),0 10px 34px rgba(25,227,211,.45)}}
 </style><!-- Meta Pixel (AIGL Website dataset) -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
@@ -73,7 +74,7 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
   <div class="cta"><h1>Scan to connect</h1><p>Point your camera here — no app needed</p></div>
   <div class="qrbox"><img src="../qr.png" alt="Scan to open James's card"></div>
   <div class="who"><div class="n">James Gault</div><div class="r">Co-Founder · Miami's Hottest Rides</div></div>
-  <a class="open" href="../?ai=1">Open James's card &amp; AI</a>
+  <a class="open" href="../?ai=1">💬 Talk to James's AI</a>
   <div class="hint">app.aigl.dev/jg-card</div>
 </div>
 <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "58d539f11ece436da2c2a887479d7c37"}'></script><!-- End Cloudflare Web Analytics -->

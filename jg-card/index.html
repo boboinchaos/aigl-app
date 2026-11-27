@@ -50,16 +50,17 @@ body::before{content:"";position:fixed;inset:-40%;z-index:0;background:radial-gr
 .social{display:flex;justify-content:center;gap:12px;margin-top:16px}
 .social a{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:#181a28;border:1px solid var(--line);color:var(--ink)}
 .social svg{width:20px;height:20px}
-.qr{margin:22px auto 4px;width:150px;height:150px;background:#fff;border-radius:14px;display:grid;place-items:center}
-.qr img{width:132px;height:132px}
+.qr{margin:20px auto 4px;width:96px;height:96px;background:#fff;border-radius:11px;display:grid;place-items:center}
+.qr img{width:84px;height:84px}
 .qrlabel{text-align:center;color:var(--soft);font-size:12.5px;margin-top:8px}
 .foot{text-align:center;color:#7a7f98;font-size:12px;margin-top:20px;line-height:1.7}
 .foot a{color:#cfd3e6}
 .aigl{text-align:center;color:#5d627a;font-size:11.5px;margin-top:18px}.aigl a{color:#8b90a8;text-decoration:none}
-.aitile{display:flex;align-items:center;gap:12px;width:100%;margin-top:14px;text-align:left;background:linear-gradient(135deg,rgba(25,227,211,.16),rgba(255,62,165,.12));border:1px solid rgba(25,227,211,.45);border-radius:16px;padding:14px;color:var(--ink);cursor:pointer;box-shadow:0 0 24px rgba(25,227,211,.15)}
-.aitile .pic{width:46px;height:46px;flex:0 0 46px;border-radius:50%;background:url(avatar.jpg) center/cover;box-shadow:0 0 0 2px var(--teal)}
-.aitile .tx{flex:1;display:flex;flex-direction:column;gap:3px}.aitile b{font-size:16px;color:var(--teal)}.aitile small{font-size:12.5px;color:var(--soft);line-height:1.35}
-.aitile .go{font-size:28px;color:var(--teal)}
+.aitile{display:flex;align-items:center;gap:13px;width:100%;margin:0 0 14px;text-align:left;background:linear-gradient(135deg,#19E3D3,#0fb4a8);border:0;border-radius:18px;padding:16px;color:#04131a;cursor:pointer;animation:glow 2.4s ease-in-out infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(25,227,211,.55),0 10px 28px rgba(25,227,211,.25)}50%{box-shadow:0 0 0 8px rgba(25,227,211,0),0 10px 34px rgba(25,227,211,.45)}}
+.aitile .pic{width:52px;height:52px;flex:0 0 52px;border-radius:50%;background:url(avatar.jpg) center/cover;box-shadow:0 0 0 3px #fff}
+.aitile .tx{flex:1;display:flex;flex-direction:column;gap:3px}.aitile b{font-size:18px;color:#04131a}.aitile small{font-size:13px;color:#073b3a;line-height:1.35;font-weight:600}
+.aitile .go{font-size:32px;color:#04131a;font-weight:800}
 /* AI assistant */
 #ai-launch{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:500;display:flex;align-items:center;gap:9px;white-space:nowrap;background:linear-gradient(135deg,var(--teal),#0fb4a8);color:#04131a;border:0;border-radius:99px;padding:13px 22px;font:800 15px system-ui;cursor:pointer;box-shadow:0 10px 30px rgba(25,227,211,.35)}
 #ai-launch .dot{width:9px;height:9px;border-radius:50%;background:#04131a;box-shadow:0 0 0 3px rgba(4,19,26,.18)}
@@ -98,6 +99,7 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
       <div class="name">James Gault</div>
       <div class="role">Co-Founder · Miami's Hottest Rides</div>
       <div class="tag">The best of Miami's car scene. Photography, video and marketing that brings Miami's cars and art to homes around the world.</div>
+      <button class="aitile" id="ai-tile" type="button"><span class="pic"></span><span class="tx"><b>Talk to James's AI</b><small>Tap to chat 24/7: get your car featured, book a shoot or pitch a collab</small></span><span class="go">&rsaquo;</span></button>
       <div class="actions">
         <button class="btn save" id="save"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Save to my contacts</button>
         <a class="btn call" id="cl" href="tel:+13058782275"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Call James</a>
@@ -105,7 +107,6 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
         <a class="btn mail2" id="em" href="mailto:miamishottestrides@gmail.com?subject=Hi%20James"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>Email</a>
         <a class="btn ig" data-t="instagram" href="https://www.instagram.com/miamishottestrides/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>Instagram</a>
       </div>
-      <button class="aitile" id="ai-tile" type="button"><span class="pic"></span><span class="tx"><b>Ask James's AI</b><small>Get your car featured, book a shoot or pitch a collab, 24/7</small></span><span class="go">&rsaquo;</span></button>
       <div class="social">
         <a data-t="facebook" href="https://www.facebook.com/miamishottestrides" target="_blank" rel="noopener" aria-label="Miami's Hottest Rides on Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
         <a data-t="youtube" href="https://www.youtube.com/@miamishottestrides401" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M22.5 6.4a2.8 2.8 0 0 0-2-2C18.8 4 12 4 12 4s-6.8 0-8.5.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 1 12a29 29 0 0 0 .5 5.6 2.8 2.8 0 0 0 2 2C5.2 20 12 20 12 20s6.8 0 8.5-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 23 12a29 29 0 0 0-.5-5.6z"/><path d="M10 15l5-3-5-3z"/></svg></a>
@@ -114,7 +115,7 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
         <a data-t="facebook_personal" href="https://www.facebook.com/james.gault.50" target="_blank" rel="noopener" aria-label="James on Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
       </div>
       <a href="show/" style="text-decoration:none"><div class="qr"><img src="qr.png" alt="QR code for this card"></div></a>
-      <div class="qrlabel">Scan to save James · tap for full screen</div>
+      <div class="qrlabel">Tap the code for full-screen scan</div>
       <div class="foot">Miami, FL<br><a href="tel:+13058782275" style="color:var(--pink);font-weight:700">(305) 878-2275</a> · <a href="mailto:miamishottestrides@gmail.com">miamishottestrides@gmail.com</a> · @miamishottestrides</div>
       <div class="aigl">AI card by <a href="https://aigl.dev" target="_blank" rel="noopener">AI Go Long</a></div>
     </div>
@@ -162,7 +163,7 @@ var KB=[
  {k:/contact|email|reach|call|phone|text|talk/,a:"Call or text James at <a href='tel:+13058782275'>(305) 878-2275</a>, email <a href='mailto:"+EMAIL+"'>"+EMAIL+"</a> or a DM on <a href='"+IG+"' target='_blank' rel='noopener'>Instagram</a>. I can write the email for you too.",c:['Write James an email']}
 ];
 function open(){P.classList.add('on');L.style.display='none';tr('ViewContent',{content_name:'jg-card ai open'});if(!started){started=true;say("Hey! 👋 I'm the Miami's Hottest Rides AI. I can tell you what James does, get your car in front of him, or set up a shoot or collab. What brings you here?",function(){chips(MAIN);});}}
-L.onclick=open;document.getElementById('ai-tile').onclick=open;if(/[?&]ai=1/.test(location.search))setTimeout(open,500);document.getElementById('aix').onclick=function(){P.classList.remove('on');L.style.display='flex';};
+L.onclick=open;L.style.display='none';var T0=document.getElementById('ai-tile');window.addEventListener('scroll',function(){if(P.classList.contains('on'))return;L.style.display=T0.getBoundingClientRect().bottom<0?'flex':'none';},{passive:true});document.getElementById('ai-tile').onclick=open;if(/[?&]ai=1/.test(location.search))setTimeout(open,500);document.getElementById('aix').onclick=function(){P.classList.remove('on');};
 document.getElementById('aif').addEventListener('submit',function(e){e.preventDefault();var i=document.getElementById('ain'),v=i.value.trim();if(!v)return;i.value='';h(v);});
 function startFlow(kind){flow={s:1,kind:kind};lead={kind:kind};say("Easy. What's your name?");}
 function step(x){

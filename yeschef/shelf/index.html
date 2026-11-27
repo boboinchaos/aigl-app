@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111">
+<meta name="robots" content="noindex">
+<title>Yes Chef · Shelf Snap</title>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5DMQ4M3S');</script>
+<!-- Meta Pixel -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','2107887133449610');fbq('track','PageView');</script>
+<style>
+:root{--ok:#2ecc71;--bad:#ff5a4f;--warn:#f5b041;--ink:#f4efe6;--bg:#111;--gold:#c9a24a}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--ink);font-family:-apple-system,system-ui,Segoe UI,Roboto,sans-serif}
+header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;padding-top:max(10px,env(safe-area-inset-top))}
+header b{font-size:17px;letter-spacing:.3px}header span{color:var(--gold);font-size:13px}
+#stage{position:relative;width:100%;aspect-ratio:3/4;max-height:62vh;background:#000;overflow:hidden}
+video,#shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#shot{display:none}
+#frame{position:absolute;inset:8% 5%;border:2px dashed rgba(255,255,255,.55);border-radius:8px;pointer-events:none}
+#frame.good{border:3px solid var(--ok)}
+#hint{position:absolute;left:0;right:0;top:10px;text-align:center;font-weight:700;font-size:18px;text-shadow:0 1px 4px #000;padding:0 12px}
+#level{position:absolute;right:10px;top:50%;width:14px;height:120px;margin-top:-60px;border-radius:8px;background:rgba(255,255,255,.18)}
+#level i{position:absolute;left:1px;width:12px;height:12px;border-radius:50%;background:var(--warn);top:54px;transition:top .15s}
+#level:after{content:"";position:absolute;left:-3px;right:-3px;top:59px;height:2px;background:#fff8}
+#hlevel{position:absolute;bottom:10px;left:50%;width:120px;height:14px;margin-left:-60px;border-radius:8px;background:rgba(255,255,255,.18)}
+#hlevel i{position:absolute;top:1px;width:12px;height:12px;border-radius:50%;background:var(--warn);left:54px;transition:left .15s}
+#hlevel:after{content:"";position:absolute;top:-3px;bottom:-3px;left:59px;width:2px;background:#fff8}
+#checks{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:10px 12px}
+.c{display:flex;gap:8px;align-items:center;background:#1c1c1c;border-radius:10px;padding:8px 10px;font-size:14px}
+.c i{width:12px;height:12px;border-radius:50%;background:#555;flex:none}
+.c.ok i{background:var(--ok)}.c.bad i{background:var(--bad)}.c.warn i{background:var(--warn)}
+.c small{display:block;color:#aaa;font-size:12px}
+#bar{display:flex;gap:10px;padding:6px 12px 14px;padding-bottom:max(14px,env(safe-area-inset-bottom));align-items:center}
+button,select{font:inherit;border:0;border-radius:12px;padding:14px;color:var(--ink);background:#262626}
+#snap{flex:1;background:var(--gold);color:#111;font-weight:800;font-size:18px}
+#snap:disabled{background:#3a3a3a;color:#888}
+#torch.on{background:#f5d76e;color:#111}
+#review{display:none;padding:0 12px 16px}
+#review select,#review input{width:100%;margin:6px 0;background:#1c1c1c;color:var(--ink);border:1px solid #333;border-radius:10px;padding:12px;font:inherit}
+#review .row{display:flex;gap:10px}#review .row button{flex:1}
+#send{background:var(--ok);color:#111;font-weight:800}
+#grade{margin:8px 0;font-size:15px;line-height:1.4}
+#start{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px;background:#111}
+#start p{color:#bbb;font-size:14px;max-width:320px}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#222;padding:12px 16px;border-radius:12px;display:none;font-size:15px}
+</style>
+</head>
+<body>
+<header><b>🍷 Yes Chef · Shelf Snap</b><span>The Wine Bunker</span></header>
+<div id="stage">
+  <video id="v" playsinline muted autoplay></video>
+  <img id="shot" alt="Captured shelf">
+  <div id="frame"></div>
+  <div id="hint">Starting camera…</div>
+  <div id="level"><i></i></div><div id="hlevel"><i></i></div>
+  <div id="start">
+    <div style="font-size:42px">📷</div>
+    <b style="font-size:20px">Shelf photo coach</b>
+    <p>Point at one shelf section. The lights below turn green when the photo is clear enough to count every bottle.</p>
+    <button id="go" style="background:var(--gold);color:#111;font-weight:800;padding:14px 28px">Start camera</button>
+  </div>
+</div>
+<div id="checks">
+  <div class="c" id="c-light"><i></i><div>Light<small>—</small></div></div>
+  <div class="c" id="c-glare"><i></i><div>Glare<small>—</small></div></div>
+  <div class="c" id="c-sharp"><i></i><div>Focus<small>—</small></div></div>
+  <div class="c" id="c-still"><i></i><div>Steady<small>—</small></div></div>
+  <div class="c" id="c-tilt"><i></i><div>Straight on<small>—</small></div></div>
+  <div class="c" id="c-level"><i></i><div>Level<small>—</small></div></div>
+</div>
+<div id="bar">
+  <button id="torch" title="Flashlight">🔦</button>
+  <button id="snap" disabled>Hold for green…</button>
+</div>
+<div id="review">
+  <div id="grade"></div>
+  <select id="section">
+    <option>Back bar – top shelf</option><option>Back bar – middle shelf</option><option>Back bar – bottom shelf</option>
+    <option>Well / rail</option><option>Wine wall – reds</option><option>Wine wall – whites & bubbles</option>
+    <option>Retail shelf</option><option>Walk-in / storage</option><option>Beer cooler</option><option>Other</option>
+  </select>
+  <input id="note" placeholder="Note (optional): e.g., 2 sealed Woodford behind">
+  <div class="row"><button id="retake">↺ Retake</button><button id="send">Send for count ✓</button></div>
+</div>
+<div id="toast"></div>
+<script>
+const ENDPOINT='https://script.google.com/macros/s/AKfycbzuO4VpTk_A2A4VGCWejjDpgyMFf4aaiFDj_zKpDlw1nxekeS63uSvDcNBhbkVGl6G1/exec';
+const TOKEN='wb-2026-bunker';
+const $=s=>document.querySelector(s);
+const v=$('#v'),hint=$('#hint'),snap=$('#snap');
+const cv=document.createElement('canvas'),cx=cv.getContext('2d',{willReadFrequently:true});
+const W=160,H=120;cv.width=W;cv.height=H;
+let stream,track,prev=null,ori={beta:null,gamma:null},torchOn=false,shotData=null,goodSince=0;
+const state={};
+
+function set(id,cls,msg){const el=$('#c-'+id);el.className='c '+cls;el.querySelector('small').textContent=msg;state[id]=cls}
+function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(e._t);e._t=setTimeout(()=>e.style.display='none',2800)}
+
+$('#go').onclick=async()=>{
+  try{
+    if(typeof DeviceOrientationEvent!=='undefined'&&DeviceOrientationEvent.requestPermission){try{await DeviceOrientationEvent.requestPermission()}catch(e){}}
+    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:2560},height:{ideal:1920}},audio:false});
+    v.srcObject=stream;track=stream.getVideoTracks()[0];
+    try{await track.applyConstraints({advanced:[{focusMode:'continuous'}]})}catch(e){}
+    $('#start').style.display='none';
+    window.addEventListener('deviceorientation',e=>{ori.beta=e.beta;ori.gamma=e.gamma});
+    requestAnimationFrame(loop);
+    if(window.fbq)fbq('trackCustom','ShelfSnapStart');
+  }catch(e){hint.textContent='Camera blocked. Allow camera access in your browser settings.'}
+};
+
+$('#torch').onclick=async()=>{
+  if(!track)return;const caps=track.getCapabilities?track.getCapabilities():{};
+  if(!caps.torch){toast('No flashlight control here. Use a second phone\'s light behind dark bottles.');return}
+  torchOn=!torchOn;try{await track.applyConstraints({advanced:[{torch:torchOn}]});$('#torch').classList.toggle('on',torchOn)}catch(e){toast('Flashlight not available.')}
+};
+
+let last=0;
+function loop(t){
+  requestAnimationFrame(loop);
+  if(t-last<250||v.readyState<2||$('#shot').style.display==='block')return;last=t;
+  cx.drawImage(v,0,0,W,H);const d=cx.getImageData(0,0,W,H).data;
+  const L=new Float32Array(W*H);let sum=0,hot=0,dark=0;
+  for(let i=0,p=0;i<d.length;i+=4,p++){const y=.299*d[i]+.587*d[i+1]+.114*d[i+2];L[p]=y;sum+=y;if(y>248)hot++;if(y<25)dark++}
+  const mean=sum/(W*H),hotPct=hot/(W*H)*100,darkPct=dark/(W*H)*100;
+  // light
+  if(mean<60)set('light','bad','Too dark – turn lights on');else if(mean<85)set('light','warn','A bit dim');else if(mean>215)set('light','bad','Too bright – step back from light');else set('light','ok','Good');
+  // glare
+  if(hotPct>5)set('glare','bad','Glare – shift a step left/right');else if(hotPct>2)set('glare','warn','Some glare');else set('glare','ok','None');
+  // sharpness (variance of Laplacian)
+  let lsum=0,lsq=0,n=0;
+  for(let y=1;y<H-1;y++)for(let x=1;x<W-1;x++){const p=y*W+x;const lap=4*L[p]-L[p-1]-L[p+1]-L[p-W]-L[p+W];lsum+=lap;lsq+=lap*lap;n++}
+  const sharp=lsq/n-(lsum/n)**2;
+  if(sharp<60)set('sharp','bad','Blurry – tap screen to focus');else if(sharp<140)set('sharp','warn','Slightly soft');else set('sharp','ok','Sharp');
+  // motion
+  let diff=0;if(prev){for(let p=0;p<L.length;p+=4)diff+=Math.abs(L[p]-prev[p]);diff/=L.length/4}prev=L;
+  if(diff>9)set('still','bad','Hold still');else if(diff>5)set('still','warn','Almost');else set('still','ok','Steady');
+  // orientation: upright phone facing shelf ≈ beta 90, gamma 0
+  if(ori.beta==null){set('tilt','warn','No tilt sensor – aim straight');set('level','warn','Check by eye')}
+  else{
+    const tilt=ori.beta-90,roll=ori.gamma;
+    if(Math.abs(tilt)>12)set('tilt','bad',tilt<0?'Tilt top of phone toward you':'Tilt top of phone away');else if(Math.abs(tilt)>6)set('tilt','warn','Nearly straight');else set('tilt','ok','Straight on');
+    if(Math.abs(roll)>8)set('level','bad',roll>0?'Rotate left':'Rotate right');else if(Math.abs(roll)>4)set('level','warn','Nearly level');else set('level','ok','Level');
+    $('#level i').style.top=Math.max(0,Math.min(108,54+tilt*2))+'px';
+    $('#hlevel i').style.left=Math.max(0,Math.min(108,54+roll*3))+'px';
+    $('#level i').style.background=state.tilt==='ok'?'var(--ok)':'var(--warn)';$('#hlevel i').style.background=state.level==='ok'?'var(--ok)':'var(--warn)';
+  }
+  if(darkPct>45&&state.light!=='bad')hint.textContent='Dark bottles? Turn on 🔦 or light from behind';
+  const keys=['light','glare','sharp','still','tilt','level'];
+  const bad=keys.filter(k=>state[k]==='bad');
+  const allOk=bad.length===0&&keys.filter(k=>state[k]==='warn').length<=1;
+  if(allOk){if(!goodSince)goodSince=t}else goodSince=0;
+  const ready=allOk&&t-goodSince>600;
+  $('#frame').classList.toggle('good',ready);
+  if(ready){hint.textContent='✓ Looks clear – take it';snap.disabled=false;snap.textContent='📸 Take photo'}
+  else{snap.disabled=false;snap.textContent='Take anyway';if(bad.length&&!(darkPct>45))hint.textContent=$('#c-'+bad[0]+' small').textContent;else if(!bad.length)hint.textContent='Fit one shelf edge to edge, labels forward'}
+  snap.dataset.ready=ready?'1':'';
+}
+
+$('#stage').onclick=async e=>{if(!track||e.target.id==='go')return;try{await track.applyConstraints({advanced:[{focusMode:'single-shot'}]});setTimeout(()=>track.applyConstraints({advanced:[{focusMode:'continuous'}]}).catch(()=>{}),1500)}catch(x){}};
+
+snap.onclick=()=>{
+  if(!track)return;
+  const c=document.createElement('canvas');c.width=v.videoWidth;c.height=v.videoHeight;c.getContext('2d').drawImage(v,0,0);
+  shotData=c.toDataURL('image/jpeg',.88);
+  const img=$('#shot');img.src=shotData;img.style.display='block';
+  const issues=['light','glare','sharp','still','tilt','level'].filter(k=>state[k]!=='ok').map(k=>$('#c-'+k+' small').textContent);
+  $('#grade').innerHTML=snap.dataset.ready?'<b style="color:var(--ok)">✓ Clear photo.</b> Pick the section and send.':'<b style="color:var(--warn)">⚠ May be hard to read:</b> '+issues.join(' · ')+'.<br>Retake if you can.';
+  $('#review').style.display='block';$('#checks').style.display='none';$('#bar').style.display='none';
+};
+$('#retake').onclick=()=>{$('#shot').style.display='none';$('#review').style.display='none';$('#checks').style.display='grid';$('#bar').style.display='flex';shotData=null};
+$('#send').onclick=async()=>{
+  if(!shotData)return;const btn=$('#send');btn.disabled=true;btn.textContent='Sending…';
+  const sec=$('#section').value,stamp=new Date().toISOString().slice(0,16).replace(/[:T]/g,'-');
+  const name=('shelf_'+sec+'_'+stamp).replace(/[^\w\-]+/g,'_')+'.jpg';
+  try{
+    await fetch(ENDPOINT,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'text/plain'},body:JSON.stringify({token:TOKEN,kind:'upload',name,mime:'image/jpeg',data:shotData,section:sec,note:$('#note').value,clear:!!snap.dataset.ready})});
+    toast('Sent ✓ Next section');if(window.fbq)fbq('trackCustom','ShelfSnapSent',{section:sec});
+    $('#note').value='';$('#retake').onclick();
+  }catch(e){toast('Didn\'t send – check signal and try again')}
+  btn.disabled=false;btn.textContent='Send for count ✓';
+};
+</script>
+<!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "58d539f11ece436da2c2a887479d7c37"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

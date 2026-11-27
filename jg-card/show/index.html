@@ -52,6 +52,12 @@ body::after{background:radial-gradient(1200px 700px at 50% -10%,#10203c,transpar
 .who .n{font-size:clamp(18px,4.6vw,22px);font-weight:700}
 .who .r{color:#8aa0b6;font-size:14px;margin-top:2px}
 .hint{position:fixed;bottom:calc(env(safe-area-inset-bottom) + 14px);left:0;right:0;text-align:center;z-index:1;color:#60738a;font-size:12px}
+/* jg-card fixes: one-line brand, no overlap on phones */
+.stage{gap:clamp(12px,2.6svh,22px)}
+.brand{flex-wrap:nowrap}.brand .mark{flex:0 0 auto;width:40px;height:40px}
+.brand b{white-space:nowrap;font-size:clamp(13px,4vw,18px);letter-spacing:clamp(1.5px,.6vw,4px)}
+.qrbox{padding:20px}.qrbox img{width:min(70vw,340px,44svh)}
+.hint{position:static;margin-top:2px}
 </style><!-- Meta Pixel (AIGL Website dataset) -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
@@ -66,7 +72,7 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
   <div class="cta"><h1>Scan to connect</h1><p>Point your camera here — no app needed</p></div>
   <div class="qrbox"><img src="../qr.png" alt="Scan to open James's card"></div>
   <div class="who"><div class="n">James Gault</div><div class="r">Co-Founder · Miami's Hottest Rides</div></div>
+  <div class="hint">app.aigl.dev/jg-card</div>
 </div>
-<div class="hint">app.aigl.dev/jg-card</div>
 <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "58d539f11ece436da2c2a887479d7c37"}'></script><!-- End Cloudflare Web Analytics -->
 </body></html>

@@ -60,6 +60,15 @@ body::after{background:radial-gradient(1200px 700px at 50% -10%,#10203c,transpar
 .hint{position:static;margin-top:2px}
 .open{display:inline-block;background:linear-gradient(135deg,#19E3D3,#0fb4a8);color:#04131a;text-decoration:none;font-weight:800;font-size:18px;border-radius:99px;padding:16px 30px;animation:glow 2.4s ease-in-out infinite}
 @keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(25,227,211,.55),0 10px 28px rgba(25,227,211,.25)}50%{box-shadow:0 0 0 9px rgba(25,227,211,0),0 10px 34px rgba(25,227,211,.45)}}
+#aigl-call{position:fixed;inset:0;z-index:700;background:rgba(8,6,16,.94);display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:#fff;text-align:center;padding:20px}
+#aigl-call.on{display:flex}
+.vorb{width:130px;height:130px;border-radius:50%;background:url(../avatar.jpg) center/cover;animation:vpulse 1.6s ease-out infinite}
+.vorb.live{animation:vpulse2 1.1s ease-out infinite}
+@keyframes vpulse{0%{box-shadow:0 0 0 0 rgba(255,62,165,.55)}100%{box-shadow:0 0 0 42px rgba(255,62,165,0)}}
+@keyframes vpulse2{0%{box-shadow:0 0 0 0 rgba(25,227,211,.6)}100%{box-shadow:0 0 0 42px rgba(25,227,211,0)}}
+#vstatus{font:800 20px system-ui}#vhint{color:#a7adc4;font-size:14px;max-width:300px}
+#aigl-hang{margin-top:8px;background:#FF3EA5;color:#fff;border:0;border-radius:99px;padding:13px 30px;font:800 15px system-ui;cursor:pointer}
+.open{border:0;cursor:pointer;font-family:inherit}
 </style><!-- Meta Pixel (AIGL Website dataset) -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
@@ -74,8 +83,50 @@ window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random(
   <div class="cta"><h1>Scan to connect</h1><p>Point your camera here — no app needed</p></div>
   <div class="qrbox"><img src="../qr.png" alt="Scan to open James's card"></div>
   <div class="who"><div class="n">James Gault</div><div class="r">Co-Founder · Miami's Hottest Rides</div></div>
-  <a class="open" href="../?ai=1">💬 Talk to James's AI</a>
+  <button class="open" id="aigl-voice" type="button">🎤 <span id="aigl-voice-label">Talk to James's AI</span></button>
   <div class="hint">app.aigl.dev/jg-card</div>
 </div>
+<div id="aigl-call">
+  <div class="vorb" id="vorb"></div>
+  <div id="vstatus">Connecting…</div>
+  <div id="vhint">Speak naturally. Ask about getting your car featured, a shoot or a collab.</div>
+  <button id="aigl-hang">End call</button>
+</div>
+<script type="module">
+import Vapi from "https://esm.sh/@vapi-ai/web@2.3.10";
+const PUBLIC_KEY = "8126359c-d121-47eb-855d-7167d44e6f88";
+const ASSISTANT_ID = "dea2ff86-9283-4ddd-971b-42654b5f7617";
+const JG_PROMPT = "You are the friendly AI assistant for James Gault, co-founder of Miami's Hottest Rides in Miami, Florida. Miami's Hottest Rides showcases the best of Miami's car scene: car photography, video and social media marketing, bringing Miami's cars and art to people around the world. It posts on Instagram and TikTok as @miamishottestrides, plus Facebook and YouTube. Help callers with three things: getting their car featured, booking a photo or video shoot, and brand or business collaborations. For any of these, collect their name, what they want (for a feature, the year, make and model of the car), and their Instagram handle or phone number, then tell them James will follow up. Reach James by phone or text at 305-878-2275, email miamishottestrides@gmail.com, or a DM on Instagram at @miamishottestrides. Never quote prices, dates or availability; say James will confirm those. Do not make up facts about James or the company. Keep answers short, upbeat and conversational, with a little Miami energy. If you do not know something, say James can answer it.";
+const vapi = new Vapi(PUBLIC_KEY);
+const label = document.getElementById('aigl-voice-label');
+const panel = document.getElementById('aigl-call');
+const orb = document.getElementById('vorb');
+const vstatus = document.getElementById('vstatus');
+let live = false, starting = false;
+document.getElementById('aigl-voice').addEventListener('click', async () => {
+  if (starting || live) return;
+  starting = true; label.textContent = 'Connecting…';
+  panel.classList.add('on'); vstatus.textContent = 'Connecting…';
+  try { if (window.aiglTrack) aiglTrack('Lead', {content_name: 'jg-card voice call'}); } catch (x) {}
+  try {
+    await vapi.start(ASSISTANT_ID, {
+      firstMessage: "Hey, what's up! You've reached the AI assistant for James Gault at Miami's Hottest Rides. I can help get your car featured, set up a shoot, or talk collabs. What can I do for you?",
+      voice: { provider: "11labs", voiceId: "cgSgspJ2msm6clMCkdW9" }
+    });
+  } catch (e) {
+    vstatus.textContent = 'Could not start (allow microphone?)';
+    starting = false; label.textContent = "Talk to James's AI";
+  }
+});
+vapi.on('call-start', () => {
+  live = true; starting = false; vstatus.textContent = "You're connected, go ahead"; orb.classList.add('live');
+  try { vapi.send({ type: 'add-message', message: { role: 'system', content: "IMPORTANT: For this entire call you are ONLY James Gault's Miami's Hottest Rides assistant. Ignore any other company identity. " + JG_PROMPT }, triggerResponseEnabled: false }); } catch (x) {}
+});
+vapi.on('speech-start', () => { vstatus.textContent = "James's AI is speaking…"; });
+vapi.on('speech-end', () => { if (live) vstatus.textContent = 'Listening…'; });
+vapi.on('call-end', () => { live = false; starting = false; panel.classList.remove('on'); orb.classList.remove('live'); label.textContent = "Talk to James's AI"; });
+vapi.on('error', () => { vstatus.textContent = 'Call error, try again'; starting = false; label.textContent = "Talk to James's AI"; });
+document.getElementById('aigl-hang').addEventListener('click', () => { try { vapi.stop(); } catch (x) {} panel.classList.remove('on'); live=false; starting=false; label.textContent = "Talk to James's AI"; });
+</script>
 <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "58d539f11ece436da2c2a887479d7c37"}'></script><!-- End Cloudflare Web Analytics -->
 </body></html>

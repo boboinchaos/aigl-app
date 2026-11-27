@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<!-- Google tag (GA4, AIGL web) -->
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-5DMQ4M3S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#07090D">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="James Gault">
+<link rel="apple-touch-icon" href="../apple-touch.png">
+<link rel="icon" href="../icon-192.png">
+<link rel="manifest" href="show.webmanifest">
+<title>Scan to connect — James Gault · Miami's Hottest Rides</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{min-height:100svh;color:#eef2f7;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  background:#05070b;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:env(safe-area-inset-top) 20px env(safe-area-inset-bottom);-webkit-text-size-adjust:100%;position:relative}
+/* animated aurora background */
+body::before,body::after{content:"";position:fixed;inset:-30%;z-index:0}
+body::before{background:
+  radial-gradient(640px 640px at 20% 18%,rgba(255,62,165,.28),transparent 60%),
+  radial-gradient(680px 680px at 82% 86%,rgba(76,141,255,.24),transparent 62%),
+  radial-gradient(560px 560px at 88% 12%,rgba(255,62,165,.12),transparent 60%);
+  filter:blur(10px);animation:drift 14s ease-in-out infinite alternate}
+body::after{background:radial-gradient(1200px 700px at 50% -10%,#10203c,transparent 60%);z-index:0}
+@keyframes drift{from{transform:translate3d(-3%,-2%,0) scale(1)}to{transform:translate3d(3%,2%,0) scale(1.1)}}
+.stage{position:relative;z-index:1;width:100%;max-width:560px;display:flex;flex-direction:column;align-items:center;gap:22px}
+.brand{display:flex;align-items:center;gap:12px}
+.mark{width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,#FF3EA5,#19E3D3);display:grid;place-items:center;
+  color:#fff;font-weight:900;font-size:20px;box-shadow:0 0 34px rgba(255,62,165,.6),inset 0 1px 1px rgba(255,255,255,.45)}
+.brand b{letter-spacing:4px;font-size:18px;color:#f2dbe8}.brand b span{color:#FF3EA5}
+.qrbox{position:relative;background:#fff;border-radius:28px;padding:26px;
+  box-shadow:0 40px 120px rgba(0,0,0,.6),0 0 0 1px rgba(255,62,165,.25),0 0 70px rgba(255,62,165,.25);
+  animation:pulse 3.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 40px 120px rgba(0,0,0,.6),0 0 0 1px rgba(255,62,165,.25),0 0 50px rgba(255,62,165,.18)}
+  50%{box-shadow:0 40px 120px rgba(0,0,0,.6),0 0 0 1px rgba(255,62,165,.45),0 0 90px rgba(255,62,165,.4)}}
+.qrbox img{display:block;width:min(74vw,360px);height:auto;aspect-ratio:1}
+.cta{text-align:center}
+.cta h1{font-size:clamp(24px,6vw,34px);font-weight:800;letter-spacing:.3px}
+.cta p{color:#9fb0c2;font-size:clamp(14px,3.6vw,17px);margin-top:6px}
+.who{text-align:center;color:#c9d6e4}
+.who .n{font-size:clamp(18px,4.6vw,22px);font-weight:700}
+.who .r{color:#8aa0b6;font-size:14px;margin-top:2px}
+.hint{position:fixed;bottom:calc(env(safe-area-inset-bottom) + 14px);left:0;right:0;text-align:center;z-index:1;color:#60738a;font-size:12px}
+</style><!-- Meta Pixel (AIGL Website dataset) -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','2107887133449610');fbq('track','PageView');
+window.aiglTrack=function(ev,data){try{var id=ev+'-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);fbq('track',ev,data||{},{eventID:id});if(window.gtag){gtag('event',{Lead:'generate_lead',CompleteRegistration:'sign_up',ViewContent:'view_item'}[ev]||ev,data||{});}return id;}catch(e){}};
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2107887133449610&ev=PageView&noscript=1"/></noscript>
+</head>
+<body>
+<div class="stage">
+  <div class="brand"><span class="mark" style="background:url(../avatar.jpg) center/cover;border-radius:50%"></span><b>MIAMI'S <span>HOTTEST</span> RIDES</b></div>
+  <div class="cta"><h1>Scan to connect</h1><p>Point your camera here — no app needed</p></div>
+  <div class="qrbox"><img src="../qr.png" alt="Scan to open James's card"></div>
+  <div class="who"><div class="n">James Gault</div><div class="r">Co-Founder · Miami's Hottest Rides</div></div>
+</div>
+<div class="hint">app.aigl.dev/jg-card</div>
+<!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "58d539f11ece436da2c2a887479d7c37"}'></script><!-- End Cloudflare Web Analytics -->
+</body></html>
